@@ -1,0 +1,24 @@
+{
+  "name": "Main requires approval except trusted publishers",
+  "target": "branch",
+  "enforcement": "active",
+  "bypass_actors": [
+    { "actor_id": 31186210, "actor_type": "User", "bypass_mode": "always" },
+    { "actor_id": 336485368, "actor_type": "User", "bypass_mode": "always" }
+  ],
+  "conditions": {
+    "ref_name": { "include": ["refs/heads/main"], "exclude": [] }
+  },
+  "rules": [
+    {
+      "type": "pull_request",
+      "parameters": {
+        "dismiss_stale_reviews_on_push": true,
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_approving_review_count": 1,
+        "required_review_thread_resolution": false
+      }
+    }
+  ]
+}

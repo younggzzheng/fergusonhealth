@@ -6,15 +6,20 @@ Cloud, not GitHub Pages. Start with `README.md` and `docs/OPERATIONS.md`.
 
 ## Changes and publishing
 
-- Work on a feature branch and open a PR against **main**, this repository's
-  default and production branch. Create draft PRs unless the task authorizes
-  completing and merging the change. Never rebase onto `development`.
-- Merging a PR runs required build and essential live checks and deploys the
+- **main** is the default and production branch. The authenticated accounts
+  `younggzzheng` and `fergusonhealth` may push directly or merge without review
+  approval when the task authorizes publishing. Everyone else must use a PR
+  with one approval; new commits dismiss the previous approval. These exceptions
+  depend on the account pushing or merging, not the commit author. The active
+  GitHub ruleset is documented in `infra/main-branch-ruleset.json`.
+  Create draft PRs unless the task authorizes completing and merging the change.
+  Never rebase onto `development`.
+- Pushing to main, including by merging a PR, runs required build and essential live checks and deploys the
   resulting main commit. Detailed browser checks are advisory; slower images,
   font loading, or layout warnings must not block publishing or trigger rollback.
   Do not add page-speed budgets to the required checks. A task is not
   complete until the **Deploy and verify production** job passes and the live
-  release revision matches the merge commit. Do not treat a successful push as
+  release revision matches the main commit. Do not treat a successful push as
   a deployment.
 - Keep changes small. This is a static HTML/CSS/JavaScript site; no framework,
   external font CDN, analytics, database, or patient intake form is needed.

@@ -12,6 +12,26 @@ A read-only clone can prepare and test edits. Privileged operations run inside
 Actions using a dedicated Alibaba identity, without extracting the key.
 See [credential details](CREDENTIALS.md).
 
+## Main branch approval policy
+
+The accounts `younggzzheng` and `fergusonhealth` can push directly to `main`
+or merge a PR without review approval. Any other account must submit a PR
+and obtain one approval before merging; new commits dismiss older approvals.
+GitHub evaluates the authenticated pushing or merging account, not the author
+name attached to a commit. Collaborators still need repository write access.
+Every push to `main` triggers the same deployment workflow, including direct pushes.
+
+The active rule is [Main requires approval except trusted publishers](https://github.com/younggzzheng/fergusonhealth/rules/24311083).
+Its configuration is saved in `infra/main-branch-ruleset.json`. A repository
+administrator can reapply it with the following command after reviewing any
+configuration changes; editing the JSON alone does not update GitHub's policy:
+
+```sh
+gh api --method PUT -H 'X-GitHub-Api-Version: 2026-03-10' \
+  repos/younggzzheng/fergusonhealth/rulesets/24311083 \
+  --input infra/main-branch-ruleset.json
+```
+
 ## Edit, check, and merge
 
 ```sh

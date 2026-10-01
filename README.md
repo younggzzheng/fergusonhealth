@@ -15,11 +15,20 @@ write/Actions access; public read access does not grant deployment access.
 1. Create a branch from `main` and edit the site in `draft/`.
 2. Update English HTML and Chinese strings; keep assets in `draft/assets/`.
 3. Run the local checks and open a PR against `main`.
-4. After the required checks pass and the change is approved, merge. GitHub Actions validates
+4. After the checks pass and the change is approved, merge. GitHub Actions validates
    and builds that main commit, publishes it to Alibaba, refreshes the CDN, and
    checks the actual password-protected live site.
 5. Confirm the **Deploy and verify production** job passed and reports the
-   merge commit's revision.
+   main commit's revision.
+
+`younggzzheng` and `fergusonhealth` may also push directly to `main` or merge
+without approval. All other accounts need a PR with one approval; additional
+commits dismiss previous approvals. This depends on the authenticated pushing
+or merging account, not the author name on a commit. Direct pushes trigger the
+same automatic deployment. See the [active main branch rule](https://github.com/younggzzheng/fergusonhealth/rules/24311083)
+and its versioned configuration in `infra/main-branch-ruleset.json`. Bypass
+permission does not grant repository write access: invited collaborators must
+accept their invitation before publishing.
 
 Deployment uses immutable release assets and publishes the entry page last.
 If the essential live checks fail, it restores the previous entry pages.
@@ -46,6 +55,7 @@ including for direct image and asset URLs.
 | `.github/workflows/` | PR checks, deployment after merge, maintenance |
 | `tests/` | Static/build, browser, and deployment regression checks |
 | `infra/ram-policy.json` | Dedicated deployment identity's exact policy |
+| `infra/main-branch-ruleset.json` | Main approval rule and the two account-specific exceptions |
 | `credentials.env.example` | Blank credential-variable reference |
 
 The working Alibaba key and preview password are GitHub Actions **secrets**.
