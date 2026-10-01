@@ -1,0 +1,16 @@
+__pycache__/
+.venv/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+.DS_Store
+/review/
+/verification.json
+# Superseded local maintenance page; the website is in draft/.
+/index.html
+/preview-auth.json
+/github-younggzzheng/

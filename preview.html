@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#f6f4ed">
+  <title>Private preview — Ferguson Women's Health</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='20' fill='%2336453c'/%3E%3Ctext x='12' y='29' font-family='Georgia' font-size='29' fill='%23f6f4ed'%3Ef%3C/text%3E%3C/svg%3E">
+  <style>
+    *{box-sizing:border-box} :root{color-scheme:light;--paper:#f6f4ed;--ink:#30483f;--muted:#67736b;--line:#d9ded3}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100svh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+    header{display:flex;justify-content:space-between;align-items:center;padding:34px 5vw;gap:20px} .wordmark{font-family:Georgia,serif;font-size:30px;letter-spacing:-1px;line-height:1} .wordmark small{display:block;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:8px;font-weight:500;letter-spacing:2.7px;text-transform:uppercase;margin-top:10px}
+    .language{border:1px solid var(--line);background:transparent;color:var(--muted);font:inherit;font-size:12px;padding:10px 15px;border-radius:30px;cursor:pointer}
+    main{flex:1;display:grid;place-items:center;padding:28px 24px 70px} .panel{width:100%;max-width:390px;text-align:center}.motif{width:58px;height:66px;color:#879485;margin:0 auto 30px;display:block}
+    .eyebrow{text-transform:uppercase;letter-spacing:2.7px;font-size:10px;font-weight:600;color:var(--muted);margin:0 0 20px}h1{font-family:Georgia,"Songti SC",serif;font-size:clamp(36px,8vw,49px);font-weight:400;letter-spacing:-1.9px;margin:0 0 20px;line-height:1.12} .intro{font-size:14px;line-height:1.8;color:var(--muted);margin:0 auto 35px;max-width:310px}
+    form{text-align:left}label{font-size:11px;letter-spacing:.5px;display:block;margin-bottom:10px}.input-wrap{position:relative}input{width:100%;height:54px;border:1px solid #b8c1b4;background:rgba(255,255,255,.35);border-radius:4px;color:var(--ink);font:inherit;padding:0 65px 0 16px;transition:border-color .2s}input:focus{outline:2px solid #71816b;outline-offset:3px} .show{position:absolute;right:6px;top:7px;height:40px;padding:0 10px;border:0;background:transparent;color:var(--muted);font:inherit;font-size:11px;cursor:pointer}
+    .submit{height:52px;margin-top:14px;display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 19px;background:var(--ink);color:var(--paper);border:0;border-radius:4px;font:inherit;font-size:13px;cursor:pointer;transition:background .2s}.submit:hover{background:#456052}.submit:disabled{opacity:.65;cursor:wait}.submit span:last-child{font-size:20px}.error{font-size:12px;line-height:1.5;color:#9b4238;min-height:36px;margin:14px 0 0}.fine{font-size:10px;letter-spacing:.5px;color:#7d857c;margin:12px 0 0}footer{padding:20px 5vw;display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}footer a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible{outline:2px solid #71816b;outline-offset:4px}
+    @media(max-width:500px){header{padding:27px 24px}.wordmark{font-size:27px}main{padding-top:36px;padding-bottom:48px}footer{padding:20px 24px;flex-direction:column;align-items:center;gap:10px}}
+  </style>
+</head>
+<body>
+  <header><div class="wordmark">Ferguson<small>Women's Health</small></div><button class="language" type="button" aria-label="Switch to Chinese">中文</button></header>
+  <main><section class="panel" aria-labelledby="heading">
+    <svg class="motif" viewBox="0 0 60 70" fill="none" aria-hidden="true"><path d="M30 66V28M30 49C13 49 8 38 11 29c14 0 20 8 19 20Zm0-10c17 0 22-11 19-20-14 0-20 8-19 20ZM30 28C19 19 22 7 30 2c9 6 11 18 0 26Z" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <p class="eyebrow" data-en="An early look" data-zh="诚邀预览">An early look</p>
+    <h1 id="heading" data-en="A private preview." data-zh="一份私享预览。">A private preview.</h1>
+    <p class="intro" data-en="A new home for Ferguson Women’s Health is taking shape. Enter the password to have a look around." data-zh="Ferguson 女性健康的新网站正在筹备中。请输入密码，预览我们的网站初稿。">A new home for Ferguson Women’s Health is taking shape. Enter the password to have a look around.</p>
+    <form id="login-form" method="post" action="/__preview_auth">
+      <label for="password" data-en="Preview password" data-zh="预览密码">Preview password</label>
+      <div class="input-wrap"><input id="password" name="password" type="password" autocomplete="current-password" required aria-describedby="login-error"><button type="button" class="show" aria-controls="password" aria-pressed="false">Show</button></div>
+      <button type="submit" class="submit"><span data-en="Enter preview" data-zh="进入预览">Enter preview</span><span aria-hidden="true">↗</span></button>
+      <p class="error" id="login-error" role="status" aria-live="polite"></p>
+    </form>
+    <p class="fine" data-en="Private draft · For review only" data-zh="非公开初稿 · 仅供审阅">Private draft · For review only</p>
+    <noscript><p class="intro">Please enable JavaScript to enter this preview. 请启用 JavaScript。</p></noscript>
+  </section></main>
+  <footer><span>© 2026 Ferguson Women's Health</span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">沪ICP备15040582号-1</a></footer>
+  <script>
+    const input=document.querySelector('#password');
+    const submit=document.querySelector('.submit');
+    const error=document.querySelector('#login-error');
+    const show=document.querySelector('.show');
+    const language=document.querySelector('.language');
+    let lang='en';
+    function update(){document.documentElement.lang=lang==='en'?'en':'zh-CN';document.querySelectorAll('[data-en]').forEach(el=>el.textContent=el.dataset[lang]);language.textContent=lang==='en'?'中文':'EN';language.setAttribute('aria-label',lang==='en'?'Switch to Chinese':'Switch to English');show.textContent=input.type==='password'?(lang==='en'?'Show':'显示'):(lang==='en'?'Hide':'隐藏');error.textContent='';}
+    language.addEventListener('click',()=>{lang=lang==='en'?'zh':'en';update();});
+    show.addEventListener('click',()=>{input.type=input.type==='password'?'text':'password';show.setAttribute('aria-pressed',String(input.type==='text'));update();input.focus();});
+    document.querySelector('#login-form').addEventListener('submit',async event=>{
+      event.preventDefault();submit.disabled=true;error.textContent='';
+      try{
+        const response=await fetch('/__preview_auth',{method:'POST',credentials:'same-origin',headers:{'X-Preview-Password':input.value},cache:'no-store'});
+        if(response.ok&&(await response.text()).trim()==='ok'){input.value='';window.location.replace('/');return;}
+        error.textContent=response.status===401?(lang==='en'?'That password isn’t quite right. Please try again.':'密码不正确，请重试。'):(lang==='en'?'The preview is temporarily unavailable. Please try again shortly.':'暂时无法打开预览，请稍后重试。');
+      }catch{error.textContent=lang==='en'?'Unable to connect. Please check your connection and try again.':'连接失败，请检查网络后重试。';}
+      finally{submit.disabled=false;input.focus();}
+    });
+  </script>
+</body>
+</html>
