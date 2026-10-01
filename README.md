@@ -1,8 +1,10 @@
 # Ferguson Women's Health
 
-Private source for **https://www.fergusonhealth.com/**. A small, bilingual static
+Public source for **https://www.fergusonhealth.com/**. A small, bilingual static
 website for Dr. Michelle Lu-Ferguson, hosted on Alibaba Cloud OSS and CDN.
 Visitors load images, fonts, styles, and scripts from the website itself.
+The hosted draft remains password protected. Publishing requires repository
+write/Actions access; public read access does not grant deployment access.
 
 **Start here:** [Agent instructions](AGENTS.md) · [Update and deployment guide](docs/OPERATIONS.md)
 · [Backend access](docs/CREDENTIALS.md) · [Content and brand brief](reference/CONTENT-BRIEF.md)
