@@ -1,0 +1,101 @@
+name: Website checks and deployment
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Deploy this main revision, or verify it without changing production
+        type: choice
+        options: [deploy, verify]
+        default: verify
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Website checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: python3 -m unittest discover -s tests -p 'test_*.py'
+      - run: npm test
+      - name: Build the exact checked revision
+        run: python3 build.py --revision "$GITHUB_SHA"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: site-${{ github.sha }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
+
+  production:
+    name: Deploy and verify production
+    needs: checks
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    concurrency:
+      group: fergusonhealth-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: site-${{ github.sha }}
+          path: dist/
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Confirm this is still the current main revision
+        id: current
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          current=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
+          if [ "$current" = "$GITHUB_SHA" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+            echo "A newer main revision exists; this run will not replace it."
+          fi
+      - name: Deploy, verify, and restore the previous release if checks fail
+        if: steps.current.outputs.deploy == 'true' && (github.event_name == 'push' || inputs.operation == 'deploy')
+        env:
+          ALIBABA_CLOUD_ACCESS_KEY_ID: ${{ secrets.ALIBABA_CLOUD_ACCESS_KEY_ID }}
+          ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${{ secrets.ALIBABA_CLOUD_ACCESS_KEY_SECRET }}
+          FWH_PREVIEW_PASSWORD: ${{ secrets.FWH_PREVIEW_PASSWORD }}
+        run: python3 deploy.py --browser
+      - name: Verify only
+        if: github.event_name == 'workflow_dispatch' && inputs.operation == 'verify'
+        env:
+          FWH_PREVIEW_PASSWORD: ${{ secrets.FWH_PREVIEW_PASSWORD }}
+          FWH_LIVE_URL: https://www.fergusonhealth.com
+          EXPECTED_REVISION: ${{ github.sha }}
+        run: |
+          python3 verify_preview.py
+          npm run test:live

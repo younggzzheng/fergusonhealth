@@ -1,0 +1,11 @@
+{
+  "name": "fergusonhealth-preview",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:live": "FWH_LIVE_TEST=1 playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}
