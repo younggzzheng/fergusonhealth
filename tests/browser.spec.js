@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { waitForRenderedPage } = require('./render-ready');
 
 const password = 'ci-preview-password';
 
@@ -192,4 +193,46 @@ test('image checks detect a failed portrait even when its fallback hides the ima
   await page.goto('/');
   const failures = await brokenImages(page);
   expect(failures.some(source => source.endsWith('/dr-ferguson.jpg'))).toBe(true);
+});
+
+test('live layout readiness waits for a delayed stylesheet before checking mobile overflow', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'Reproduces the mobile deployment check.');
+  await authenticate(page);
+  let releaseStylesheet;
+  let stylesheetRequested;
+  const released = new Promise(resolve => { releaseStylesheet = resolve; });
+  const requested = new Promise(resolve => { stylesheetRequested = resolve; });
+  await page.route('**/styles.css', async route => {
+    stylesheetRequested();
+    await released;
+    await route.continue();
+  });
+  try {
+    await page.goto('/', { waitUntil: 'commit' });
+    await requested;
+    await expect(page.locator('#hero-title')).toBeVisible();
+    const before = await page.evaluate(async () => {
+      await document.fonts.ready;
+      return {
+        stylesheetLoaded: !!document.querySelector('link[rel="stylesheet"]').sheet,
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      };
+    });
+    expect(before.stylesheetLoaded).toBe(false);
+    expect(before.overflow).toBeGreaterThan(1);
+
+    let ready = false;
+    const rendered = waitForRenderedPage(page).then(() => { ready = true; });
+    await page.evaluate(() => document.readyState);
+    expect(ready, 'Layout readiness must not finish while the stylesheet is pending').toBe(false);
+    releaseStylesheet();
+    await rendered;
+    await assertNoOverflow(page);
+    await page.locator('[data-language-switch]').click();
+    await waitForRenderedPage(page);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
+    await assertNoOverflow(page);
+  } finally {
+    releaseStylesheet();
+  }
 });

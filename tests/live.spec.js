@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { waitForRenderedPage } = require('./render-ready');
 
 test('deployed revision unlocks, renders both languages, and locks again', async ({ page, context, baseURL }) => {
   const origin = new URL(baseURL).origin;
@@ -21,6 +22,7 @@ test('deployed revision unlocks, renders both languages, and locks again', async
   } finally {
     await page.locator('#password').evaluateAll(inputs => inputs.forEach(input => { input.value = ''; }));
   }
+  await waitForRenderedPage(page);
   await expect(page.locator('meta[name="build-revision"]')).toHaveAttribute('content', process.env.EXPECTED_REVISION);
   await expect(page.locator('base')).toHaveCount(0);
   await expect(page.locator('#hero-title')).toBeVisible();
@@ -28,7 +30,7 @@ test('deployed revision unlocks, renders both languages, and locks again', async
   for (const language of ['en', 'zh-CN']) {
     if (language === 'zh-CN') await page.locator('[data-language-switch]').click();
     await expect(page.locator('html')).toHaveAttribute('lang', language);
-    await page.evaluate(() => document.fonts.ready);
+    await waitForRenderedPage(page);
     const overflow = await page.evaluate(() => Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - document.documentElement.clientWidth);
     expect(overflow, `${language} horizontal overflow`).toBeLessThanOrEqual(1);
     if (language === 'zh-CN') expect(await page.locator('#hero-title').innerText()).not.toBe(englishTitle);
