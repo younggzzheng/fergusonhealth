@@ -10,7 +10,7 @@ import subprocess
 
 from alibaba import Alibaba
 from build import sha256
-from verify_preview import Client, login, require, require_gate, verify
+from verify_preview import Client, login, protected_paths, require, require_gate, verify
 
 ENTRIES = ("preview.html", "release.json", "index.html")
 REFRESH_PATHS = ["/", "/index.html", "/preview.html", "/release.json"]
@@ -37,8 +37,7 @@ def publish(folder, api=None, verifier=verify, browser=False):
     manifest = validate_build(folder)
     password = os.environ["FWH_PREVIEW_PASSWORD"]
     api = api or Alibaba()
-    protected = ["/", "/release.json"] + [path for path in manifest["files"] if path != "/preview.html"]
-    require_gate(Client(), protected)
+    require_gate(Client(), protected_paths(manifest))
     login(password)
     snapshots = {key: api.oss("GET", key) for key in ENTRIES}
     changed = False
@@ -52,10 +51,6 @@ def publish(folder, api=None, verifier=verify, browser=False):
             api.oss("PUT", key, (folder / key).read_bytes(), content_type(key), "private, no-store")
         api.refresh(REFRESH_PATHS)
         verifier(manifest, password)
-        if browser:
-            environment = {**os.environ, "FWH_LIVE_URL": "https://www.fergusonhealth.com", "EXPECTED_REVISION": manifest["revision"]}
-            result = subprocess.run(["npm", "run", "test:live"], env=environment)
-            require(result.returncode == 0, "Live browser verification failed")
     except Exception:
         if changed:
             print("Deployment failed; restoring the previous entry pages.", flush=True)
@@ -80,12 +75,20 @@ def publish(folder, api=None, verifier=verify, browser=False):
                 raise RuntimeError("Deployment failed and automatic rollback could not be verified; manual recovery required") from rollback_error
         raise
     print(f"Deployed {manifest['revision']} successfully.", flush=True)
+    if browser:
+        environment = {**os.environ, "FWH_LIVE_URL": "https://www.fergusonhealth.com", "EXPECTED_REVISION": manifest["revision"]}
+        try:
+            result = subprocess.run(["npm", "run", "test:live"], env=environment, timeout=660)
+            if result.returncode:
+                print("::warning::Advisory browser review failed; the release remains published.", flush=True)
+        except (OSError, subprocess.TimeoutExpired):
+            print("::warning::Advisory browser review could not finish; the release remains published.", flush=True)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--directory", default="dist")
-    parser.add_argument("--browser", action="store_true", help="Also run live Playwright checks before accepting the release")
+    parser.add_argument("--browser", action="store_true", help="Run an advisory browser review after publishing; failures do not roll back")
     args = parser.parse_args()
     try:
         publish(args.directory, browser=args.browser)

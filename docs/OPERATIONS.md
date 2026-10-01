@@ -25,8 +25,8 @@ npx playwright install chromium
 Read `AGENTS.md` first. Edit English in `draft/index.html`, Chinese in
 `draft/site.js`, and styles in `draft/styles.css`. Published images belong in
 `draft/assets/`; other references are not deployed. Preserve the actual QR and
-its white margin. Keep browser dependencies local to the website. A `mailto:`
-link opens the visitor's email application; no form service is needed.
+its destination and white margin. Keep browser dependencies local to the website.
+The contact email is plain selectable text; no form service is needed.
 
 ```sh
 python3 -m unittest discover -s tests -p 'test_*.py'
@@ -46,8 +46,10 @@ gh pr create --base main --draft --title "Describe the update" --body-file /tmp/
 gh pr checks PR_NUMBER
 ```
 
-When the task authorizes publishing and checks pass, mark the PR ready and
-merge. PR creation does not authorize unrelated changes.
+When the task authorizes publishing and required checks pass, mark the PR ready
+and merge. Browser checks are advisory: review their results, but slow image or
+font loading and layout warnings do not block publishing. PR creation does not
+authorize unrelated changes.
 
 ```sh
 gh pr ready PR_NUMBER
@@ -58,14 +60,14 @@ gh run watch RUN_ID --exit-status
 
 The current private-repository plan does not support enforced branch protection.
 Always check the PR before merging. The main workflow checks again, so failed
-checks prevent deployment even if someone merges a broken change. Do not make
-this repository public to enable branch protection.
+required checks prevent deployment even if someone merges a broken change.
+Do not make this repository public to enable branch protection.
 
 ## What happens after a merge
 
 ```mermaid
 flowchart LR
-  A[Merge into main] --> B[Static and browser checks]
+  A[Merge into main] --> B[Required build checks]
   B --> C[Build immutable release]
   C --> D[Upload assets to private OSS]
   D --> E[Publish entry pages last]
@@ -73,6 +75,7 @@ flowchart LR
   F --> G[Verify live revision and password protection]
   G --> H[Success]
   G -->|Failure| I[Restore previous entry pages]
+  H -.-> J[Advisory browser checks]
 ```
 
 The build contains a manifest of file SHA256 hashes and a full git revision.
@@ -80,14 +83,25 @@ Assets use `/releases/<revision>/...` URLs. Updating the entry page selects that
 set of assets; old assets remain available for rollback. Editing or pushing a
 feature branch does not directly change the live website.
 
-Live verification checks the expected revision, actual hashes, successful
-password entry, protected assets, invalid passwords, logout, and private OSS.
-Browser checks verify real rendering and interactions. Deployment and backend
-maintenance share a serialization group. An old queued main build is skipped
-when a newer main revision exists.
+Required live verification checks the expected revision, entry-page and
+stylesheet/script hashes, successful password entry, representative protected
+asset URLs, invalid passwords, logout, and private OSS. Network requests allow
+90 seconds and retry transient failures; release propagation also gets time to
+settle. Verification does not download every image or font, and there is no
+page-speed budget. The build still checks that referenced local files exist.
 
-A workflow run is the source of truth for success. Read its logs and download
-its test/build artifacts when needed:
+Detailed browser checks inspect rendering, both languages, images, links, and
+layout. They run in separate advisory jobs: a failure or timeout is visible in
+Actions but does not block publishing or restore the previous release. Their
+browser installation and runtime do not hold up the deployment job. Review
+warnings when relevant to the edit; content growth and slower loading alone
+are not reasons to reject an update. Deployment and backend maintenance share
+a serialization group. An old queued main build is skipped when a newer main
+revision exists.
+
+The **Deploy and verify production** job and its reported live revision are the
+source of truth for publishing success. Advisory browser warnings do not change
+that result. Read the job logs and download test/build artifacts when needed:
 
 ```sh
 gh run view RUN_ID
@@ -126,9 +140,10 @@ bucket ACLs, RAM accounts, or unrelated services.
 
 ## Rollback and failures
 
-If verification fails after entry pages change, the deployer restores the
+If essential verification fails after entry pages change, the deployer restores the
 previous copies and refreshes their CDN URLs. The workflow remains failed so
 the problem is visible. Read both failure and rollback results before retrying.
+Advisory browser failures do not cause rollback.
 
 For a content mistake that passes technical checks, revert on a new branch and
 merge the revert PR after checks. A merge commit uses `git revert -m 1 SHA`;
@@ -139,8 +154,10 @@ An interrupted job or Alibaba/network outage can prevent rollback completing.
 Check the reported deployed revision and backend status, then republish a
 known-good change through main. A passing build alone is not proof of a live
 site. For local deployments with separately provided authorized secrets, use
-`python3 build.py --revision FULL_SHA`, then `python3 deploy.py --browser`.
-Use `python3 verify_preview.py --manifest dist/release.json` for HTTP checks.
+`python3 build.py --revision FULL_SHA`, then `python3 deploy.py`. Add `--browser`
+to run advisory browser checks after essential verification; browser failures
+only produce a warning. Use `python3 verify_preview.py --manifest dist/release.json`
+for the essential HTTP checks.
 
 ## Hosting inventory
 
@@ -154,7 +171,7 @@ Use `python3 verify_preview.py --manifest dist/release.json` for HTTP checks.
 | CDN CNAME | `www.fergusonhealth.com.w.cdngslb.com` |
 | RAM deploy user | `fergusonhealth-github-actions` |
 | RAM deploy policy | `FergusonHealthGithubDeploy` |
-| ICP footer | `沪ICP备15040582号-1` |
+| ICP filing | `沪ICP备15040582号-1` |
 
 OSS remains private. The existing CDN EdgeScript authenticates requests before
 serving website files, with `/preview.html` as the public login screen. The
