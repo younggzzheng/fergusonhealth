@@ -1,7 +1,7 @@
 # Ferguson Women's Health
 
 This repository owns the static website at https://www.fergusonhealth.com/.
-It is private and belongs to `younggzzheng`. The production site runs on Alibaba
+It is public and belongs to `younggzzheng`. The production site runs on Alibaba
 Cloud, not GitHub Pages. Start with `README.md` and `docs/OPERATIONS.md`.
 
 ## Changes and publishing
@@ -43,6 +43,8 @@ Cloud, not GitHub Pages. Start with `README.md` and `docs/OPERATIONS.md`.
   needed for normal updates, deployment, verification, or backend status.
 - PR checks must not receive production secrets. Only trusted main-branch jobs
   deploy or operate the backend. Keep workflow token permissions minimal.
+- Public readers can inspect the source; publishing still requires repository
+  write/Actions access. Repository visibility does not remove the website gate.
 - Keep the preview password gate active, including protection of direct image,
   script, font, and stylesheet URLs. The OSS bucket must remain private.
 - Do not change DNS, email, bucket access policy, RAM permissions, or account-wide

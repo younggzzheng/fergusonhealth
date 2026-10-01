@@ -58,10 +58,10 @@ gh run list --workflow ci.yml --branch main --limit 5
 gh run watch RUN_ID --exit-status
 ```
 
-The current private-repository plan does not support enforced branch protection.
-Always check the PR before merging. The main workflow checks again, so failed
-required checks prevent deployment even if someone merges a broken change.
-Do not make this repository public to enable branch protection.
+The repository is public. Reading or cloning it does not grant publishing
+permission; maintainers need write/Actions access. Always check the PR before
+merging. The main workflow checks again, so failed required checks prevent
+deployment even if someone merges a broken change.
 
 ## What happens after a merge
 
