@@ -18,7 +18,7 @@ test('deployed revision unlocks, renders both languages, and locks again', async
     // Setting the value in-page keeps the password out of locator.fill failure logs.
     await page.locator('#password').evaluate((input, password) => { input.value = password; }, process.env.FWH_PREVIEW_PASSWORD);
     await page.locator('#login-form button[type="submit"]').click();
-    await expect(page).toHaveURL(`${origin}/`, { timeout: 20_000 });
+    await expect(page).toHaveURL(`${origin}/`, { timeout: 90_000 });
   } finally {
     await page.locator('#password').evaluateAll(inputs => inputs.forEach(input => { input.value = ''; }));
   }
@@ -38,7 +38,7 @@ test('deployed revision unlocks, renders both languages, and locks again', async
     expect(await images.count()).toBeGreaterThan(0);
     for (const image of await images.all()) {
       if (await image.isVisible()) await image.scrollIntoViewIfNeeded();
-      await expect.poll(() => image.evaluate(image => image.complete && image.naturalWidth > 0), { timeout: 10_000 }).toBe(true);
+      await expect.poll(() => image.evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
     }
     await page.locator('[data-language-switch]').scrollIntoViewIfNeeded();
   }

@@ -1,4 +1,6 @@
 """Regression tests for build validation, fail-closed checks, and rollback."""
+from contextlib import redirect_stdout
+from io import StringIO
 import json
 from pathlib import Path
 import tempfile
@@ -7,7 +9,7 @@ from unittest.mock import Mock, patch
 
 from build import build, sha256
 from deploy import publish, validate_build
-from verify_preview import check_release, PropagationError, require_gate, VerificationError
+from verify_preview import check_release, protected_paths, PropagationError, require_gate, VerificationError
 
 REVISION = "a" * 40
 
@@ -96,6 +98,44 @@ class ReleaseTests(unittest.TestCase):
         client.request.side_effect = response
         with self.assertRaisesRegex(PropagationError, "hash differs"):
             check_release(client, manifest)
+
+    def test_core_verification_does_not_download_media(self):
+        manifest = self.prepare()
+        client = Mock()
+
+        def response(path):
+            if path.endswith("portrait.svg"):
+                self.fail("Core verification must not wait for image downloads")
+            body = json.dumps(manifest).encode() if path == "/release.json" else (self.root / "dist" / (path.lstrip("/") or "index.html")).read_bytes()
+            return 200, {"cache-control": "private, no-store", "x-robots-tag": "noindex"}, body
+
+        client.request.side_effect = response
+        check_release(client, manifest)
+        self.assertIn(f"/releases/{REVISION}/styles.css", [call.args[0] for call in client.request.call_args_list])
+
+    def test_password_probes_do_not_grow_with_media_count(self):
+        manifest = self.prepare()
+        before = protected_paths(manifest)
+        manifest["files"].update({f"/releases/{REVISION}/photo-{n}.jpg": "unused" for n in range(1000)})
+        self.assertEqual(protected_paths(manifest), before)
+        self.assertTrue(any(path.startswith("/releases/") for path in before))
+
+    def test_advisory_browser_failure_does_not_restore_previous_release(self):
+        self.prepare()
+        for failure in (False, True):
+            with self.subTest(browser_could_not_start=failure):
+                api = Mock()
+                api.oss.return_value = (b"previous page", {})
+                runner = Mock(side_effect=OSError("browser unavailable")) if failure else Mock(return_value=Mock(returncode=1))
+                output = StringIO()
+                with redirect_stdout(output), patch.dict("os.environ", {"FWH_PREVIEW_PASSWORD": "unit-test-only"}), patch("deploy.require_gate"), patch("deploy.login"), patch("deploy.subprocess.run", runner):
+                    publish(self.root / "dist", api=api, verifier=Mock(), browser=True)
+                self.assertIn("release remains published", output.getvalue())
+                writes = [call for call in api.oss.call_args_list if call.args[0] == "PUT"]
+                self.assertEqual(writes[-1].args[1], "index.html")
+                self.assertEqual(writes[-1].args[2], (self.root / "dist" / "index.html").read_bytes())
+                self.assertFalse(any(call.args[0] == "DELETE" for call in api.oss.call_args_list))
+                self.assertEqual(api.refresh.call_count, 1)
 
     def test_failed_postdeployment_check_restores_previous_entry_pages(self):
         self.check_rollback(False)

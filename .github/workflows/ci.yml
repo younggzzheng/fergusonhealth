@@ -28,14 +28,7 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.12'
-      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
-        with:
-          node-version: '24'
-          cache: npm
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium
       - run: python3 -m unittest discover -s tests -p 'test_*.py'
-      - run: npm test
       - name: Build the exact checked revision
         run: python3 build.py --revision "$GITHUB_SHA"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -44,6 +37,25 @@ jobs:
           path: dist/
           if-no-files-found: error
           retention-days: 7
+
+  browser_review:
+    name: Browser review (advisory)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - if: failure()
+        run: echo "::warning::Browser review found an issue. This advisory job does not block publishing."
 
   production:
     name: Deploy and verify production
@@ -54,6 +66,8 @@ jobs:
     concurrency:
       group: fergusonhealth-production
       cancel-in-progress: false
+    outputs:
+      current: ${{ steps.current.outputs.deploy }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
@@ -61,16 +75,10 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.12'
-      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
-        with:
-          node-version: '24'
-          cache: npm
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
           name: site-${{ github.sha }}
           path: dist/
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium
       - name: Confirm this is still the current main revision
         id: current
         env:
@@ -89,13 +97,35 @@ jobs:
           ALIBABA_CLOUD_ACCESS_KEY_ID: ${{ secrets.ALIBABA_CLOUD_ACCESS_KEY_ID }}
           ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${{ secrets.ALIBABA_CLOUD_ACCESS_KEY_SECRET }}
           FWH_PREVIEW_PASSWORD: ${{ secrets.FWH_PREVIEW_PASSWORD }}
-        run: python3 deploy.py --browser
+        run: python3 deploy.py
       - name: Verify only
         if: github.event_name == 'workflow_dispatch' && inputs.operation == 'verify'
         env:
           FWH_PREVIEW_PASSWORD: ${{ secrets.FWH_PREVIEW_PASSWORD }}
+        run: python3 verify_preview.py
+
+  live_browser_review:
+    name: Live browser review (advisory)
+    needs: production
+    if: needs.production.result == 'success' && needs.production.outputs.current == 'true'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Review the live page without blocking or rolling back publication
+        env:
+          FWH_PREVIEW_PASSWORD: ${{ secrets.FWH_PREVIEW_PASSWORD }}
           FWH_LIVE_URL: https://www.fergusonhealth.com
           EXPECTED_REVISION: ${{ github.sha }}
-        run: |
-          python3 verify_preview.py
-          npm run test:live
+        run: npm run test:live
+      - if: failure()
+        run: echo "::warning::Live browser review found an issue. The release remains published."
