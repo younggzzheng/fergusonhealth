@@ -1,0 +1,47 @@
+{
+  "Version": "1",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "oss:ListObjects"
+      ],
+      "Resource": [
+        "acs:oss:*:1991436433422753:fergusonhealth-cn-web"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "oss:GetObject",
+        "oss:PutObject"
+      ],
+      "Resource": [
+        "acs:oss:*:1991436433422753:fergusonhealth-cn-web/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "oss:DeleteObject"
+      ],
+      "Resource": [
+        "acs:oss:*:1991436433422753:fergusonhealth-cn-web/index.html",
+        "acs:oss:*:1991436433422753:fergusonhealth-cn-web/preview.html",
+        "acs:oss:*:1991436433422753:fergusonhealth-cn-web/release.json"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cdn:RefreshObjectCaches",
+        "cdn:DescribeRefreshTasks",
+        "cdn:DescribeCdnDomainDetail",
+        "cdn:DescribeCdnDomainConfigs"
+      ],
+      "Resource": [
+        "acs:cdn:*:1991436433422753:domain/www.fergusonhealth.com"
+      ]
+    }
+  ]
+}

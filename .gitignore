@@ -14,3 +14,7 @@ __pycache__/
 /index.html
 /preview-auth.json
 /github-younggzzheng/
+/dist/
+/node_modules/
+/test-results/
+/playwright-report/

@@ -1,82 +1,158 @@
 #!/usr/bin/env python3
-"""Exercise real preview authentication, including cache and origin bypasses."""
+"""Fail closed on access-control errors; verify every live byte against a release."""
 import argparse
+import gzip
+import hashlib
+import http.cookiejar
 import json
 import os
 from pathlib import Path
-import subprocess
-import tempfile
+import time
+import urllib.error
+import urllib.request
 
-DOMAIN = "www.fergusonhealth.com"
+from alibaba import BUCKET, DOMAIN
+
+SITE = f"https://{DOMAIN}"
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--staging-ip")
-    parser.add_argument("--draft", action="store_true")
-    args = parser.parse_args()
-    password = os.environ["FWH_PREVIEW_PASSWORD"]
-    with tempfile.TemporaryDirectory(prefix="fwh-verify-") as folder:
-        root = Path(folder)
-        cookies = root / "cookies"
+class VerificationError(RuntimeError):
+    pass
 
-        def request(path, method="GET", header=None, session=False, http=False, origin=False):
-            host = "fergusonhealth-cn-web.oss-cn-shanghai.aliyuncs.com" if origin else DOMAIN
-            url = ("http" if http else "https") + "://" + host + path
-            command = ["curl", "--silent", "--show-error", "--max-time", "25",
-                       "--request", method, "--dump-header", str(root / "headers"),
-                       "--output", str(root / "body"), "--write-out", "%{http_code}", url]
-            if args.staging_ip and not origin:
-                command += ["--resolve", f"{DOMAIN}:{80 if http else 443}:{args.staging_ip}"]
-            if header:
-                command += ["--header", header]
-            if session:
-                command += ["--cookie", str(cookies), "--cookie-jar", str(cookies)]
-            result = subprocess.run(command, capture_output=True, text=True, check=True)
-            headers = {}
-            for line in (root / "headers").read_text().splitlines():
-                if ":" in line:
-                    name, value = line.split(":", 1)
-                    headers[name.lower()] = value.strip()
-            return int(result.stdout), headers, (root / "body").read_bytes()
 
-        def check(name, response, code, body=None, redirect=False):
-            status, headers, content = response
-            assert status == code, f"{name}: expected {code}, got {status}"
-            if body is not None:
-                assert body in content, f"{name}: expected content missing"
-            if redirect:
-                assert headers.get("location") == f"https://{DOMAIN}/preview.html", name
-            print(json.dumps({"check": name, "status": status, "passed": True}), flush=True)
-            return headers
+class PropagationError(VerificationError):
+    """A protected response is still an earlier release or has not arrived yet."""
 
-        check("http redirects to https", request("/", http=True), 301)
-        for path in ["/", "/index.html", "/styles.css", "/assets/dr-ferguson.jpg", "/index.html?test=1"]:
-            check("anonymous " + path, request(path), 302, redirect=True)
-        check("public login page", request("/preview.html"), 200, b'id="login-form"')
-        check("robots", request("/robots.txt"), 200, b"Disallow: /")
-        check("login must use POST", request("/__preview_auth"), 405)
-        check("missing password", request("/__preview_auth", "POST"), 401)
-        check("wrong password", request("/__preview_auth", "POST", "X-Preview-Password: wrong"), 401)
-        check("forged cookie", request("/", header="Cookie: fwh_preview=wrong"), 302, redirect=True)
-        headers = check("correct password", request("/__preview_auth", "POST", "X-Preview-Password: " + password, True), 200, b"ok")
-        cookie = headers.get("set-cookie", "").lower()
-        assert all(value in cookie for value in ["secure", "httponly", "samesite=strict", "path=/"]), "Missing secure cookie attributes"
-        expected = b"For every chapter" if args.draft else b"Under maintenance"
-        headers = check("authenticated home", request("/", session=True), 200, expected)
-        assert "no-store" in headers.get("cache-control", ""), "Private content must not be browser-cached"
-        assert "noindex" in headers.get("x-robots-tag", ""), "Preview must not be indexed"
-        if args.draft:
-            for path in ["/index.html", "/styles.css", "/site.js", "/assets/dr-ferguson.jpg"]:
-                check("authenticated asset " + path, request(path, session=True), 200)
-                check("anonymous after warm " + path, request(path), 302, redirect=True)
-        check("anonymous after warm home", request("/"), 302, redirect=True)
-        check("logout", request("/__preview_logout", "POST", session=True), 200, b"ok")
-        check("logged out home", request("/", session=True), 302, redirect=True)
-        for path in ["/", "/index.html"]:
-            check("private OSS " + path, request(path, origin=True), 403)
-    print("All preview protection checks passed.", flush=True)
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+class Client:
+    def __init__(self, session=False):
+        handlers = [NoRedirect()]
+        if session:
+            handlers.append(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
+        self.opener = urllib.request.build_opener(*handlers)
+
+    def request(self, path, method="GET", headers=None, site=SITE):
+        request = urllib.request.Request(site + path, method=method,
+                                         headers={"Accept-Encoding": "identity", **(headers or {})},
+                                         data=b"" if method == "POST" else None)
+        for attempt in range(3):
+            try:
+                try:
+                    response = self.opener.open(request, timeout=30)
+                except urllib.error.HTTPError as error:
+                    response = error
+                with response:
+                    status = response.code
+                    body = response.read()
+                    result_headers = {k.lower(): v for k, v in response.headers.items()}
+                if status == 429 or status >= 500:
+                    raise OSError("Transient HTTP failure")
+                if result_headers.get("content-encoding") == "gzip":
+                    body = gzip.decompress(body)
+                return status, result_headers, body
+            except (OSError, urllib.error.URLError):
+                if attempt == 2:
+                    raise VerificationError(f"Network failure reading {path}") from None
+                time.sleep(2)
+
+
+def require(condition, message):
+    if not condition:
+        raise VerificationError(message)
+
+
+def require_gate(client, paths):
+    for path in paths:
+        status, headers, _ = client.request(path)
+        require(status == 302 and headers.get("location") == SITE + "/preview.html",
+                f"Anonymous access is not blocked: {path} (HTTP {status})")
+
+
+def login(password, client=None):
+    client = client or Client(session=True)
+    status, headers, body = client.request("/__preview_auth", "POST", {"X-Preview-Password": password})
+    require(status == 200 and body.strip() == b"ok", "Preview login failed")
+    cookie = headers.get("set-cookie", "").lower()
+    require(all(attr in cookie for attr in ("secure", "httponly", "samesite=strict", "path=/")),
+            "Preview session lacks required cookie protection")
+    return client
+
+
+def check_release(client, manifest):
+    status, _, body = client.request("/release.json")
+    if status == 404:
+        raise PropagationError("Release manifest has not propagated")
+    require(status == 200, f"Authenticated manifest failed: HTTP {status}")
+    try:
+        live = json.loads(body)
+    except ValueError:
+        raise PropagationError("Live release manifest is not valid JSON") from None
+    if live != manifest:
+        raise PropagationError("Live revision or file manifest differs from the expected release")
+    status, _, body = client.request("/")
+    require(status == 200, f"Authenticated homepage failed: HTTP {status}")
+    if hashlib.sha256(body).hexdigest() != manifest["files"]["/index.html"]:
+        raise PropagationError("Live homepage hash differs from index.html")
+    for path, expected in manifest["files"].items():
+        status, headers, body = client.request(path)
+        if status == 404:
+            raise PropagationError(f"Release file has not propagated: {path}")
+        require(status == 200, f"Authenticated file failed: {path} (HTTP {status})")
+        if hashlib.sha256(body).hexdigest() != expected:
+            raise PropagationError(f"Live file hash differs: {path}")
+        require("no-store" in headers.get("cache-control", ""), f"Browser caching enabled: {path}")
+        require("noindex" in headers.get("x-robots-tag", ""), f"Search indexing enabled: {path}")
+        if path == "/index.html":
+            marker = f'<meta name="build-revision" content="{manifest["revision"]}">'.encode()
+            require(marker in body, "Homepage build revision is missing")
+
+
+def verify(manifest, password, attempts=6, check_origin=True):
+    anonymous = Client()
+    protected = ["/", "/release.json"] + [p for p in manifest["files"] if p != "/preview.html"]
+    require_gate(anonymous, protected)
+    status, headers, _ = anonymous.request("/", site=f"http://{DOMAIN}")
+    require(status in (301, 308) and headers.get("location", "").startswith(SITE + "/"),
+            "HTTP does not redirect to HTTPS")
+    status, _, body = anonymous.request("/preview.html")
+    require(status == 200 and b'id="login-form"' in body, "Public password form is unavailable")
+    for headers in ({}, {"X-Preview-Password": "intentionally-wrong-ci-password"}):
+        status, _, _ = anonymous.request("/__preview_auth", "POST", headers)
+        require(status == 401, "Missing or wrong password was accepted")
+    status, _, _ = anonymous.request("/", headers={"Cookie": "fwh_preview=invalid"})
+    require(status == 302, "Forged session cookie was accepted")
+    client = login(password)
+    for attempt in range(attempts):
+        try:
+            check_release(client, manifest)
+            break
+        except PropagationError:
+            if attempt == attempts - 1:
+                raise
+            print("Waiting for the protected release to propagate...", flush=True)
+            time.sleep(5)
+    require_gate(anonymous, protected)
+    status, _, body = client.request("/__preview_logout", "POST")
+    require(status == 200 and body.strip() == b"ok", "Preview logout failed")
+    require_gate(client, ["/", "/release.json"])
+    if check_origin:
+        for path in ("/index.html", "/release.json"):
+            status, _, _ = anonymous.request(path, site=f"https://{BUCKET}.oss-cn-shanghai.aliyuncs.com")
+            require(status == 403, f"Direct OSS origin is not private: {path}")
+    print(f"Verified live revision {manifest['revision']} and {len(manifest['files'])} file hashes; access checks passed.")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--manifest", default="dist/release.json")
+    parser.add_argument("--attempts", type=int, default=6)
+    args = parser.parse_args()
+    try:
+        verify(json.loads(Path(args.manifest).read_text()), os.environ["FWH_PREVIEW_PASSWORD"], args.attempts)
+    except (VerificationError, KeyError) as error:
+        raise SystemExit(str(error)) from None
