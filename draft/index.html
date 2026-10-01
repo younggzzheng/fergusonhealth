@@ -17,6 +17,7 @@
     <symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7"/></symbol>
     <symbol id="arrow-up" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol>
     <symbol id="flower" viewBox="0 0 48 48"><path d="M24 25c-7-5-10-12-5-17 4-4 8-2 8 3 5-2 8 1 7 5-1 4-5 7-10 9ZM24 25c-2-8-7-14-13-12-5 2-5 6-1 9-5 3-5 7-1 9 4 2 9 0 15-6ZM24 25c-3 7-2 14 4 16 5 1 8-2 6-6 5-1 7-4 4-8-3-3-8-3-14-2Z"/><circle cx="24" cy="25" r="3"/></symbol>
+    <symbol id="sprig" viewBox="0 0 64 80"><path d="M21 73C25 57 33 40 43 16M31 48C18 50 12 43 10 34c13 0 20 5 21 14ZM37 33c-9-4-12-11-9-20 9 5 12 11 9 20ZM25 61c11 2 19-2 24-11-12-3-20 1-24 11Z"/><path d="M43 16c-5-4-5-10-1-12 4-1 6 3 5 6 5-2 9 1 7 5-2 4-7 4-11 1Z"/></symbol>
   </defs></svg>
 
   <header class="site-header">
@@ -62,7 +63,7 @@
     </section>
 
     <section id="care" class="care-section section-pad wrap" aria-labelledby="care-title">
-      <div class="section-topline"><div><p class="eyebrow" data-i18n="careEyebrow">02 / Areas of care</p><h2 id="care-title" data-i18n-html="careTitle">Care that grows<br><em>with you.</em></h2></div><p class="section-aside" data-i18n="careIntro">Different chapters bring different questions. Space to understand yours.</p></div>
+      <div class="section-topline"><div><p class="eyebrow" data-i18n="careEyebrow">02 / Areas of care</p><h2 id="care-title" data-i18n-html="careTitle">Care that grows<br><em>with you.</em></h2></div><div class="care-aside"><svg class="care-sprig" aria-hidden="true"><use href="#sprig"/></svg><p class="section-aside" data-i18n="careIntro">Different chapters bring different questions. Space to understand yours.</p></div></div>
       <div class="care-grid">
         <article class="care-item">
           <span class="care-number" aria-hidden="true">01</span>
@@ -82,26 +83,45 @@
       </div>
     </section>
 
-    <section id="work" class="work-section section-pad" aria-labelledby="work-title"><div class="wrap work-grid"><div><p class="eyebrow" data-i18n="workEyebrow">03 / Her work</p><h2 id="work-title" data-i18n-html="workTitle">Experience with<br><em>a purpose.</em></h2></div><div class="work-content"><p class="lead" data-i18n="workLead">Caring for women. Sharing what she knows.</p><p data-i18n="workBody">Alongside clinical care, Dr. Ferguson has taught medical students, supervised residency training, and contributed to clinical research. Her work connects patient care with the education of the next generation of doctors.</p><a class="work-feature" href="https://www.parkwayshanghai.com/en/medical-teams-338" target="_blank" rel="noopener noreferrer"><div><span class="eyebrow" data-i18n="workFeatureType">Professional profile</span><h3 data-i18n="workFeatureTitle">Meet Dr. Michelle Lu-Ferguson</h3><span class="work-source" data-i18n="workSource">Parkway Shanghai</span></div><span class="link-circle"><svg aria-hidden="true"><use href="#arrow-up"/></svg></span></a></div></div></section>
+    <section id="work" class="work-section section-pad" aria-labelledby="work-title">
+      <div class="wrap work-grid">
+        <div><p class="eyebrow" data-i18n="workEyebrow">03 / Her work</p><h2 id="work-title" data-i18n-html="workTitle">Experience with<br><em>a purpose.</em></h2></div>
+        <div class="work-content">
+          <p class="lead" data-i18n="workLead">Caring for women. Sharing what she knows.</p>
+          <p data-i18n="workBody">Dr. Ferguson's work connects patient care with medical education and collaboration across specialties. Her experience spans clinical practice in the United States and women's health leadership in Shanghai.</p>
+          <a class="work-feature" href="https://theplushealth.org/" target="_blank" rel="noopener noreferrer"><div><span class="eyebrow" data-i18n="workFeatureType">Working together</span><h3>Ferguson Plus</h3><span class="work-source" data-i18n="workSource">Part of a multidisciplinary health team in Shanghai.</span></div><span class="link-circle"><svg aria-hidden="true"><use href="#arrow-up"/></svg></span></a>
+          <details class="work-details">
+            <summary><span data-i18n="workDetailsTitle">More about her professional journey</span><span class="details-toggle" aria-hidden="true"></span></summary>
+            <div class="details-content">
+              <h4 data-i18n="workEducationTitle">Teaching, research & safer care</h4>
+              <p data-i18n="workEducationBody">After her obstetrics and gynaecology residency at Robert Wood Johnson, Dr. Ferguson remained on the faculty, combining clinical care with teaching residents and medical students and conducting clinical research. Since returning to China in 2005, she has held leadership roles focused on care quality and patient safety in Shanghai.</p>
+              <h4 data-i18n="workLeadershipTitle">Sharing knowledge beyond the clinic</h4>
+              <p data-i18n="workLeadershipBody">Her work also includes health education for the wider community. In a 2026 Am-Sino medical career programme, she introduced Shanghai Community International School students to women's health from adolescence through menopause.</p>
+              <a class="underlined-link" href="https://www.am-sino.com/en/news/latest-news/117" target="_blank" rel="noopener noreferrer"><span data-i18n="workBackgroundLink">Read about the student programme</span><svg aria-hidden="true"><use href="#arrow-up"/></svg></a>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
 
     <section id="contact" class="contact-section wrap" aria-labelledby="contact-title">
-      <div class="contact-heading"><p class="eyebrow" data-i18n="contactEyebrow">A good place to begin</p><h2 id="contact-title" data-i18n-html="contactTitle">Let's take the<br><em>next step, together.</em></h2></div>
+      <div class="contact-heading"><p class="eyebrow" data-i18n="contactEyebrow">A good place to begin</p><h2 id="contact-title" data-i18n-html="contactTitle">Let's take the<br><em>next step, together.</em></h2><svg class="contact-flower" aria-hidden="true"><use href="#flower"/></svg></div>
       <div class="contact-copy">
         <p data-i18n="contactBody">For practice information and appointment enquiries, get in touch by email. Our official WeChat account shares news and updates.</p>
-        <a class="email-link" href="mailto:info@fergusonhealth.com"><span>info@fergusonhealth.com</span><svg aria-hidden="true"><use href="#arrow-up"/></svg></a>
+        <p class="email-address">info@fergusonhealth.com</p>
         <p class="contact-location"><span class="location-dot" aria-hidden="true"></span><span data-i18n="heroLocation">Shanghai, China</span></p>
       </div>
       <div class="practice-locations" aria-labelledby="locations-title">
         <h3 id="locations-title" class="eyebrow" data-i18n="locationsTitle">Where to find us</h3>
-        <article class="practice"><h4 data-i18n="clinic1Name">Am-Sino Ding Xiang Clinic</h4><address data-i18n="clinic1Address">3rd floor, Podium Building 6, Dingxiang Apartments, Lane 800 Huashan Road.</address><p class="practice-note" data-i18n="clinic1Entrance">Entrance on Zhenning Road.</p></article>
+        <article class="practice"><h4 data-i18n="clinic1Name">Am-Sino Ding Xiang Clinic</h4><address data-i18n="clinic1Address">3rd floor, Podium Building 6, Dingxiang Apartments, Lane 800 Huashan Road.</address><p class="practice-note" data-i18n="clinic1Entrance">Entrance on Zhenning Road.</p><a class="underlined-link" href="https://www.am-sino.com/en/medical-network/2" target="_blank" rel="noopener noreferrer"><span data-i18n="clinic1Link">Visit Am-Sino clinic</span><svg aria-hidden="true"><use href="#arrow-up"/></svg></a></article>
         <article class="practice"><h4 data-i18n="clinic2Name">Parkway Xintiandi</h4><address data-i18n="clinic2Address">3F, Shanghai Plaza, 138 Middle Huaihai Road.</address><a class="underlined-link" href="https://www.parkwayshanghai.com/en/medical-teams-338" target="_blank" rel="noopener noreferrer"><span data-i18n="clinicProfile">View Parkway profile</span><svg aria-hidden="true"><use href="#arrow-up"/></svg></a></article>
       </div>
       <figure class="wechat-contact">
-        <div class="qr-frame"><img src="assets/wechat-official-account-qr.png" alt="Ferguson Women's Health WeChat official-account QR code" width="87" height="86" loading="lazy"></div>
+        <div class="qr-frame"><img src="assets/wechat-official-account-qr.svg" alt="Ferguson Women's Health WeChat official-account QR code" width="164" height="164" loading="lazy"></div>
         <figcaption><h3 data-i18n="wechatTitle">Stay connected on WeChat</h3><p data-i18n="wechatBody">Scan to follow the Ferguson Women's Health official account.</p><span data-i18n="wechatNote">Official account · News & updates</span></figcaption>
       </figure>
     </section>
   </main>
-  <footer class="site-footer"><div class="wrap footer-main"><a class="brand-logo" href="#" aria-label="Back to top"><img src="assets/ferguson-logo.png" alt="Ferguson Women's Health · 弗阁笙健康管理" width="2481" height="1792"></a><p data-i18n="footerMessage">Thoughtful care. A personal connection.</p><a href="#main" class="back-top"><span data-i18n="backTop">Back to top</span><svg aria-hidden="true"><use href="#arrow"/></svg></a></div><div class="wrap footer-bottom"><span>© <span id="year">2026</span> Ferguson Women's Health</span><a class="icp-link" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">沪ICP备15040582号-1</a><span class="preview-note" data-i18n="previewNote">Private design preview · Content subject to review</span><form class="lock-form" method="post" action="/__preview_logout"><button type="submit" data-i18n="lockPreview">Lock preview</button></form></div></footer>
+  <footer class="site-footer"><div class="wrap footer-main"><a class="brand-logo" href="#" aria-label="Back to top"><img src="assets/ferguson-logo.png" alt="Ferguson Women's Health · 弗阁笙健康管理" width="2481" height="1792"></a><p data-i18n="footerMessage">Thoughtful care. A personal connection.</p><a href="#main" class="back-top"><span data-i18n="backTop">Back to top</span><svg aria-hidden="true"><use href="#arrow"/></svg></a></div><div class="wrap footer-bottom"><span>© <span id="year">2026</span> Ferguson Women's Health</span><form class="lock-form" method="post" action="/__preview_logout"><button type="submit" data-i18n="lockPreview">Lock preview</button></form></div></footer>
 </body>
 </html>

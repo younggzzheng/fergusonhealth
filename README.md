@@ -6,6 +6,7 @@ Visitors load images, fonts, styles, and scripts from the website itself.
 
 **Start here:** [Agent instructions](AGENTS.md) · [Update and deployment guide](docs/OPERATIONS.md)
 · [Backend access](docs/CREDENTIALS.md) · [Content and brand brief](reference/CONTENT-BRIEF.md)
+· [Content sources](reference/RESEARCH-NOTES.md) · [QR source and regeneration](reference/QR-NOTES.md)
 
 ## Make an update
 
@@ -37,7 +38,7 @@ including for direct image and asset URLs.
 | `draft/assets/` | Locally hosted images, icons, fonts, and licenses |
 | `preview.html` | Public password-entry page, with no embedded password |
 | `preview_gate.es` | Existing CDN gate template with credential placeholders |
-| `reference/` | Supplied flyer, logo, QR, palette; not deployed |
+| `reference/` | Supplied materials, researched sources, and QR regeneration instructions; not deployed |
 | `build.py`, `deploy.py`, `verify_preview.py` | Build, publish, and verify |
 | `alibaba.py`, `backend.py` | Signed site-scoped backend operations |
 | `.github/workflows/` | PR checks, deployment after merge, maintenance |
