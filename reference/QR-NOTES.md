@@ -1,7 +1,26 @@
 # WeChat official-account QR
 
+## Current high-resolution image
+
+The website uses `draft/assets/wechat-official-account-qr-hd.png`, a 600 × 600
+pixel crop from the owner's supplied `20250304-menopa_1790950314.png`
+(3240 × 3240 pixels). The crop starts at x=65, y=2497 and preserves the original
+code, central brand logo, and white margin without resampling or regeneration.
+
+On 2026-10-02, Apple's Core Image QR detector decoded the crop to
+`http://weixin.qq.com/r/3kjM1I-EL9JQrcu39x3M`, the same destination as the
+previous SVG. This is the official-account code, separate from the clinic
+appointment codes. Keep the image square, its white margin intact, and its
+colors unchanged.
+
+The browser-rendered image also decoded to that same destination at its
+164-pixel desktop and 123-pixel mobile display sizes on 2026-10-02. Both checks
+used screenshots of the actual page and Apple's Core Image detector.
+
+## Previous SVG and regeneration
+
 `wechat-official-account-qr.png` is the original 87 × 86 pixel image supplied by
-the owner. The website uses `draft/assets/wechat-official-account-qr.svg`, a new
+the owner. The website previously used `draft/assets/wechat-official-account-qr.svg`, a
 vector QR encoding the **exact same decoded destination**:
 
 ```text
@@ -18,8 +37,9 @@ Keep it square, preserve its white margin, and do not apply a color filter.
 
 ## Recreate the asset
 
-The checked-in SVG works without a generator or any added browser dependency.
-For an intentional regeneration, run these commands from the repository root
+The retained SVG works without a generator or any added browser dependency.
+The following commands recreate that previous SVG, not the current branded
+PNG. For an intentional SVG regeneration, run them from the repository root
 with Node.js and npm available. Dependencies go in a temporary directory:
 
 ```sh
