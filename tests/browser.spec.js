@@ -173,6 +173,21 @@ test('official-account QR keeps its white margin inside the matching blue frame'
   await assertNoOverflow(page);
 });
 
+test('main section labels stay readable in both languages', async ({ page }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const labels = page.locator('.hero-copy .eyebrow, [data-i18n="aboutEyebrow"], [data-i18n="careEyebrow"], [data-i18n="workEyebrow"], [data-i18n="contactEyebrow"], [data-i18n="locationsTitle"]');
+  await expect(labels).toHaveCount(6);
+  for (const language of ['en', 'zh-CN']) {
+    if (language === 'zh-CN') await page.locator('[data-language-switch]').click();
+    for (const label of await labels.all()) {
+      await expect(label).toHaveCSS('font-size', '14px');
+    }
+    await assertNoOverflow(page);
+  }
+});
+
 test('header navigation keeps readable type in both languages', async ({ page, isMobile }) => {
   await authenticate(page);
   await page.goto('/');

@@ -32,3 +32,7 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 /* Keep header navigation readable, including on compact desktop layouts. */
 .desktop-nav a,.contact-link,.language-switch{font-size:15px;line-height:1.5}
 .mobile-nav a{font-size:16px;line-height:1.5}
+
+/* Give the main section labels the same readable size on every screen. */
+.eyebrow,.hero-copy .eyebrow{font-size:14px}
+.hero-copy .eyebrow{max-width:100%}
