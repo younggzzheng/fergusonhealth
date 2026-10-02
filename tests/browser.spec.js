@@ -173,6 +173,32 @@ test('official-account QR keeps its white margin inside the matching blue frame'
   await assertNoOverflow(page);
 });
 
+test('header navigation keeps readable type in both languages', async ({ page, isMobile }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  for (const language of ['en', 'zh-CN']) {
+    if (language === 'zh-CN') await page.locator('[data-language-switch]').click();
+    await expect(page.locator('.language-switch')).toHaveCSS('font-size', '15px');
+    if (isMobile) {
+      const menu = page.locator('button[aria-controls="mobile-nav"]');
+      await menu.click();
+      for (const link of await page.locator('#mobile-nav a').all()) {
+        await expect(link).toBeVisible();
+        await expect(link).toHaveCSS('font-size', '16px');
+      }
+      await assertNoOverflow(page);
+      await menu.click();
+    } else {
+      for (const link of await page.locator('.desktop-nav a, .contact-link').all()) {
+        await expect(link).toBeVisible();
+        await expect(link).toHaveCSS('font-size', '15px');
+      }
+    }
+    await assertNoOverflow(page);
+  }
+});
+
 test('navigation reaches contact and mobile menu closes on selection and Escape', async ({ page, isMobile }) => {
   await authenticate(page);
   await page.goto('/');

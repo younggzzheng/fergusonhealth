@@ -28,3 +28,7 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 
 .work-details{border-bottom:1px solid #d2d7e0}.work-details summary{display:flex;align-items:center;justify-content:space-between;gap:20px;list-style:none;cursor:pointer;padding:22px 0;font-size:12px;line-height:1.7}.work-details summary::-webkit-details-marker{display:none}.details-toggle{position:relative;width:13px;height:13px;flex-shrink:0}.details-toggle:before,.details-toggle:after{content:'';position:absolute;background:currentColor;left:0;top:6px;width:13px;height:1px}.details-toggle:after{transform:rotate(90deg)}.work-details[open] .details-toggle:after{transform:none}.details-content{padding-bottom:26px}.details-content h4{font-size:12px;line-height:1.6;font-weight:550;margin:3px 0 10px}.details-content h4:not(:first-child){margin-top:24px}.details-content p{font-size:13px;line-height:1.95;color:var(--body)}.details-content .underlined-link{margin-top:22px}.work-source{line-height:1.8;max-width:310px}
 @media(max-width:700px){.work-details summary{font-size:13px}.details-content h4{font-size:13px}.details-content p{font-size:14px}}
+
+/* Keep header navigation readable, including on compact desktop layouts. */
+.desktop-nav a,.contact-link,.language-switch{font-size:15px;line-height:1.5}
+.mobile-nav a{font-size:16px;line-height:1.5}
