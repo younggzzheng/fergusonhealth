@@ -57,3 +57,28 @@ Cloud, not GitHub Pages. Start with `README.md` and `docs/OPERATIONS.md`.
   limited to this site's bucket and CDN domain.
 - Use credentials for `younggzzheng` when working as the repository owner.
   Never use `youngzheng-oss` or Baseten credentials for this project.
+
+## Direct-main publishing readiness
+
+- A direct push to `main` is a production action. Do it only when the task
+  explicitly authorizes publishing and the active GitHub account is
+  `younggzzheng` or `fergusonhealth`.
+- Before a direct push, confirm both the active account and write permission
+  without displaying any token value:
+
+  ```sh
+  gh auth status
+  gh api repos/younggzzheng/fergusonhealth --jq '.permissions.push'
+  ```
+
+  If the GitHub CLI reports an invalid credential, reauthenticate in the same
+  execution environment with `gh auth login -h github.com -p https -w` (use
+  `gh auth logout -h github.com -u fergusonhealth` first if needed), then run
+  the checks again. Never copy, print, or commit a token.
+- Fetch `origin/main` and confirm the working tree and branch state before
+  pushing. A user may explicitly request an empty test commit; otherwise do
+  not create a no-op production release.
+- After the push, find the `ci.yml` run for the exact pushed SHA and wait for
+  it to complete. The update is complete only when **Deploy and verify
+  production** passes and its reported live revision equals that SHA; advisory
+  browser-check warnings do not block completion.
