@@ -173,6 +173,25 @@ test('official-account QR keeps its white margin inside the matching blue frame'
   await assertNoOverflow(page);
 });
 
+test('general gynaecology leads areas of care with STI and cancer screening', async ({ page }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const cards = page.locator('#care .care-item');
+  await expect(cards.locator('.care-number')).toHaveText(['01', '02', '03']);
+  await expect(cards.locator('h3')).toHaveText([
+    'Gynaecology through life', 'Hormonal & menstrual health', 'Fertility & family planning',
+  ]);
+  await expect(cards.first().locator('.care-list li')).toHaveCount(5);
+  await expect(cards.first().locator('[data-i18n="careSTI"]')).toHaveText('Sexually transmitted infections (STIs)');
+  await expect(cards.first().locator('[data-i18n="careCancerScreening"]')).toHaveText('Cancer screening');
+  await page.locator('[data-language-switch]').click();
+  await expect(cards.locator('h3')).toHaveText(['全生命周期妇科照护', '激素与月经健康', '生育力与生育规划']);
+  await expect(cards.first().locator('[data-i18n="careSTI"]')).toHaveText('性传播感染（STI）');
+  await expect(cards.first().locator('[data-i18n="careCancerScreening"]')).toHaveText('癌症筛查');
+  await assertNoOverflow(page);
+});
+
 test('main section labels stay readable in both languages', async ({ page }) => {
   await authenticate(page);
   await page.goto('/');

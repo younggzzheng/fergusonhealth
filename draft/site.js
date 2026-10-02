@@ -12,7 +12,7 @@
       aboutBody2: '她的经历涵盖临床诊疗、医学教育及女性健康领域的管理工作。目前在上海美华丁香门诊部和百汇新天地医疗中心执业，可使用英语和普通话交流。', profileLink: '查看官方医生简介', signatureDetail: 'MD, FACOG · 妇产科',
       careEyebrow: '02 / 诊疗领域', careTitle: '陪伴每一个<br><em>不同的你。</em>', careIntro: '每一个人生阶段，都有新的疑问。留一些时间，听您慢慢说。',
       care1Title: '激素与月经健康', care2Title: '生育力与生育规划', care3Title: '全生命周期妇科照护',
-      careMenopause: '更年期支持与激素管理', careMenstrual: '月经健康与月经失调', careFertility: '生育力认知与孕前咨询', careContraception: '避孕与生育规划', careSurgery: '妇科微创手术', careSexual: '性健康与外阴阴道健康', careAdolescent: '青少年妇科',
+      careMenopause: '更年期支持与激素管理', careMenstrual: '月经健康与月经失调', careFertility: '生育力认知与孕前咨询', careContraception: '避孕与生育规划', careSurgery: '妇科微创手术', careSexual: '性健康与外阴阴道健康', careAdolescent: '青少年妇科', careSTI: '性传播感染（STI）', careCancerScreening: '癌症筛查',
       workEyebrow: '03 / 专业经历', workTitle: '以经验积累，<br><em>践行关怀。</em>', workLead: '关爱女性，也分享专业知识。', workBody: '吕医生将患者照护、医学教育与跨专业协作相结合，经历涵盖美国的临床实践，以及上海女性健康领域的医疗管理工作。', workFeatureType: '携手关爱健康', workSource: '上海跨专业健康团队成员。',
       workDetailsTitle: '进一步了解她的专业历程', workEducationTitle: '医学教育与医疗质量', workEducationBody: '在罗伯特·伍德·约翰逊医学院完成妇产科住院医师培训后，吕医生留校任教，在临床工作之外参与住院医师培训、医学生教育及临床研究。2005年回国后，她在上海多家医疗机构承担临床管理与医疗质量、安全方面的工作。', workLeadershipTitle: '诊室之外的健康教育', workLeadershipBody: '她也参与社区健康教育。在2026年美华的医学职业体验活动中，她向 SCIS 学生介绍了从青春期到更年期的女性健康。', workBackgroundLink: '了解这次学生体验活动',
       contactEyebrow: '从这里开始', contactTitle: '下一步，<br><em>我们一起走。</em>', contactBody: '如需预约，请使用微信扫描下方相应门诊的预约码。如需了解执业信息，欢迎通过电子邮件联系我们。关注微信公众号，获取最新资讯。',
