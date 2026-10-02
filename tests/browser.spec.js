@@ -159,6 +159,20 @@ test('both languages render without broken resources, broken links or overflow',
   expect(failures).toEqual([]);
 });
 
+test('official-account QR keeps its white margin inside the matching blue frame', async ({ page }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const qr = page.locator('.wechat-contact .qr-frame img');
+  await qr.scrollIntoViewIfNeeded();
+  await expect(qr).toHaveCSS('border-top-color', 'rgb(12, 64, 143)');
+  await expect(qr).toHaveCSS('border-top-style', 'solid');
+  await expect(qr).toHaveCSS('box-sizing', 'content-box');
+  await expect.poll(() => qr.evaluate(image => ({ width: image.naturalWidth, height: image.naturalHeight })))
+    .toEqual({ width: 600, height: 600 });
+  await assertNoOverflow(page);
+});
+
 test('navigation reaches contact and mobile menu closes on selection and Escape', async ({ page, isMobile }) => {
   await authenticate(page);
   await page.goto('/');
