@@ -16,7 +16,7 @@
       workEyebrow: '03 / 专业经历', workTitle: '以经验积累，<br><em>践行关怀。</em>', workLead: '关爱女性，也分享专业知识。', workBody: '吕医生将患者照护、医学教育与跨专业协作相结合，经历涵盖美国的临床实践，以及上海女性健康领域的医疗管理工作。', workFeatureType: '携手关爱健康', workSource: '上海跨专业健康团队成员。',
       workDetailsTitle: '进一步了解她的专业历程', workEducationTitle: '医学教育与医疗质量', workEducationBody: '在罗伯特·伍德·约翰逊医学院完成妇产科住院医师培训后，吕医生留校任教，在临床工作之外参与住院医师培训、医学生教育及临床研究。2005年回国后，她在上海多家医疗机构承担临床管理与医疗质量、安全方面的工作。', workLeadershipTitle: '诊室之外的健康教育', workLeadershipBody: '她也参与社区健康教育。在2026年美华的医学职业体验活动中，她向 SCIS 学生介绍了从青春期到更年期的女性健康。', workBackgroundLink: '了解这次学生体验活动',
       contactEyebrow: '从这里开始', contactTitle: '下一步，<br><em>我们一起走。</em>', contactBody: '如需预约，请使用微信扫描下方相应门诊的预约码。如需了解执业信息，欢迎通过电子邮件联系我们。关注微信公众号，获取最新资讯。',
-      locationsTitle: '执业地点', clinic1Name: '美华丁香门诊部', clinic1Address: '华山路800弄丁香公寓6号裙楼3层', clinic1Entrance: '入口在镇宁路上。', clinic1Appointment: '微信扫码预约', clinic2Name: '百汇新天地医疗中心', clinic2Address: '淮海中路138号，上海广场3楼', clinic2Appointment: '微信扫码预约',
+      locationsTitle: '执业地点', clinic1Name: '美华丁香门诊部', clinic1Address: '华山路800弄丁香公寓6号裙楼3层', clinic1Entrance: '入口在镇宁路上。', clinic1Appointment: '微信扫码预约', clinic2Name: '百汇新天地医疗中心', clinic2Address: '淮海中路138号<br>上海广场3楼', clinic2Appointment: '微信扫码预约',
       wechatTitle: '在微信上保持联系', wechatBody: '扫码关注 Ferguson 女性健康官方微信公众号。', wechatNote: '微信公众号 · 最新资讯', footerMessage: '用心关怀，真诚相伴。', backTop: '返回顶部', lockPreview: '锁定预览'
     }
   };
