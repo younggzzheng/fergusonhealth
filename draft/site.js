@@ -5,7 +5,7 @@
     zh: {
       skip: '跳转到正文', navAbout: '认识吕医生', navCare: '诊疗领域', navWork: '专业经历', navContact: '联系咨询',
       heroEyebrow: '用心了解，关爱女性健康', heroTitle: '关爱人生的<br><em>每一个阶段。</em>',
-      heroIntro: '认识吕明旭医生（Dr. Michelle Lu-Ferguson）。在上海提供个体化、全面的妇科照护，关爱女性人生的每一个阶段。', heroCta: '了解吕医生',
+      heroIntro: '认识吕明旭医生（Dr. Michelle Lu-Ferguson）。在上海提供个体化的妇科照护，关爱女性人生的每一个阶段。', heroCta: '了解吕医生',
       heroName: '吕明旭医生 · MD, FACOG', heroLocation: '中国 · 上海', portraitName: '吕明旭医生', portraitDetail: '妇产科', heroBottom: '专业、关怀，以及多一份理解。',
       aboutEyebrow: '01 / 认识吕医生', aboutTitle: '医生。<br>倾听者。<br><em>健康路上的同行者。</em>', aboutLead: '好的照护，从倾听开始。',
       aboutBody: '吕明旭医生是美国妇产科专科认证医生，也是美国妇产科医师学会会士（FACOG）。',
