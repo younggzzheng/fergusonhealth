@@ -203,6 +203,37 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   await assertNoOverflow(page);
 });
 
+test('balanced team panel leads to services before the doctor profile', async ({ page, isMobile }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  expect(await page.locator('main > section').evaluateAll(sections => sections.map(section => section.id || 'hero')))
+    .toEqual(['hero', 'care', 'about', 'work', 'contact']);
+  for (const navigation of ['.desktop-nav', '#mobile-nav']) {
+    expect(await page.locator(`${navigation} a`).evaluateAll(links => links.map(link => link.getAttribute('href'))))
+      .toEqual(navigation === '.desktop-nav' ? ['#care', '#about', '#work'] : ['#care', '#about', '#work', '#contact']);
+  }
+  await expect(page.locator('.hero-team .hero-who-title')).toHaveText('Who We Are');
+  await expect(page.locator('.hero-team .purpose-item')).toHaveCount(2);
+  const arrangement = await page.locator('.hero').evaluate(hero => ({
+    copy: hero.querySelector('.hero-copy').getBoundingClientRect().toJSON(),
+    panel: hero.querySelector('.hero-team').getBoundingClientRect().toJSON(),
+  }));
+  if (isMobile) expect(arrangement.panel.top).toBeGreaterThan(arrangement.copy.bottom);
+  else expect(arrangement.panel.left).toBeGreaterThan(arrangement.copy.right);
+  await expect(page.locator('[data-i18n="careEyebrow"]')).toHaveText('01 / Areas of care');
+  await expect(page.locator('[data-i18n="aboutEyebrow"]')).toHaveText('02 / Meet Dr. Ferguson');
+  await expect(page.locator('.hero .text-link')).toHaveAttribute('href', '#care');
+  await page.locator('.hero .text-link').click();
+  await expect(page).toHaveURL(/#care$/);
+  await expect(page.locator('#care')).toBeInViewport();
+  await page.locator('[data-language-switch]').click();
+  await expect(page.locator('[data-i18n="careEyebrow"]')).toHaveText('01 / 诊疗领域');
+  await expect(page.locator('[data-i18n="aboutEyebrow"]')).toHaveText('02 / 认识吕医生');
+  await expect(page.locator('[data-i18n="heroCta"]')).toHaveText('了解我们的诊疗服务');
+  await assertNoOverflow(page);
+});
+
 test('official-account QR keeps its white margin inside the matching blue frame', async ({ page }) => {
   await authenticate(page);
   await page.goto('/');

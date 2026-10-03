@@ -24,7 +24,7 @@
     <div class="header-inner wrap">
       <a class="brand-logo" href="#" aria-label="Ferguson Women's Health home"><img src="assets/ferguson-logo.png" alt="Ferguson Women's Health · 弗阁笙健康管理" width="2481" height="1792"></a>
       <nav class="desktop-nav" aria-label="Main navigation">
-        <a href="#about" data-i18n="navAbout">Meet Dr. Ferguson</a><a href="#care" data-i18n="navCare">Areas of care</a><a href="#work" data-i18n="navWork">Her work</a>
+        <a href="#care" data-i18n="navCare">Areas of care</a><a href="#about" data-i18n="navAbout">Meet Dr. Ferguson</a><a href="#work" data-i18n="navWork">Her work</a>
       </nav>
       <div class="header-actions">
         <button class="language-switch" type="button" aria-label="切换至简体中文" data-language-switch>中文</button>
@@ -32,7 +32,7 @@
         <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav" type="button"><span></span><span></span></button>
       </div>
     </div>
-    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="#about" data-i18n="navAbout">Meet Dr. Ferguson</a><a href="#care" data-i18n="navCare">Areas of care</a><a href="#work" data-i18n="navWork">Her work</a><a href="#contact" data-i18n="navContact">Get in touch</a></nav>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="#care" data-i18n="navCare">Areas of care</a><a href="#about" data-i18n="navAbout">Meet Dr. Ferguson</a><a href="#work" data-i18n="navWork">Her work</a><a href="#contact" data-i18n="navContact">Get in touch</a></nav>
   </header>
 
   <main id="main">
@@ -40,40 +40,28 @@
       <div class="hero-copy">
         <p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span><span data-i18n="heroEyebrow">A personal approach to women's health</span></p>
         <h1 id="hero-title" data-i18n-html="heroTitle">For every chapter<br><em>of your life.</em></h1>
+        <a class="text-link" href="#care"><span data-i18n="heroCta">Explore our care</span><span class="link-circle"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+      </div>
+      <div class="hero-team">
+        <svg class="team-flower" aria-hidden="true"><use href="#flower"/></svg>
         <h2 class="hero-who-title" data-i18n="heroWhoTitle">Who We Are</h2>
         <p class="hero-intro" data-i18n="heroIntro">We are a women’s health team committed to clear communication, evidence-based care, and long-term support.</p>
-        <a class="text-link" href="#about"><span data-i18n="heroCta">Get to know Dr. Ferguson</span><span class="link-circle"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+        <div class="purpose-grid">
+          <article class="purpose-item" aria-labelledby="mission-title">
+            <h2 id="mission-title" data-i18n="missionTitle">Mission</h2>
+            <p data-i18n="missionBody">To provide reliable, evidence-based care that helps every woman understand her body and make confident health decisions.</p>
+          </article>
+          <article class="purpose-item" aria-labelledby="vision-title">
+            <h2 id="vision-title" data-i18n="visionTitle">Vision</h2>
+            <p data-i18n="visionBody">Bringing international standards of women’s healthcare to every woman, supporting her health and quality of life.</p>
+          </article>
+        </div>
       </div>
-      <div class="purpose-grid">
-        <article class="purpose-item" aria-labelledby="mission-title">
-          <h2 id="mission-title" data-i18n="missionTitle">Mission</h2>
-          <p data-i18n="missionBody">To provide reliable, evidence-based care that helps every woman understand her body and make confident health decisions.</p>
-        </article>
-        <article class="purpose-item" aria-labelledby="vision-title">
-          <h2 id="vision-title" data-i18n="visionTitle">Vision</h2>
-          <p data-i18n="visionBody">Bringing international standards of women’s healthcare to every woman, supporting her health and quality of life.</p>
-        </article>
-      </div>
-      <div class="hero-bottom"><span data-i18n="heroBottom">Expertise. Empathy. A little more understanding.</span><a href="#about" aria-label="Discover more"><svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
-    </section>
-
-    <section id="about" class="about-section section-pad" aria-labelledby="about-title">
-      <div class="wrap about-grid">
-        <div class="section-heading"><p class="eyebrow" data-i18n="aboutEyebrow">01 / Meet Dr. Ferguson</p><h2 id="about-title" data-i18n-html="aboutTitle">A doctor.<br>A listener.<br><em>Your partner in care.</em></h2><svg class="about-flower" aria-hidden="true"><use href="#flower"/></svg></div>
-        <figure class="about-portrait">
-          <div class="portrait-frame">
-            <div class="portrait-placeholder" aria-hidden="true"><svg viewBox="0 0 400 520"><path d="M10 450C205 409 318 272 344 43M115 406C48 337 57 277 97 239c27 68 30 112 18 167ZM191 333c-21-92 10-136 62-158 1 78-22 128-62 158ZM278 219c-2-75 23-112 73-128-3 60-28 106-73 128ZM107 409c80 12 140-8 168-60-68-10-128 5-168 60ZM205 320c77 1 127-36 140-92-62 4-109 34-140 92Z"/></svg></div>
-            <img class="doctor-photo" src="assets/dr-ferguson.jpg" alt="Dr. Michelle Lu-Ferguson" width="800" height="1040" onerror="this.hidden=true;this.closest('.portrait-frame').classList.add('portrait-unavailable')">
-            <span class="portrait-corner" aria-hidden="true"></span>
-          </div>
-          <figcaption><span data-i18n="portraitName">Dr. Michelle Lu-Ferguson</span><span data-i18n="portraitDetail">Obstetrics &amp; Gynaecology</span></figcaption>
-        </figure>
-        <div class="about-copy"><p class="lead" data-i18n="aboutLead">Good care begins with being heard.</p><p data-i18n="aboutBody">Dr. Michelle Lu-Ferguson is an American board certified OB/GYN specialist and a Fellow of the American College of Obstetricians and Gynecologists (FACOG).</p><p data-i18n="aboutBody2">Her experience spans clinical practice, medical education, and women's health leadership. She consults in English and Mandarin at Am-Sino Ding Xiang Clinic and Parkway MediCentre Xintiandi in Shanghai.</p><a class="underlined-link" href="https://www.parkwayshanghai.com/en/medical-teams-338" target="_blank" rel="noopener noreferrer"><span data-i18n="profileLink">Read her professional profile</span><svg aria-hidden="true"><use href="#arrow-up"/></svg></a><div class="signature"><span>Michelle Lu-Ferguson</span><p data-i18n="signatureDetail">MD, FACOG · Obstetrics & Gynaecology</p></div></div>
-      </div>
+      <div class="hero-bottom"><span data-i18n="heroBottom">Expertise. Empathy. A little more understanding.</span><a href="#care" aria-label="Discover more"><svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
     </section>
 
     <section id="care" class="care-section section-pad wrap" aria-labelledby="care-title">
-      <div class="section-topline"><div><p class="eyebrow" data-i18n="careEyebrow">02 / Areas of care</p><h2 id="care-title" data-i18n-html="careTitle">Care that grows<br><em>with you.</em></h2></div><div class="care-aside"><svg class="care-sprig" aria-hidden="true"><use href="#sprig"/></svg><p class="section-aside" data-i18n="careIntro">Different chapters bring different questions. Space to understand yours.</p></div></div>
+      <div class="section-topline"><div><p class="eyebrow" data-i18n="careEyebrow">01 / Areas of care</p><h2 id="care-title" data-i18n-html="careTitle">Care that grows<br><em>with you.</em></h2></div><div class="care-aside"><svg class="care-sprig" aria-hidden="true"><use href="#sprig"/></svg><p class="section-aside" data-i18n="careIntro">Different chapters bring different questions. Space to understand yours.</p></div></div>
       <div class="care-grid">
         <article class="care-item">
           <span class="care-number" aria-hidden="true">01</span>
@@ -160,6 +148,21 @@
             <li data-i18n="careLifestyle">Weight and lifestyle medicine</li>
           </ul>
         </article>
+      </div>
+    </section>
+
+    <section id="about" class="about-section section-pad" aria-labelledby="about-title">
+      <div class="wrap about-grid">
+        <div class="section-heading"><p class="eyebrow" data-i18n="aboutEyebrow">02 / Meet Dr. Ferguson</p><h2 id="about-title" data-i18n-html="aboutTitle">A doctor.<br>A listener.<br><em>Your partner in care.</em></h2><svg class="about-flower" aria-hidden="true"><use href="#flower"/></svg></div>
+        <figure class="about-portrait">
+          <div class="portrait-frame">
+            <div class="portrait-placeholder" aria-hidden="true"><svg viewBox="0 0 400 520"><path d="M10 450C205 409 318 272 344 43M115 406C48 337 57 277 97 239c27 68 30 112 18 167ZM191 333c-21-92 10-136 62-158 1 78-22 128-62 158ZM278 219c-2-75 23-112 73-128-3 60-28 106-73 128ZM107 409c80 12 140-8 168-60-68-10-128 5-168 60ZM205 320c77 1 127-36 140-92-62 4-109 34-140 92Z"/></svg></div>
+            <img class="doctor-photo" src="assets/dr-ferguson.jpg" alt="Dr. Michelle Lu-Ferguson" width="800" height="1040" onerror="this.hidden=true;this.closest('.portrait-frame').classList.add('portrait-unavailable')">
+            <span class="portrait-corner" aria-hidden="true"></span>
+          </div>
+          <figcaption><span data-i18n="portraitName">Dr. Michelle Lu-Ferguson</span><span data-i18n="portraitDetail">Obstetrics &amp; Gynaecology</span></figcaption>
+        </figure>
+        <div class="about-copy"><p class="lead" data-i18n="aboutLead">Good care begins with being heard.</p><p data-i18n="aboutBody">Dr. Michelle Lu-Ferguson is an American board certified OB/GYN specialist and a Fellow of the American College of Obstetricians and Gynecologists (FACOG).</p><p data-i18n="aboutBody2">Her experience spans clinical practice, medical education, and women's health leadership. She consults in English and Mandarin at Am-Sino Ding Xiang Clinic and Parkway MediCentre Xintiandi in Shanghai.</p><a class="underlined-link" href="https://www.parkwayshanghai.com/en/medical-teams-338" target="_blank" rel="noopener noreferrer"><span data-i18n="profileLink">Read her professional profile</span><svg aria-hidden="true"><use href="#arrow-up"/></svg></a><div class="signature"><span>Michelle Lu-Ferguson</span><p data-i18n="signatureDetail">MD, FACOG · Obstetrics & Gynaecology</p></div></div>
       </div>
     </section>
 
