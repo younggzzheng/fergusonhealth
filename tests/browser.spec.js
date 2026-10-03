@@ -526,8 +526,8 @@ test('service disclosures preserve their state across languages and support keyb
   await waitForRenderedPage(page);
   const cards = page.locator('#care details.care-item');
   await expect(cards).toHaveCount(9);
-  await expect(page.locator('#care details[open]')).toHaveCount(1);
-  await expect(cards.first().locator('.care-list')).toBeVisible();
+  await expect(page.locator('#care details[open]')).toHaveCount(0);
+  await expect(cards.first().locator('.care-list')).toBeHidden();
   const second = cards.nth(1);
   await expect(second.locator('.care-list')).toBeHidden();
   await second.locator('summary').focus();
@@ -540,7 +540,13 @@ test('service disclosures preserve their state across languages and support keyb
   await second.locator('summary').focus();
   await page.keyboard.press('Space');
   await expect(second.locator('.care-list')).toBeHidden();
+  await expect(cards.first().locator('.care-list')).toBeHidden();
+  await cards.first().locator('summary').click();
   await expect(cards.first().locator('.care-list')).toBeVisible();
+  await page.locator('[data-language-switch]').click();
+  await expect(cards.first().locator('.care-list')).toBeVisible();
+  await cards.first().locator('summary').click();
+  await expect(page.locator('#care details[open]')).toHaveCount(0);
 });
 
 test('section colors and decorative marks use the local brand and platform assets', async ({ page }) => {

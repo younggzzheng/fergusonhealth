@@ -162,3 +162,6 @@ expandable section in **03 / Her work** so the initial page stays concise.
   avoiding invented credentials, credits, attendance figures, or outcomes.
 - Number the clinic names 1 (Am-Sino) and 2 (Parkway) in English and Chinese,
   as requested by the owner. Service categories remain unnumbered.
+- Latest owner preference: all nine service disclosures are closed on initial
+  load, including Hormone & Menopause Health. Retain click/keyboard expansion
+  and preserve user-selected open states when switching languages.
