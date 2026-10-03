@@ -194,22 +194,53 @@ test('supplied social account names appear below the official WeChat code', asyn
   await assertNoOverflow(page);
 });
 
-test('general gynaecology leads areas of care with STI and cancer screening', async ({ page }) => {
+test('nine approved service categories put hormone and menopause health first', async ({ page }) => {
   await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   const cards = page.locator('#care .care-item');
-  await expect(cards.locator('.care-number')).toHaveText(['01', '02', '03']);
+  await expect(cards).toHaveCount(9);
+  await expect(cards.locator('.care-number')).toHaveText(['01', '02', '03', '04', '05', '06', '07', '08', '09']);
   await expect(cards.locator('h3')).toHaveText([
-    'Gynaecology through life', 'Hormonal & menstrual health', 'Fertility & family planning',
+    'Hormone & Menopause Health', 'Gynecologic Care', 'Reproductive & Fertility Health',
+    'Contraception & Family Planning', 'Sexual & Vulvovaginal Health', 'Adolescent Health',
+    'Minimally Invasive Surgery', 'Pelvic Floor Health', 'Women’s Preventive Health',
   ]);
-  await expect(cards.first().locator('.care-list li')).toHaveCount(5);
-  await expect(cards.first().locator('[data-i18n="careSTI"]')).toHaveText('Sexually transmitted infections (STIs)');
-  await expect(cards.first().locator('[data-i18n="careCancerScreening"]')).toHaveText('Cancer screening');
+  await expect(cards.locator('.care-list li')).toHaveText([
+    'Perimenopause and menopause care', 'Hormone replacement therapy (HRT)',
+    'PCOS and endocrine assessment', 'Hormone-related changes in mood, sleep and weight',
+    'Cervical screening (HPV / TCT / colposcopy)', 'Menstrual disorders and endometrial disease',
+    'Uterine fibroids, ovarian cysts and endometriosis', 'Vaginitis and vulvar skin conditions',
+    'Fertility assessment (AMH and ovarian reserve)', 'Preconception planning and counseling',
+    'Early pregnancy care (up to 12 weeks)', 'Fertility preservation (egg-freezing consultation)',
+    'Intrauterine devices (IUDs)', 'Contraceptive implants', 'Individualized contraceptive medication choices',
+    'Sexual pain (dyspareunia and vaginismus)', 'Vulvar skin conditions (including lichen sclerosus)',
+    'Genitourinary syndrome of menopause (GSM)', 'Menarche and puberty counseling',
+    'Adolescent menstrual concerns', 'Sex education and contraceptive guidance',
+    'Hysteroscopy', 'Laparoscopy', 'Minimally invasive management of fibroids and cysts',
+    'Pelvic floor function assessment', 'Mild urinary incontinence', 'Postpartum pelvic floor rehabilitation',
+    'Bone density and bone health', 'Cardiovascular and menopause-related risk assessment',
+    'Chronic conditions and hormone management', 'Weight and lifestyle medicine',
+  ]);
+  for (const [index, count] of [4, 4, 4, 3, 3, 3, 3, 3, 4].entries()) {
+    await expect(cards.nth(index).locator('li')).toHaveCount(count);
+  }
+  await assertNoOverflow(page);
   await page.locator('[data-language-switch]').click();
-  await expect(cards.locator('h3')).toHaveText(['全生命周期妇科照护', '激素与月经健康', '生育力与生育规划']);
-  await expect(cards.first().locator('[data-i18n="careSTI"]')).toHaveText('性传播感染（STI）');
-  await expect(cards.first().locator('[data-i18n="careCancerScreening"]')).toHaveText('癌症筛查');
+  await expect(cards.locator('h3')).toHaveText([
+    '激素与更年期', '妇科诊疗', '生育与生殖', '避孕与家庭计划', '性健康与外阴阴道',
+    '青少年女性健康', '微创妇科手术', '盆底健康', '女性长期健康',
+  ]);
+  await expect(cards.locator('.care-list li')).toHaveText([
+    '围绝经期与绝经管理', '激素替代治疗（HRT）', 'PCOS 与内分泌评估', '激素相关情绪、睡眠与体重变化',
+    '宫颈筛查（HPV / TCT / 阴道镜）', '月经异常与子宫内膜疾病', '子宫肌瘤、卵巢囊肿、内膜异位症', '阴道炎、外阴皮肤病',
+    '生育力评估（AMH、卵巢储备）', '备孕与孕前咨询', '早孕管理（至 12 周）', '生育力保护（冷冻卵子咨询）',
+    '宫内节育器（IUD）', '皮下埋植', '药物避孕个体化选择',
+    '性疼痛（性交痛、阴道痉挛）', '外阴皮肤病（硬化性苔藓等）', '绝经相关泌尿生殖综合征（GSM）',
+    '初潮与青春期咨询', '青少年月经问题', '性教育与避孕指导',
+    '宫腔镜', '腹腔镜', '肌瘤、囊肿微创管理', '盆底功能评估', '轻度尿失禁', '产后盆底康复',
+    '骨密度与骨健康', '心血管与绝经风险评估', '慢性病与激素管理', '体重与生活方式医学',
+  ]);
   await assertNoOverflow(page);
 });
 

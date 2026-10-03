@@ -33,8 +33,15 @@ stages of life. Avoid implying that this website itself books appointments.
 
 ## Services from the flyer
 
-Include all seven, with readable equivalent Chinese copy. They may be grouped
-into a few quiet sections rather than seven prominent cards.
+The historical seven-item list below was superseded by the owner's
+3 October 2026 website services update: nine categories and 31 items, with
+Hormone & Menopause Health first. The current approved English and Chinese
+copy is in `draft/index.html` and `draft/site.js`. Do not restore the older
+three-category grouping or add standalone STI/cancer-screening items back
+when editing the new list.
+
+The original flyer request included these seven services, grouped into a few
+quiet sections with equivalent Chinese copy:
 
 1. Menopause support and hormone management — 更年期支持与激素管理
 2. Menstrual health and disorders — 月经健康与月经失调

@@ -39,3 +39,7 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 
 .wechat-and-social{align-self:start;min-width:0}.social-profiles{margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}.social-profiles h3{font-family:var(--sans);letter-spacing:1.4px}.social-profiles dl{display:grid;gap:16px;margin:18px 0 0}.social-profiles dl>div{display:grid;grid-template-columns:145px minmax(0,1fr);gap:5px 16px;align-items:baseline}.social-profiles dt{font-size:14px;font-weight:550;line-height:1.8}.social-profiles dd{margin:0;font-size:14px;line-height:1.8;color:var(--body);overflow-wrap:anywhere;user-select:all}
 @media(max-width:900px){.social-profiles dl>div{grid-template-columns:1fr;gap:3px}}
+
+/* Multi-row services keep quiet dividers and breathing room at every width. */
+@media(min-width:701px){.care-grid{border-top:0}.care-item,.care-item+.care-item{border-top:1px solid var(--line);padding-bottom:32px}.care-item h3{max-width:none;min-height:2.3em}html[lang="zh-CN"] .care-item h3{min-height:1.3em}.care-item:nth-child(3n+1){border-left:0;padding-left:0}.care-item:nth-child(3n){padding-right:0}}
+@media(min-width:701px) and (max-width:1000px){.care-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.care-item:nth-child(n){border-left:1px solid var(--line);padding-left:24px;padding-right:24px}.care-item:nth-child(2n+1){border-left:0;padding-left:0}.care-item:nth-child(2n){padding-right:0}}
