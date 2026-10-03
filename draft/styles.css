@@ -189,8 +189,10 @@ html[lang=zh-CN] .hero h1{font-size:clamp(50px,4.55vw,69px)}
 .connected-visual{height:196px;display:flex;align-items:center;justify-content:flex-start;margin-bottom:18px}
 .connected-visual .social-icon{width:64px;height:64px}
 .connected-grid h4{margin:0;font-family:var(--sans);font-size:15px;font-weight:550;line-height:1.6}
+.connected-profile h4.visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 .connected-grid .wechat-contact p,.social-handle{font-size:14px;line-height:1.8;color:var(--body);margin-top:9px;overflow-wrap:anywhere}
 .social-handle{user-select:all}
+.connected-profile .social-handle{margin-top:0}
 .connected-grid .qr-frame{width:100%;max-width:196px;padding:12px}
 .connected-grid .qr-frame img{width:calc(100% - 8px);height:auto;aspect-ratio:1}
 @media(min-width:701px) and (max-width:1000px){.practice-locations{column-gap:32px;grid-template-rows:auto auto auto}.practice{grid-row:2/span 2;grid-template-columns:1fr;grid-template-rows:subgrid;row-gap:18px}.practice:first-of-type{grid-column:1}.practice:last-of-type{grid-column:2}}

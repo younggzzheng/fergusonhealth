@@ -438,6 +438,10 @@ test('booking occupies the first row and official accounts share the lower row',
   ]);
   await expect(social.locator('a')).toHaveCount(0);
   await expect(social.locator('h4')).toHaveText(['Xiaohongshu · 小红书', 'Facebook', 'Instagram']);
+  await expect(social.locator('h4:not(.visually-hidden)')).toHaveCount(0);
+  for (const label of await social.locator('h4').all()) await expect(label).toHaveCSS('clip-path', 'inset(50%)');
+  await expect(page.getByRole('article', { name: 'Facebook', exact: true })).toHaveCount(1);
+  await expect(page.getByRole('article', { name: 'Instagram', exact: true })).toHaveCount(1);
   const position = await page.locator('.wechat-and-social').evaluate(group => ({
     groupTop: group.getBoundingClientRect().top,
     bookingBottom: document.querySelector('.practice-locations').getBoundingClientRect().bottom,
@@ -448,7 +452,7 @@ test('booking occupies the first row and official accounts share the lower row',
   expect(position.social.left).toBeGreaterThan(position.qr.right);
   const channels = await page.locator('.connected-grid > *').evaluateAll(elements => elements.map(element => ({
     card: element.getBoundingClientRect().toJSON(),
-    label: element.querySelector('h4').getBoundingClientRect().toJSON(),
+    label: (element.querySelector('.social-handle') || element.querySelector('h4')).getBoundingClientRect().toJSON(),
   })));
   expect(Math.abs(channels[0].label.top - channels[1].label.top)).toBeLessThan(1);
   if (isMobile) {
