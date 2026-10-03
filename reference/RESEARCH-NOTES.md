@@ -165,3 +165,6 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - Latest owner preference: all nine service disclosures are closed on initial
   load, including Hormone & Menopause Health. Retain click/keyboard expansion
   and preserve user-selected open states when switching languages.
+- Owner approved reducing the hero headline by approximately 8–10%, while
+  retaining its wording, intentional line break, and italic second line. Apply
+  the same proportional change to the Chinese headline and responsive sizes.

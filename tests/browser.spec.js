@@ -612,7 +612,7 @@ test('team panel stays light and the doctor introduction uses our own voice with
   await assertNoOverflow(page);
 });
 
-test('main section labels stay readable in both languages', async ({ page }) => {
+test('hero stays slightly smaller and section labels stay readable in both languages', async ({ page, isMobile }) => {
   await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
@@ -623,6 +623,11 @@ test('main section labels stay readable in both languages', async ({ page }) => 
     for (const label of await labels.all()) {
       await expect(label).toHaveCSS('font-size', '14px');
     }
+    const heroSize = await page.locator('.hero h1').evaluate(heading => parseFloat(getComputedStyle(heading).fontSize));
+    const expectedHeroSize = language === 'en' ? (isMobile ? 55.5 : 79.92) : (isMobile ? 43.5 : 65.52);
+    expect(heroSize).toBeCloseTo(expectedHeroSize, 1);
+    await expect(page.locator('.hero h1 br')).toHaveCount(1);
+    await expect(page.locator('.hero h1 em')).toHaveCount(1);
     await assertNoOverflow(page);
   }
 });
