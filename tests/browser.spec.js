@@ -457,6 +457,46 @@ test('header navigation keeps readable type in both languages', async ({ page, i
   }
 });
 
+test('Ferguson Plus has a compact local logo, bilingual group information and its own website link', async ({ page }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const card = page.locator('.plus-feature');
+  await expect(card.locator('h3')).toHaveText('Ferguson Plus');
+  await expect(card.locator('img')).toHaveCount(1);
+  const logo = card.locator('.plus-logo');
+  await expect(logo).toHaveAttribute('alt', 'Ferguson Plus logo');
+  const image = await logo.evaluate(element => ({
+    origin: new URL(element.src).origin,
+    pageOrigin: location.origin,
+    loaded: element.complete && element.naturalWidth > 0,
+    width: element.getBoundingClientRect().width,
+  }));
+  expect(image.origin).toBe(image.pageOrigin);
+  expect(image.loaded).toBe(true);
+  expect(image.width).toBeLessThanOrEqual(88);
+  await expect(card.locator('.plus-intro')).toContainText('brought together by Dr. Ferguson');
+  await expect(card.locator('.plus-specialties')).toContainText('Physical therapy');
+  await expect(card.locator('.plus-values li')).toHaveText([
+    'Compassion Across Cultures', 'Science with Understanding', 'Shared Health Journey',
+  ]);
+  const link = card.getByRole('link', { name: 'Visit Ferguson Plus' });
+  await expect(link).toHaveAttribute('href', 'https://www.theplushealth.org/');
+  await expect(link).toHaveAttribute('target', '_blank');
+  await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  await page.locator('[data-language-switch]').click();
+  await expect(card.locator('.plus-intro')).toHaveText('由吕医生与多位医学专业人士共同组织的多学科医疗健康团体。');
+  await expect(card.locator('.plus-specialties')).toContainText('物理治疗');
+  await expect(card.locator('.plus-values li')).toHaveText([
+    '跨文化的深度关怀', '科学与洞察并行', '健康旅程的同行者',
+  ]);
+  await expect(card.getByRole('link', { name: '了解 Ferguson Plus' })).toHaveAttribute('href', 'https://www.theplushealth.org/');
+  await assertNoOverflow(page);
+  await page.locator('[data-language-switch]').click();
+  await expect(card.locator('.plus-intro')).toContainText('brought together by Dr. Ferguson');
+  await assertNoOverflow(page);
+});
+
 test('navigation reaches contact and mobile menu closes on selection and Escape', async ({ page, isMobile }) => {
   await authenticate(page);
   await page.goto('/');

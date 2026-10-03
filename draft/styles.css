@@ -130,3 +130,16 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 
 /* Our own care philosophy replaces the external professional-profile promotion. */
 .about-copy .about-philosophy{margin-top:24px;padding-top:24px;border-top:1px solid var(--line)}
+
+/* A compact, self-hosted group logo leaves the focus on the collaboration. */
+.work-feature.plus-feature{display:block;padding:28px;background:#faf9fb;border:1px solid #ddd9e3;border-radius:8px}
+.plus-heading{display:flex;align-items:center;gap:24px}
+.plus-logo{width:88px;height:auto;flex-shrink:0}
+.plus-feature h3{margin-top:8px}
+.plus-feature p{font-size:14px;line-height:1.9;color:var(--body);margin-top:18px}
+.plus-feature .plus-intro{color:var(--ink)}
+.plus-feature .plus-specialties{font-size:12px;line-height:1.9;padding-top:18px;border-top:1px solid #e3dfe8}
+.plus-values{list-style:none;display:grid;gap:8px;padding:0;margin:20px 0 0}
+.plus-values li{font-size:13px;line-height:1.7;color:#285f60}
+.plus-feature .underlined-link{font-size:13px;margin-top:22px}
+@media(max-width:700px){.work-feature.plus-feature{padding:24px 20px}.plus-heading{gap:18px}.plus-logo{width:72px}.plus-feature p{font-size:14px}.plus-feature .plus-specialties{font-size:12px}}

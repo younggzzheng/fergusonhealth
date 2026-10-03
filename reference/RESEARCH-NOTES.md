@@ -26,9 +26,14 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - [Ferguson Plus](https://theplushealth.org/) and
   [its Dr. Michelle Lu-Ferguson profile](https://theplushealth.org/doctors/michelle-lu-ferguson.html):
   lists her as a gynaecologist/women’s health specialist in its multidisciplinary
-  Shanghai team. The website describes her as **part of the team**, without an
-  unverified founder, director, or ownership claim. The visible Her Work card
-  links to the group homepage.
+  Shanghai team. The owner's supplied Ferguson Plus flyer and October 2026
+  instructions describe the group as jointly organised by Dr. Ferguson and
+  fellow medical professionals. The expanded Her Work card uses this supplied
+  description, its six specialties and three values, without adding formal
+  founder, director or ownership titles. Its small original logo is hosted
+  locally, sourced unchanged from
+  `https://www.theplushealth.org/assets/ferguson-plus-logo.png`.
+  The card links to `https://www.theplushealth.org/`, verified to return HTTP 200.
 - [Am-Sino student medical-career programme, 12 May 2026](https://www.am-sino.com/en/news/latest-news/117):
   Dr. Ferguson introduced Shanghai Community International School students to
   women’s health from adolescence through menopause. This supplies the concise
