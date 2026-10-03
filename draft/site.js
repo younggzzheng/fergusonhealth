@@ -21,7 +21,7 @@
       profileApproach: '她以严谨的临床标准、国际化的医学培训背景和细致的沟通方式，广受本地及外籍社区的认可。',
       aboutPhilosophy: '在 Ferguson Health，我们认真倾听您的疑问，清晰解释诊疗选择，陪伴您走过人生的不同阶段。', signatureDetail: 'MD, FACOG · 妇产科 · 女性健康',
       careClosing: '了解您的需要，陪伴每一个阶段。', aboutClosing: '专业始于经验，关怀始于倾听。', workClosing: '分享知识，连接社区。', contactClosing: '欢迎提问，从交流开始。',
-      careEyebrow: '01 / 诊疗领域', careTitle: '陪伴每一个<br><em>不同的你。</em>', careIntro: '每一个人生阶段，都有新的疑问。留一些时间，听您慢慢说。',
+      careEyebrow: '01 / 诊疗领域', careTitle: '陪伴每一个<br><em>不同的你。</em>',
       careHormoneTitle: '激素与更年期', careMenopause: '围绝经期与绝经管理', careHRT: '激素替代治疗（HRT）', carePMOS: '多内分泌代谢性卵巢综合征（PMOS，原称多囊卵巢综合征）与内分泌评估', careHormoneChanges: '激素相关情绪、睡眠与体重变化',
       careGynecologyTitle: '妇科诊疗', careCervicalScreening: '宫颈筛查（HPV / TCT / 阴道镜）', careEndometrial: '月经异常与子宫内膜疾病', careGynecologicConditions: '子宫肌瘤、卵巢囊肿、内膜异位症', careVaginitis: '阴道炎、外阴皮肤病',
       careFertilityTitle: '生育与生殖', careFertilityAssessment: '生育力评估（AMH、卵巢储备）', carePreconception: '备孕与孕前咨询', careEarlyPregnancy: '早孕管理（至 12 周）', careHighRiskPregnancy: '高危妊娠咨询', careFertilityPreservation: '生育力保护',

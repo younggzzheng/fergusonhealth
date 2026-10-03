@@ -335,6 +335,7 @@ test('section closing lines stay understated and news precedes articles', async 
   if (isMobile) expect(arrangement[1].top).toBeGreaterThan(arrangement[0].bottom);
   else expect(arrangement[1].left).toBeGreaterThan(arrangement[0].right);
   await expect(page.locator('#contact .brand-mark')).toHaveCount(0);
+  await expect(page.locator('#care .care-aside, #care [data-i18n="careIntro"], #care .brand-mark')).toHaveCount(0);
   await assertNoOverflow(page);
   await page.locator('[data-language-switch]').click();
   await expect(closings).toHaveText([
@@ -389,7 +390,7 @@ test('official-account QR keeps its white margin inside the matching blue frame'
   await assertNoOverflow(page);
 });
 
-test('supplied social account names appear below the official WeChat code', async ({ page }) => {
+test('booking occupies the first row and official accounts share the lower row', async ({ page, isMobile }) => {
   await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
@@ -400,10 +401,25 @@ test('supplied social account names appear below the official WeChat code', asyn
   await expect(social.locator('a')).toHaveCount(0);
   await expect(social.locator('dt')).toHaveText(['Xiaohongshu · 小红书', 'Facebook', 'Instagram']);
   const position = await page.locator('.wechat-and-social').evaluate(group => ({
-    qrBottom: group.querySelector('.wechat-contact').getBoundingClientRect().bottom,
-    socialTop: group.querySelector('.social-profiles').getBoundingClientRect().top,
+    groupTop: group.getBoundingClientRect().top,
+    bookingBottom: document.querySelector('.practice-locations').getBoundingClientRect().bottom,
+    qr: group.querySelector('.wechat-contact').getBoundingClientRect().toJSON(),
+    social: group.querySelector('.social-profiles').getBoundingClientRect().toJSON(),
   }));
-  expect(position.socialTop).toBeGreaterThan(position.qrBottom);
+  expect(position.groupTop).toBeGreaterThan(position.bookingBottom);
+  if (isMobile) expect(position.social.top).toBeGreaterThan(position.qr.bottom);
+  else expect(position.social.left).toBeGreaterThan(position.qr.right);
+  const booking = await page.locator('.practice').evaluateAll(practices => practices.map(practice => ({
+    text: practice.querySelector('.practice-details').getBoundingClientRect().toJSON(),
+    code: practice.querySelector('.appointment-code').getBoundingClientRect().toJSON(),
+    card: practice.getBoundingClientRect().toJSON(),
+  })));
+  for (const practice of booking) {
+    expect(Math.abs(practice.code.top - practice.text.top)).toBeLessThan(1);
+    expect(practice.code.left).toBeGreaterThan(practice.text.right);
+  }
+  if (isMobile) expect(booking[1].card.top).toBeGreaterThan(booking[0].card.bottom);
+  else expect(booking[1].card.left).toBeGreaterThan(booking[0].card.right);
   await page.locator('[data-language-switch]').click();
   await expect(social.locator('h3')).toHaveText('关注我们');
   await expect(social.locator('dt')).toHaveText(['小红书', 'Facebook', 'Instagram']);
@@ -504,7 +520,7 @@ test('section colors and decorative marks use the local brand and platform asset
   await expect(page.locator('#contact')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
   await expect(page.locator('use[href="#flower"], use[href="#sprig"], .tiny-star')).toHaveCount(0);
   const marks = page.locator('.brand-mark');
-  await expect(marks).toHaveCount(4);
+  await expect(marks).toHaveCount(3);
   for (const mark of await marks.all()) {
     await expect(mark).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
   }

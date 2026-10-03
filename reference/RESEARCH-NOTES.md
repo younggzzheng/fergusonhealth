@@ -141,3 +141,13 @@ expandable section in **03 / Her work** so the initial page stays concise.
   proposal requires specific review. References:
   [SAMR medical advertising rules, Article 7](https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/ggjgs/art/2023/art_6584dc1c94c2408db7c73f0b5e3d225a.html),
   [internet advertising rules, Article 8](https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/fgs/art/2023/art_d93a579afd45413e8576e4623fab348f.html).
+
+- Owner layout revision: both clinic appointment codes occupy the first full-width
+  contact row; official WeChat and social accounts occupy the row below. Keep
+  clinic details close to their code instead of stretching them to the height of
+  the social block. On phones, stack the clinics while pairing each address with
+  its QR. Preserve the original QR assets, white margins, and blue frames.
+- The owner approved removing the care section's repeated small shell logo and
+  the “Different chapters bring different questions” introduction in both
+  languages. Keep its main headline, service accordion, closing line, and subtle
+  shell-and-pearl background.
