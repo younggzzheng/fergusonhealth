@@ -5,8 +5,10 @@
     zh: {
       skip: '跳转到正文', navAbout: '认识吕医生', navCare: '诊疗领域', navWork: '专业经历', navContact: '联系咨询',
       heroEyebrow: '用心了解，关爱女性健康', heroTitle: '关爱人生的<br><em>每一个阶段。</em>',
-      heroIntro: '认识吕明旭医生（Dr. Michelle Lu-Ferguson）。在上海提供个体化的妇科照护，关爱女性人生的每一个阶段。', heroCta: '了解吕医生',
-      heroName: '吕明旭医生 · MD, FACOG', heroLocation: '中国 · 上海', portraitName: '吕明旭医生', portraitDetail: '妇产科', heroBottom: '专业、关怀，以及多一份理解。',
+      heroWhoTitle: '我们是谁', heroIntro: '我们是一支专注女性健康的团队，以清晰沟通、科学诊疗和长期陪伴为核心。', heroCta: '了解吕医生',
+      missionTitle: '使命', missionBody: '以科学、可信赖的方式，帮助每位女性更好地了解自己，做出清晰而自信的健康选择。',
+      visionTitle: '愿景', visionBody: '以国际标准的诊疗体系，让每位女性拥有更健康、更有力量的生活。',
+      heroLocation: '中国 · 上海', portraitName: '吕明旭医生', portraitDetail: '妇产科', heroBottom: '专业、关怀，以及多一份理解。',
       aboutEyebrow: '01 / 认识吕医生', aboutTitle: '医生。<br>倾听者。<br><em>健康路上的同行者。</em>', aboutLead: '好的照护，从倾听开始。',
       aboutBody: '吕明旭医生是美国妇产科专科认证医生，也是美国妇产科医师学会会士（FACOG）。',
       aboutBody2: '她的经历涵盖临床诊疗、医学教育及女性健康领域的管理工作。目前在上海美华丁香门诊部和百汇新天地医疗中心执业，可使用英语和普通话交流。', profileLink: '查看官方医生简介', signatureDetail: 'MD, FACOG · 妇产科',

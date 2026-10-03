@@ -159,6 +159,50 @@ test('both languages render without broken resources, broken links or overflow',
   expect(failures).toEqual([]);
 });
 
+test('team introduction keeps the hero headline and moves the portrait to the doctor profile', async ({ page, isMobile }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  await expect(page.locator('#hero-title')).toHaveText('For every chapterof your life.');
+  await expect(page.locator('.hero .doctor-photo')).toHaveCount(0);
+  await expect(page.locator('.hero-who-title')).toHaveText('Who We Are');
+  await expect(page.locator('.hero-intro')).toHaveText('We are a women’s health team committed to clear communication, evidence-based care, and long-term support.');
+  await expect(page.locator('.purpose-item h2')).toHaveText(['Mission', 'Vision']);
+  await expect(page.locator('.purpose-item p')).toHaveText([
+    'To provide reliable, evidence-based care that helps every woman understand her body and make confident health decisions.',
+    'Bringing international standards of women’s healthcare to every woman, supporting her health and quality of life.',
+  ]);
+  const portrait = page.locator('#about .doctor-photo');
+  await expect(portrait).toHaveCount(1);
+  await expect(page.locator('.doctor-photo')).toHaveCount(1);
+  await portrait.scrollIntoViewIfNeeded();
+  await expect(portrait).toBeVisible();
+  await expect.poll(() => portrait.evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
+  await expect(page.locator('#about .about-portrait figcaption span')).toHaveText(['Dr. Michelle Lu-Ferguson', 'Obstetrics & Gynaecology']);
+  if (isMobile) {
+    const order = await page.locator('.about-grid').evaluate(grid => ({
+      headingBottom: grid.querySelector('.section-heading').getBoundingClientRect().bottom,
+      portraitTop: grid.querySelector('.about-portrait').getBoundingClientRect().top,
+      portraitBottom: grid.querySelector('.about-portrait').getBoundingClientRect().bottom,
+      copyTop: grid.querySelector('.about-copy').getBoundingClientRect().top,
+    }));
+    expect(order.portraitTop).toBeGreaterThan(order.headingBottom);
+    expect(order.copyTop).toBeGreaterThan(order.portraitBottom);
+  }
+  await assertNoOverflow(page);
+  await page.locator('[data-language-switch]').click();
+  await expect(page.locator('#hero-title')).toHaveText('关爱人生的每一个阶段。');
+  await expect(page.locator('.hero-who-title')).toHaveText('我们是谁');
+  await expect(page.locator('.hero-intro')).toHaveText('我们是一支专注女性健康的团队，以清晰沟通、科学诊疗和长期陪伴为核心。');
+  await expect(page.locator('.purpose-item h2')).toHaveText(['使命', '愿景']);
+  await expect(page.locator('.purpose-item p')).toHaveText([
+    '以科学、可信赖的方式，帮助每位女性更好地了解自己，做出清晰而自信的健康选择。',
+    '以国际标准的诊疗体系，让每位女性拥有更健康、更有力量的生活。',
+  ]);
+  await expect(page.locator('#about .about-portrait figcaption span')).toHaveText(['吕明旭医生', '妇产科']);
+  await assertNoOverflow(page);
+});
+
 test('official-account QR keeps its white margin inside the matching blue frame', async ({ page }) => {
   await authenticate(page);
   await page.goto('/');
