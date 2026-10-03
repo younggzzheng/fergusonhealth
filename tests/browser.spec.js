@@ -372,7 +372,9 @@ test('balanced team panel leads to services before the doctor profile', async ({
   await expect(page).toHaveURL(/#care$/);
   await expect(page.locator('#care')).toBeInViewport();
   await page.locator('[data-language-switch]').click();
-  await expect(page.locator('[data-i18n="careEyebrow"]')).toHaveText('01 / 诊疗领域');
+  await expect(page.locator('[data-i18n="careEyebrow"]')).toHaveText('01 / 咨询领域');
+  await expect(page.locator('[data-i18n="navCare"]')).toHaveText(['咨询领域', '咨询领域']);
+  await expect(page.locator('[data-i18n="contactBody"]')).toContainText('如需了解更多信息，欢迎通过电子邮件联系我们。');
   await expect(page.locator('[data-i18n="aboutEyebrow"]')).toHaveText('02 / 认识吕医生');
   await expect(page.locator('[data-i18n="heroCta"]')).toHaveText('了解我们的诊疗服务');
   await assertNoOverflow(page);
@@ -398,6 +400,7 @@ test('booking occupies the first row and official accounts share the lower row',
   await waitForRenderedPage(page);
   const social = page.locator('.connected-profile');
   await expect(page.locator('#connected-title')).toHaveText('Stay connected');
+  await expect(page.locator('[data-i18n="contactBody"]')).toContainText('For more information, get in touch by email.');
   await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('Scan for news & updates.');
   await expect(page.locator('[data-i18n="wechatNote"], [data-i18n="socialTitle"]')).toHaveCount(0);
   await expect(page.locator('.practice h4')).toHaveText(['1. Am-Sino Ding Xiang Clinic', '2. Parkway MediCentre Xintiandi']);
@@ -476,7 +479,7 @@ test('nine unnumbered service categories put hormone and menopause health first'
   await expect(cards.locator('h3')).toHaveText([
     'Hormone & Menopause Health', 'Women’s Preventive Health', 'Gynecologic Care', 'Reproductive & Fertility Health',
     'Contraception & Family Planning', 'Sexual & Vulvovaginal Health', 'Adolescent Health',
-    'Minimally Invasive Surgery', 'Pelvic Floor Health',
+    'Minimally Invasive Procedures', 'Pelvic Floor Health',
   ]);
   await expect(cards.locator('.care-list li')).toHaveText([
     'Perimenopause and menopause care', 'Hormone replacement therapy (HRT)',
@@ -510,8 +513,8 @@ test('nine unnumbered service categories put hormone and menopause health first'
   await page.locator('[data-language-switch]').click();
   await expect(page.locator('#care-title')).toHaveText('陪伴每一个不同的你。');
   await expect(cards.locator('h3')).toHaveText([
-    '激素与更年期', '女性长期健康', '妇科诊疗', '生育与生殖', '避孕与家庭计划', '性健康与外阴阴道',
-    '青少年女性健康', '微创妇科手术', '盆底健康',
+    '激素与更年期', '女性长期健康', '妇科咨询', '生育与生殖', '避孕与家庭计划', '性健康与外阴阴道',
+    '青少年女性健康', '妇科微创诊疗', '盆底健康',
   ]);
   await expect(cards.locator('.care-list li')).toHaveText([
     '围绝经期与绝经管理', '激素替代治疗（HRT）', '多内分泌代谢性卵巢综合征（PMOS，原称多囊卵巢综合征）与内分泌评估', '激素相关情绪、睡眠与体重变化',

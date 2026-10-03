@@ -175,3 +175,10 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - Owner biography clarification: describe the post-residency faculty work as
   clinical care, medical education, and **clinical research**, rather than the
   less specific “research”; Chinese uses “临床照护、医学教育与临床研究”.
+- Owner wording updates: use “咨询领域” for the Chinese navigation and
+  service-section label; “Minimally Invasive Procedures” /
+  “妇科微创诊疗” for the category, without changing its service list. Contact
+  copy now invites questions for “more information” / “更多信息”.
+- The owner also renamed “妇科诊疗” to “妇科咨询”; retain the existing four
+  service entries. Per the owner's subsequent clarification, preserve the
+  English labels “Areas of care” and “Gynecologic Care”.
