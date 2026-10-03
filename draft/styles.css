@@ -134,7 +134,7 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 /* A compact, self-hosted group logo leaves the focus on the collaboration. */
 .work-feature.plus-feature{display:block;padding:28px;background:#faf9fb;border:1px solid #ddd9e3;border-radius:8px}
 .plus-heading{display:flex;align-items:center;gap:24px}
-.plus-logo{width:88px;height:auto;flex-shrink:0}
+.plus-logo{width:72px;height:auto;flex-shrink:0}
 .plus-feature h3{margin-top:8px}
 .plus-feature p{font-size:14px;line-height:1.9;color:var(--body);margin-top:18px}
 .plus-feature .plus-intro{color:var(--ink)}
@@ -142,7 +142,14 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 .plus-values{list-style:none;display:grid;gap:8px;padding:0;margin:20px 0 0}
 .plus-values li{font-size:13px;line-height:1.7;color:#285f60}
 .plus-feature .underlined-link{font-size:13px;margin-top:22px}
-@media(max-width:700px){.work-feature.plus-feature{padding:24px 20px}.plus-heading{gap:18px}.plus-logo{width:72px}.plus-feature p{font-size:14px}.plus-feature .plus-specialties{font-size:12px}}
+@media(max-width:700px){.work-feature.plus-feature{padding:24px 20px}.plus-heading{gap:18px}.plus-logo{width:64px}.plus-feature p{font-size:14px}.plus-feature .plus-specialties{font-size:12px}}
+.plus-details{margin-top:20px;border-top:1px solid #e3dfe8}
+.plus-details summary{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 0;list-style:none;cursor:pointer;font-size:13px;line-height:1.7}
+.plus-details summary::-webkit-details-marker{display:none}
+.plus-details[open] .details-toggle:after{transform:none}
+.plus-details .plus-specialties{margin-top:0;padding-top:0;border-top:0}
+.plus-details .plus-values{margin-top:16px;padding-bottom:8px}
+.plus-feature .underlined-link{margin-top:12px}
 
 /* Keep the full supplied biography available without overwhelming the profile. */
 .profile-name{font-size:26px;line-height:1.4;letter-spacing:-.3px}

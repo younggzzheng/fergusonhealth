@@ -50,6 +50,9 @@ expandable section in **03 / Her work** so the initial page stays concise.
   locally, sourced unchanged from
   `https://www.theplushealth.org/assets/ferguson-plus-logo.png`.
   The card links to `https://www.theplushealth.org/`, verified to return HTTP 200.
+  After the owner requested a shorter card, its default view keeps the small
+  logo, one-sentence group introduction and homepage link. Six specialties and
+  three values remain available in a keyboard-accessible native disclosure.
 - [Am-Sino student medical-career programme, 12 May 2026](https://www.am-sino.com/en/news/latest-news/117):
   Dr. Ferguson introduced Shanghai Community International School students to
   women’s health from adolescence through menopause. This supplies the concise

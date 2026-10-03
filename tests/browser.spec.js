@@ -165,7 +165,10 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await waitForRenderedPage(page);
   await expect(page.locator('.profile-name')).toHaveText('Dr. Michelle Lu-Ferguson, MD, FACOG');
   await expect(page.locator('.profile-role')).toHaveText('Founder & President, Ferguson Women’s Health');
-  await expect(page.locator('[data-i18n="aboutBody"]')).toContainText('decades of clinical experience across the United States and China');
+  const introduction = page.locator('[data-i18n-html="aboutBody"]');
+  await expect(introduction).toContainText('decades of clinical experience across the United States and China');
+  await expect(introduction.locator('strong')).toHaveText('American board-certified OB/GYN specialist and a Fellow of the American College of Obstetricians and Gynecologists (FACOG).');
+  expect(await introduction.locator('strong').evaluate(element => Number(getComputedStyle(element).fontWeight))).toBeGreaterThanOrEqual(600);
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('PMOS (Polyendocrine Metabolic Ovarian Syndrome)');
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('complex and high-risk prenatal situations');
   await expect(page.locator('[data-i18n="aboutPractice"]')).toContainText('English and Mandarin');
@@ -191,6 +194,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await page.locator('[data-language-switch]').click();
   await expect(details).toHaveAttribute('open', '');
   await expect(page.locator('.profile-name')).toHaveText('吕明旭医生，MD, FACOG');
+  await expect(introduction.locator('strong')).toHaveText('美国妇产科专科认证医生，也是美国妇产科医师学会会士（FACOG）。');
   await expect(page.locator('.profile-role')).toHaveText('Ferguson Women’s Health 创始人兼总裁');
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('复杂及高危孕期情况');
   await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('俄亥俄医科大学（Medical University of Ohio）取得医学博士（MD）学位');
@@ -203,6 +207,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await expect(details).not.toHaveAttribute('open');
   await page.locator('[data-language-switch]').click();
   await expect(page.locator('.profile-role')).toHaveText('Founder & President, Ferguson Women’s Health');
+  await expect(introduction.locator('strong')).toContainText('American board-certified OB/GYN specialist');
   await assertNoOverflow(page);
 });
 
@@ -523,6 +528,16 @@ test('Ferguson Plus has a compact local logo, bilingual group information and it
   expect(image.loaded).toBe(true);
   expect(image.width).toBeLessThanOrEqual(88);
   await expect(card.locator('.plus-intro')).toContainText('brought together by Dr. Ferguson');
+  await expect(card.locator('[data-i18n="plusBody"]')).toHaveCount(0);
+  const details = card.locator('.plus-details');
+  const summary = details.locator('summary');
+  await expect(details).not.toHaveAttribute('open');
+  await expect(card.locator('.plus-specialties')).not.toBeVisible();
+  await expect(card.locator('.plus-values')).not.toBeVisible();
+  await summary.focus();
+  await page.keyboard.press('Enter');
+  await expect(details).toHaveAttribute('open', '');
+  await expect(card.locator('.plus-specialties')).toBeVisible();
   await expect(card.locator('.plus-specialties')).toContainText('Physical therapy');
   await expect(card.locator('.plus-values li')).toHaveText([
     'Compassion Across Cultures', 'Science with Understanding', 'Shared Health Journey',
@@ -532,12 +547,17 @@ test('Ferguson Plus has a compact local logo, bilingual group information and it
   await expect(link).toHaveAttribute('target', '_blank');
   await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   await page.locator('[data-language-switch]').click();
+  await expect(details).toHaveAttribute('open', '');
   await expect(card.locator('.plus-intro')).toHaveText('由吕医生与多位医学专业人士共同组织的多学科医疗健康团体。');
   await expect(card.locator('.plus-specialties')).toContainText('物理治疗');
   await expect(card.locator('.plus-values li')).toHaveText([
     '跨文化的深度关怀', '科学与洞察并行', '健康旅程的同行者',
   ]);
   await expect(card.getByRole('link', { name: '了解 Ferguson Plus' })).toHaveAttribute('href', 'https://www.theplushealth.org/');
+  await summary.focus();
+  await page.keyboard.press('Space');
+  await expect(details).not.toHaveAttribute('open');
+  await expect(card.locator('.plus-values')).not.toBeVisible();
   await assertNoOverflow(page);
   await page.locator('[data-language-switch]').click();
   await expect(card.locator('.plus-intro')).toContainText('brought together by Dr. Ferguson');
