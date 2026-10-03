@@ -133,6 +133,13 @@ test('all five languages render without broken resources, broken links or overfl
     await page.locator(`[data-language="${language === 'zh-CN' ? 'zh' : language}"]`).click();
     await expect(page.locator('html')).toHaveAttribute('lang', language);
     await expect(page).toHaveTitle(language === 'zh-CN' ? 'Ferguson 女性健康' : "Ferguson Women's Health");
+    await expect(page.locator('[data-i18n="careFertilityAssessment"]')).toHaveText({
+      en: 'Fertility evaluation and management',
+      'zh-CN': '生育力评估与管理',
+      fr: 'Évaluation et prise en charge de la fertilité',
+      de: 'Fertilitätsdiagnostik und -management',
+      es: 'Evaluación y manejo de la fertilidad',
+    }[language]);
     expect(await page.locator('#hero-title').innerText()).not.toContain('undefined');
     await assertNoOverflow(page);
     await assertLinks(page);
@@ -285,6 +292,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await expect(page.locator('[data-i18n="aboutBody2"]')).toBeHidden();
   const details = page.locator('.profile-details');
   const summary = details.locator('summary');
+  await expect(summary.locator('[data-i18n="profileDetailsTitle"]')).toHaveText('Clinical focus & medical training');
   await expect(details).not.toHaveAttribute('open');
   await summary.focus();
   await page.keyboard.press('Enter');
@@ -314,6 +322,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await page.locator('[data-language-switch]').click();
   await expect(details).toHaveAttribute('open', '');
   await expect(page.locator('.profile-name')).toHaveText('吕明旭医生，MD, FACOG');
+  await expect(summary.locator('[data-i18n="profileDetailsTitle"]')).toHaveText('咨询重点与医学背景');
   await expect(introduction.locator('strong')).toHaveText(['美国妇产科专科认证医生', '美国妇产科医师学会会士（FACOG）。']);
   await expect(page.locator('.profile-role')).toHaveText('Ferguson Women’s Health 创始人兼总裁');
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('复杂及高危孕期情况');
@@ -554,7 +563,7 @@ test('nine unnumbered service categories put hormone and menopause health first'
     'Chronic conditions and hormone management', 'Weight and lifestyle medicine',
     'Cervical screening (HPV / TCT / colposcopy)', 'Menstrual disorders and endometrial disease',
     'Uterine fibroids, ovarian cysts and endometriosis', 'Vaginitis and vulvar skin conditions',
-    'Fertility assessment (AMH and ovarian reserve)', 'Preconception planning and counseling',
+    'Fertility evaluation and management', 'Preconception planning and counseling',
     'Early pregnancy care (up to 12 weeks)', 'High risk pregnancy consultation', 'Fertility preservation',
     'Intrauterine devices (IUDs)', 'Contraceptive implants', 'Individualized contraceptive medication choices',
     'Sexual pain (dyspareunia and vaginismus)', 'Vulvar skin conditions (including lichen sclerosus)',
@@ -579,14 +588,14 @@ test('nine unnumbered service categories put hormone and menopause health first'
   await page.locator('[data-language-switch]').click();
   await expect(page.locator('#care-title')).toHaveText('陪伴每一个不同的你。');
   await expect(cards.locator('h3')).toHaveText([
-    '激素与更年期', '女性长期健康', '妇科咨询', '生育与生殖', '避孕与家庭计划', '性健康与外阴阴道',
+    '激素与更年期', '女性长期健康', '妇科咨询', '生育与生殖', '避孕与家庭计划', '性健康与外阴阴道健康',
     '青少年女性健康', '微创手术咨询', '盆底健康',
   ]);
   await expect(cards.locator('.care-list li')).toHaveText([
     '围绝经期与绝经管理', '激素替代治疗（HRT）', '多内分泌代谢性卵巢综合征（PMOS，原称多囊卵巢综合征）与内分泌评估', '激素相关情绪、睡眠与体重变化',
     '骨密度与骨健康', '心血管与绝经风险评估', '慢性病与激素管理', '体重与生活方式医学',
     '宫颈筛查（HPV / TCT / 阴道镜）', '月经异常与子宫内膜疾病', '子宫肌瘤、卵巢囊肿、内膜异位症', '阴道炎、外阴皮肤病',
-    '生育力评估（AMH、卵巢储备）', '备孕与孕前咨询', '早孕管理（至 12 周）', '高危妊娠咨询', '生育力保护',
+    '生育力评估与管理', '备孕与孕前咨询', '早孕管理（至 12 周）', '高危妊娠咨询', '生育力保护',
     '宫内节育器（IUD）', '皮下埋植', '药物避孕个体化选择',
     '性疼痛（性交痛、阴道痉挛）', '外阴皮肤病（硬化性苔藓等）', '绝经相关泌尿生殖综合征（GSM）',
     '初潮与青春期咨询', '青少年月经问题', '性教育与避孕指导',
