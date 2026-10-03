@@ -89,6 +89,13 @@ test('all five languages render without broken resources, broken links or overfl
     await expect(page.locator('.profile-identity > h3, .profile-identity > p')).toHaveCount(3);
     await expect(page.locator('.profile-identity [data-i18n="signatureDetail"]')).toContainText('MD, FACOG');
     await expect(page.locator('.profile-identity .profile-role')).not.toBeEmpty();
+    const identityMetaStyles = await page.locator('.profile-identity > p').evaluateAll(elements => elements.map(element => {
+      const style = getComputedStyle(element);
+      return { color: style.color, fontSize: style.fontSize, fontFamily: style.fontFamily, fontWeight: style.fontWeight, lineHeight: style.lineHeight };
+    }));
+    expect(identityMetaStyles).toHaveLength(2);
+    expect(identityMetaStyles[1]).toEqual(identityMetaStyles[0]);
+    expect(identityMetaStyles[0].color).toBe('rgb(89, 100, 116)');
     const identityLayout = await page.locator('.profile-identity').evaluate(identity => [...identity.children].map(element => {
       const { left, top, bottom } = element.getBoundingClientRect();
       return { left, top, bottom };
