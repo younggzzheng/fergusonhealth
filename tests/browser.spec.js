@@ -173,6 +173,27 @@ test('official-account QR keeps its white margin inside the matching blue frame'
   await assertNoOverflow(page);
 });
 
+test('supplied social account names appear below the official WeChat code', async ({ page }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const social = page.locator('.social-profiles');
+  await expect(social.locator('dd')).toHaveText([
+    '@Ferguson健康咨询上海', '@FergusonHealth_SH', '@FergusonHealth_SH',
+  ]);
+  await expect(social.locator('a')).toHaveCount(0);
+  await expect(social.locator('dt')).toHaveText(['Xiaohongshu · 小红书', 'Facebook', 'Instagram']);
+  const position = await page.locator('.wechat-and-social').evaluate(group => ({
+    qrBottom: group.querySelector('.wechat-contact').getBoundingClientRect().bottom,
+    socialTop: group.querySelector('.social-profiles').getBoundingClientRect().top,
+  }));
+  expect(position.socialTop).toBeGreaterThan(position.qrBottom);
+  await page.locator('[data-language-switch]').click();
+  await expect(social.locator('h3')).toHaveText('关注我们');
+  await expect(social.locator('dt')).toHaveText(['小红书', 'Facebook', 'Instagram']);
+  await assertNoOverflow(page);
+});
+
 test('general gynaecology leads areas of care with STI and cancer screening', async ({ page }) => {
   await authenticate(page);
   await page.goto('/');
