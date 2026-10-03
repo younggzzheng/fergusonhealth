@@ -74,7 +74,7 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 @media(max-width:700px){.hero{row-gap:32px}.hero-team{padding:32px 24px;border-radius:64px 64px 8px 8px}.team-flower{width:40px;height:40px;margin-bottom:18px}.purpose-grid{grid-template-columns:minmax(0,1fr);gap:24px}.purpose-item+.purpose-item{border-top:1px solid var(--line);padding-top:24px}.about-grid{grid-template-columns:minmax(0,1fr);gap:30px}.about-grid .section-heading,.about-portrait,.about-copy{grid-column:1;grid-row:auto}.about-portrait{max-width:430px;margin-inline:auto}.about-portrait figcaption{font-size:10px;padding-top:13px}.hero-bottom{margin-top:0}}
 
 /* Soft section colors keep the navy-and-orange brand calm and distinct. */
-.hero-team{background:#eee8de;border-color:#ded8cc}
+.hero-team{background:#f6f4ef;border-color:#e8e4dc}
 .care-section{background:#edf2f8}
 .about-section{background:#f5eee5}
 .work-section{background:#f0edf4;border-color:#ded9e5}
@@ -127,3 +127,6 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 .footer-main>p{font-size:26px;font-style:normal;letter-spacing:.2px}
 @media(max-width:1000px){.hero::before{background-position:right -180px top 60px;background-size:350px auto}}
 @media(max-width:700px){.hero::before{background-size:270px auto;background-position:right -155px top 45px;opacity:.12}.care-section::before{background-size:250px auto;background-position:right -125px top 24px;opacity:.12}.contact-section::before{background-size:280px auto;background-position:right -130px top 25px;opacity:.12}.footer-main>p{font-size:24px}}
+
+/* Our own care philosophy replaces the external professional-profile promotion. */
+.about-copy .about-philosophy{margin-top:24px;padding-top:24px;border-top:1px solid var(--line)}

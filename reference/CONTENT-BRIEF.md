@@ -70,7 +70,9 @@ Entrance on Zhenning Road.
 
 淮海中路138号，上海广场3楼
 
-Keep the public [Parkway profile](https://www.parkwayshanghai.com/en/medical-teams-338)
-as an external reference where useful. The latest supplied flyer takes priority
+Keep the [Parkway profile](https://www.parkwayshanghai.com/en/medical-teams-338)
+as a background credential source only. The owner requested removing the visible
+professional-profile link in favour of Ferguson Health's own voice. Do not restore
+that promotional link during later edits. The latest supplied flyer takes priority
 over the earlier draft for services and practice locations. Chinese service
 descriptions here are draft translations of the English flyer.

@@ -11,7 +11,7 @@
       heroLocation: '中国 · 上海', portraitName: '吕明旭医生', portraitDetail: '妇产科', heroBottom: '专业、关怀，以及多一份理解。',
       aboutEyebrow: '02 / 认识吕医生', aboutTitle: '医生。<br>倾听者。<br><em>健康路上的同行者。</em>', aboutLead: '好的照护，从倾听开始。',
       aboutBody: '吕明旭医生是美国妇产科专科认证医生，也是美国妇产科医师学会会士（FACOG）。',
-      aboutBody2: '她的经历涵盖临床诊疗、医学教育及女性健康领域的管理工作。目前在上海美华丁香门诊部和百汇新天地医疗中心执业，可使用英语和普通话交流。', profileLink: '查看官方医生简介', signatureDetail: 'MD, FACOG · 妇产科',
+      aboutBody2: '她的经历涵盖临床诊疗、医学教育及女性健康领域的管理工作。目前在上海美华丁香门诊部和百汇新天地医疗中心执业，可使用英语和普通话交流。', aboutPhilosophy: '在 Ferguson Health，我们认真倾听您的疑问，清晰解释诊疗选择，陪伴您走过人生的不同阶段。', signatureDetail: 'MD, FACOG · 妇产科',
       careEyebrow: '01 / 诊疗领域', careTitle: '陪伴每一个<br><em>不同的你。</em>', careIntro: '每一个人生阶段，都有新的疑问。留一些时间，听您慢慢说。',
       careHormoneTitle: '激素与更年期', careMenopause: '围绝经期与绝经管理', careHRT: '激素替代治疗（HRT）', carePMOS: '多内分泌代谢性卵巢综合征（PMOS，原称多囊卵巢综合征）与内分泌评估', careHormoneChanges: '激素相关情绪、睡眠与体重变化',
       careGynecologyTitle: '妇科诊疗', careCervicalScreening: '宫颈筛查（HPV / TCT / 阴道镜）', careEndometrial: '月经异常与子宫内膜疾病', careGynecologicConditions: '子宫肌瘤、卵巢囊肿、内膜异位症', careVaginitis: '阴道炎、外阴皮肤病',

@@ -401,6 +401,21 @@ test('shell and pearl backgrounds stay decorative and the official slogan is ret
   }
 });
 
+test('team panel stays light and the doctor introduction uses our own voice without a Parkway promotion', async ({ page }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  await expect(page.locator('.hero-team')).toHaveCSS('background-color', 'rgb(246, 244, 239)');
+  await expect(page.locator('a[href*="parkwayshanghai.com"]')).toHaveCount(0);
+  await expect(page.locator('[data-i18n="profileLink"]')).toHaveCount(0);
+  await expect(page.locator('[data-i18n="aboutPhilosophy"]')).toHaveText('At Ferguson Health, we make space for your questions, explain your options clearly, and support you through each stage of life.');
+  await assertNoOverflow(page);
+  await page.locator('[data-language-switch]').click();
+  await expect(page.locator('[data-i18n="aboutPhilosophy"]')).toHaveText('在 Ferguson Health，我们认真倾听您的疑问，清晰解释诊疗选择，陪伴您走过人生的不同阶段。');
+  await expect(page.locator('#about')).not.toContainText('查看官方医生简介');
+  await assertNoOverflow(page);
+});
+
 test('main section labels stay readable in both languages', async ({ page }) => {
   await authenticate(page);
   await page.goto('/');

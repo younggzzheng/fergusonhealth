@@ -11,8 +11,9 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - [Parkway professional profile](https://www.parkwayshanghai.com/en/medical-teams-338):
   American board certification, FACOG, obstetrics and gynaecology background,
   Robert Wood Johnson training and faculty work, teaching and clinical research,
-  and English/Mandarin consultations. The **Meet Dr. Ferguson** profile link uses
-  this page.
+  and English/Mandarin consultations. Retain this as a background source only:
+  on 3 October 2026 the owner requested removing the visible Parkway profile
+  link and replacing it with Ferguson Health's own care philosophy.
 - [Am-Sino professional profile](https://www.am-sino.com/en/medical-services/team/122.html):
   residency and faculty work at Robert Wood Johnson; clinical practice, resident
   and medical-student teaching, and research; return to China in 2005; clinical
