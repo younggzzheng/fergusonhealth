@@ -327,6 +327,12 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   await expect(page.locator('.hero-who-title')).toHaveText('我们是谁');
   await expect(page.locator('.hero-intro')).toHaveText('我们是一支专注女性健康的团队，以清晰沟通、科学诊疗和长期陪伴为核心。');
   await expect(page.locator('.purpose-item h2')).toHaveText(['使命', '愿景']);
+  const chineseHeadings = await page.locator('.hero-who-title, .purpose-item h2').evaluateAll(elements => elements.map(element => {
+    const style = getComputedStyle(element);
+    return [style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight, style.letterSpacing];
+  }));
+  expect(chineseHeadings).toHaveLength(3);
+  for (const style of chineseHeadings) expect(style).toEqual(chineseHeadings[0]);
   await expect(page.locator('.purpose-item p')).toHaveText([
     '以科学、可信赖的方式，帮助每位女性更好地了解自己，做出清晰而自信的健康选择。',
     '以国际标准的诊疗体系，让每位女性拥有更健康、更有力量的生活。',
