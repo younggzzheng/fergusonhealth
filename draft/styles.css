@@ -37,6 +37,9 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 .eyebrow,.hero-copy .eyebrow{font-size:14px}
 .hero-copy .eyebrow{max-width:100%}
 
+/* Unnumbered service categories no longer need a mobile number gutter. */
+@media(max-width:700px){.care-item,.care-item+.care-item{padding-left:0}}
+
 .wechat-and-social{align-self:start;min-width:0}.social-profiles{margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}.social-profiles h3{font-family:var(--sans);letter-spacing:1.4px}.social-profiles dl{display:grid;gap:16px;margin:18px 0 0}.social-profiles dl>div{display:grid;grid-template-columns:145px minmax(0,1fr);gap:5px 16px;align-items:baseline}.social-profiles dt{font-size:14px;font-weight:550;line-height:1.8}.social-profiles dd{margin:0;font-size:14px;line-height:1.8;color:var(--body);overflow-wrap:anywhere;user-select:all}
 @media(max-width:900px){.social-profiles dl>div{grid-template-columns:1fr;gap:3px}}
 

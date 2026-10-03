@@ -269,14 +269,18 @@ test('supplied social account names appear below the official WeChat code', asyn
   await assertNoOverflow(page);
 });
 
-test('nine approved service categories put hormone and menopause health first', async ({ page }) => {
+test('nine unnumbered service categories put hormone and menopause health first', async ({ page, isMobile }) => {
   await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   await expect(page.locator('#care-title')).toHaveText('Care that growswith you.');
   const cards = page.locator('#care .care-item');
   await expect(cards).toHaveCount(9);
-  await expect(cards.locator('.care-number')).toHaveText(['01', '02', '03', '04', '05', '06', '07', '08', '09']);
+  await expect(cards.locator('.care-number')).toHaveCount(0);
+  if (isMobile) {
+    const inset = await cards.first().evaluate(card => card.querySelector('h3').getBoundingClientRect().left - card.getBoundingClientRect().left);
+    expect(inset, 'The old number gutter should not remain on mobile').toBe(0);
+  }
   await expect(cards.locator('h3')).toHaveText([
     'Hormone & Menopause Health', 'Gynecologic Care', 'Reproductive & Fertility Health',
     'Contraception & Family Planning', 'Sexual & Vulvovaginal Health', 'Adolescent Health',
