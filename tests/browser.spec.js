@@ -404,7 +404,7 @@ test('balanced team panel leads to services before the doctor profile', async ({
   await page.locator('[data-language-switch]').click();
   await expect(page.locator('[data-i18n="careEyebrow"]')).toHaveText('01 / 咨询领域');
   await expect(page.locator('[data-i18n="navCare"]')).toHaveText(['咨询领域', '咨询领域']);
-  await expect(page.locator('[data-i18n="contactBody"]')).toContainText('如需了解更多信息，欢迎通过电子邮件联系我们。');
+  await expect(page.locator('[data-i18n="contactBody"]')).toContainText('其他咨询可通过邮件联系我们。');
   await expect(page.locator('[data-i18n="aboutEyebrow"]')).toHaveText('02 / 认识吕医生');
   await expect(page.locator('[data-i18n="heroCta"]')).toHaveText('了解我们的咨询服务');
   await assertNoOverflow(page);
@@ -428,7 +428,7 @@ test('booking occupies the first row and official accounts share the lower row',
   await waitForRenderedPage(page);
   const social = page.locator('.connected-profile');
   await expect(page.locator('#connected-title')).toHaveText('Stay connected');
-  await expect(page.locator('[data-i18n="contactBody"]')).toContainText('For more information, get in touch by email.');
+  await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('For appointments, scan a clinic code below in WeChat. For other enquiries, email us.');
   await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('Scan for news & updates.');
   await expect(page.locator('[data-i18n="wechatNote"], [data-i18n="socialTitle"]')).toHaveCount(0);
   await expect(page.locator('.practice h4')).toHaveText(['1. Am-Sino Ding Xiang Clinic', '2. Parkway MediCentre Xintiandi']);
@@ -495,6 +495,24 @@ test('booking occupies the first row and official accounts share the lower row',
       }
     }
   }
+});
+
+test('contact introduction stays compact and keeps booking details readable', async ({ page, isMobile }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('For appointments, scan a clinic code below in WeChat. For other enquiries, email us.');
+  const layout = await page.locator('#contact').evaluate(section => ({
+    titleSize: parseFloat(getComputedStyle(section.querySelector('h2')).fontSize),
+    decorationOpacity: Number(getComputedStyle(section, '::before').opacity),
+    codes: [...section.querySelectorAll('.appointment-qr-frame img')].map(image => image.getBoundingClientRect().width),
+  }));
+  expect(layout.titleSize).toBeLessThanOrEqual(isMobile ? 40 : 52);
+  expect(layout.decorationOpacity).toBeLessThanOrEqual(0.06);
+  for (const size of layout.codes) expect(size).toBeGreaterThanOrEqual(108);
+  await expect(page.locator('.contact-copy .email-address')).toHaveText('info@fergusonhealth.com');
+  await page.locator('[data-language="zh"]').click();
+  await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('预约请用微信扫描下方门诊二维码；其他咨询可通过邮件联系我们。');
+  await assertNoOverflow(page);
 });
 
 test('nine unnumbered service categories put hormone and menopause health first', async ({ page, isMobile }) => {
