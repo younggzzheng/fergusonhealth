@@ -96,13 +96,10 @@ jobs:
         env:
           ALIBABA_CLOUD_ACCESS_KEY_ID: ${{ secrets.ALIBABA_CLOUD_ACCESS_KEY_ID }}
           ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${{ secrets.ALIBABA_CLOUD_ACCESS_KEY_SECRET }}
-          FWH_PREVIEW_PASSWORD: ${{ secrets.FWH_PREVIEW_PASSWORD }}
         run: python3 deploy.py
       - name: Verify only
         if: github.event_name == 'workflow_dispatch' && inputs.operation == 'verify'
-        env:
-          FWH_PREVIEW_PASSWORD: ${{ secrets.FWH_PREVIEW_PASSWORD }}
-        run: python3 verify_preview.py
+        run: python3 verify_site.py
 
   live_browser_review:
     name: Live browser review (advisory)
@@ -123,7 +120,6 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Review the live page without blocking or rolling back publication
         env:
-          FWH_PREVIEW_PASSWORD: ${{ secrets.FWH_PREVIEW_PASSWORD }}
           FWH_LIVE_URL: https://www.fergusonhealth.com
           EXPECTED_REVISION: ${{ github.sha }}
         run: npm run test:live

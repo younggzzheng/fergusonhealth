@@ -1,4 +1,4 @@
-"""Regression tests for build validation, fail-closed checks, and rollback."""
+"""Regression tests for build validation, public access, and rollback."""
 from contextlib import redirect_stdout
 from io import StringIO
 import json
@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 
 from build import build, sha256
 from deploy import publish, validate_build
-from verify_preview import check_release, protected_paths, PropagationError, require_gate, VerificationError
+from verify_site import check_release, verify, PropagationError, VerificationError
 
 REVISION = "a" * 40
 
@@ -24,7 +24,7 @@ class ReleaseTests(unittest.TestCase):
         (draft / "index.html").write_text('<html><head><link rel="stylesheet" href="styles.css"></head><body><a href="#contact">Contact</a><section id="contact"><img src="portrait.svg"></section></body></html>')
         (draft / "styles.css").write_text("body{color:black}")
         (draft / "portrait.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg"/>')
-        (self.root / "preview.html").write_text('<form id="login-form" method="post"></form>')
+        (self.root / "preview.html").write_text('<meta http-equiv="refresh" content="0;url=/">')
 
     def prepare(self):
         return build(REVISION, self.root)
@@ -46,7 +46,7 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Missing asset"):
             self.prepare()
 
-    def test_video_and_poster_use_protected_release_urls(self):
+    def test_video_and_poster_use_release_urls(self):
         draft = self.root / "draft"
         (draft / "video.mp4").write_bytes(b"fixture-video")
         (draft / "insights.html").write_text('<html><head></head><body><a href="/#contact">Home</a><video controls preload="none" poster="portrait.svg"><source src="video.mp4" type="video/mp4"></video></body></html>')
@@ -73,13 +73,6 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(VerificationError, "differs from manifest"):
             validate_build(self.root / "dist")
 
-    def test_anonymous_success_fails_closed(self):
-        client = Mock()
-        client.request.return_value = (200, {}, b"private content")
-        with self.assertRaisesRegex(VerificationError, "Anonymous access"):
-            require_gate(client, ["/index.html"])
-        self.assertEqual(client.request.call_count, 1)
-
     def test_wrong_live_revision_is_rejected(self):
         manifest = self.prepare()
         old = {**manifest, "revision": "b" * 40}
@@ -88,15 +81,27 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(PropagationError, "revision"):
             check_release(client, manifest)
 
-    def test_unprotected_new_asset_blocks_all_uploads(self):
-        self.prepare()
-        api = Mock()
-        anonymous = Mock()
-        anonymous.request.side_effect = lambda path: (404, {}, b"") if path.startswith("/releases/") else (302, {"location": "https://www.fergusonhealth.com/preview.html"}, b"")
-        with patch.dict("os.environ", {"FWH_PREVIEW_PASSWORD": "unit-test-only"}), patch("deploy.Client", return_value=anonymous):
-            with self.assertRaisesRegex(VerificationError, "Anonymous access"):
-                publish(self.root / "dist", api=api)
-        api.oss.assert_not_called()
+    def test_remaining_password_redirect_is_retried_as_propagation(self):
+        client = Mock()
+        client.request.return_value = (302, {"location": "/preview.html"}, b"")
+        with self.assertRaisesRegex(PropagationError, "Password gate"):
+            check_release(client, self.prepare())
+
+    def test_public_verification_needs_no_password_and_keeps_origin_private(self):
+        manifest = self.prepare()
+        client = Mock()
+        def response(path, **kwargs):
+            if kwargs.get("site", "").startswith("http:"):
+                return 301, {"location": "https://www.fergusonhealth.com/"}, b""
+            if "oss-cn-shanghai" in kwargs.get("site", ""):
+                return 403, {}, b""
+            body = json.dumps(manifest).encode() if path == "/release.json" else (self.root / "dist" / (path.lstrip("/") or "index.html")).read_bytes()
+            return 200, {"cache-control": "no-store"}, body
+        client.request.side_effect = response
+        with patch("verify_site.Client", return_value=client), patch.dict("os.environ", {}, clear=True):
+            verify(manifest)
+        self.assertFalse(any("__preview" in call.args[0] for call in client.request.call_args_list))
+        self.assertTrue(any("oss-cn-shanghai" in call.kwargs.get("site", "") for call in client.request.call_args_list))
 
     def test_incorrect_live_asset_hash_is_rejected(self):
         manifest = self.prepare()
@@ -129,13 +134,6 @@ class ReleaseTests(unittest.TestCase):
         check_release(client, manifest)
         self.assertIn(f"/releases/{REVISION}/styles.css", [call.args[0] for call in client.request.call_args_list])
 
-    def test_password_probes_do_not_grow_with_media_count(self):
-        manifest = self.prepare()
-        before = protected_paths(manifest)
-        manifest["files"].update({f"/releases/{REVISION}/photo-{n}.jpg": "unused" for n in range(1000)})
-        self.assertEqual(protected_paths(manifest), before)
-        self.assertTrue(any(path.startswith("/releases/") for path in before))
-
     def test_advisory_browser_failure_does_not_restore_previous_release(self):
         self.prepare()
         for failure in (False, True):
@@ -144,7 +142,7 @@ class ReleaseTests(unittest.TestCase):
                 api.oss.return_value = (b"previous page", {})
                 runner = Mock(side_effect=OSError("browser unavailable")) if failure else Mock(return_value=Mock(returncode=1))
                 output = StringIO()
-                with redirect_stdout(output), patch.dict("os.environ", {"FWH_PREVIEW_PASSWORD": "unit-test-only"}), patch("deploy.require_gate"), patch("deploy.login"), patch("deploy.subprocess.run", runner):
+                with redirect_stdout(output), patch.dict("os.environ", {}, clear=True), patch("deploy.subprocess.run", runner):
                     publish(self.root / "dist", api=api, verifier=Mock(), browser=True)
                 self.assertIn("release remains published", output.getvalue())
                 writes = [call for call in api.oss.call_args_list if call.args[0] == "PUT"]
@@ -184,7 +182,7 @@ class ReleaseTests(unittest.TestCase):
         session = Mock()
         session.request.side_effect = lambda path: (200, {}, objects[path[1:]]) if path[1:] in objects else (404, {}, b"")
         verifier = Mock(side_effect=VerificationError("Live verification failed"))
-        with patch.dict("os.environ", {"FWH_PREVIEW_PASSWORD": "unit-test-only"}), patch("deploy.require_gate"), patch("deploy.login", return_value=session):
+        with patch("deploy.Client", return_value=session):
             with self.assertRaises(RuntimeError):
                 publish(self.root / "dist", api=api, verifier=verifier)
         self.assertEqual(objects["index.html"], original["index.html"])

@@ -98,7 +98,7 @@ flowchart LR
   C --> D[Upload assets to private OSS]
   D --> E[Publish entry pages last]
   E --> F[Refresh CDN]
-  F --> G[Verify live revision and password protection]
+  F --> G[Verify live revision and public access]
   G --> H[Success]
   G -->|Failure| I[Restore previous entry pages]
   H -.-> J[Advisory browser checks]
@@ -110,8 +110,8 @@ set of assets; old assets remain available for rollback. Editing or pushing a
 feature branch does not directly change the live website.
 
 Required live verification checks the expected revision, entry-page and
-stylesheet/script hashes, successful password entry, representative protected
-asset URLs, invalid passwords, logout, and private OSS. Network requests allow
+page/stylesheet/script hashes, public access without a login cookie, and
+private OSS. Network requests allow
 90 seconds and retry transient failures; release propagation also gets time to
 settle. Verification does not download every image or font, and there is no
 page-speed budget. The build still checks that referenced local files exist.
@@ -182,7 +182,7 @@ known-good change through main. A passing build alone is not proof of a live
 site. For local deployments with separately provided authorized secrets, use
 `python3 build.py --revision FULL_SHA`, then `python3 deploy.py`. Add `--browser`
 to run advisory browser checks after essential verification; browser failures
-only produce a warning. Use `python3 verify_preview.py --manifest dist/release.json`
+only produce a warning. Use `python3 verify_site.py --manifest dist/release.json`
 for the essential HTTP checks.
 
 ## Hosting inventory
@@ -199,9 +199,32 @@ for the essential HTTP checks.
 | RAM deploy policy | `FergusonHealthGithubDeploy` |
 | ICP filing | `沪ICP备15040582号-1` |
 
-OSS remains private. The existing CDN EdgeScript authenticates requests before
-serving website files, with `/preview.html` as the public login screen. The
-live rule is managed separately from routine content deployment; never upload
-`preview_gate.es` to OSS. Its placeholders are not credentials. Login sets a
-Secure, HttpOnly, SameSite=Strict preview cookie; logout clears it. The site
-remains a private draft with no-index headers.
+OSS remains private. The CDN uses its existing signed origin access to serve
+public website files. The password gate was removed on 2026-10-03. The current
+EdgeScript is versioned in `public_site.es`: it keeps HTTPS redirects, redirects
+`/preview.html` bookmarks to the homepage, retires login/logout endpoints, and
+allows search crawling. It contains no credentials. The Alibaba edge rule name
+is `fwh_public_site`, configuration ID `522053684441088`.
+
+The live edge rule is managed separately from routine content deployment; never
+upload the EdgeScript to OSS. Changing it requires separately authorized Alibaba
+administration credentials; regular GitHub Actions deployments need no password
+and do not edit CDN configuration. To reapply this public rule, an authorized
+administrator can run the following from the repository with Alibaba credentials
+in the environment. This only targets this site's existing EdgeScript rule:
+
+```sh
+python3 - <<'PY'
+import json
+from pathlib import Path
+from alibaba import Alibaba, DOMAIN
+cloud = Alibaba()
+functions = [{"functionName": "edge_function", "ConfigId": 522053684441088,
+              "functionArgs": [{"argName": name, "argValue": value} for name, value in {
+                  "name": "fwh_public_site", "enable": "on", "pos": "head", "pri": "0",
+                  "rule": Path("public_site.es").read_text()
+              }.items()]}]
+cloud.rpc("BatchSetCdnDomainConfig", DomainNames=DOMAIN, Functions=json.dumps(functions))
+print("Public CDN rule applied.")
+PY
+```

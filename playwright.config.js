@@ -2,8 +2,8 @@ const { defineConfig } = require('@playwright/test');
 
 const live = process.env.FWH_LIVE_TEST === '1';
 if (live) {
-  if (!process.env.FWH_LIVE_URL || !process.env.FWH_PREVIEW_PASSWORD || !/^[0-9a-f]{40}$/.test(process.env.EXPECTED_REVISION || '')) {
-    throw new Error('Live checks require FWH_LIVE_URL, FWH_PREVIEW_PASSWORD, and a full EXPECTED_REVISION.');
+  if (!process.env.FWH_LIVE_URL || !/^[0-9a-f]{40}$/.test(process.env.EXPECTED_REVISION || '')) {
+    throw new Error('Live checks require FWH_LIVE_URL and a full EXPECTED_REVISION.');
   }
   const url = new URL(process.env.FWH_LIVE_URL);
   if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash || url.pathname !== '/') {
@@ -43,7 +43,7 @@ module.exports = defineConfig({
   projects,
   webServer: live ? undefined : {
     command: 'python3 build.py --revision 0123456789abcdef0123456789abcdef01234567 && python3 tests/server.py',
-    url: 'http://127.0.0.1:4173/preview.html',
+    url: 'http://127.0.0.1:4173/',
     timeout: 30_000,
     reuseExistingServer: false,
   },

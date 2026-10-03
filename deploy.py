@@ -10,7 +10,7 @@ import subprocess
 
 from alibaba import Alibaba
 from build import sha256
-from verify_preview import Client, login, protected_paths, require, require_gate, verify
+from verify_site import Client, require, verify
 
 ENTRIES = ("preview.html", "release.json", "index.html")
 REFRESH_PATHS = ["/", "/index.html", "/preview.html", "/release.json"]
@@ -35,10 +35,7 @@ def validate_build(folder):
 def publish(folder, api=None, verifier=verify, browser=False):
     folder = Path(folder)
     manifest = validate_build(folder)
-    password = os.environ["FWH_PREVIEW_PASSWORD"]
     api = api or Alibaba()
-    require_gate(Client(), protected_paths(manifest))
-    login(password)
     snapshots = {key: api.oss("GET", key) for key in ENTRIES}
     changed = False
     try:
@@ -50,7 +47,7 @@ def publish(folder, api=None, verifier=verify, browser=False):
             changed = True
             api.oss("PUT", key, (folder / key).read_bytes(), content_type(key), "private, no-store")
         api.refresh(REFRESH_PATHS)
-        verifier(manifest, password)
+        verifier(manifest)
     except Exception:
         if changed:
             print("Deployment failed; restoring the previous entry pages.", flush=True)
@@ -63,13 +60,15 @@ def publish(folder, api=None, verifier=verify, browser=False):
                         data, headers = snapshot
                         api.oss("PUT", key, data, headers.get("Content-Type", content_type(key)), "private, no-store")
                 api.refresh(REFRESH_PATHS)
-                session = login(password)
+                session = Client()
                 for key, snapshot in snapshots.items():
+                    # The retired preview URL redirects at the CDN; it never serves these bytes.
+                    if key == "preview.html":
+                        continue
                     status, _, body = session.request("/" + key)
                     require(status == (404 if snapshot is None else 200), f"Rollback status failed: {key}")
                     if snapshot is not None:
                         require(sha256(body) == sha256(snapshot[0]), f"Rollback bytes differ: {key}")
-                require_gate(Client(), ["/", "/index.html", "/release.json"])
                 print("Previous entry pages restored and verified.", flush=True)
             except Exception as rollback_error:
                 raise RuntimeError("Deployment failed and automatic rollback could not be verified; manual recovery required") from rollback_error

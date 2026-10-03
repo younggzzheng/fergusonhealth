@@ -14,11 +14,13 @@ def status(cloud):
     active_functions = []
     for function in functions:
         if function.get("FunctionName") == "edge_function":
-            # The rule itself contains secrets. Only expose the enabled flag.
+            # Never print raw edge rules, including any retired preview credentials.
             arguments = function.get("FunctionArgs", {}).get("FunctionArg", [])
             values = {item["ArgName"]: item.get("ArgValue") for item in arguments}
             if values.get("enable") == "on" and values.get("name") == "fwh_preview_gate":
                 active_functions.append("preview_password_gate")
+            elif values.get("enable") == "on" and values.get("name") == "fwh_public_site":
+                active_functions.append("public_site")
         else:
             active_functions.append(function.get("FunctionName"))
     manifest = cloud.oss("GET", "release.json")
@@ -34,8 +36,8 @@ def status(cloud):
         "deployed_revision": revision,
     }
     print(json.dumps(output, indent=2))
-    if output["cdn_status"] != "online" or "preview_password_gate" not in active_functions:
-        raise SystemExit("Backend status requires attention: CDN or preview gate is not enabled.")
+    if output["cdn_status"] != "online" or "preview_password_gate" in active_functions:
+        raise SystemExit("Backend status requires attention: CDN is offline or the retired password gate is enabled.")
 
 
 def main():
