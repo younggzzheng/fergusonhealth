@@ -28,7 +28,7 @@
       careContraceptionTitle: '避孕与家庭计划', careIUD: '宫内节育器（IUD）', careImplant: '皮下埋植', careContraceptiveMedication: '药物避孕个体化选择',
       careSexualTitle: '性健康与外阴阴道', careSexualPain: '性疼痛（性交痛、阴道痉挛）', careVulvarSkin: '外阴皮肤病（硬化性苔藓等）', careGSM: '绝经相关泌尿生殖综合征（GSM）',
       careAdolescentTitle: '青少年女性健康', carePuberty: '初潮与青春期咨询', careAdolescentMenstrual: '青少年月经问题', careSexEducation: '性教育与避孕指导',
-      careSurgeryTitle: '妇科微创诊疗', careHysteroscopy: '宫腔镜', careLaparoscopy: '腹腔镜', careMinimallyInvasive: '肌瘤、囊肿微创管理',
+      careSurgeryTitle: '妇科微创咨询', careHysteroscopy: '宫腔镜', careLaparoscopy: '腹腔镜', careMinimallyInvasive: '肌瘤、囊肿微创管理',
       carePelvicTitle: '盆底健康', carePelvicAssessment: '盆底功能评估', careIncontinence: '轻度尿失禁', carePostpartumPelvic: '产后盆底康复',
       carePreventiveTitle: '女性长期健康', careBone: '骨密度与骨健康', careCardiovascular: '心血管与绝经风险评估', careChronic: '慢性病与激素管理', careLifestyle: '体重与生活方式医学',
       workEyebrow: '03 / 社区与教育', workTitle: '诊室之外，<br><em>分享与连接。</em>', workFeatureType: '携手关爱健康',
