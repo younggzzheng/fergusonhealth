@@ -84,10 +84,19 @@ test('all five languages render without broken resources, broken links or overfl
     await page.locator(`[data-language="${language === 'zh-CN' ? 'zh' : language}"]`).click();
     await expect(page.locator('html')).toHaveAttribute('lang', language);
     await expect(page).toHaveTitle(language === 'zh-CN' ? 'Ferguson 女性健康' : "Ferguson Women's Health");
-    await expect(page.locator('.profile-name, [data-i18n="profileName"]')).toHaveCount(0);
-    await expect(page.locator('.about-portrait [data-i18n="portraitName"]')).toHaveCount(1);
-    await expect(page.locator('.about-portrait [data-i18n="signatureDetail"]')).toContainText('MD, FACOG');
-    await expect(page.locator('.profile-role')).not.toBeEmpty();
+    await expect(page.locator('.profile-name')).toHaveCount(1);
+    await expect(page.locator('.about-portrait figcaption')).toHaveCount(0);
+    await expect(page.locator('.profile-identity > h3, .profile-identity > p')).toHaveCount(3);
+    await expect(page.locator('.profile-identity [data-i18n="signatureDetail"]')).toContainText('MD, FACOG');
+    await expect(page.locator('.profile-identity .profile-role')).not.toBeEmpty();
+    const identityLayout = await page.locator('.profile-identity').evaluate(identity => [...identity.children].map(element => {
+      const { left, top, bottom } = element.getBoundingClientRect();
+      return { left, top, bottom };
+    }));
+    for (const [index, line] of identityLayout.entries()) {
+      expect(Math.abs(line.left - identityLayout[0].left)).toBeLessThan(1);
+      if (index) expect(line.top).toBeGreaterThan(identityLayout[index - 1].bottom);
+    }
     await expect(page.locator('[data-i18n="careFertilityAssessment"]')).toHaveText({
       en: 'Fertility evaluation and management',
       'zh-CN': '生育力评估与管理',
@@ -224,8 +233,8 @@ test('community and education efforts link to bilingual insights and a local vid
 test('doctor biography retains the supplied role and clinical focus with accessible expanded training', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
-  await expect(page.locator('.profile-name')).toHaveCount(0);
-  await expect(page.locator('.about-portrait [data-i18n="portraitName"]')).toHaveText('Michelle Lu-Ferguson');
+  await expect(page.locator('.profile-name')).toHaveText('Dr. Michelle Lu-Ferguson');
+  await expect(page.locator('.about-portrait figcaption')).toHaveCount(0);
   await expect(page.locator('.profile-role')).toHaveText('Founder & President, Ferguson Women’s Health');
   const introduction = page.locator('[data-i18n-html="aboutBody"]');
   await expect(introduction).toContainText('decades of clinical experience across the United States and China');
@@ -273,8 +282,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   }
   await page.locator('[data-language-switch]').click();
   await expect(details).toHaveAttribute('open', '');
-  await expect(page.locator('.profile-name')).toHaveCount(0);
-  await expect(page.locator('.about-portrait [data-i18n="portraitName"]')).toHaveText('吕明旭医生');
+  await expect(page.locator('.profile-name')).toHaveText('吕明旭医生');
   await expect(summary.locator('[data-i18n="profileDetailsTitle"]')).toHaveText('咨询重点与医学背景');
   await expect(introduction.locator('strong')).toHaveText(['美国妇产科专科认证医生', '美国妇产科医师学会会士（FACOG）。']);
   await expect(page.locator('.profile-role')).toHaveText('Ferguson Women’s Health 创始人兼总裁');
@@ -321,7 +329,9 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   await portrait.scrollIntoViewIfNeeded();
   await expect(portrait).toBeVisible();
   await expect.poll(() => portrait.evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
-  await expect(page.locator('#about .about-portrait figcaption span')).toHaveText(['Michelle Lu-Ferguson', 'MD, FACOG · Obstetrics & Gynaecology · Women’s Health']);
+  await expect(page.locator('#about .about-portrait figcaption')).toHaveCount(0);
+  await expect(page.locator('#about .about-portrait')).toHaveAttribute('aria-labelledby', 'profile-name');
+  await expect(page.locator('.profile-identity > h3, .profile-identity > p')).toHaveText(['Dr. Michelle Lu-Ferguson', 'MD, FACOG · Obstetrics & Gynaecology · Women’s Health', 'Founder & President, Ferguson Women’s Health']);
   await expect(portrait).toHaveAttribute('src', /dr-ferguson-grey\.jpg/);
   if (isMobile) {
     const order = await page.locator('.about-grid').evaluate(grid => ({
@@ -349,7 +359,8 @@ test('team introduction keeps the hero headline and moves the portrait to the do
     '以科学、可信赖的方式，帮助每位女性更好地了解自己，做出清晰而自信的健康选择。',
     '以国际标准的诊疗体系，让每位女性拥有更健康、更有力量的生活。',
   ]);
-  await expect(page.locator('#about .about-portrait figcaption span')).toHaveText(['吕明旭医生', 'MD, FACOG · 妇产科 · 女性健康']);
+  await expect(page.locator('#about .about-portrait figcaption')).toHaveCount(0);
+  await expect(page.locator('.profile-identity > h3, .profile-identity > p')).toHaveText(['吕明旭医生', 'MD, FACOG · 妇产科 · 女性健康', 'Ferguson Women’s Health 创始人兼总裁']);
   await assertNoOverflow(page);
 });
 

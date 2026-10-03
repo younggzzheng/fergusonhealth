@@ -153,16 +153,19 @@
     <section id="about" class="about-section section-pad" aria-labelledby="about-title">
       <div class="wrap about-grid">
         <div class="section-heading"><p class="eyebrow" data-i18n="aboutEyebrow">02 / Meet Dr. Ferguson</p><h2 id="about-title" data-i18n-html="aboutTitle">A doctor.<br>A listener.<br><em>Your partner in care.</em></h2></div>
-        <figure class="about-portrait">
+        <figure class="about-portrait" aria-labelledby="profile-name">
           <div class="portrait-frame">
             <div class="portrait-placeholder" aria-hidden="true"><span class="brand-mark portrait-brand"></span></div>
             <img class="doctor-photo" src="assets/dr-ferguson-grey.jpg" alt="Dr. Michelle Lu-Ferguson" width="800" height="800" onerror="this.hidden=true;this.closest('.portrait-frame').classList.add('portrait-unavailable')">
             <span class="portrait-corner" aria-hidden="true"></span>
           </div>
-          <figcaption><span data-i18n="portraitName">Michelle Lu-Ferguson</span><span data-i18n="signatureDetail">MD, FACOG · Obstetrics &amp; Gynaecology · Women’s Health</span></figcaption>
         </figure>
         <div class="about-copy">
-          <p class="profile-role" data-i18n="profileRole">Founder &amp; President, Ferguson Women’s Health</p>
+          <div class="profile-identity">
+            <h3 id="profile-name" class="profile-name" data-i18n="profileName">Dr. Michelle Lu-Ferguson</h3>
+            <p class="profile-credentials" data-i18n="signatureDetail">MD, FACOG · Obstetrics &amp; Gynaecology · Women’s Health</p>
+            <p class="profile-role" data-i18n="profileRole">Founder &amp; President, Ferguson Women’s Health</p>
+          </div>
           <p data-i18n-html="aboutBody">Dr. Michelle Lu-Ferguson is an <strong>American board-certified OB/GYN specialist</strong> and a <strong>Fellow of the American College of Obstetricians and Gynecologists (FACOG).</strong> With decades of clinical experience across the United States and China, she is dedicated to advancing evidence-based, cross-cultural women’s healthcare.</p>
           <details class="profile-details">
             <summary><span data-i18n="profileDetailsTitle">Clinical focus &amp; medical training</span><span class="details-toggle" aria-hidden="true"></span></summary>
