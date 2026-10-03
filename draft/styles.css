@@ -83,7 +83,7 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 @media(max-width:1000px){.contact-grid{gap:40px}}
 @media(max-width:700px){.contact-grid{grid-template-columns:minmax(0,1fr);gap:27px}}
 
-/* Display the flower from the supplied logo, rather than a substitute illustration. */
+/* Display the shell and pearl from the supplied logo, not a substitute logo. */
 .brand-mark{display:block;width:64px;height:48px;background-image:url('assets/ferguson-logo.png');background-size:349.44% 339.39%;background-position:63.23% 31.65%;background-repeat:no-repeat;mix-blend-mode:multiply;flex-shrink:0}
 .eyebrow-mark{width:28px;height:21px}
 .team-flower{width:72px;height:54px}
@@ -116,3 +116,14 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 .xiaohongshu-icon{background-image:url('assets/social-xiaohongshu.svg')}
 .facebook-icon{background-image:url('assets/social-facebook.svg')}
 .instagram-icon{background-image:url('assets/social-instagram.svg')}
+
+/* Shell ribs and pearl glows echo the logo, without adding interactive content. */
+.hero,.care-section,.contact-section{position:relative;isolation:isolate}
+.hero::before,.care-section::before,.contact-section::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:url('assets/shell-and-pearl.svg');background-repeat:no-repeat;opacity:.15}
+.hero::before{background-size:430px auto;background-position:left -165px bottom 120px}
+.care-section::before{background-size:390px auto;background-position:right -170px top 30px}
+.contact-section::before{background-size:460px auto;background-position:left -130px top 30px}
+.hero-team{background-image:radial-gradient(circle at 87% 28%,#fff9ec 0,transparent 27%)}
+.footer-main>p{font-size:26px;font-style:normal;letter-spacing:.2px}
+@media(max-width:1000px){.hero::before{background-position:right -180px top 60px;background-size:350px auto}}
+@media(max-width:700px){.hero::before{background-size:270px auto;background-position:right -155px top 45px;opacity:.12}.care-section::before{background-size:250px auto;background-position:right -125px top 24px;opacity:.12}.contact-section::before{background-size:280px auto;background-position:right -130px top 25px;opacity:.12}.footer-main>p{font-size:24px}}

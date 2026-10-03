@@ -374,6 +374,33 @@ test('section colors and decorative marks use the local brand and platform asset
   }
 });
 
+test('shell and pearl backgrounds stay decorative and the official slogan is retained in both languages', async ({ page }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const decoration = await page.locator('.hero, #care, #contact').evaluateAll(sections => sections.map(section => {
+    const style = getComputedStyle(section, '::before');
+    return { background: style.backgroundImage, pointerEvents: style.pointerEvents, opacity: Number(style.opacity), zIndex: style.zIndex };
+  }));
+  expect(decoration).toHaveLength(3);
+  for (const item of decoration) {
+    expect(item.background).toMatch(/\/assets\/shell-and-pearl\.svg/);
+    expect(item.pointerEvents).toBe('none');
+    expect(item.zIndex).toBe('-1');
+    expect(item.opacity).toBeGreaterThan(0);
+    expect(item.opacity).toBeLessThanOrEqual(0.2);
+    const url = item.background.match(/url\("([^\"]+)"\)/)[1];
+    const response = await page.request.get(url);
+    expect(response.ok(), 'The local shell background asset should load').toBeTruthy();
+  }
+  for (const language of ['en', 'zh-CN']) {
+    if (language === 'zh-CN') await page.locator('[data-language-switch]').click();
+    await expect(page.locator('[data-i18n="footerMessage"]')).toHaveText('Because We Care');
+    await expect(page.locator('[data-i18n="footerMessage"]')).toHaveAttribute('lang', 'en');
+    await assertNoOverflow(page);
+  }
+});
+
 test('main section labels stay readable in both languages', async ({ page }) => {
   await authenticate(page);
   await page.goto('/');

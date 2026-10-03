@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 320" fill="none">
+  <!-- A quiet shell-and-pearl background motif, not a replacement for the real logo. -->
+  <g stroke="#1a2d56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M164 246C114 245 70 233 48 206C26 180 36 151 64 148C43 113 64 81 96 87C86 51 122 28 151 53C158 17 200 10 220 43C249 10 289 31 286 66C320 46 353 72 339 107C377 100 401 135 378 163C410 186 392 221 357 234C324 247 293 251 258 247"/>
+    <path d="M68 162C86 193 116 214 166 232M101 101C111 150 139 188 181 218M154 69C161 125 177 168 194 203M220 59C217 109 215 153 212 192M283 82C269 130 252 169 235 204M331 123C307 164 280 197 250 220M365 177C335 205 296 225 261 235"/>
+    <path d="M164 248C130 262 115 282 131 293C150 307 184 290 211 268C238 295 279 310 301 293C320 277 292 259 260 250"/>
+  </g>
+  <circle cx="213" cy="232" r="29" fill="#e18900" fill-opacity=".12" stroke="#e18900" stroke-width="2.6"/>
+  <path d="M196 226C199 214 210 208 221 212" stroke="#e18900" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

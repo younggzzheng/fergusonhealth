@@ -7,6 +7,10 @@ These files are reference material; they are not published automatically.
 Preserve the site's simple, calm, spacious design. Use navy `#1A2D56` as the main
 ink color and orange `#E18900` sparingly for accents, with light neutral surfaces.
 Use the supplied real logo and QR code rather than generating replacements.
+The owner clarified that the logo depicts a shell holding a pearl, not a flower.
+Subtle shell-rib and pearl motifs may support the background design, but must not
+replace the actual logo. The official slogan is **Because We Care**, retained in
+English on both language versions.
 Copy published assets into `draft/assets/`. Do not distort or regenerate QR
 codes. Keep their white quiet zone and verify that the standard account QR is
 decodable. The two clinic codes embedded in the flyer are WeChat mini-program
