@@ -143,3 +143,15 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 .plus-values li{font-size:13px;line-height:1.7;color:#285f60}
 .plus-feature .underlined-link{font-size:13px;margin-top:22px}
 @media(max-width:700px){.work-feature.plus-feature{padding:24px 20px}.plus-heading{gap:18px}.plus-logo{width:72px}.plus-feature p{font-size:14px}.plus-feature .plus-specialties{font-size:12px}}
+
+/* Keep the full supplied biography available without overwhelming the profile. */
+.profile-name{font-size:26px;line-height:1.4;letter-spacing:-.3px}
+.about-copy>p.profile-role{margin-top:9px;font-size:13px;line-height:1.8;color:var(--ink)}
+.profile-details{margin-top:26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.profile-details summary{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0;list-style:none;cursor:pointer;font-size:13px;line-height:1.7}
+.profile-details summary::-webkit-details-marker{display:none}
+.profile-details[open] .details-toggle:after{transform:none}
+.profile-details .details-content{padding-top:3px}
+.profile-details .details-content p+p{margin-top:16px}
+.about-copy .profile-details+.about-philosophy{border-top:0;margin-top:24px;padding-top:0}
+@media(max-width:700px){.profile-name{font-size:25px}.about-copy>p.profile-role{font-size:14px}.profile-details .details-content p{font-size:14px}}

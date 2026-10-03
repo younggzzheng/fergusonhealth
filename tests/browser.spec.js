@@ -159,6 +159,43 @@ test('both languages render without broken resources, broken links or overflow',
   expect(failures).toEqual([]);
 });
 
+test('doctor biography retains the supplied role and clinical focus with accessible expanded training', async ({ page }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  await expect(page.locator('.profile-name')).toHaveText('Dr. Michelle Lu-Ferguson, MD, FACOG');
+  await expect(page.locator('.profile-role')).toHaveText('Founder & President, Ferguson Women’s Health');
+  await expect(page.locator('[data-i18n="aboutBody"]')).toContainText('decades of clinical experience across the United States and China');
+  await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('PMOS (Polyendocrine Metabolic Ovarian Syndrome)');
+  await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('complex and high-risk prenatal situations');
+  await expect(page.locator('[data-i18n="aboutPractice"]')).toContainText('English and Mandarin');
+  const details = page.locator('.profile-details');
+  const summary = details.locator('summary');
+  await expect(details).not.toHaveAttribute('open');
+  await summary.focus();
+  await page.keyboard.press('Enter');
+  await expect(details).toHaveAttribute('open', '');
+  await expect(details.locator('[data-i18n="profileTraining"]')).toBeVisible();
+  for (const institution of ['Peking University', 'Peking Union Medical College', 'New York University', 'Ohio University College of Medicine', 'Rutgers Robert Wood Johnson Medical School']) {
+    await expect(details.locator('[data-i18n="profileTraining"]')).toContainText(institution);
+  }
+  await expect(details.locator('[data-i18n="profileSurgery"]')).toContainText('hysteroscopy and laparoscopy');
+  await page.locator('[data-language-switch]').click();
+  await expect(details).toHaveAttribute('open', '');
+  await expect(page.locator('.profile-name')).toHaveText('吕明旭医生，MD, FACOG');
+  await expect(page.locator('.profile-role')).toHaveText('Ferguson Women’s Health 创始人兼总裁');
+  await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('复杂及高危孕期情况');
+  await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('俄亥俄大学医学院');
+  await expect(details.locator('[data-i18n="profileSurgery"]')).toContainText('宫腔镜与腹腔镜');
+  await assertNoOverflow(page);
+  await summary.focus();
+  await page.keyboard.press('Space');
+  await expect(details).not.toHaveAttribute('open');
+  await page.locator('[data-language-switch]').click();
+  await expect(page.locator('.profile-role')).toHaveText('Founder & President, Ferguson Women’s Health');
+  await assertNoOverflow(page);
+});
+
 test('team introduction keeps the hero headline and moves the portrait to the doctor profile', async ({ page, isMobile }) => {
   await authenticate(page);
   await page.goto('/');

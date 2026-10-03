@@ -8,6 +8,17 @@ expandable section in **03 / Her work** so the initial page stays concise.
 
 ## Primary sources used
 
+- Owner-supplied biography, 3 October 2026: the revised **Meet Dr. Ferguson**
+  introduction retains the supplied name, MD/FACOG qualifications,
+  **Founder & President, Ferguson Women’s Health** title, US/China experience,
+  current clinical focus and consultation locations. A native disclosure keeps
+  the supplied four-institution medical training, Rutgers Robert Wood Johnson
+  residency/faculty history, surgical experience and communication approach
+  available in English and Chinese. These are owner-provided statements;
+  do not infer additional degrees, institutional appointments or group titles.
+  The Ferguson Women’s Health leadership title does not imply a corresponding
+  founder/president title at Ferguson Plus.
+
 - [Parkway professional profile](https://www.parkwayshanghai.com/en/medical-teams-338):
   American board certification, FACOG, obstetrics and gynaecology background,
   Robert Wood Johnson training and faculty work, teaching and clinical research,
