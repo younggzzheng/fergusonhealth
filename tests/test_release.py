@@ -46,6 +46,22 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Missing asset"):
             self.prepare()
 
+    def test_video_and_poster_use_protected_release_urls(self):
+        draft = self.root / "draft"
+        (draft / "video.mp4").write_bytes(b"fixture-video")
+        (draft / "insights.html").write_text('<html><head></head><body><a href="/#contact">Home</a><video controls preload="none" poster="portrait.svg"><source src="video.mp4" type="video/mp4"></video></body></html>')
+        self.prepare()
+        html = (self.root / "dist" / "releases" / REVISION / "insights.html").read_text()
+        self.assertIn(f'poster="/releases/{REVISION}/portrait.svg"', html)
+        self.assertIn(f'src="/releases/{REVISION}/video.mp4"', html)
+        self.assertIn('href="/#contact"', html)
+        self.assertTrue((self.root / "dist" / "releases" / REVISION / "video.mp4").is_file())
+
+    def test_missing_video_poster_fails_the_build(self):
+        (self.root / "draft" / "index.html").write_text('<video poster="missing.png"></video>')
+        with self.assertRaisesRegex(ValueError, "Missing asset"):
+            self.prepare()
+
     def test_missing_css_font_fails_the_build(self):
         (self.root / "draft" / "styles.css").write_text("@font-face{src:url('missing.woff2')}")
         with self.assertRaisesRegex(ValueError, "Missing asset"):

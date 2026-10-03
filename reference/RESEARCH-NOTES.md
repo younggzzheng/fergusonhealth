@@ -72,9 +72,9 @@ expandable section in **03 / Her work** so the initial page stays concise.
 
 ## Editorial boundaries
 
-- Parkway and Am-Sino use conflicting English names for her medical-degree
-  institution. Do not choose one without clarification; the website does not
-  name that institution.
+- The owner subsequently clarified her MD institution as Medical University of
+  Ohio and supplied the current biography. Use that wording, and distinguish
+  NYU PhD-level research training from an earned PhD degree.
 - Prior leadership positions are historical experience, not an assertion of a
   current employer or title. Current consultation locations follow the flyer.
 - Do not invent publication totals, patient outcomes, awards, affiliation titles,
@@ -85,3 +85,33 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - The owner explicitly requested a plain email address, removal of the ICP footer
   item and the “Private design preview” footer label, and retention of a quiet
   design. The password gate and **Lock preview** control remain active.
+
+## Owner's PDF revision — 3 October 2026
+
+- `web.pdf` supplied by the owner requests a paper-white/pale-blue palette,
+  removal of repeated consultation/philosophy paragraphs, signature beneath the
+  portrait, collapsed clinical-focus text, and a team-approach/community section.
+- The requested Rutgers Robert Wood Johnson residency/faculty paragraph is
+  owner-supplied biography. The residency clause is bold in both languages.
+- The grey-haired portrait is the owner's requested photo, sourced from the
+  group's own [website](https://www.theplushealth.org/) at `/assets/michelle.jpg`;
+  it is copied locally rather than hotlinked.
+- The group's upcoming **Growing Pains** event was checked on the same official
+  website on 3 October 2026: 24 October, 14:00–16:00 Shanghai time, for families
+  with children aged 6–18. Link to `https://www.theplushealth.org/#events` for
+  current details/registration; do not invent a booking URL.
+- Three owner-provided article documents support short, explicitly labelled
+  educational overviews, not verbatim publication of unreviewed clinical advice.
+  The supplied English menopause video is hosted locally, compressed without
+  altering the original. No autoplay or third-party video player is used.
+- Educational content lives on `insights.html`, apart from appointment codes,
+  addresses and service promotion. Source checks:
+  [NIAMS osteoporosis](https://www.niams.nih.gov/health-topics/osteoporosis),
+  [ASRM fertility evaluation](https://www.asrm.org/practice-guidance/practice-committee-documents/fertility-evaluation-of-infertile-women-a-committee-opinion-2021/),
+  [NIA meal planning](https://www.nia.nih.gov/health/healthy-eating-nutrition-and-diet/healthy-meal-planning-tips-older-adults).
+- Raw patient thank-you letters, their images and identifiable endorsements are
+  NOT published or copied into this public repository. Written permission alone
+  does not settle medical-advertising compliance; any later patient-feedback
+  proposal requires specific review. References:
+  [SAMR medical advertising rules, Article 7](https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/ggjgs/art/2023/art_6584dc1c94c2408db7c73f0b5e3d225a.html),
+  [internet advertising rules, Article 8](https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/fgs/art/2023/art_d93a579afd45413e8576e4623fab348f.html).

@@ -45,6 +45,7 @@ including for direct image and asset URLs.
 | --- | --- |
 | `draft/index.html` | English content and page structure |
 | `draft/site.js` | Chinese translations and interactions |
+| `draft/insights.html`, `draft/insights.js` | Separate educational article overviews/video and Chinese translations |
 | `draft/styles.css` | Layout, typography, brand colors, responsive rules |
 | `draft/assets/` | Locally hosted images, icons, fonts, and licenses |
 | `preview.html` | Public password-entry page, with no embedded password |

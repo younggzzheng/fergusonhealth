@@ -10,8 +10,8 @@ import shutil
 from urllib.parse import unquote, urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parent
-EXTENSIONS = {".html", ".css", ".js", ".svg", ".jpg", ".jpeg", ".png", ".webp", ".woff", ".woff2", ".txt"}
-ATTRIBUTE = re.compile(r"\b(src|href)\s*=\s*(['\"])(.*?)\2", re.IGNORECASE)
+EXTENSIONS = {".html", ".css", ".js", ".svg", ".jpg", ".jpeg", ".png", ".webp", ".woff", ".woff2", ".txt", ".mp4"}
+ATTRIBUTE = re.compile(r"\b(src|href|poster)\s*=\s*(['\"])(.*?)\2", re.IGNORECASE)
 CSS_URL = re.compile(r"url\(\s*(['\"]?)(.*?)\1\s*\)", re.IGNORECASE)
 
 
@@ -49,6 +49,8 @@ class References(HTMLParser):
             raise ValueError("Use explicit local image src values in this static build")
         if attrs.get("src"):
             self.assets.append(attrs["src"])
+        if attrs.get("poster"):
+            self.assets.append(attrs["poster"])
         if tag == "link" and attrs.get("href"):
             self.assets.append(attrs["href"])
         if tag in {"a", "use"} and attrs.get("href", "").startswith("#"):

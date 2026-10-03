@@ -38,7 +38,7 @@ async function assertLinks(page) {
       const url = new URL(href, location.href);
       if (!href || !['http:', 'https:', 'mailto:', 'tel:'].includes(url.protocol)) {
         issues.push(`Invalid link: ${href}`);
-      } else if (url.origin === location.origin && url.hash && !document.getElementById(decodeURIComponent(url.hash.slice(1)))) {
+      } else if (url.origin === location.origin && url.pathname === location.pathname && url.hash && !document.getElementById(decodeURIComponent(url.hash.slice(1)))) {
         issues.push(`Missing anchor: ${href}`);
       } else if (url.origin !== location.origin && ['http:', 'https:'].includes(url.protocol)) {
         if (url.protocol !== 'https:') issues.push(`Insecure external link: ${href}`);
@@ -159,6 +159,36 @@ test('both languages render without broken resources, broken links or overflow',
   expect(failures).toEqual([]);
 });
 
+test('team approach links to bilingual educational overviews and a local video', async ({ page }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / Our approach');
+  await expect(page.locator('.belief-list dt')).toHaveCount(3);
+  await expect(page.locator('.resource-list a')).toHaveCount(4);
+  await expect(page.locator('.event-date time')).toHaveAttribute('datetime', '2026-10-24T14:00:00+08:00');
+  await expect(page.locator('[data-i18n="eventLink"]').locator('..')).toHaveAttribute('href', 'https://www.theplushealth.org/#events');
+  await page.locator('[data-i18n="insightBone"]').click();
+  await expect(page.locator('#bone-title')).toHaveText('Silent bone loss after menopause');
+  await expect(page.locator('.insight-article')).toHaveCount(4);
+  await expect(page.locator('.practice-locations, .appointment-code, .email-address')).toHaveCount(0);
+  const video = page.locator('video');
+  await expect(video).toHaveAttribute('preload', 'none');
+  await expect(video).toHaveAttribute('controls', '');
+  await expect(video).toHaveAttribute('poster', /\/releases\/[0-9a-f]{40}\/assets\/mood-swings-poster\.png$/);
+  await expect(video.locator('source')).toHaveAttribute('src', /\/releases\/[0-9a-f]{40}\/assets\/mood-swings\.mp4$/);
+  await expect(video).not.toHaveAttribute('autoplay');
+  await assertLinks(page);
+  await assertNoOverflow(page);
+  await page.locator('[data-language-switch]').click();
+  await expect(page.locator('#bone-title')).toHaveText('绝经后的无声骨流失');
+  await expect(page.locator('#video-title')).toHaveText('情绪波动，还是抑郁？了解两者的区别');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
+  await assertNoOverflow(page);
+  await page.locator('[data-i18n="back"]').click();
+  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / 团队理念');
+});
+
 test('doctor biography retains the supplied role and clinical focus with accessible expanded training', async ({ page }) => {
   await authenticate(page);
   await page.goto('/');
@@ -171,7 +201,8 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   expect(await introduction.locator('strong').evaluate(element => Number(getComputedStyle(element).fontWeight))).toBeGreaterThanOrEqual(600);
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('PMOS (Polyendocrine Metabolic Ovarian Syndrome)');
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('complex and high-risk prenatal situations');
-  await expect(page.locator('[data-i18n="aboutPractice"]')).toContainText('English and Mandarin');
+  await expect(page.locator('[data-i18n="aboutPractice"]')).toHaveCount(0);
+  await expect(page.locator('[data-i18n="aboutBody2"]')).toBeHidden();
   const details = page.locator('.profile-details');
   const summary = details.locator('summary');
   await expect(details).not.toHaveAttribute('open');
@@ -179,10 +210,12 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await page.keyboard.press('Enter');
   await expect(details).toHaveAttribute('open', '');
   await expect(details.locator('[data-i18n="profileTraining"]')).toBeVisible();
-  for (const institution of ['Peking University', 'Peking Union Medical College', 'New York University', 'Medical University of Ohio']) {
+  for (const institution of ['Peking University', 'Peking Union Medical College', 'New York University']) {
     await expect(details.locator('[data-i18n="profileTraining"]')).toContainText(institution);
   }
-  await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('Doctor of Medicine degree from the Medical University of Ohio');
+  await expect(details.locator('[data-i18n="profileDegree"]')).toContainText('Doctor of Medicine degree from the Medical University of Ohio');
+  await expect(details.locator('[data-i18n-html="profileResidency"] strong')).toHaveText('She completed her residency in obstetrics and gynecology at Rutgers Robert Wood Johnson Medical School');
+  await expect(details.locator('[data-i18n-html="profileResidency"]')).toContainText('she joined the faculty');
   await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('pre-medical studies at Peking University');
   await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('PhD-level research training at New York University');
   await expect(details).not.toContainText('Ohio University College of Medicine');
@@ -197,7 +230,8 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await expect(introduction.locator('strong')).toHaveText('美国妇产科专科认证医生，也是美国妇产科医师学会会士（FACOG）。');
   await expect(page.locator('.profile-role')).toHaveText('Ferguson Women’s Health 创始人兼总裁');
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('复杂及高危孕期情况');
-  await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('俄亥俄医科大学（Medical University of Ohio）取得医学博士（MD）学位');
+  await expect(details.locator('[data-i18n="profileDegree"]')).toContainText('俄亥俄医科大学（Medical University of Ohio）取得医学博士（MD）学位');
+  await expect(details.locator('[data-i18n-html="profileResidency"] strong')).toContainText('完成妇产科住院医师培训');
   await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('纽约大学接受博士阶段科研培训');
   await expect(details.locator('[data-i18n="profileTraining"]')).not.toContainText('取得博士学位');
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('盆底健康及长期预防保健');
@@ -230,7 +264,8 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   await portrait.scrollIntoViewIfNeeded();
   await expect(portrait).toBeVisible();
   await expect.poll(() => portrait.evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
-  await expect(page.locator('#about .about-portrait figcaption span')).toHaveText(['Dr. Michelle Lu-Ferguson', 'Obstetrics & Gynaecology']);
+  await expect(page.locator('#about .about-portrait figcaption span')).toHaveText(['Michelle Lu-Ferguson', 'MD, FACOG · Obstetrics & Gynaecology']);
+  await expect(portrait).toHaveAttribute('src', /dr-ferguson-grey\.jpg/);
   if (isMobile) {
     const order = await page.locator('.about-grid').evaluate(grid => ({
       headingBottom: grid.querySelector('.section-heading').getBoundingClientRect().bottom,
@@ -251,7 +286,7 @@ test('team introduction keeps the hero headline and moves the portrait to the do
     '以科学、可信赖的方式，帮助每位女性更好地了解自己，做出清晰而自信的健康选择。',
     '以国际标准的诊疗体系，让每位女性拥有更健康、更有力量的生活。',
   ]);
-  await expect(page.locator('#about .about-portrait figcaption span')).toHaveText(['吕明旭医生', '妇产科']);
+  await expect(page.locator('#about .about-portrait figcaption span')).toHaveText(['吕明旭医生', 'MD, FACOG · 妇产科']);
   await assertNoOverflow(page);
 });
 
@@ -410,9 +445,9 @@ test('section colors and decorative marks use the local brand and platform asset
   await page.goto('/');
   await waitForRenderedPage(page);
   await expect(page.locator('#care')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
-  await expect(page.locator('#about')).toHaveCSS('background-color', 'rgb(245, 238, 229)');
-  await expect(page.locator('#work')).toHaveCSS('background-color', 'rgb(240, 237, 244)');
-  await expect(page.locator('#contact')).toHaveCSS('background-color', 'rgb(234, 242, 239)');
+  await expect(page.locator('#about')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
+  await expect(page.locator('#work')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
+  await expect(page.locator('#contact')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
   await expect(page.locator('use[href="#flower"], use[href="#sprig"], .tiny-star')).toHaveCount(0);
   const marks = page.locator('.brand-mark');
   await expect(marks).toHaveCount(5);
@@ -457,13 +492,13 @@ test('team panel stays light and the doctor introduction uses our own voice with
   await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
-  await expect(page.locator('.hero-team')).toHaveCSS('background-color', 'rgb(246, 244, 239)');
+  await expect(page.locator('.hero-team')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
   await expect(page.locator('a[href*="parkwayshanghai.com"]')).toHaveCount(0);
   await expect(page.locator('[data-i18n="profileLink"]')).toHaveCount(0);
-  await expect(page.locator('[data-i18n="aboutPhilosophy"]')).toHaveText('At Ferguson Health, we make space for your questions, explain your options clearly, and support you through each stage of life.');
+  await expect(page.locator('[data-i18n="aboutPhilosophy"]')).toHaveCount(0);
   await assertNoOverflow(page);
   await page.locator('[data-language-switch]').click();
-  await expect(page.locator('[data-i18n="aboutPhilosophy"]')).toHaveText('在 Ferguson Health，我们认真倾听您的疑问，清晰解释诊疗选择，陪伴您走过人生的不同阶段。');
+  await expect(page.locator('[data-i18n="aboutPhilosophy"]')).toHaveCount(0);
   await expect(page.locator('#about')).not.toContainText('查看官方医生简介');
   await assertNoOverflow(page);
 });
@@ -594,10 +629,10 @@ test('navigation reaches contact and mobile menu closes on selection and Escape'
 
 test('image checks detect a failed portrait even when its fallback hides the image', async ({ page }) => {
   await authenticate(page);
-  await page.route('**/assets/dr-ferguson.jpg', route => route.fulfill({ status: 404, body: 'missing image' }));
+  await page.route('**/assets/dr-ferguson-grey.jpg', route => route.fulfill({ status: 404, body: 'missing image' }));
   await page.goto('/');
   const failures = await brokenImages(page);
-  expect(failures.some(source => source.endsWith('/dr-ferguson.jpg'))).toBe(true);
+  expect(failures.some(source => source.endsWith('/dr-ferguson-grey.jpg'))).toBe(true);
 });
 
 test('live layout readiness waits for a delayed stylesheet before checking mobile overflow', async ({ page, isMobile }) => {
