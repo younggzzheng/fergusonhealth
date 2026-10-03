@@ -35,6 +35,16 @@ expandable section in **03 / Her work** so the initial page stays concise.
   **SCIS 学生** to avoid an uncertain translated school name.
   [Official SCIS website](https://www.scis-china.org/).
 
+## Service terminology update — 3 October 2026
+
+- [Monash international PMOS guideline](https://www.monash.edu/medicine/mchri/pcos/guideline)
+  confirms the May 2026 change from PCOS to Polyendocrine Metabolic Ovarian
+  Syndrome (PMOS). The site uses PMOS with the former name retained for clarity;
+  the Chinese wording was supplied by the owner.
+- The owner requested adding high risk pregnancy consultation to reproductive
+  services and removing the egg-freezing wording in both languages while
+  retaining the general fertility-preservation service.
+
 ## Editorial boundaries
 
 - Parkway and Am-Sino use conflicting English names for her medical-degree
