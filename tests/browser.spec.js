@@ -396,7 +396,7 @@ test('booking occupies the first row and official accounts share the lower row',
   await waitForRenderedPage(page);
   const social = page.locator('.connected-profile');
   await expect(page.locator('#connected-title')).toHaveText('Stay connected');
-  await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('Scan to follow Ferguson Women’s Health for news & updates.');
+  await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('Scan for news & updates.');
   await expect(page.locator('[data-i18n="wechatNote"], [data-i18n="socialTitle"]')).toHaveCount(0);
   await expect(page.locator('.practice h4')).toHaveText(['1. Am-Sino Ding Xiang Clinic', '2. Parkway MediCentre Xintiandi']);
   await expect(page.locator('.connected-grid > *')).toHaveCount(4);
@@ -437,7 +437,7 @@ test('booking occupies the first row and official accounts share the lower row',
   else expect(booking[1].card.left).toBeGreaterThan(booking[0].card.right);
   await page.locator('[data-language-switch]').click();
   await expect(page.locator('#connected-title')).toHaveText('保持联系');
-  await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('扫码关注 Ferguson 女性健康，获取最新资讯。');
+  await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('扫码关注，获取最新资讯。');
   await expect(page.locator('.practice h4')).toHaveText(['1. 美华丁香门诊部', '2. 百汇新天地医疗中心']);
   await expect(page.locator('.wechat-contact h4')).toHaveText('官方微信公众号');
   await expect(social.locator('h4')).toHaveText(['小红书', 'Facebook', 'Instagram']);
@@ -557,7 +557,7 @@ test('section colors and decorative marks use the local brand and platform asset
   for (const mark of await marks.all()) {
     await expect(mark).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
   }
-  const icons = page.locator('.social-profiles .social-icon');
+  const icons = page.locator('.connected-profile .social-icon');
   await expect(icons).toHaveCount(3);
   for (const icon of await icons.all()) {
     await expect(icon).toHaveCSS('background-image', /\/assets\/social-(xiaohongshu|facebook|instagram)\.svg/);
