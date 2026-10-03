@@ -237,6 +237,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await expect(residency.locator('strong')).toHaveCount(0);
   expect(await residency.evaluate(element => Number(getComputedStyle(element).fontWeight))).toBeLessThan(600);
   await expect(residency).toContainText('she joined the faculty');
+  await expect(residency).toContainText('clinical care, medical education, and clinical research');
   await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('pre-medical studies at Peking University');
   await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('PhD-level research training at New York University');
   await expect(details).not.toContainText('Ohio University College of Medicine');
@@ -254,6 +255,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await expect(degree).toContainText('俄亥俄医科大学（Medical University of Ohio）取得医学博士（MD）学位');
   await expect(degree.locator('strong')).toHaveText('医学博士（MD）');
   await expect(residency).toContainText('完成妇产科住院医师培训');
+  await expect(residency).toContainText('临床照护、医学教育与临床研究');
   await expect(residency.locator('strong')).toHaveCount(0);
   await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('纽约大学接受博士阶段科研培训');
   await expect(details.locator('[data-i18n="profileTraining"]')).not.toContainText('取得博士学位');

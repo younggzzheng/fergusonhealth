@@ -15,7 +15,7 @@
       aboutBody2: '她的诊疗范围涵盖女性健康的各个领域，尤其关注内分泌与激素健康、更年期管理、多内分泌代谢性卵巢综合征（PMOS）、妇科诊断与治疗、生育与孕前咨询、避孕与家庭计划、性健康与外阴阴道健康、青少年妇科、妇科微创诊疗、盆底健康及长期预防保健。她也为复杂及高危孕期情况提供咨询，以清晰的指导和个体化支持帮助患者。',
       profileDetailsTitle: '诊疗重点与医学培训', profileFocusTitle: '诊疗重点', profileTrainingTitle: '医学培训与教育',
       profileDegree: '吕医生在俄亥俄医科大学（Medical University of Ohio）取得<strong>医学博士（MD）</strong>学位。',
-      profileResidency: '她在罗格斯大学罗伯特·伍德·约翰逊医学院（Rutgers Robert Wood Johnson Medical School）完成妇产科住院医师培训。该校是美国重要的学术医疗中心。培训结束后，她留校任教，参与临床照护、医学教育与研究；这些经历持续影响着她严谨、循证的临床风格。',
+      profileResidency: '她在罗格斯大学罗伯特·伍德·约翰逊医学院（Rutgers Robert Wood Johnson Medical School）完成妇产科住院医师培训。该校是美国重要的学术医疗中心。培训结束后，她留校任教，参与临床照护、医学教育与临床研究；这些经历持续影响着她严谨、循证的临床风格。',
       profileTraining: '早期求学期间，她在北京大学完成医学预科学习，随后进入中国顶尖医学院之一的北京协和医学院继续学习。之后，她在纽约大学接受博士阶段科研培训，进一步夯实了医学科学与临床研究基础。',
       profileApproachTitle: '诊疗理念',
       profileApproach: '她以严谨的临床标准、国际化的医学培训背景和细致的沟通方式，广受本地及外籍社区的认可。',

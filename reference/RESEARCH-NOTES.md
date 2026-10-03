@@ -172,3 +172,6 @@ expandable section in **03 / Her work** so the initial page stays concise.
   next to Hormone & Menopause Health in the first desktop row. The first item no
   longer spans both columns. Preserve remaining relative order, closed defaults,
   and the same reading order in Chinese and on phones.
+- Owner biography clarification: describe the post-residency faculty work as
+  clinical care, medical education, and **clinical research**, rather than the
+  less specific “research”; Chinese uses “临床照护、医学教育与临床研究”.
