@@ -40,7 +40,7 @@ Cloud, not GitHub Pages. Start with `README.md` and `docs/OPERATIONS.md`.
 ## Credentials and backend access
 
 - GitHub Actions secrets contain the dedicated site-scoped Alibaba credential
-  and preview password. Never commit, print, or upload their values, cookies,
+  for deployment. Never commit, print, or upload credential values, cookies,
   authentication headers, or raw CDN configuration responses.
 - `credentials.env.example` documents the variable names; it intentionally
   contains no working key. Repository write/Actions access is sufficient to
@@ -49,9 +49,10 @@ Cloud, not GitHub Pages. Start with `README.md` and `docs/OPERATIONS.md`.
 - PR checks must not receive production secrets. Only trusted main-branch jobs
   deploy or operate the backend. Keep workflow token permissions minimal.
 - Public readers can inspect the source; publishing still requires repository
-  write/Actions access. Repository visibility does not remove the website gate.
-- Keep the preview password gate active, including protection of direct image,
-  script, font, and stylesheet URLs. The OSS bucket must remain private.
+  write/Actions access. The hosted website is public without a password.
+- The owner removed the password gate on 2026-10-03. Do not restore it or the
+  Lock preview control. The OSS bucket must remain private; the CDN serves
+  public website content through its existing signed origin access.
 - Do not change DNS, email, bucket access policy, RAM permissions, or account-wide
   settings as part of routine content work. The deploy identity is deliberately
   limited to this site's bucket and CDN domain.

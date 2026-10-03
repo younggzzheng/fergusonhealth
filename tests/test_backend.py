@@ -7,7 +7,7 @@ from backend import status
 
 
 class StatusCloud:
-    def __init__(self, enabled="on"):
+    def __init__(self, enabled="off"):
         self.enabled = enabled
 
     def rpc(self, action, **params):
@@ -34,6 +34,6 @@ class BackendStatusTests(unittest.TestCase):
         self.assertNotIn("credential-must-never-be-logged", output.getvalue())
         self.assertEqual(json.loads(output.getvalue())["deployed_revision"], "a" * 40)
 
-    def test_disabled_gate_makes_status_fail(self):
+    def test_enabled_retired_gate_makes_status_fail(self):
         with contextlib.redirect_stdout(io.StringIO()), self.assertRaises(SystemExit):
-            status(StatusCloud(enabled="off"))
+            status(StatusCloud(enabled="on"))

@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const { waitForRenderedPage } = require('./render-ready');
 
-test('deployed revision unlocks, renders all four languages, and locks again', async ({ page, context, baseURL }) => {
+test('public deployed revision renders all four languages without login', async ({ page, context, baseURL }) => {
   const origin = new URL(baseURL).origin;
   const failures = [];
   await context.route('**/*', route => new URL(route.request().url()).origin === origin
@@ -12,16 +12,8 @@ test('deployed revision unlocks, renders all four languages, and locks again', a
   page.on('requestfailed', request => failures.push(`Request failed: ${new URL(request.url()).pathname}`));
   page.on('response', response => { if (response.status() >= 400) failures.push(`HTTP ${response.status()}: ${new URL(response.url()).pathname}`); });
   await page.goto('/');
-  await expect(page).toHaveURL(`${origin}/preview.html`);
-  await expect(page.locator('#login-form')).toBeVisible();
-  try {
-    // Setting the value in-page keeps the password out of locator.fill failure logs.
-    await page.locator('#password').evaluate((input, password) => { input.value = password; }, process.env.FWH_PREVIEW_PASSWORD);
-    await page.locator('#login-form button[type="submit"]').click();
-    await expect(page).toHaveURL(`${origin}/`, { timeout: 90_000 });
-  } finally {
-    await page.locator('#password').evaluateAll(inputs => inputs.forEach(input => { input.value = ''; }));
-  }
+  await expect(page).toHaveURL(`${origin}/`);
+  await expect(page.locator('#login-form, .lock-form')).toHaveCount(0);
   await waitForRenderedPage(page);
   await expect(page.locator('meta[name="build-revision"]')).toHaveAttribute('content', process.env.EXPECTED_REVISION);
   await expect(page.locator('base')).toHaveCount(0);
@@ -43,11 +35,5 @@ test('deployed revision unlocks, renders all four languages, and locks again', a
     await page.locator('[data-language-switch]').scrollIntoViewIfNeeded();
   }
   expect(failures).toEqual([]);
-  await page.locator('.lock-form button[type="submit"]').click();
-  await expect(page).toHaveURL(`${origin}/preview.html`);
   expect((await context.cookies()).some(cookie => cookie.name === 'fwh_preview')).toBe(false);
-  await page.goto('/');
-  await expect(page).toHaveURL(`${origin}/preview.html`);
-  await expect(page.locator('#login-form')).toBeVisible();
-  expect(failures).toEqual([]);
 });

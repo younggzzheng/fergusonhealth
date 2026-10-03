@@ -1,20 +1,12 @@
 const { test, expect } = require('@playwright/test');
 const { waitForRenderedPage } = require('./render-ready');
 
-const password = 'ci-preview-password';
-
 test.beforeEach(async ({ context, baseURL }) => {
   const origin = new URL(baseURL).origin;
   await context.route('**/*', route => new URL(route.request().url()).origin === origin
     ? route.continue()
     : route.abort('blockedbyclient'));
 });
-
-async function authenticate(page) {
-  const response = await page.request.post('/__preview_auth', { headers: { 'X-Preview-Password': password } });
-  expect(response.status()).toBe(200);
-  expect(await response.text()).toBe('ok');
-}
 
 async function brokenImages(page) {
   return page.locator('img').evaluateAll(images => images
@@ -64,61 +56,20 @@ async function assertLinks(page) {
   }
 }
 
-test('password gate protects content and assets, and logout removes access', async ({ page }) => {
-  expect((await page.request.get('/preview.html')).status()).toBe(200);
+test('public website and release assets load without a password or cookie', async ({ page, context }) => {
   for (const path of ['/', '/index.html', '/release.json', '/releases/0123456789abcdef0123456789abcdef01234567/site.js']) {
-    const response = await page.request.get(path, { maxRedirects: 0 });
-    expect(response.status(), path).toBe(302);
-    expect(response.headers().location).toBe('/preview.html');
+    expect((await page.request.get(path, { maxRedirects: 0 })).status(), path).toBe(200);
   }
-  for (const headers of [{}, { 'X-Preview-Password': 'wrong-password' }]) {
-    expect((await page.request.post('/__preview_auth', { headers })).status()).toBe(401);
-  }
-  expect((await page.request.get('/', { headers: { Cookie: 'fwh_preview=forged-cookie' }, maxRedirects: 0 })).status()).toBe(302);
-  expect((await page.request.get('/__preview_auth')).status()).toBe(405);
-  expect((await page.request.get('/__preview_logout')).status()).toBe(405);
-  await authenticate(page);
-  const cookie = (await page.context().cookies()).find(cookie => cookie.name === 'fwh_preview');
-  expect(cookie).toMatchObject({ httpOnly: true, sameSite: 'Strict', path: '/' });
-  expect((await page.request.get('/')).status()).toBe(200);
-  expect((await page.request.get('/release.json')).status()).toBe(200);
   await page.goto('/');
-  expect(await page.evaluate(() => document.cookie)).not.toContain('fwh_preview');
-  await page.locator('.lock-form button[type="submit"]').click();
-  await expect(page).toHaveURL(/\/preview\.html$/);
-  expect((await page.context().cookies()).some(cookie => cookie.name === 'fwh_preview')).toBe(false);
-  expect((await page.request.get('/', { maxRedirects: 0 })).status()).toBe(302);
-  await page.goto('/');
-  await expect(page.locator('#login-form')).toBeVisible();
-});
-
-test('preview form supports language, password visibility, invalid and valid login', async ({ page }) => {
-  await page.goto('/');
-  await expect(page).toHaveURL(/\/preview\.html$/);
-  const input = page.locator('#password');
-  await expect(input).toHaveAttribute('type', 'password');
-  await page.locator('[aria-controls="password"]').click();
-  await expect(input).toHaveAttribute('type', 'text');
-  await page.locator('[aria-controls="password"]').click();
-  await expect(input).toHaveAttribute('type', 'password');
-  await page.getByRole('button', { name: 'Switch to Chinese' }).click();
-  await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
-  await assertNoOverflow(page);
-  await page.getByRole('button', { name: 'Switch to English' }).click();
-  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-  await assertNoOverflow(page);
-  await input.fill('wrong-password');
-  await page.locator('#login-form button[type="submit"]').click();
-  await expect(page.locator('#login-error')).not.toBeEmpty();
-  await expect(input).toBeFocused();
-  await input.fill(password);
-  await page.locator('#login-form button[type="submit"]').click();
+  await expect(page.locator('#hero-title')).toBeVisible();
+  await expect(page.locator('#login-form, .lock-form')).toHaveCount(0);
+  expect((await context.cookies()).some(cookie => cookie.name === 'fwh_preview')).toBe(false);
+  await page.goto('/preview.html');
   await expect(page).toHaveURL('http://127.0.0.1:4173/');
   await expect(page.locator('#hero-title')).toBeVisible();
 });
 
 test('all four languages render without broken resources, broken links or overflow', async ({ page }) => {
-  await authenticate(page);
   const failures = [];
   page.on('pageerror', error => failures.push(`Script error: ${error.message}`));
   page.on('console', message => { if (message.type() === 'error') failures.push(`Console: ${message.text()}`); });
@@ -157,12 +108,11 @@ test('all four languages render without broken resources, broken links or overfl
   await page.locator('[data-language="en"]').click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('#hero-title')).toHaveText(title, { useInnerText: true });
-  await expect(page.locator('.lock-form')).toHaveAttribute('action', '/__preview_logout');
+  await expect(page.locator('.lock-form')).toHaveCount(0);
   expect(failures).toEqual([]);
 });
 
 test('French and German preserve credentials, disclosures, and language across insights', async ({ page }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   await expect(page.locator('[data-language]')).toHaveText(['EN', '中文', 'FR', 'DE']);
@@ -211,7 +161,6 @@ test('four-language selection works when optional preference storage is disabled
     Storage.prototype.getItem = () => { throw new Error('Storage unavailable'); };
     Storage.prototype.setItem = () => { throw new Error('Storage unavailable'); };
   });
-  await authenticate(page);
   await page.goto('/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await waitForRenderedPage(page);
@@ -224,7 +173,6 @@ test('four-language selection works when optional preference storage is disabled
 });
 
 test('community and education efforts link to bilingual insights and a local video', async ({ page }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / Our efforts');
@@ -262,7 +210,6 @@ test('community and education efforts link to bilingual insights and a local vid
 });
 
 test('doctor biography retains the supplied role and clinical focus with accessible expanded training', async ({ page }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   await expect(page.locator('.profile-name')).toHaveText('Dr. Michelle Lu-Ferguson, MD, FACOG');
@@ -335,7 +282,6 @@ test('doctor biography retains the supplied role and clinical focus with accessi
 });
 
 test('team introduction keeps the hero headline and moves the portrait to the doctor profile', async ({ page, isMobile }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   await expect(page.locator('#hero-title')).toHaveText('For every chapterof your life.');
@@ -380,7 +326,6 @@ test('team introduction keeps the hero headline and moves the portrait to the do
 });
 
 test('section closing lines stay understated and news precedes articles', async ({ page, isMobile }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   const closings = page.locator('main > section > .section-closing');
@@ -412,7 +357,6 @@ test('section closing lines stay understated and news precedes articles', async 
 });
 
 test('balanced team panel leads to services before the doctor profile', async ({ page, isMobile }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   expect(await page.locator('main > section').evaluateAll(sections => sections.map(section => section.id || 'hero')))
@@ -445,7 +389,6 @@ test('balanced team panel leads to services before the doctor profile', async ({
 });
 
 test('official-account QR keeps its white margin inside the matching blue frame', async ({ page }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   const qr = page.locator('.wechat-contact .qr-frame img');
@@ -459,7 +402,6 @@ test('official-account QR keeps its white margin inside the matching blue frame'
 });
 
 test('booking occupies the first row and official accounts share the lower row', async ({ page, isMobile }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   const social = page.locator('.connected-profile');
@@ -530,7 +472,6 @@ test('booking occupies the first row and official accounts share the lower row',
 });
 
 test('nine unnumbered service categories put hormone and menopause health first', async ({ page, isMobile }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   await expect(page.locator('#care-title')).toHaveText('Care that growswith you.');
@@ -597,7 +538,6 @@ test('nine unnumbered service categories put hormone and menopause health first'
 });
 
 test('service disclosures preserve their state across languages and support keyboard access', async ({ page }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   const cards = page.locator('#care details.care-item');
@@ -626,7 +566,6 @@ test('service disclosures preserve their state across languages and support keyb
 });
 
 test('section colors and decorative marks use the local brand and platform assets', async ({ page }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   await expect(page.locator('#care')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
@@ -647,7 +586,6 @@ test('section colors and decorative marks use the local brand and platform asset
 });
 
 test('shell and pearl backgrounds stay decorative and the official slogan is retained in both languages', async ({ page }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   const decoration = await page.locator('.hero, #care, #contact').evaluateAll(sections => sections.map(section => {
@@ -674,7 +612,6 @@ test('shell and pearl backgrounds stay decorative and the official slogan is ret
 });
 
 test('team panel stays light and the doctor introduction uses our own voice without a Parkway promotion', async ({ page }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   await expect(page.locator('.hero-team')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
@@ -689,7 +626,6 @@ test('team panel stays light and the doctor introduction uses our own voice with
 });
 
 test('hero stays slightly smaller and section labels stay readable in both languages', async ({ page, isMobile }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   const labels = page.locator('.hero-copy .eyebrow, [data-i18n="aboutEyebrow"], [data-i18n="careEyebrow"], [data-i18n="workEyebrow"], [data-i18n="contactEyebrow"], [data-i18n="locationsTitle"]');
@@ -709,7 +645,6 @@ test('hero stays slightly smaller and section labels stay readable in both langu
 });
 
 test('header navigation keeps readable type in all four languages', async ({ page, isMobile }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   for (const language of ['en', 'zh', 'fr', 'de']) {
@@ -737,7 +672,6 @@ test('header navigation keeps readable type in all four languages', async ({ pag
 });
 
 test('Ferguson Plus has a compact local logo, bilingual group information and its own website link', async ({ page }) => {
-  await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
   const card = page.locator('.plus-feature');
@@ -792,7 +726,6 @@ test('Ferguson Plus has a compact local logo, bilingual group information and it
 });
 
 test('navigation reaches contact and mobile menu closes on selection and Escape', async ({ page, isMobile }) => {
-  await authenticate(page);
   await page.goto('/');
   if (isMobile) {
     const menu = page.locator('button[aria-controls="mobile-nav"]');
@@ -820,7 +753,6 @@ test('navigation reaches contact and mobile menu closes on selection and Escape'
 });
 
 test('image checks detect a failed portrait even when its fallback hides the image', async ({ page }) => {
-  await authenticate(page);
   await page.route('**/assets/dr-ferguson-grey.jpg', route => route.fulfill({ status: 404, body: 'missing image' }));
   await page.goto('/');
   const failures = await brokenImages(page);
@@ -829,7 +761,6 @@ test('image checks detect a failed portrait even when its fallback hides the ima
 
 test('live layout readiness waits for a delayed stylesheet before checking mobile overflow', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'Reproduces the mobile deployment check.');
-  await authenticate(page);
   let releaseStylesheet;
   let stylesheetRequested;
   const released = new Promise(resolve => { releaseStylesheet = resolve; });

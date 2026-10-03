@@ -17,7 +17,6 @@ Required Actions secrets:
 | --- | --- |
 | `ALIBABA_CLOUD_ACCESS_KEY_ID` | Dedicated site's RAM access-key identifier |
 | `ALIBABA_CLOUD_ACCESS_KEY_SECRET` | Matching secret, consumed only in trusted main jobs |
-| `FWH_PREVIEW_PASSWORD` | Login used by live verification |
 
 `credentials.env.example` lists the same names for optional local use. Leave it
 blank in git. GitHub does not reveal saved secret values to an agent; instead,
@@ -36,5 +35,9 @@ standard input from an authorized administrator's local environment.
 Repository write access is a trust boundary: someone who can merge trusted
 workflow changes can run code with the site's deployment identity. A read-only
 clone can inspect and prepare edits, but cannot trigger privileged publishing.
-Additional account administration or changes to the existing preview gate
+Additional account administration or changes to the CDN EdgeScript
 require separately authorized Alibaba access; normal content changes do not.
+
+The password gate was removed on 2026-10-03. `FWH_PREVIEW_PASSWORD` is no
+longer consumed or required by any workflow. Normal deployments verify public
+access and need only the two Alibaba credential secrets.

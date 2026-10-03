@@ -48,7 +48,7 @@
       workDetailsTitle: '进一步了解她的专业历程', workEducationTitle: '医学教育与医疗质量', workEducationBody: '在罗伯特·伍德·约翰逊医学院完成妇产科住院医师培训后，吕医生留校任教，在临床工作之外参与住院医师培训、医学生教育及临床研究。2005年回国后，她在上海多家医疗机构承担临床管理与医疗质量、安全方面的工作。', workLeadershipTitle: '诊室之外的健康教育', workLeadershipBody: '她也参与社区健康教育。在2026年美华的医学职业体验活动中，她向 SCIS 学生介绍了从青春期到更年期的女性健康。', workBackgroundLink: '了解这次学生体验活动',
       contactEyebrow: '从这里开始', contactTitle: '下一步，<br><em>我们一起走。</em>', contactBody: '如需预约，请使用微信扫描下方相应门诊的预约码。如需了解更多信息，欢迎通过电子邮件联系我们。关注微信公众号，获取最新资讯。',
       locationsTitle: '咨询地点', clinic1Name: '1. 美华丁香门诊部', clinic1Address: '华山路800弄<br>6号楼3层', clinic1Entrance: '（入口在镇宁路上）', clinic1Appointment: '微信扫码预约', clinic2Name: '2. 百汇新天地医疗中心', clinic2Address: '淮海中路138号<br>上海广场3楼', clinic2Appointment: '微信扫码预约',
-      connectedTitle: '保持联系', wechatTitle: '官方微信公众号', wechatBody: '扫码关注，获取最新资讯。', socialXiaohongshu: '小红书', footerMessage: 'Because We Care', backTop: '返回顶部', lockPreview: '锁定预览', languageChoice: '选择语言'
+      connectedTitle: '保持联系', wechatTitle: '官方微信公众号', wechatBody: '扫码关注，获取最新资讯。', socialXiaohongshu: '小红书', footerMessage: 'Because We Care', backTop: '返回顶部', languageChoice: '选择语言'
     },
     fr: {
       brandHome: 'Accueil de Ferguson Women’s Health', mainNavigation: 'Navigation principale', mobileNavigation: 'Navigation mobile', discoverMore: 'En savoir plus',
@@ -91,7 +91,7 @@
       plusCulture: 'La bienveillance au-delà des cultures', plusScience: 'La science avec compréhension', plusJourney: 'Un parcours de santé partagé', plusLink: 'Découvrir Ferguson Plus',
       contactEyebrow: 'Un bon point de départ', contactTitle: 'Faisons le prochain<br><em>pas, ensemble.</em>', contactBody: 'Pour prendre rendez-vous, scannez dans WeChat le code de la clinique ci-dessous. Pour plus d’informations, contactez-nous par e-mail. Notre compte officiel WeChat partage actualités et nouveautés.',
       locationsTitle: 'Où nous trouver', clinic1Name: '1. Am-Sino Ding Xiang Clinic', clinic1Address: '3e étage, bâtiment 6,<br>800 Hua Shan Road', clinic1Entrance: '(Entrée sur Zhen Ning Road)', clinic1Appointment: 'Scannez avec WeChat pour réserver', clinic2Name: '2. Parkway MediCentre Xintiandi', clinic2Address: '3e étage, Shanghai Plaza,<br>138 Middle Huaihai Road.', clinic2Appointment: 'Scannez avec WeChat pour réserver',
-      connectedTitle: 'Restons en contact', wechatTitle: 'Compte officiel WeChat', wechatBody: 'Scannez pour suivre les actualités.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Retour en haut', lockPreview: 'Verrouiller l’aperçu'
+      connectedTitle: 'Restons en contact', wechatTitle: 'Compte officiel WeChat', wechatBody: 'Scannez pour suivre les actualités.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Retour en haut'
     },
     de: {
       brandHome: 'Startseite von Ferguson Women’s Health', mainNavigation: 'Hauptnavigation', mobileNavigation: 'Mobile Navigation', discoverMore: 'Mehr erfahren',
@@ -134,7 +134,7 @@
       plusCulture: 'Mitgefühl über Kulturen hinweg', plusScience: 'Wissenschaft mit Verständnis', plusJourney: 'Ein gemeinsamer Weg zur Gesundheit', plusLink: 'Ferguson Plus entdecken',
       contactEyebrow: 'Ein guter Anfang', contactTitle: 'Gehen wir den nächsten<br><em>Schritt gemeinsam.</em>', contactBody: 'Für einen Termin scannen Sie den untenstehenden Klinikcode in WeChat. Für weitere Informationen kontaktieren Sie uns per E-Mail. Unser offizielles WeChat-Konto teilt Neuigkeiten und aktuelle Informationen.',
       locationsTitle: 'Wo Sie uns finden', clinic1Name: '1. Am-Sino Ding Xiang Clinic', clinic1Address: '3. Etage, Gebäude 6,<br>800 Hua Shan Road', clinic1Entrance: '(Eingang an der Zhen Ning Road)', clinic1Appointment: 'Mit WeChat scannen und Termin buchen', clinic2Name: '2. Parkway MediCentre Xintiandi', clinic2Address: '3. Etage, Shanghai Plaza,<br>138 Middle Huaihai Road.', clinic2Appointment: 'Mit WeChat scannen und Termin buchen',
-      connectedTitle: 'Bleiben wir in Kontakt', wechatTitle: 'Offizielles WeChat-Konto', wechatBody: 'Für Neuigkeiten scannen und folgen.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Nach oben', lockPreview: 'Vorschau sperren'
+      connectedTitle: 'Bleiben wir in Kontakt', wechatTitle: 'Offizielles WeChat-Konto', wechatBody: 'Für Neuigkeiten scannen und folgen.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Nach oben'
     }
   };
   let language = 'en';
@@ -159,19 +159,6 @@
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && !mobileNav.hidden) { closeMenu(); menuButton.focus(); } });
   const desktop = window.matchMedia('(min-width: 701px)');
   desktop.addEventListener('change', event => { if (event.matches) closeMenu(); });
-  document.querySelector('.lock-form').addEventListener('submit', async event => {
-    event.preventDefault();
-    const button = event.currentTarget.querySelector('button');
-    button.disabled = true;
-    try {
-      const response = await fetch('/__preview_logout', { method: 'POST', credentials: 'same-origin', cache: 'no-store' });
-      if (!response.ok || (await response.text()).trim() !== 'ok') throw new Error('Logout failed');
-      window.location.replace('/preview.html');
-    } catch (_) {
-      button.textContent = { en: 'Try locking again', zh: '请重试锁定', fr: 'Réessayez de verrouiller', de: 'Erneut sperren' }[language];
-      button.disabled = false;
-    }
-  });
   document.getElementById('year').textContent = String(new Date().getFullYear());
   window.FergusonLanguages.init({
     translations,
