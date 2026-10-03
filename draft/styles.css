@@ -150,8 +150,7 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 .plus-feature .underlined-link{margin-top:12px}
 
 /* Keep the full supplied biography available without overwhelming the profile. */
-.profile-name{font-size:26px;line-height:1.4;letter-spacing:-.3px}
-.about-copy>p.profile-role{margin-top:9px;font-size:13px;line-height:1.8;color:var(--ink)}
+.about-copy>p.profile-role{margin-top:0;font-size:13px;line-height:1.8;color:var(--ink)}
 .profile-details{margin-top:26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .profile-details summary{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0;list-style:none;cursor:pointer;font-size:13px;line-height:1.7}
 .profile-details summary::-webkit-details-marker{display:none}
@@ -159,7 +158,7 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 .profile-details .details-content{padding-top:3px}
 .profile-details .details-content p+p{margin-top:16px}
 .about-copy .profile-details+.about-philosophy{border-top:0;margin-top:24px;padding-top:0}
-@media(max-width:700px){.profile-name{font-size:25px}.about-copy>p.profile-role{font-size:14px}.profile-details .details-content p{font-size:14px}}
+@media(max-width:700px){.about-copy>p.profile-role{font-size:14px}.profile-details .details-content p{font-size:14px}}
 
 /* Two quiet surfaces tie the introduction, care and community together. */
 :root{--paper:#f8f7f3}
