@@ -182,3 +182,5 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - The owner also renamed “妇科诊疗” to “妇科咨询”; retain the existing four
   service entries. Per the owner's subsequent clarification, preserve the
   English labels “Areas of care” and “Gynecologic Care”.
+- Owner requested a brand-only homepage browser title: “Ferguson Women's
+  Health”, with “Ferguson 女性健康” in Chinese, without the doctor's name.

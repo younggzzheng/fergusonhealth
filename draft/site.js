@@ -70,7 +70,7 @@
     languageButton.textContent = language === 'en' ? '中文' : 'EN';
     languageButton.setAttribute('aria-label', language === 'en' ? '切换至简体中文' : 'Switch to English');
     languageButton.setAttribute('lang', language === 'en' ? 'zh-CN' : 'en');
-    document.title = language === 'en' ? "Ferguson Women's Health · Dr. Michelle Lu-Ferguson" : 'Ferguson 女性健康 · 吕明旭医生';
+    document.title = language === 'en' ? "Ferguson Women's Health" : 'Ferguson 女性健康';
     updateMenuLabel();
     try { localStorage.setItem('ferguson-language', language); } catch (_) { /* The selected language still works for this visit. */ }
   }

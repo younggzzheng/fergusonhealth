@@ -132,6 +132,7 @@ test('both languages render without broken resources, broken links or overflow',
   for (const language of ['en', 'zh-CN']) {
     if (language === 'zh-CN') await page.locator('[data-language-switch]').click();
     await expect(page.locator('html')).toHaveAttribute('lang', language);
+    await expect(page).toHaveTitle(language === 'en' ? "Ferguson Women's Health" : 'Ferguson 女性健康');
     expect(await page.locator('#hero-title').innerText()).not.toContain('undefined');
     await assertNoOverflow(page);
     await assertLinks(page);
