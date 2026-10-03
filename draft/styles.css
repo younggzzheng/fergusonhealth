@@ -176,13 +176,22 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 .practice{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:start;min-width:0}
 .practice-details{min-width:0}
 .appointment-code{margin-top:0;padding-top:0;max-width:186px}
-.wechat-and-social{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:64px;border-top:1px solid var(--line);padding-top:32px}
-.wechat-and-social .wechat-contact{border-top:0;padding-top:0;flex-direction:row;align-items:center}
-.wechat-and-social .social-profiles{margin-top:0;padding-top:0;border-top:0}
-@media(max-width:1000px){.practice-locations,.wechat-and-social{column-gap:32px}.practice{grid-template-columns:1fr;gap:18px}.wechat-and-social .wechat-contact{flex-direction:column;align-items:flex-start}}
-@media(max-width:700px){.contact-grid{row-gap:30px}.practice-locations{grid-template-columns:1fr;row-gap:28px}.practice{grid-template-columns:minmax(0,1fr) 142px;gap:18px}.appointment-code{max-width:142px}.appointment-qr-frame{padding:8px}.appointment-qr-frame img{width:124px;height:124px}.wechat-and-social{grid-template-columns:1fr;gap:28px;padding-top:28px}.wechat-and-social .wechat-contact{flex-direction:row;align-items:center}}
+.wechat-and-social{grid-column:1/-1;display:block;border-top:1px solid var(--line);padding-top:32px}
+.wechat-and-social>h3{font-family:var(--sans)}
+.connected-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin-top:24px}
+.connected-grid .wechat-contact{display:block;border:0;padding:0;min-width:0}
+.connected-profile{min-width:0}
+.connected-visual{height:196px;display:flex;align-items:center;justify-content:flex-start;margin-bottom:18px}
+.connected-visual .social-icon{width:64px;height:64px}
+.connected-grid h4{margin:0;font-family:var(--sans);font-size:15px;font-weight:550;line-height:1.6}
+.connected-grid .wechat-contact p,.social-handle{font-size:14px;line-height:1.8;color:var(--body);margin-top:9px;overflow-wrap:anywhere}
+.social-handle{user-select:all}
+.connected-grid .qr-frame{width:100%;max-width:196px;padding:12px}
+.connected-grid .qr-frame img{width:calc(100% - 8px);height:auto;aspect-ratio:1}
+@media(min-width:701px) and (max-width:1000px){.practice-locations{column-gap:32px;grid-template-rows:auto auto auto}.practice{grid-row:2/span 2;grid-template-columns:1fr;grid-template-rows:subgrid;row-gap:18px}.practice:first-of-type{grid-column:1}.practice:last-of-type{grid-column:2}}
+@media(max-width:900px){.connected-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 32px}}
+@media(max-width:700px){.contact-grid{row-gap:30px}.practice-locations{grid-template-columns:1fr;row-gap:28px}.practice{grid-template-columns:minmax(0,1fr) 142px;gap:18px}.appointment-code{max-width:142px}.appointment-qr-frame{padding:8px}.appointment-qr-frame img{width:124px;height:124px}.wechat-and-social{padding-top:28px}.connected-grid{column-gap:24px}.connected-visual{height:150px;margin-bottom:14px}.connected-grid .qr-frame{max-width:150px;padding:8px}.connected-grid .qr-frame img{width:calc(100% - 6px)}.connected-visual .social-icon{width:48px;height:48px}.connected-grid h4{font-size:14px}.connected-grid .wechat-contact p,.social-handle{font-size:13px}}
 @media(max-width:360px){.practice{grid-template-columns:minmax(0,1fr) 126px;gap:14px}.appointment-code{max-width:126px}.appointment-qr-frame img{width:108px;height:108px}}
-@media(max-width:390px){.wechat-and-social .wechat-contact{flex-direction:column;align-items:flex-start}}
 .about-portrait .portrait-frame{aspect-ratio:1}
 .about-portrait .doctor-photo{object-position:center}
 .about-portrait figcaption{flex-direction:column;gap:4px;font-size:13px}

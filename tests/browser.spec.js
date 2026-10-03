@@ -166,9 +166,9 @@ test('community and education efforts link to bilingual insights and a local vid
   await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / Our efforts');
   await expect(page.locator('#work-title')).toHaveText('Beyondthe clinic.');
   await expect(page.locator('.effort-list dt')).toHaveText(['Community education', 'Multidisciplinary exchange', 'Learning together']);
-  await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('Dr. Ferguson and the team regularly give health talks in the community.');
-  await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('Multidisciplinary team (MDT) discussions');
-  await expect(page.locator('[data-i18n="effortCMEBody"]')).toContainText('Continuing medical education (CME) discussions');
+  await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('Dr. Ferguson and the team regularly give community talks on women’s health, sharing clear, practical knowledge and making space for questions and open conversation.');
+  await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('multidisciplinary team (MDT) discussions');
+  await expect(page.locator('[data-i18n="effortCMEBody"]')).toContainText('continuing medical education (CME) discussions');
   await expect(page.locator('.resource-list a')).toHaveCount(4);
   await expect(page.locator('.event-date time')).toHaveAttribute('datetime', '2026-10-24T14:00:00+08:00');
   await expect(page.locator('[data-i18n="eventLink"]').locator('..')).toHaveAttribute('href', 'https://www.theplushealth.org/#events');
@@ -192,7 +192,7 @@ test('community and education efforts link to bilingual insights and a local vid
   await page.locator('[data-i18n="back"]').click();
   await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / 社区与教育');
   await expect(page.locator('.effort-list dt')).toHaveText(['社区健康教育', '多学科交流', '共同学习']);
-  await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('吕医生与团队经常开展社区健康讲座。');
+  await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('吕医生与团队经常开展女性健康主题的社区讲座，以清晰、实用的方式分享知识，也为提问和坦诚交流留出空间。');
   await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('合作医院的平台');
   await expect(page.locator('[data-i18n="effortCMEBody"]')).toContainText('继续医学教育（CME）讨论');
 });
@@ -394,21 +394,36 @@ test('booking occupies the first row and official accounts share the lower row',
   await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
-  const social = page.locator('.social-profiles');
-  await expect(social.locator('dd')).toHaveText([
+  const social = page.locator('.connected-profile');
+  await expect(page.locator('#connected-title')).toHaveText('Stay connected');
+  await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('Scan to follow Ferguson Women’s Health for news & updates.');
+  await expect(page.locator('[data-i18n="wechatNote"], [data-i18n="socialTitle"]')).toHaveCount(0);
+  await expect(page.locator('.practice h4')).toHaveText(['1. Am-Sino Ding Xiang Clinic', '2. Parkway MediCentre Xintiandi']);
+  await expect(page.locator('.connected-grid > *')).toHaveCount(4);
+  await expect(social.locator('.social-handle')).toHaveText([
     '@Ferguson健康咨询上海', '@FergusonHealth_SH', '@FergusonHealth_SH',
   ]);
   await expect(social.locator('a')).toHaveCount(0);
-  await expect(social.locator('dt')).toHaveText(['Xiaohongshu · 小红书', 'Facebook', 'Instagram']);
+  await expect(social.locator('h4')).toHaveText(['Xiaohongshu · 小红书', 'Facebook', 'Instagram']);
   const position = await page.locator('.wechat-and-social').evaluate(group => ({
     groupTop: group.getBoundingClientRect().top,
     bookingBottom: document.querySelector('.practice-locations').getBoundingClientRect().bottom,
     qr: group.querySelector('.wechat-contact').getBoundingClientRect().toJSON(),
-    social: group.querySelector('.social-profiles').getBoundingClientRect().toJSON(),
+    social: group.querySelector('.connected-profile').getBoundingClientRect().toJSON(),
   }));
   expect(position.groupTop).toBeGreaterThan(position.bookingBottom);
-  if (isMobile) expect(position.social.top).toBeGreaterThan(position.qr.bottom);
-  else expect(position.social.left).toBeGreaterThan(position.qr.right);
+  expect(position.social.left).toBeGreaterThan(position.qr.right);
+  const channels = await page.locator('.connected-grid > *').evaluateAll(elements => elements.map(element => ({
+    card: element.getBoundingClientRect().toJSON(),
+    label: element.querySelector('h4').getBoundingClientRect().toJSON(),
+  })));
+  expect(Math.abs(channels[0].label.top - channels[1].label.top)).toBeLessThan(1);
+  if (isMobile) {
+    expect(channels[2].card.top).toBeGreaterThan(channels[0].card.bottom);
+    expect(Math.abs(channels[2].label.top - channels[3].label.top)).toBeLessThan(1);
+  } else {
+    for (const channel of channels) expect(Math.abs(channel.label.top - channels[0].label.top)).toBeLessThan(1);
+  }
   const booking = await page.locator('.practice').evaluateAll(practices => practices.map(practice => ({
     text: practice.querySelector('.practice-details').getBoundingClientRect().toJSON(),
     code: practice.querySelector('.appointment-code').getBoundingClientRect().toJSON(),
@@ -421,9 +436,27 @@ test('booking occupies the first row and official accounts share the lower row',
   if (isMobile) expect(booking[1].card.top).toBeGreaterThan(booking[0].card.bottom);
   else expect(booking[1].card.left).toBeGreaterThan(booking[0].card.right);
   await page.locator('[data-language-switch]').click();
-  await expect(social.locator('h3')).toHaveText('关注我们');
-  await expect(social.locator('dt')).toHaveText(['小红书', 'Facebook', 'Instagram']);
+  await expect(page.locator('#connected-title')).toHaveText('保持联系');
+  await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('扫码关注 Ferguson 女性健康，获取最新资讯。');
+  await expect(page.locator('.practice h4')).toHaveText(['1. 美华丁香门诊部', '2. 百汇新天地医疗中心']);
+  await expect(page.locator('.wechat-contact h4')).toHaveText('官方微信公众号');
+  await expect(social.locator('h4')).toHaveText(['小红书', 'Facebook', 'Instagram']);
   await assertNoOverflow(page);
+  if (!isMobile) {
+    for (const width of [1000, 860, 701]) {
+      await page.setViewportSize({ width, height: 900 });
+      for (const language of ['zh-CN', 'en']) {
+        if (await page.locator('html').getAttribute('lang') !== language) await page.locator('[data-language-switch]').click();
+        const codes = await page.locator('.appointment-code').evaluateAll(elements => elements.map(element => ({
+          top: element.getBoundingClientRect().top,
+          caption: element.querySelector('figcaption').getBoundingClientRect().top,
+        })));
+        expect(Math.abs(codes[0].top - codes[1].top), `QR alignment at ${width}px in ${language}`).toBeLessThan(1);
+        expect(Math.abs(codes[0].caption - codes[1].caption)).toBeLessThan(1);
+        await assertNoOverflow(page);
+      }
+    }
+  }
 });
 
 test('nine unnumbered service categories put hormone and menopause health first', async ({ page, isMobile }) => {

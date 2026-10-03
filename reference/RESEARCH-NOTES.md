@@ -151,3 +151,14 @@ expandable section in **03 / Her work** so the initial page stays concise.
   the “Different chapters bring different questions” introduction in both
   languages. Keep its main headline, service accordion, closing line, and subtle
   shell-and-pearl background.
+- Follow-up contact layout revision: “Stay connected / 保持联系” groups official
+  WeChat, Xiaohongshu, Facebook, and Instagram as four equal items (two columns
+  on narrow screens). Preserve the supplied handles and QR. When clinic codes
+  appear below their addresses at intermediate widths, share the text/code rows
+  so both QR images and their captions align despite different address lengths.
+- The owner then requested fuller effort descriptions. Expand the three brief
+  statements with their purpose (accessible education, cross-specialty exchange,
+  and ongoing learning), retaining team participation in community talks and
+  avoiding invented credentials, credits, attendance figures, or outcomes.
+- Number the clinic names 1 (Am-Sino) and 2 (Parkway) in English and Chinese,
+  as requested by the owner. Service categories remain unnumbered.

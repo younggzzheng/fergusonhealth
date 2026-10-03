@@ -32,9 +32,9 @@
       carePelvicTitle: '盆底健康', carePelvicAssessment: '盆底功能评估', careIncontinence: '轻度尿失禁', carePostpartumPelvic: '产后盆底康复',
       carePreventiveTitle: '女性长期健康', careBone: '骨密度与骨健康', careCardiovascular: '心血管与绝经风险评估', careChronic: '慢性病与激素管理', careLifestyle: '体重与生活方式医学',
       workEyebrow: '03 / 社区与教育', workTitle: '诊室之外，<br><em>分享与连接。</em>', workFeatureType: '携手关爱健康',
-      effortCommunity: '社区健康教育', effortCommunityBody: '吕医生与团队经常开展社区健康讲座。',
-      effortMDT: '多学科交流', effortMDTBody: '在合作医院的平台上，组织多学科团队（MDT）讨论。',
-      effortCME: '共同学习', effortCMEBody: '通过继续医学教育（CME）讨论，分享知识，共同学习。',
+      effortCommunity: '社区健康教育', effortCommunityBody: '吕医生与团队经常开展女性健康主题的社区讲座，以清晰、实用的方式分享知识，也为提问和坦诚交流留出空间。',
+      effortMDT: '多学科交流', effortMDTBody: '在合作医院的平台上，我们汇集不同专科的同仁，组织多学科团队（MDT）讨论，交流各自的视角，共同探讨复杂的临床问题。',
+      effortCME: '共同学习', effortCMEBody: '通过继续医学教育（CME）讨论，我们分享临床知识与经验，支持持续学习，也加强医学专业人士之间的交流与联系。',
       insightsEyebrow: '文章与视频', insightsTitle: '健康知识', insightsIntro: '多一份知识，多一份理解。阅读文章摘要，观看更年期系列视频。',
       insightBone: '绝经后的无声骨流失', insightFertility: '35岁之后的生育力', insightProtein: '50岁之后，蛋白质比想象中更重要', insightVideo: '视频：情绪波动，还是抑郁？',
       insightsUpdates: '更多文章、视频与资讯，请关注我们的官方微信公众号。',
@@ -45,8 +45,8 @@
       plusCulture: '跨文化的深度关怀', plusScience: '科学与洞察并行', plusJourney: '健康旅程的同行者', plusLink: '了解 Ferguson Plus',
       workDetailsTitle: '进一步了解她的专业历程', workEducationTitle: '医学教育与医疗质量', workEducationBody: '在罗伯特·伍德·约翰逊医学院完成妇产科住院医师培训后，吕医生留校任教，在临床工作之外参与住院医师培训、医学生教育及临床研究。2005年回国后，她在上海多家医疗机构承担临床管理与医疗质量、安全方面的工作。', workLeadershipTitle: '诊室之外的健康教育', workLeadershipBody: '她也参与社区健康教育。在2026年美华的医学职业体验活动中，她向 SCIS 学生介绍了从青春期到更年期的女性健康。', workBackgroundLink: '了解这次学生体验活动',
       contactEyebrow: '从这里开始', contactTitle: '下一步，<br><em>我们一起走。</em>', contactBody: '如需预约，请使用微信扫描下方相应门诊的预约码。如需了解执业信息，欢迎通过电子邮件联系我们。关注微信公众号，获取最新资讯。',
-      locationsTitle: '执业地点', clinic1Name: '美华丁香门诊部', clinic1Address: '华山路800弄<br>6号楼3层', clinic1Entrance: '（入口在镇宁路上）', clinic1Appointment: '微信扫码预约', clinic2Name: '百汇新天地医疗中心', clinic2Address: '淮海中路138号<br>上海广场3楼', clinic2Appointment: '微信扫码预约',
-      wechatTitle: '在微信上保持联系', wechatBody: '扫码关注 Ferguson 女性健康官方微信公众号。', wechatNote: '微信公众号 · 最新资讯', socialTitle: '关注我们', socialXiaohongshu: '小红书', footerMessage: 'Because We Care', backTop: '返回顶部', lockPreview: '锁定预览'
+      locationsTitle: '执业地点', clinic1Name: '1. 美华丁香门诊部', clinic1Address: '华山路800弄<br>6号楼3层', clinic1Entrance: '（入口在镇宁路上）', clinic1Appointment: '微信扫码预约', clinic2Name: '2. 百汇新天地医疗中心', clinic2Address: '淮海中路138号<br>上海广场3楼', clinic2Appointment: '微信扫码预约',
+      connectedTitle: '保持联系', wechatTitle: '官方微信公众号', wechatBody: '扫码关注 Ferguson 女性健康，获取最新资讯。', socialXiaohongshu: '小红书', footerMessage: 'Because We Care', backTop: '返回顶部', lockPreview: '锁定预览'
     }
   };
   const translatedElements = [...document.querySelectorAll('[data-i18n], [data-i18n-html]')];
