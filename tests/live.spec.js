@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const { waitForRenderedPage } = require('./render-ready');
 
-test('public deployed revision renders all four languages without login', async ({ page, context, baseURL }) => {
+test('public deployed revision renders all five languages without login', async ({ page, context, baseURL }) => {
   const origin = new URL(baseURL).origin;
   const failures = [];
   await context.route('**/*', route => new URL(route.request().url()).origin === origin
@@ -19,7 +19,7 @@ test('public deployed revision renders all four languages without login', async 
   await expect(page.locator('base')).toHaveCount(0);
   await expect(page.locator('#hero-title')).toBeVisible();
   const englishTitle = await page.locator('#hero-title').innerText();
-  for (const language of ['en', 'zh-CN', 'fr', 'de']) {
+  for (const language of ['en', 'zh-CN', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${language === 'zh-CN' ? 'zh' : language}"]`).click();
     await expect(page.locator('html')).toHaveAttribute('lang', language);
     await waitForRenderedPage(page);

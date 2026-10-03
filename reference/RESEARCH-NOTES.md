@@ -193,3 +193,6 @@ expandable section in **03 / Her work** so the initial page stays concise.
   Explicit EN / 中文 / FR / DE controls share one optional stored preference;
   changing language must preserve the disclosure states. The password gate
   and private OSS remain unchanged. Chinese “执业地点” becomes “咨询地点”.
+- Owner subsequently requested Spanish as well, using the same English source
+  and safeguards. Both pages now offer EN / 中文 / FR / DE / ES. Keep the
+  English video and supplied account names, addresses, and clinical scope.
