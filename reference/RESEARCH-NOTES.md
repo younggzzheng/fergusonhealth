@@ -11,10 +11,15 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - Owner-supplied biography, 3 October 2026: the revised **Meet Dr. Ferguson**
   introduction retains the supplied name, MD/FACOG qualifications,
   **Founder & President, Ferguson Women’s Health** title, US/China experience,
-  current clinical focus and consultation locations. A native disclosure keeps
-  the supplied four-institution medical training, Rutgers Robert Wood Johnson
-  residency/faculty history, surgical experience and communication approach
-  available in English and Chinese. These are owner-provided statements;
+  current clinical focus and consultation locations. The owner's subsequent
+  revision specifies an MD from the **Medical University of Ohio**, pre-medical
+  studies at Peking University followed by Peking Union Medical College, and
+  **PhD-level research training** at New York University (not an earned PhD).
+  The current native disclosure uses this replacement training paragraph and
+  communication approach in English and Chinese; it does not retain the older
+  training or standalone surgical-experience paragraphs from the first bio.
+  The revised clinical focus covers the full spectrum of women's health and
+  complex/high-risk prenatal consultation. These are owner-provided statements;
   do not infer additional degrees, institutional appointments or group titles.
   The Ferguson Women’s Health leadership title does not imply a corresponding
   founder/president title at Ferguson Plus.

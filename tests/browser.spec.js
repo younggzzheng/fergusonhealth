@@ -176,17 +176,27 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await page.keyboard.press('Enter');
   await expect(details).toHaveAttribute('open', '');
   await expect(details.locator('[data-i18n="profileTraining"]')).toBeVisible();
-  for (const institution of ['Peking University', 'Peking Union Medical College', 'New York University', 'Ohio University College of Medicine', 'Rutgers Robert Wood Johnson Medical School']) {
+  for (const institution of ['Peking University', 'Peking Union Medical College', 'New York University', 'Medical University of Ohio']) {
     await expect(details.locator('[data-i18n="profileTraining"]')).toContainText(institution);
   }
-  await expect(details.locator('[data-i18n="profileSurgery"]')).toContainText('hysteroscopy and laparoscopy');
+  await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('Doctor of Medicine degree from the Medical University of Ohio');
+  await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('pre-medical studies at Peking University');
+  await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('PhD-level research training at New York University');
+  await expect(details).not.toContainText('Ohio University College of Medicine');
+  await expect(details.locator('[data-i18n="profileSurgery"]')).toHaveCount(0);
+  await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('full spectrum of women’s health');
+  for (const focus of ['fertility and preconception counseling', 'sexual and vulvovaginal health', 'adolescent gynecology', 'pelvic floor health', 'long-term preventive care']) {
+    await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText(focus);
+  }
   await page.locator('[data-language-switch]').click();
   await expect(details).toHaveAttribute('open', '');
   await expect(page.locator('.profile-name')).toHaveText('吕明旭医生，MD, FACOG');
   await expect(page.locator('.profile-role')).toHaveText('Ferguson Women’s Health 创始人兼总裁');
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('复杂及高危孕期情况');
-  await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('俄亥俄大学医学院');
-  await expect(details.locator('[data-i18n="profileSurgery"]')).toContainText('宫腔镜与腹腔镜');
+  await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('俄亥俄医科大学（Medical University of Ohio）取得医学博士（MD）学位');
+  await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('纽约大学接受博士阶段科研培训');
+  await expect(details.locator('[data-i18n="profileTraining"]')).not.toContainText('取得博士学位');
+  await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('盆底健康及长期预防保健');
   await assertNoOverflow(page);
   await summary.focus();
   await page.keyboard.press('Space');
