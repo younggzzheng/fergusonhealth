@@ -5,7 +5,7 @@
     zh: {
       skip: '跳转到正文', navAbout: '认识吕医生', navCare: '咨询领域', navWork: '社区与教育', navContact: '联系咨询',
       heroEyebrow: '用心了解，关爱女性健康', heroTitle: '关爱人生的<br><em>每一个阶段。</em>',
-      heroWhoTitle: '我们是谁', heroIntro: '我们是一支专注女性健康的团队，以清晰沟通、科学诊疗和长期陪伴为核心。', heroCta: '了解我们的诊疗服务',
+      heroWhoTitle: '我们是谁', heroIntro: '我们是一支专注女性健康的团队，以清晰沟通、科学诊疗和长期陪伴为核心。', heroCta: '了解我们的咨询服务',
       missionTitle: '使命', missionBody: '以科学、可信赖的方式，帮助每位女性更好地了解自己，做出清晰而自信的健康选择。',
       visionTitle: '愿景', visionBody: '以国际标准的诊疗体系，让每位女性拥有更健康、更有力量的生活。',
       heroLocation: '中国 · 上海', portraitName: '吕明旭医生', portraitDetail: '妇产科', heroBottom: '专业、关怀，以及多一份理解。',

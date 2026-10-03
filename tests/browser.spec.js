@@ -377,7 +377,7 @@ test('balanced team panel leads to services before the doctor profile', async ({
   await expect(page.locator('[data-i18n="navCare"]')).toHaveText(['咨询领域', '咨询领域']);
   await expect(page.locator('[data-i18n="contactBody"]')).toContainText('如需了解更多信息，欢迎通过电子邮件联系我们。');
   await expect(page.locator('[data-i18n="aboutEyebrow"]')).toHaveText('02 / 认识吕医生');
-  await expect(page.locator('[data-i18n="heroCta"]')).toHaveText('了解我们的诊疗服务');
+  await expect(page.locator('[data-i18n="heroCta"]')).toHaveText('了解我们的咨询服务');
   await assertNoOverflow(page);
 });
 

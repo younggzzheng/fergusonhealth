@@ -184,3 +184,5 @@ expandable section in **03 / Her work** so the initial page stays concise.
   English labels “Areas of care” and “Gynecologic Care”.
 - Owner requested a brand-only homepage browser title: “Ferguson Women's
   Health”, with “Ferguson 女性健康” in Chinese, without the doctor's name.
+- The Chinese hero link now reads “了解我们的咨询服务”; preserve the English
+  “Explore our care” text and its existing service-section destination.
