@@ -299,6 +299,12 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   await expect(page.locator('.hero-who-title')).toHaveText('Who We Are');
   await expect(page.locator('.hero-intro')).toHaveText('We are a women’s health team committed to clear communication, evidence-based care, and long-term support.');
   await expect(page.locator('.purpose-item h2')).toHaveText(['Mission', 'Vision']);
+  const englishHeadings = await page.locator('.hero-who-title, .purpose-item h2').evaluateAll(elements => elements.map(element => {
+    const style = getComputedStyle(element);
+    return [style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight, style.letterSpacing];
+  }));
+  expect(englishHeadings).toHaveLength(3);
+  for (const style of englishHeadings) expect(style).toEqual(englishHeadings[0]);
   await expect(page.locator('.purpose-item p')).toHaveText([
     'To provide reliable, evidence-based care that helps every woman understand her body and make confident health decisions.',
     'Bringing international standards of women’s healthcare to every woman, supporting her health and quality of life.',
