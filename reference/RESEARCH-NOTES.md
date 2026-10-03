@@ -88,6 +88,16 @@ expandable section in **03 / Her work** so the initial page stays concise.
 
 ## Owner's PDF revision — 3 October 2026
 
+- The owner's later screenshot-based layout revision adds a restrained closing
+  sentence under each main section, with a thin rule and generous spacing,
+  echoing the existing hero closing line. Doctor photo credentials now include
+  Women's Health / 女性健康. The duplicate small contact-heading logo is removed;
+  the shell-and-pearl background remains. News/events precede articles/videos in
+  document, visual and mobile reading order, not just CSS ordering.
+- The owner also requested shorter **Our efforts** descriptions and clarified
+  that community talks are given by **Dr. Ferguson and the team**, not only the
+  doctor. Keep each of the three descriptions concise in both languages.
+
 - In a subsequent owner revision, **Our efforts / 社区与教育** replaces the
   team-care philosophy with work beyond individual consultations. The owner
   supplied the facts that Dr. Ferguson regularly gives community talks and

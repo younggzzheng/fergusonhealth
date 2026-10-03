@@ -166,9 +166,9 @@ test('community and education efforts link to bilingual insights and a local vid
   await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / Our efforts');
   await expect(page.locator('#work-title')).toHaveText('Beyondthe clinic.');
   await expect(page.locator('.effort-list dt')).toHaveText(['Community education', 'Multidisciplinary exchange', 'Learning together']);
-  await expect(page.locator('[data-i18n="effortCommunityBody"]')).toContainText('regularly gives community talks');
-  await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('multidisciplinary team (MDT) discussions');
-  await expect(page.locator('[data-i18n="effortCMEBody"]')).toContainText('continuing medical education (CME) discussions');
+  await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('Dr. Ferguson and the team regularly give health talks in the community.');
+  await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('Multidisciplinary team (MDT) discussions');
+  await expect(page.locator('[data-i18n="effortCMEBody"]')).toContainText('Continuing medical education (CME) discussions');
   await expect(page.locator('.resource-list a')).toHaveCount(4);
   await expect(page.locator('.event-date time')).toHaveAttribute('datetime', '2026-10-24T14:00:00+08:00');
   await expect(page.locator('[data-i18n="eventLink"]').locator('..')).toHaveAttribute('href', 'https://www.theplushealth.org/#events');
@@ -192,6 +192,7 @@ test('community and education efforts link to bilingual insights and a local vid
   await page.locator('[data-i18n="back"]').click();
   await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / 社区与教育');
   await expect(page.locator('.effort-list dt')).toHaveText(['社区健康教育', '多学科交流', '共同学习']);
+  await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('吕医生与团队经常开展社区健康讲座。');
   await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('合作医院的平台');
   await expect(page.locator('[data-i18n="effortCMEBody"]')).toContainText('继续医学教育（CME）讨论');
 });
@@ -286,7 +287,7 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   await portrait.scrollIntoViewIfNeeded();
   await expect(portrait).toBeVisible();
   await expect.poll(() => portrait.evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
-  await expect(page.locator('#about .about-portrait figcaption span')).toHaveText(['Michelle Lu-Ferguson', 'MD, FACOG · Obstetrics & Gynaecology']);
+  await expect(page.locator('#about .about-portrait figcaption span')).toHaveText(['Michelle Lu-Ferguson', 'MD, FACOG · Obstetrics & Gynaecology · Women’s Health']);
   await expect(portrait).toHaveAttribute('src', /dr-ferguson-grey\.jpg/);
   if (isMobile) {
     const order = await page.locator('.about-grid').evaluate(grid => ({
@@ -308,7 +309,38 @@ test('team introduction keeps the hero headline and moves the portrait to the do
     '以科学、可信赖的方式，帮助每位女性更好地了解自己，做出清晰而自信的健康选择。',
     '以国际标准的诊疗体系，让每位女性拥有更健康、更有力量的生活。',
   ]);
-  await expect(page.locator('#about .about-portrait figcaption span')).toHaveText(['吕明旭医生', 'MD, FACOG · 妇产科']);
+  await expect(page.locator('#about .about-portrait figcaption span')).toHaveText(['吕明旭医生', 'MD, FACOG · 妇产科 · 女性健康']);
+  await assertNoOverflow(page);
+});
+
+test('section closing lines stay understated and news precedes articles', async ({ page, isMobile }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const closings = page.locator('main > section > .section-closing');
+  await expect(closings).toHaveText([
+    'Understanding your needs. Supporting every stage.',
+    'Experience that listens. Care that feels personal.',
+    'Sharing knowledge. Connecting communities.',
+    'Questions welcome. Connections begin here.',
+  ]);
+  await expect(page.locator('.hero-bottom')).toContainText('Expertise. Empathy. A little more understanding.');
+  for (const closing of await closings.all()) {
+    await expect(closing).toHaveCSS('border-top-width', '1px');
+    await expect(closing).toHaveCSS('font-size', '12px');
+  }
+  const cards = page.locator('.community-grid > .community-card');
+  expect(await cards.evaluateAll(elements => elements.map(element => element.getAttribute('aria-labelledby')))).toEqual(['event-title', 'insights-title']);
+  const arrangement = await cards.evaluateAll(elements => elements.map(element => element.getBoundingClientRect().toJSON()));
+  if (isMobile) expect(arrangement[1].top).toBeGreaterThan(arrangement[0].bottom);
+  else expect(arrangement[1].left).toBeGreaterThan(arrangement[0].right);
+  await expect(page.locator('#contact .brand-mark')).toHaveCount(0);
+  await assertNoOverflow(page);
+  await page.locator('[data-language-switch]').click();
+  await expect(closings).toHaveText([
+    '了解您的需要，陪伴每一个阶段。', '专业始于经验，关怀始于倾听。',
+    '分享知识，连接社区。', '欢迎提问，从交流开始。',
+  ]);
   await assertNoOverflow(page);
 });
 
@@ -472,7 +504,7 @@ test('section colors and decorative marks use the local brand and platform asset
   await expect(page.locator('#contact')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
   await expect(page.locator('use[href="#flower"], use[href="#sprig"], .tiny-star')).toHaveCount(0);
   const marks = page.locator('.brand-mark');
-  await expect(marks).toHaveCount(5);
+  await expect(marks).toHaveCount(4);
   for (const mark of await marks.all()) {
     await expect(mark).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
   }

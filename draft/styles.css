@@ -166,6 +166,10 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 /* Two quiet surfaces tie the introduction, care and community together. */
 :root{--paper:#f8f7f3}
 .site-footer{background:#edf2f8}
+.hero-bottom{font-size:12px;line-height:1.8}
+.section-closing{margin-top:48px;padding:28px 0 30px;border-top:1px solid var(--line);font-size:12px;line-height:1.8;letter-spacing:.8px;color:var(--body)}
+.section-pad:has(>.section-closing),.contact-section:has(>.section-closing){padding-bottom:0}
+@media(max-width:700px){.section-closing{margin-top:32px;padding-block:23px 26px;letter-spacing:.3px}}
 .about-portrait .portrait-frame{aspect-ratio:1}
 .about-portrait .doctor-photo{object-position:center}
 .about-portrait figcaption{flex-direction:column;gap:4px;font-size:13px}
