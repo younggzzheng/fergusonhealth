@@ -22,28 +22,34 @@ class Alibaba:
         self.secret = os.environ["ALIBABA_CLOUD_ACCESS_KEY_SECRET"]
 
     def oss(self, method, key, data=None, content_type="", cache_control=None):
-        date = email.utils.formatdate(usegmt=True)
         digest = base64.b64encode(hashlib.md5(data).digest()).decode() if data is not None else ""
-        sign = f"{method}\n{digest}\n{content_type}\n{date}\n/{BUCKET}/{key}"
-        signature = base64.b64encode(hmac.new(self.secret.encode(), sign.encode(), hashlib.sha1).digest()).decode()
-        headers = {"Date": date, "Authorization": f"OSS {self.access_id}:{signature}"}
-        if content_type:
-            headers["Content-Type"] = content_type
-        if digest:
-            headers["Content-MD5"] = digest
-        if cache_control:
-            headers["Cache-Control"] = cache_control
         url = f"https://{BUCKET}.oss-cn-shanghai.aliyuncs.com/{urllib.parse.quote(key, safe='/')}"
-        request = urllib.request.Request(url, data=data, method=method, headers=headers)
-        try:
-            with urllib.request.urlopen(request, timeout=40) as response:
-                return response.read(), dict(response.headers)
-        except urllib.error.HTTPError as error:
-            if method == "GET" and error.code == 404:
-                return None
-            raise RuntimeError(f"OSS {method} {key}: HTTP {error.code}") from None
-        except (urllib.error.URLError, TimeoutError):
-            raise RuntimeError(f"OSS {method} {key}: network failure") from None
+        # Repeating a PUT writes the same bytes to the same key. Give larger
+        # media time to upload; never retry permission errors or deletions.
+        attempts = 3 if method == "PUT" else 1
+        for attempt in range(attempts):
+            date = email.utils.formatdate(usegmt=True)
+            sign = f"{method}\n{digest}\n{content_type}\n{date}\n/{BUCKET}/{key}"
+            signature = base64.b64encode(hmac.new(self.secret.encode(), sign.encode(), hashlib.sha1).digest()).decode()
+            headers = {"Date": date, "Authorization": f"OSS {self.access_id}:{signature}"}
+            if content_type:
+                headers["Content-Type"] = content_type
+            if digest:
+                headers["Content-MD5"] = digest
+            if cache_control:
+                headers["Cache-Control"] = cache_control
+            request = urllib.request.Request(url, data=data, method=method, headers=headers)
+            try:
+                with urllib.request.urlopen(request, timeout=180 if method == "PUT" else 40) as response:
+                    return response.read(), dict(response.headers)
+            except urllib.error.HTTPError as error:
+                if method == "GET" and error.code == 404:
+                    return None
+                raise RuntimeError(f"OSS {method} {key}: HTTP {error.code}") from None
+            except (urllib.error.URLError, TimeoutError):
+                if attempt == attempts - 1:
+                    raise RuntimeError(f"OSS {method} {key}: network failure") from None
+                time.sleep(5 * (attempt + 1))
 
     def rpc(self, action, **params):
         params.update(Format="JSON", Version="2018-05-10", AccessKeyId=self.access_id,
