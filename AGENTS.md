@@ -14,6 +14,12 @@ Cloud, not GitHub Pages. Start with `README.md` and `docs/OPERATIONS.md`.
   GitHub ruleset is documented in `infra/main-branch-ruleset.json`.
   Create draft PRs unless the task authorizes completing and merging the change.
   Never rebase onto `development`.
+- On 2026-10-03 the owner explicitly authorized publishing requested routine
+  website content and styling changes after checks, without asking for a separate
+  publishing confirmation each time. Treat this as standing authorization for
+  those requested changes, unless a later request says to preview or hold them.
+  It does not authorize unrelated changes, backend/access-policy changes, or
+  publishing private patient material. Patient thank-you letters remain on hold.
 - Pushing to main, including by merging a PR, runs required build and essential live checks and deploys the
   resulting main commit. Detailed browser checks are advisory; slower images,
   font loading, or layout warnings must not block publishing or trigger rollback.
@@ -61,8 +67,9 @@ Cloud, not GitHub Pages. Start with `README.md` and `docs/OPERATIONS.md`.
 
 ## Direct-main publishing readiness
 
-- A direct push to `main` is a production action. Do it only when the task
-  explicitly authorizes publishing and the active GitHub account is
+- A direct push to `main` is a production action. Do it only when the task or
+  the owner's scoped standing authorization above explicitly authorizes publishing
+  and the active GitHub account is
   `younggzzheng` or `fergusonhealth`.
 - Before a direct push, confirm both the active account and write permission
   without displaying any token value:

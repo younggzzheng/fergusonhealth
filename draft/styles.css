@@ -85,7 +85,7 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 
 /* Display the shell and pearl from the supplied logo, not a substitute logo. */
 .brand-mark{display:block;width:64px;height:48px;background-image:url('assets/ferguson-logo.png');background-size:349.44% 339.39%;background-position:63.23% 31.65%;background-repeat:no-repeat;mix-blend-mode:multiply;flex-shrink:0}
-.eyebrow-mark{width:28px;height:21px}
+.pearl-mark{display:block;width:22px;height:22px;background:url('assets/pearl.svg') center/contain no-repeat;flex-shrink:0}
 .team-flower{width:72px;height:54px}
 .care-sprig,.contact-flower{width:56px;height:42px}
 .portrait-brand{width:160px;height:120px}

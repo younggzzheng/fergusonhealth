@@ -618,10 +618,17 @@ test('section colors and decorative marks use the local brand and platform asset
   await expect(page.locator('#contact')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
   await expect(page.locator('use[href="#flower"], use[href="#sprig"], .tiny-star')).toHaveCount(0);
   const marks = page.locator('.brand-mark');
-  await expect(marks).toHaveCount(3);
+  await expect(marks).toHaveCount(2);
   for (const mark of await marks.all()) {
     await expect(mark).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
   }
+  const pearl = page.locator('.hero-copy .pearl-mark');
+  await expect(pearl).toHaveCount(1);
+  await expect(pearl).toHaveAttribute('aria-hidden', 'true');
+  await expect(pearl).toHaveCSS('background-image', /\/assets\/pearl\.svg/);
+  await expect(page.locator('.hero-copy .brand-mark')).toHaveCount(0);
+  const pearlUrl = await pearl.evaluate(element => getComputedStyle(element).backgroundImage.match(/url\("([^\"]+)"\)/)[1]);
+  expect((await page.request.get(pearlUrl)).ok()).toBeTruthy();
   const icons = page.locator('.connected-profile .social-icon');
   await expect(icons).toHaveCount(3);
   for (const icon of await icons.all()) {
