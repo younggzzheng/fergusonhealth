@@ -515,7 +515,7 @@ test('nine unnumbered service categories put hormone and menopause health first'
   await expect(page.locator('#care-title')).toHaveText('陪伴每一个不同的你。');
   await expect(cards.locator('h3')).toHaveText([
     '激素与更年期', '女性长期健康', '妇科咨询', '生育与生殖', '避孕与家庭计划', '性健康与外阴阴道',
-    '青少年女性健康', '妇科微创咨询', '盆底健康',
+    '青少年女性健康', '微创手术咨询', '盆底健康',
   ]);
   await expect(cards.locator('.care-list li')).toHaveText([
     '围绝经期与绝经管理', '激素替代治疗（HRT）', '多内分泌代谢性卵巢综合征（PMOS，原称多囊卵巢综合征）与内分泌评估', '激素相关情绪、睡眠与体重变化',
