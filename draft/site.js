@@ -10,7 +10,7 @@
       aboutEyebrow: '01 / 认识吕医生', aboutTitle: '医生。<br>倾听者。<br><em>健康路上的同行者。</em>', aboutLead: '好的照护，从倾听开始。',
       aboutBody: '吕明旭医生是美国妇产科专科认证医生，也是美国妇产科医师学会会士（FACOG）。',
       aboutBody2: '她的经历涵盖临床诊疗、医学教育及女性健康领域的管理工作。目前在上海美华丁香门诊部和百汇新天地医疗中心执业，可使用英语和普通话交流。', profileLink: '查看官方医生简介', signatureDetail: 'MD, FACOG · 妇产科',
-      careEyebrow: '02 / 诊疗领域', careTitle: '女性健康<br><em>服务</em>', careIntro: '每一个人生阶段，都有新的疑问。留一些时间，听您慢慢说。',
+      careEyebrow: '02 / 诊疗领域', careTitle: '陪伴每一个<br><em>不同的你。</em>', careIntro: '每一个人生阶段，都有新的疑问。留一些时间，听您慢慢说。',
       careHormoneTitle: '激素与更年期', careMenopause: '围绝经期与绝经管理', careHRT: '激素替代治疗（HRT）', carePCOS: 'PCOS 与内分泌评估', careHormoneChanges: '激素相关情绪、睡眠与体重变化',
       careGynecologyTitle: '妇科诊疗', careCervicalScreening: '宫颈筛查（HPV / TCT / 阴道镜）', careEndometrial: '月经异常与子宫内膜疾病', careGynecologicConditions: '子宫肌瘤、卵巢囊肿、内膜异位症', careVaginitis: '阴道炎、外阴皮肤病',
       careFertilityTitle: '生育与生殖', careFertilityAssessment: '生育力评估（AMH、卵巢储备）', carePreconception: '备孕与孕前咨询', careEarlyPregnancy: '早孕管理（至 12 周）', careFertilityPreservation: '生育力保护（冷冻卵子咨询）',

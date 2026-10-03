@@ -198,6 +198,7 @@ test('nine approved service categories put hormone and menopause health first', 
   await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
+  await expect(page.locator('#care-title')).toHaveText('Care that growswith you.');
   const cards = page.locator('#care .care-item');
   await expect(cards).toHaveCount(9);
   await expect(cards.locator('.care-number')).toHaveText(['01', '02', '03', '04', '05', '06', '07', '08', '09']);
@@ -227,6 +228,7 @@ test('nine approved service categories put hormone and menopause health first', 
   }
   await assertNoOverflow(page);
   await page.locator('[data-language-switch]').click();
+  await expect(page.locator('#care-title')).toHaveText('陪伴每一个不同的你。');
   await expect(cards.locator('h3')).toHaveText([
     '激素与更年期', '妇科诊疗', '生育与生殖', '避孕与家庭计划', '性健康与外阴阴道',
     '青少年女性健康', '微创妇科手术', '盆底健康', '女性长期健康',
