@@ -149,7 +149,7 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 
 /* Keep the full supplied biography available without overwhelming the profile. */
 .profile-name{font-size:28px;line-height:1.35;letter-spacing:-.3px}
-.profile-identity p{font-size:13px;line-height:1.8;margin-top:8px;color:var(--body)}
+.profile-identity p{font-size:13px;line-height:1.8;margin-top:8px;color:var(--ink)}
 .profile-details{margin-top:26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .profile-details summary{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0;list-style:none;cursor:pointer;font-size:13px;line-height:1.7}
 .profile-details summary::-webkit-details-marker{display:none}

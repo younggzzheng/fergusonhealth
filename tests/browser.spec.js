@@ -95,7 +95,10 @@ test('all five languages render without broken resources, broken links or overfl
     }));
     expect(identityMetaStyles).toHaveLength(2);
     expect(identityMetaStyles[1]).toEqual(identityMetaStyles[0]);
-    expect(identityMetaStyles[0].color).toBe('rgb(89, 100, 116)');
+    const profileNameColor = await page.locator('.profile-name').evaluate(element => getComputedStyle(element).color);
+    expect(identityMetaStyles[0].color).toBe(profileNameColor);
+    expect(profileNameColor).toBe('rgb(26, 45, 86)');
+    expect(await page.locator('[data-i18n-html="aboutBody"]').evaluate(element => getComputedStyle(element).color)).toBe('rgb(89, 100, 116)');
     const identityLayout = await page.locator('.profile-identity').evaluate(identity => [...identity.children].map(element => {
       const { left, top, bottom } = element.getBoundingClientRect();
       return { left, top, bottom };
