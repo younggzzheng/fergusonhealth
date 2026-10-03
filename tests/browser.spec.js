@@ -159,12 +159,16 @@ test('both languages render without broken resources, broken links or overflow',
   expect(failures).toEqual([]);
 });
 
-test('team approach links to bilingual educational overviews and a local video', async ({ page }) => {
+test('community and education efforts link to bilingual insights and a local video', async ({ page }) => {
   await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
-  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / Our approach');
-  await expect(page.locator('.belief-list dt')).toHaveCount(3);
+  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / Our efforts');
+  await expect(page.locator('#work-title')).toHaveText('Beyondthe clinic.');
+  await expect(page.locator('.effort-list dt')).toHaveText(['Community education', 'Multidisciplinary exchange', 'Learning together']);
+  await expect(page.locator('[data-i18n="effortCommunityBody"]')).toContainText('regularly gives community talks');
+  await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('multidisciplinary team (MDT) discussions');
+  await expect(page.locator('[data-i18n="effortCMEBody"]')).toContainText('continuing medical education (CME) discussions');
   await expect(page.locator('.resource-list a')).toHaveCount(4);
   await expect(page.locator('.event-date time')).toHaveAttribute('datetime', '2026-10-24T14:00:00+08:00');
   await expect(page.locator('[data-i18n="eventLink"]').locator('..')).toHaveAttribute('href', 'https://www.theplushealth.org/#events');
@@ -186,7 +190,10 @@ test('team approach links to bilingual educational overviews and a local video',
   await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
   await assertNoOverflow(page);
   await page.locator('[data-i18n="back"]').click();
-  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / 团队理念');
+  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / 社区与教育');
+  await expect(page.locator('.effort-list dt')).toHaveText(['社区健康教育', '多学科交流', '共同学习']);
+  await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('合作医院的平台');
+  await expect(page.locator('[data-i18n="effortCMEBody"]')).toContainText('继续医学教育（CME）讨论');
 });
 
 test('doctor biography retains the supplied role and clinical focus with accessible expanded training', async ({ page }) => {
@@ -197,8 +204,15 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await expect(page.locator('.profile-role')).toHaveText('Founder & President, Ferguson Women’s Health');
   const introduction = page.locator('[data-i18n-html="aboutBody"]');
   await expect(introduction).toContainText('decades of clinical experience across the United States and China');
-  await expect(introduction.locator('strong')).toHaveText('American board-certified OB/GYN specialist and a Fellow of the American College of Obstetricians and Gynecologists (FACOG).');
-  expect(await introduction.locator('strong').evaluate(element => Number(getComputedStyle(element).fontWeight))).toBeGreaterThanOrEqual(600);
+  await expect(introduction.locator('strong')).toHaveText(['American board-certified OB/GYN specialist', 'Fellow of the American College of Obstetricians and Gynecologists (FACOG).']);
+  const emphasisWeights = await introduction.locator('strong').evaluateAll(elements => elements.map(element => Number(getComputedStyle(element).fontWeight)));
+  expect(emphasisWeights.every(weight => weight >= 600)).toBe(true);
+  const connector = await introduction.evaluate(element => {
+    const node = [...element.childNodes].find(node => node.nodeType === Node.TEXT_NODE && node.textContent === ' and a ');
+    return node ? Number(getComputedStyle(node.parentElement).fontWeight) : null;
+  });
+  expect(connector).not.toBeNull();
+  expect(connector).toBeLessThan(600);
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('PMOS (Polyendocrine Metabolic Ovarian Syndrome)');
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('complex and high-risk prenatal situations');
   await expect(page.locator('[data-i18n="aboutPractice"]')).toHaveCount(0);
@@ -233,7 +247,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await page.locator('[data-language-switch]').click();
   await expect(details).toHaveAttribute('open', '');
   await expect(page.locator('.profile-name')).toHaveText('吕明旭医生，MD, FACOG');
-  await expect(introduction.locator('strong')).toHaveText('美国妇产科专科认证医生，也是美国妇产科医师学会会士（FACOG）。');
+  await expect(introduction.locator('strong')).toHaveText(['美国妇产科专科认证医生', '美国妇产科医师学会会士（FACOG）。']);
   await expect(page.locator('.profile-role')).toHaveText('Ferguson Women’s Health 创始人兼总裁');
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('复杂及高危孕期情况');
   await expect(degree).toContainText('俄亥俄医科大学（Medical University of Ohio）取得医学博士（MD）学位');
@@ -249,7 +263,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await expect(details).not.toHaveAttribute('open');
   await page.locator('[data-language-switch]').click();
   await expect(page.locator('.profile-role')).toHaveText('Founder & President, Ferguson Women’s Health');
-  await expect(introduction.locator('strong')).toContainText('American board-certified OB/GYN specialist');
+  await expect(introduction.locator('strong').first()).toHaveText('American board-certified OB/GYN specialist');
   await assertNoOverflow(page);
 });
 

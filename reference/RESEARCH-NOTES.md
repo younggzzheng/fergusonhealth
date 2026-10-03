@@ -88,6 +88,15 @@ expandable section in **03 / Her work** so the initial page stays concise.
 
 ## Owner's PDF revision — 3 October 2026
 
+- In a subsequent owner revision, **Our efforts / 社区与教育** replaces the
+  team-care philosophy with work beyond individual consultations. The owner
+  supplied the facts that Dr. Ferguson regularly gives community talks and
+  organizes MDT and CME discussions on partner hospital platforms. Use those
+  facts without inventing partner names, CME accreditation/credits, frequencies,
+  audience counts or outcomes. Preserve the compact Ferguson Plus card and
+  existing article/video/event links. In the qualification sentence, only the
+  two credentials are bold; `and a` (Chinese: ，也是) stays ordinary weight.
+
 - `web.pdf` supplied by the owner requests a paper-white/pale-blue palette,
   removal of repeated consultation/philosophy paragraphs, signature beneath the
   portrait, collapsed clinical-focus text, and a team-approach/community section.
