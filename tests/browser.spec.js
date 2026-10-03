@@ -472,13 +472,15 @@ test('nine unnumbered service categories put hormone and menopause health first'
     expect(inset, 'The old number gutter should not remain on mobile').toBe(0);
   }
   await expect(cards.locator('h3')).toHaveText([
-    'Hormone & Menopause Health', 'Gynecologic Care', 'Reproductive & Fertility Health',
+    'Hormone & Menopause Health', 'Women’s Preventive Health', 'Gynecologic Care', 'Reproductive & Fertility Health',
     'Contraception & Family Planning', 'Sexual & Vulvovaginal Health', 'Adolescent Health',
-    'Minimally Invasive Surgery', 'Pelvic Floor Health', 'Women’s Preventive Health',
+    'Minimally Invasive Surgery', 'Pelvic Floor Health',
   ]);
   await expect(cards.locator('.care-list li')).toHaveText([
     'Perimenopause and menopause care', 'Hormone replacement therapy (HRT)',
     'Polyendocrine Metabolic Ovarian Syndrome (PMOS, formerly PCOS) and endocrine assessment', 'Hormone-related changes in mood, sleep and weight',
+    'Bone density and bone health', 'Cardiovascular and menopause-related risk assessment',
+    'Chronic conditions and hormone management', 'Weight and lifestyle medicine',
     'Cervical screening (HPV / TCT / colposcopy)', 'Menstrual disorders and endometrial disease',
     'Uterine fibroids, ovarian cysts and endometriosis', 'Vaginitis and vulvar skin conditions',
     'Fertility assessment (AMH and ovarian reserve)', 'Preconception planning and counseling',
@@ -489,34 +491,38 @@ test('nine unnumbered service categories put hormone and menopause health first'
     'Adolescent menstrual concerns', 'Sex education and contraceptive guidance',
     'Hysteroscopy', 'Laparoscopy', 'Minimally invasive management of fibroids and cysts',
     'Pelvic floor function assessment', 'Mild urinary incontinence', 'Postpartum pelvic floor rehabilitation',
-    'Bone density and bone health', 'Cardiovascular and menopause-related risk assessment',
-    'Chronic conditions and hormone management', 'Weight and lifestyle medicine',
   ]);
-  for (const [index, count] of [4, 4, 5, 3, 3, 3, 3, 3, 4].entries()) {
+  for (const [index, count] of [4, 4, 4, 5, 3, 3, 3, 3, 3].entries()) {
     await expect(cards.nth(index).locator('li')).toHaveCount(count);
   }
   await expect(page.locator('#care')).not.toContainText(/egg[- ]freezing/i);
-  await cards.nth(2).locator('summary').click();
-  await expect(cards.nth(2).locator('[data-i18n="careHighRiskPregnancy"]')).toBeVisible();
+  const firstRow = await cards.evaluateAll(elements => elements.slice(0, 2).map(element => element.getBoundingClientRect().toJSON()));
+  if (isMobile) expect(firstRow[1].top).toBeGreaterThanOrEqual(firstRow[0].bottom);
+  else {
+    expect(Math.abs(firstRow[0].top - firstRow[1].top)).toBeLessThan(1);
+    expect(firstRow[1].left).toBeGreaterThan(firstRow[0].right);
+  }
+  await cards.nth(3).locator('summary').click();
+  await expect(cards.nth(3).locator('[data-i18n="careHighRiskPregnancy"]')).toBeVisible();
   await assertNoOverflow(page);
   await page.locator('[data-language-switch]').click();
   await expect(page.locator('#care-title')).toHaveText('陪伴每一个不同的你。');
   await expect(cards.locator('h3')).toHaveText([
-    '激素与更年期', '妇科诊疗', '生育与生殖', '避孕与家庭计划', '性健康与外阴阴道',
-    '青少年女性健康', '微创妇科手术', '盆底健康', '女性长期健康',
+    '激素与更年期', '女性长期健康', '妇科诊疗', '生育与生殖', '避孕与家庭计划', '性健康与外阴阴道',
+    '青少年女性健康', '微创妇科手术', '盆底健康',
   ]);
   await expect(cards.locator('.care-list li')).toHaveText([
     '围绝经期与绝经管理', '激素替代治疗（HRT）', '多内分泌代谢性卵巢综合征（PMOS，原称多囊卵巢综合征）与内分泌评估', '激素相关情绪、睡眠与体重变化',
+    '骨密度与骨健康', '心血管与绝经风险评估', '慢性病与激素管理', '体重与生活方式医学',
     '宫颈筛查（HPV / TCT / 阴道镜）', '月经异常与子宫内膜疾病', '子宫肌瘤、卵巢囊肿、内膜异位症', '阴道炎、外阴皮肤病',
     '生育力评估（AMH、卵巢储备）', '备孕与孕前咨询', '早孕管理（至 12 周）', '高危妊娠咨询', '生育力保护',
     '宫内节育器（IUD）', '皮下埋植', '药物避孕个体化选择',
     '性疼痛（性交痛、阴道痉挛）', '外阴皮肤病（硬化性苔藓等）', '绝经相关泌尿生殖综合征（GSM）',
     '初潮与青春期咨询', '青少年月经问题', '性教育与避孕指导',
     '宫腔镜', '腹腔镜', '肌瘤、囊肿微创管理', '盆底功能评估', '轻度尿失禁', '产后盆底康复',
-    '骨密度与骨健康', '心血管与绝经风险评估', '慢性病与激素管理', '体重与生活方式医学',
   ]);
   await expect(page.locator('#care')).not.toContainText(/冷冻卵子|冻卵/);
-  await expect(cards.nth(2).locator('[data-i18n="careHighRiskPregnancy"]')).toBeVisible();
+  await expect(cards.nth(3).locator('[data-i18n="careHighRiskPregnancy"]')).toBeVisible();
   await assertNoOverflow(page);
 });
 
@@ -535,7 +541,7 @@ test('service disclosures preserve their state across languages and support keyb
   await expect(second.locator('.care-list')).toBeVisible();
   await assertNoOverflow(page);
   await page.locator('[data-language-switch]').click();
-  await expect(second.locator('h3')).toHaveText('妇科诊疗');
+  await expect(second.locator('h3')).toHaveText('女性长期健康');
   await expect(second.locator('.care-list')).toBeVisible();
   await second.locator('summary').focus();
   await page.keyboard.press('Space');

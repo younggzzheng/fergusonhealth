@@ -168,3 +168,7 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - Owner approved reducing the hero headline by approximately 8–10%, while
   retaining its wording, intentional line break, and italic second line. Apply
   the same proportional change to the Chinese headline and responsive sizes.
+- Latest service order: Women’s Preventive Health moves from last to second,
+  next to Hormone & Menopause Health in the first desktop row. The first item no
+  longer spans both columns. Preserve remaining relative order, closed defaults,
+  and the same reading order in Chinese and on phones.

@@ -94,7 +94,6 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 /* Native disclosure controls work with touch, keyboard, and JavaScript disabled. */
 .care-grid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:48px;align-items:start}
 .care-grid .care-item:nth-child(n){border-left:0;border-top:1px solid #cbd5e2;padding:0;min-width:0}
-.care-item:first-child{grid-column:1/-1}
 .care-item summary{display:flex;align-items:center;justify-content:space-between;gap:24px;list-style:none;cursor:pointer;padding:23px 0}
 .care-item summary::-webkit-details-marker{display:none}
 .care-item summary:focus-visible{outline:2px solid var(--ink);outline-offset:5px;border-radius:3px}
@@ -104,9 +103,8 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 .care-item .details-toggle:before,.care-item .details-toggle:after{width:18px;top:8px}
 .care-item[open] .details-toggle:after{transform:none}
 .care-item .care-list{margin:0;padding-bottom:26px}
-.care-item:first-child .care-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 48px}
 .care-item .care-list li{border-top:0;padding:3px 0;font-size:14px}
-@media(max-width:700px){.care-grid{grid-template-columns:minmax(0,1fr);column-gap:0}.care-grid .care-item h3{font-size:25px}html[lang=zh-CN] .care-grid .care-item h3{font-size:23px}.care-item summary{gap:18px;padding:21px 0}.care-item:first-child .care-list{grid-template-columns:minmax(0,1fr);gap:4px}}
+@media(max-width:700px){.care-grid{grid-template-columns:minmax(0,1fr);column-gap:0}.care-grid .care-item h3{font-size:25px}html[lang=zh-CN] .care-grid .care-item h3{font-size:23px}.care-item summary{gap:18px;padding:21px 0}}
 
 /* Self-hosted platform marks precede the account names in both languages. */
 .social-profiles dl>div{grid-template-columns:1fr;gap:4px}
