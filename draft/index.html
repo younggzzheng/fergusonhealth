@@ -16,8 +16,6 @@
   <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
     <symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7"/></symbol>
     <symbol id="arrow-up" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol>
-    <symbol id="flower" viewBox="0 0 48 48"><path d="M24 25c-7-5-10-12-5-17 4-4 8-2 8 3 5-2 8 1 7 5-1 4-5 7-10 9ZM24 25c-2-8-7-14-13-12-5 2-5 6-1 9-5 3-5 7-1 9 4 2 9 0 15-6ZM24 25c-3 7-2 14 4 16 5 1 8-2 6-6 5-1 7-4 4-8-3-3-8-3-14-2Z"/><circle cx="24" cy="25" r="3"/></symbol>
-    <symbol id="sprig" viewBox="0 0 64 80"><path d="M21 73C25 57 33 40 43 16M31 48C18 50 12 43 10 34c13 0 20 5 21 14ZM37 33c-9-4-12-11-9-20 9 5 12 11 9 20ZM25 61c11 2 19-2 24-11-12-3-20 1-24 11Z"/><path d="M43 16c-5-4-5-10-1-12 4-1 6 3 5 6 5-2 9 1 7 5-2 4-7 4-11 1Z"/></symbol>
   </defs></svg>
 
   <header class="site-header">
@@ -38,12 +36,12 @@
   <main id="main">
     <section class="hero wrap" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span><span data-i18n="heroEyebrow">A personal approach to women's health</span></p>
+        <p class="eyebrow"><span class="brand-mark eyebrow-mark" aria-hidden="true"></span><span data-i18n="heroEyebrow">A personal approach to women's health</span></p>
         <h1 id="hero-title" data-i18n-html="heroTitle">For every chapter<br><em>of your life.</em></h1>
         <a class="text-link" href="#care"><span data-i18n="heroCta">Explore our care</span><span class="link-circle"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
       </div>
       <div class="hero-team">
-        <svg class="team-flower" aria-hidden="true"><use href="#flower"/></svg>
+        <span class="brand-mark team-flower" aria-hidden="true"></span>
         <h2 class="hero-who-title" data-i18n="heroWhoTitle">Who We Are</h2>
         <p class="hero-intro" data-i18n="heroIntro">We are a women’s health team committed to clear communication, evidence-based care, and long-term support.</p>
         <div class="purpose-grid">
@@ -60,94 +58,96 @@
       <div class="hero-bottom"><span data-i18n="heroBottom">Expertise. Empathy. A little more understanding.</span><a href="#care" aria-label="Discover more"><svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
     </section>
 
-    <section id="care" class="care-section section-pad wrap" aria-labelledby="care-title">
-      <div class="section-topline"><div><p class="eyebrow" data-i18n="careEyebrow">01 / Areas of care</p><h2 id="care-title" data-i18n-html="careTitle">Care that grows<br><em>with you.</em></h2></div><div class="care-aside"><svg class="care-sprig" aria-hidden="true"><use href="#sprig"/></svg><p class="section-aside" data-i18n="careIntro">Different chapters bring different questions. Space to understand yours.</p></div></div>
+    <section id="care" class="care-section section-pad" aria-labelledby="care-title">
+      <div class="wrap">
+      <div class="section-topline"><div><p class="eyebrow" data-i18n="careEyebrow">01 / Areas of care</p><h2 id="care-title" data-i18n-html="careTitle">Care that grows<br><em>with you.</em></h2></div><div class="care-aside"><span class="brand-mark care-sprig" aria-hidden="true"></span><p class="section-aside" data-i18n="careIntro">Different chapters bring different questions. Space to understand yours.</p></div></div>
       <div class="care-grid">
-        <article class="care-item">
-          <h3 data-i18n="careHormoneTitle">Hormone &amp; Menopause Health</h3>
+        <details class="care-item" open>
+          <summary><h3 data-i18n="careHormoneTitle">Hormone &amp; Menopause Health</h3><span class="details-toggle" aria-hidden="true"></span></summary>
           <ul class="care-list">
             <li data-i18n="careMenopause">Perimenopause and menopause care</li>
             <li data-i18n="careHRT">Hormone replacement therapy (HRT)</li>
             <li data-i18n="carePCOS">PCOS and endocrine assessment</li>
             <li data-i18n="careHormoneChanges">Hormone-related changes in mood, sleep and weight</li>
           </ul>
-        </article>
-        <article class="care-item">
-          <h3 data-i18n="careGynecologyTitle">Gynecologic Care</h3>
+        </details>
+        <details class="care-item">
+          <summary><h3 data-i18n="careGynecologyTitle">Gynecologic Care</h3><span class="details-toggle" aria-hidden="true"></span></summary>
           <ul class="care-list">
             <li data-i18n="careCervicalScreening">Cervical screening (HPV / TCT / colposcopy)</li>
             <li data-i18n="careEndometrial">Menstrual disorders and endometrial disease</li>
             <li data-i18n="careGynecologicConditions">Uterine fibroids, ovarian cysts and endometriosis</li>
             <li data-i18n="careVaginitis">Vaginitis and vulvar skin conditions</li>
           </ul>
-        </article>
-        <article class="care-item">
-          <h3 data-i18n="careFertilityTitle">Reproductive &amp; Fertility Health</h3>
+        </details>
+        <details class="care-item">
+          <summary><h3 data-i18n="careFertilityTitle">Reproductive &amp; Fertility Health</h3><span class="details-toggle" aria-hidden="true"></span></summary>
           <ul class="care-list">
             <li data-i18n="careFertilityAssessment">Fertility assessment (AMH and ovarian reserve)</li>
             <li data-i18n="carePreconception">Preconception planning and counseling</li>
             <li data-i18n="careEarlyPregnancy">Early pregnancy care (up to 12 weeks)</li>
             <li data-i18n="careFertilityPreservation">Fertility preservation (egg-freezing consultation)</li>
           </ul>
-        </article>
-        <article class="care-item">
-          <h3 data-i18n="careContraceptionTitle">Contraception &amp; Family Planning</h3>
+        </details>
+        <details class="care-item">
+          <summary><h3 data-i18n="careContraceptionTitle">Contraception &amp; Family Planning</h3><span class="details-toggle" aria-hidden="true"></span></summary>
           <ul class="care-list">
             <li data-i18n="careIUD">Intrauterine devices (IUDs)</li>
             <li data-i18n="careImplant">Contraceptive implants</li>
             <li data-i18n="careContraceptiveMedication">Individualized contraceptive medication choices</li>
           </ul>
-        </article>
-        <article class="care-item">
-          <h3 data-i18n="careSexualTitle">Sexual &amp; Vulvovaginal Health</h3>
+        </details>
+        <details class="care-item">
+          <summary><h3 data-i18n="careSexualTitle">Sexual &amp; Vulvovaginal Health</h3><span class="details-toggle" aria-hidden="true"></span></summary>
           <ul class="care-list">
             <li data-i18n="careSexualPain">Sexual pain (dyspareunia and vaginismus)</li>
             <li data-i18n="careVulvarSkin">Vulvar skin conditions (including lichen sclerosus)</li>
             <li data-i18n="careGSM">Genitourinary syndrome of menopause (GSM)</li>
           </ul>
-        </article>
-        <article class="care-item">
-          <h3 data-i18n="careAdolescentTitle">Adolescent Health</h3>
+        </details>
+        <details class="care-item">
+          <summary><h3 data-i18n="careAdolescentTitle">Adolescent Health</h3><span class="details-toggle" aria-hidden="true"></span></summary>
           <ul class="care-list">
             <li data-i18n="carePuberty">Menarche and puberty counseling</li>
             <li data-i18n="careAdolescentMenstrual">Adolescent menstrual concerns</li>
             <li data-i18n="careSexEducation">Sex education and contraceptive guidance</li>
           </ul>
-        </article>
-        <article class="care-item">
-          <h3 data-i18n="careSurgeryTitle">Minimally Invasive Surgery</h3>
+        </details>
+        <details class="care-item">
+          <summary><h3 data-i18n="careSurgeryTitle">Minimally Invasive Surgery</h3><span class="details-toggle" aria-hidden="true"></span></summary>
           <ul class="care-list">
             <li data-i18n="careHysteroscopy">Hysteroscopy</li>
             <li data-i18n="careLaparoscopy">Laparoscopy</li>
             <li data-i18n="careMinimallyInvasive">Minimally invasive management of fibroids and cysts</li>
           </ul>
-        </article>
-        <article class="care-item">
-          <h3 data-i18n="carePelvicTitle">Pelvic Floor Health</h3>
+        </details>
+        <details class="care-item">
+          <summary><h3 data-i18n="carePelvicTitle">Pelvic Floor Health</h3><span class="details-toggle" aria-hidden="true"></span></summary>
           <ul class="care-list">
             <li data-i18n="carePelvicAssessment">Pelvic floor function assessment</li>
             <li data-i18n="careIncontinence">Mild urinary incontinence</li>
             <li data-i18n="carePostpartumPelvic">Postpartum pelvic floor rehabilitation</li>
           </ul>
-        </article>
-        <article class="care-item">
-          <h3 data-i18n="carePreventiveTitle">Women’s Preventive Health</h3>
+        </details>
+        <details class="care-item">
+          <summary><h3 data-i18n="carePreventiveTitle">Women’s Preventive Health</h3><span class="details-toggle" aria-hidden="true"></span></summary>
           <ul class="care-list">
             <li data-i18n="careBone">Bone density and bone health</li>
             <li data-i18n="careCardiovascular">Cardiovascular and menopause-related risk assessment</li>
             <li data-i18n="careChronic">Chronic conditions and hormone management</li>
             <li data-i18n="careLifestyle">Weight and lifestyle medicine</li>
           </ul>
-        </article>
+        </details>
+      </div>
       </div>
     </section>
 
     <section id="about" class="about-section section-pad" aria-labelledby="about-title">
       <div class="wrap about-grid">
-        <div class="section-heading"><p class="eyebrow" data-i18n="aboutEyebrow">02 / Meet Dr. Ferguson</p><h2 id="about-title" data-i18n-html="aboutTitle">A doctor.<br>A listener.<br><em>Your partner in care.</em></h2><svg class="about-flower" aria-hidden="true"><use href="#flower"/></svg></div>
+        <div class="section-heading"><p class="eyebrow" data-i18n="aboutEyebrow">02 / Meet Dr. Ferguson</p><h2 id="about-title" data-i18n-html="aboutTitle">A doctor.<br>A listener.<br><em>Your partner in care.</em></h2></div>
         <figure class="about-portrait">
           <div class="portrait-frame">
-            <div class="portrait-placeholder" aria-hidden="true"><svg viewBox="0 0 400 520"><path d="M10 450C205 409 318 272 344 43M115 406C48 337 57 277 97 239c27 68 30 112 18 167ZM191 333c-21-92 10-136 62-158 1 78-22 128-62 158ZM278 219c-2-75 23-112 73-128-3 60-28 106-73 128ZM107 409c80 12 140-8 168-60-68-10-128 5-168 60ZM205 320c77 1 127-36 140-92-62 4-109 34-140 92Z"/></svg></div>
+            <div class="portrait-placeholder" aria-hidden="true"><span class="brand-mark portrait-brand"></span></div>
             <img class="doctor-photo" src="assets/dr-ferguson.jpg" alt="Dr. Michelle Lu-Ferguson" width="800" height="1040" onerror="this.hidden=true;this.closest('.portrait-frame').classList.add('portrait-unavailable')">
             <span class="portrait-corner" aria-hidden="true"></span>
           </div>
@@ -178,8 +178,9 @@
       </div>
     </section>
 
-    <section id="contact" class="contact-section wrap" aria-labelledby="contact-title">
-      <div class="contact-heading"><p class="eyebrow" data-i18n="contactEyebrow">A good place to begin</p><h2 id="contact-title" data-i18n-html="contactTitle">Let's take the<br><em>next step, together.</em></h2><svg class="contact-flower" aria-hidden="true"><use href="#flower"/></svg></div>
+    <section id="contact" class="contact-section" aria-labelledby="contact-title">
+      <div class="wrap contact-grid">
+      <div class="contact-heading"><p class="eyebrow" data-i18n="contactEyebrow">A good place to begin</p><h2 id="contact-title" data-i18n-html="contactTitle">Let's take the<br><em>next step, together.</em></h2><span class="brand-mark contact-flower" aria-hidden="true"></span></div>
       <div class="contact-copy">
         <p data-i18n="contactBody">To book an appointment, scan a clinic code below in WeChat. For practice information, get in touch by email. Our official WeChat account shares news and updates.</p>
         <p class="email-address">info@fergusonhealth.com</p>
@@ -198,11 +199,12 @@
         <section class="social-profiles" aria-labelledby="social-title">
           <h3 id="social-title" class="eyebrow" data-i18n="socialTitle">Follow us</h3>
           <dl>
-            <div><dt data-i18n="socialXiaohongshu">Xiaohongshu · 小红书</dt><dd lang="zh-CN">@Ferguson健康咨询上海</dd></div>
-            <div><dt>Facebook</dt><dd>@FergusonHealth_SH</dd></div>
-            <div><dt>Instagram</dt><dd>@FergusonHealth_SH</dd></div>
+            <div><dt><span class="social-icon xiaohongshu-icon" aria-hidden="true"></span><span data-i18n="socialXiaohongshu">Xiaohongshu · 小红书</span></dt><dd lang="zh-CN">@Ferguson健康咨询上海</dd></div>
+            <div><dt><span class="social-icon facebook-icon" aria-hidden="true"></span><span>Facebook</span></dt><dd>@FergusonHealth_SH</dd></div>
+            <div><dt><span class="social-icon instagram-icon" aria-hidden="true"></span><span>Instagram</span></dt><dd>@FergusonHealth_SH</dd></div>
           </dl>
         </section>
+      </div>
       </div>
     </section>
   </main>

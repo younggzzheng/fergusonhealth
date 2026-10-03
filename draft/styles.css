@@ -72,3 +72,47 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 @media(max-width:1000px){.about-grid{gap:32px 48px}.hero{grid-template-columns:minmax(0,1fr);gap:40px 0}.hero-copy{max-width:740px}.hero-team{padding:40px;border-radius:96px 96px 8px 8px}.purpose-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}.purpose-item+.purpose-item{border-top:0;padding-top:0}}
 @media(min-width:701px) and (max-width:900px){.about-grid{grid-template-columns:minmax(0,1fr);gap:30px}.about-grid .section-heading,.about-portrait,.about-copy{grid-column:1;grid-row:auto}.about-grid .section-heading,.about-copy{width:100%;max-width:640px;margin-inline:auto}.about-portrait{max-width:430px;margin-inline:auto}.about-copy>p:not(.lead){font-size:14px}}
 @media(max-width:700px){.hero{row-gap:32px}.hero-team{padding:32px 24px;border-radius:64px 64px 8px 8px}.team-flower{width:40px;height:40px;margin-bottom:18px}.purpose-grid{grid-template-columns:minmax(0,1fr);gap:24px}.purpose-item+.purpose-item{border-top:1px solid var(--line);padding-top:24px}.about-grid{grid-template-columns:minmax(0,1fr);gap:30px}.about-grid .section-heading,.about-portrait,.about-copy{grid-column:1;grid-row:auto}.about-portrait{max-width:430px;margin-inline:auto}.about-portrait figcaption{font-size:10px;padding-top:13px}.hero-bottom{margin-top:0}}
+
+/* Soft section colors keep the navy-and-orange brand calm and distinct. */
+.hero-team{background:#eee8de;border-color:#ded8cc}
+.care-section{background:#edf2f8}
+.about-section{background:#f5eee5}
+.work-section{background:#f0edf4;border-color:#ded9e5}
+.contact-section{display:block;background:#eaf2ef}
+.contact-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:72px}
+@media(max-width:1000px){.contact-grid{gap:40px}}
+@media(max-width:700px){.contact-grid{grid-template-columns:minmax(0,1fr);gap:27px}}
+
+/* Display the flower from the supplied logo, rather than a substitute illustration. */
+.brand-mark{display:block;width:64px;height:48px;background-image:url('assets/ferguson-logo.png');background-size:349.44% 339.39%;background-position:63.23% 31.65%;background-repeat:no-repeat;mix-blend-mode:multiply;flex-shrink:0}
+.eyebrow-mark{width:28px;height:21px}
+.team-flower{width:72px;height:54px}
+.care-sprig,.contact-flower{width:56px;height:42px}
+.portrait-brand{width:160px;height:120px}
+@media(max-width:700px){.team-flower{width:64px;height:48px}.care-sprig,.contact-flower{width:48px;height:36px}}
+
+/* Native disclosure controls work with touch, keyboard, and JavaScript disabled. */
+.care-grid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:48px;align-items:start}
+.care-grid .care-item:nth-child(n){border-left:0;border-top:1px solid #cbd5e2;padding:0;min-width:0}
+.care-item:first-child{grid-column:1/-1}
+.care-item summary{display:flex;align-items:center;justify-content:space-between;gap:24px;list-style:none;cursor:pointer;padding:23px 0}
+.care-item summary::-webkit-details-marker{display:none}
+.care-item summary:focus-visible{outline:2px solid var(--ink);outline-offset:5px;border-radius:3px}
+.care-grid .care-item h3,html[lang=zh-CN] .care-grid .care-item h3{min-height:0;max-width:none;font-size:27px;line-height:1.3}
+.care-item summary:hover h3{color:#354f7c}
+.care-item .details-toggle{width:18px;height:18px;color:var(--ink)}
+.care-item .details-toggle:before,.care-item .details-toggle:after{width:18px;top:8px}
+.care-item[open] .details-toggle:after{transform:none}
+.care-item .care-list{margin:0;padding-bottom:26px}
+.care-item:first-child .care-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 48px}
+.care-item .care-list li{border-top:0;padding:3px 0;font-size:14px}
+@media(max-width:700px){.care-grid{grid-template-columns:minmax(0,1fr);column-gap:0}.care-grid .care-item h3{font-size:25px}html[lang=zh-CN] .care-grid .care-item h3{font-size:23px}.care-item summary{gap:18px;padding:21px 0}.care-item:first-child .care-list{grid-template-columns:minmax(0,1fr);gap:4px}}
+
+/* Self-hosted platform marks precede the account names in both languages. */
+.social-profiles dl>div{grid-template-columns:1fr;gap:4px}
+.social-profiles dt{display:flex;align-items:center;gap:10px}
+.social-profiles dd{padding-left:42px}
+.social-icon{display:inline-block;width:32px;height:32px;background-size:contain;background-position:center;background-repeat:no-repeat;flex-shrink:0}
+.xiaohongshu-icon{background-image:url('assets/social-xiaohongshu.svg')}
+.facebook-icon{background-image:url('assets/social-facebook.svg')}
+.instagram-icon{background-image:url('assets/social-instagram.svg')}

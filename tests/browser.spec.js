@@ -325,6 +325,50 @@ test('nine unnumbered service categories put hormone and menopause health first'
   await assertNoOverflow(page);
 });
 
+test('service disclosures preserve their state across languages and support keyboard access', async ({ page }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const cards = page.locator('#care details.care-item');
+  await expect(cards).toHaveCount(9);
+  await expect(page.locator('#care details[open]')).toHaveCount(1);
+  await expect(cards.first().locator('.care-list')).toBeVisible();
+  const second = cards.nth(1);
+  await expect(second.locator('.care-list')).toBeHidden();
+  await second.locator('summary').focus();
+  await page.keyboard.press('Enter');
+  await expect(second.locator('.care-list')).toBeVisible();
+  await assertNoOverflow(page);
+  await page.locator('[data-language-switch]').click();
+  await expect(second.locator('h3')).toHaveText('妇科诊疗');
+  await expect(second.locator('.care-list')).toBeVisible();
+  await second.locator('summary').focus();
+  await page.keyboard.press('Space');
+  await expect(second.locator('.care-list')).toBeHidden();
+  await expect(cards.first().locator('.care-list')).toBeVisible();
+});
+
+test('section colors and decorative marks use the local brand and platform assets', async ({ page }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  await expect(page.locator('#care')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
+  await expect(page.locator('#about')).toHaveCSS('background-color', 'rgb(245, 238, 229)');
+  await expect(page.locator('#work')).toHaveCSS('background-color', 'rgb(240, 237, 244)');
+  await expect(page.locator('#contact')).toHaveCSS('background-color', 'rgb(234, 242, 239)');
+  await expect(page.locator('use[href="#flower"], use[href="#sprig"], .tiny-star')).toHaveCount(0);
+  const marks = page.locator('.brand-mark');
+  await expect(marks).toHaveCount(5);
+  for (const mark of await marks.all()) {
+    await expect(mark).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
+  }
+  const icons = page.locator('.social-profiles .social-icon');
+  await expect(icons).toHaveCount(3);
+  for (const icon of await icons.all()) {
+    await expect(icon).toHaveCSS('background-image', /\/assets\/social-(xiaohongshu|facebook|instagram)\.svg/);
+  }
+});
+
 test('main section labels stay readable in both languages', async ({ page }) => {
   await authenticate(page);
   await page.goto('/');
