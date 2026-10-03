@@ -92,7 +92,14 @@ expandable section in **03 / Her work** so the initial page stays concise.
   removal of repeated consultation/philosophy paragraphs, signature beneath the
   portrait, collapsed clinical-focus text, and a team-approach/community section.
 - The requested Rutgers Robert Wood Johnson residency/faculty paragraph is
-  owner-supplied biography. The residency clause is bold in both languages.
+  owner-supplied biography. In a subsequent revision, the owner requested bold
+  **Doctor of Medicine** (Chinese: 医学博士（MD）) and ordinary-weight residency text.
+  The [official RWJMS program page](https://rwjms.rutgers.edu/department/obstetrics-gynecology-reproductive-sciences/residency),
+  checked 3 October 2026, names the program **Obstetrics and Gynecology Residency**.
+  Reproductive Endocrinology and Infertility is included in its curriculum, not
+  its formal title. Retain the official residency designation; the current
+  program description does not independently establish a graduate's historical
+  rotation details or a separate fellowship qualification.
 - The grey-haired portrait is the owner's requested photo, sourced from the
   group's own [website](https://www.theplushealth.org/) at `/assets/michelle.jpg`;
   it is copied locally rather than hotlinked.

@@ -213,9 +213,15 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   for (const institution of ['Peking University', 'Peking Union Medical College', 'New York University']) {
     await expect(details.locator('[data-i18n="profileTraining"]')).toContainText(institution);
   }
-  await expect(details.locator('[data-i18n="profileDegree"]')).toContainText('Doctor of Medicine degree from the Medical University of Ohio');
-  await expect(details.locator('[data-i18n-html="profileResidency"] strong')).toHaveText('She completed her residency in obstetrics and gynecology at Rutgers Robert Wood Johnson Medical School');
-  await expect(details.locator('[data-i18n-html="profileResidency"]')).toContainText('she joined the faculty');
+  const degree = details.locator('[data-i18n-html="profileDegree"]');
+  const residency = details.locator('[data-i18n="profileResidency"]');
+  await expect(degree).toContainText('Doctor of Medicine degree from the Medical University of Ohio');
+  await expect(degree.locator('strong')).toHaveText('Doctor of Medicine');
+  expect(await degree.locator('strong').evaluate(element => Number(getComputedStyle(element).fontWeight))).toBeGreaterThanOrEqual(600);
+  await expect(residency).toContainText('She completed her residency in obstetrics and gynecology at Rutgers Robert Wood Johnson Medical School');
+  await expect(residency.locator('strong')).toHaveCount(0);
+  expect(await residency.evaluate(element => Number(getComputedStyle(element).fontWeight))).toBeLessThan(600);
+  await expect(residency).toContainText('she joined the faculty');
   await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('pre-medical studies at Peking University');
   await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('PhD-level research training at New York University');
   await expect(details).not.toContainText('Ohio University College of Medicine');
@@ -230,8 +236,10 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await expect(introduction.locator('strong')).toHaveText('美国妇产科专科认证医生，也是美国妇产科医师学会会士（FACOG）。');
   await expect(page.locator('.profile-role')).toHaveText('Ferguson Women’s Health 创始人兼总裁');
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('复杂及高危孕期情况');
-  await expect(details.locator('[data-i18n="profileDegree"]')).toContainText('俄亥俄医科大学（Medical University of Ohio）取得医学博士（MD）学位');
-  await expect(details.locator('[data-i18n-html="profileResidency"] strong')).toContainText('完成妇产科住院医师培训');
+  await expect(degree).toContainText('俄亥俄医科大学（Medical University of Ohio）取得医学博士（MD）学位');
+  await expect(degree.locator('strong')).toHaveText('医学博士（MD）');
+  await expect(residency).toContainText('完成妇产科住院医师培训');
+  await expect(residency.locator('strong')).toHaveCount(0);
   await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('纽约大学接受博士阶段科研培训');
   await expect(details.locator('[data-i18n="profileTraining"]')).not.toContainText('取得博士学位');
   await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('盆底健康及长期预防保健');
