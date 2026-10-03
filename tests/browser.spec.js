@@ -117,7 +117,7 @@ test('preview form supports language, password visibility, invalid and valid log
   await expect(page.locator('#hero-title')).toBeVisible();
 });
 
-test('both languages render without broken resources, broken links or overflow', async ({ page }) => {
+test('all four languages render without broken resources, broken links or overflow', async ({ page }) => {
   await authenticate(page);
   const failures = [];
   page.on('pageerror', error => failures.push(`Script error: ${error.message}`));
@@ -129,16 +129,16 @@ test('both languages render without broken resources, broken links or overflow',
   await expect(page.locator('base')).toHaveCount(0);
   await expect(page.locator('meta[name="build-revision"]')).toHaveAttribute('content', '0123456789abcdef0123456789abcdef01234567');
   const title = await page.locator('#hero-title').innerText();
-  for (const language of ['en', 'zh-CN']) {
-    if (language === 'zh-CN') await page.locator('[data-language-switch]').click();
+  for (const language of ['en', 'zh-CN', 'fr', 'de']) {
+    await page.locator(`[data-language="${language === 'zh-CN' ? 'zh' : language}"]`).click();
     await expect(page.locator('html')).toHaveAttribute('lang', language);
-    await expect(page).toHaveTitle(language === 'en' ? "Ferguson Women's Health" : 'Ferguson 女性健康');
+    await expect(page).toHaveTitle(language === 'zh-CN' ? 'Ferguson 女性健康' : "Ferguson Women's Health");
     expect(await page.locator('#hero-title').innerText()).not.toContain('undefined');
     await assertNoOverflow(page);
     await assertLinks(page);
     const translated = await page.locator('[data-i18n], [data-i18n-html]').allTextContents();
     expect(translated.every(text => text.trim() && !text.includes('undefined'))).toBe(true);
-    if (language === 'zh-CN') expect(await page.locator('#hero-title').innerText()).not.toBe(title);
+    if (language !== 'en') expect(await page.locator('#hero-title').innerText()).not.toBe(title);
 
     // Scroll every image into view to exercise lazy loading, including contact QR images.
     const images = page.locator('img');
@@ -151,13 +151,76 @@ test('both languages render without broken resources, broken links or overflow',
     expect(await brokenImages(page)).toEqual([]);
     await page.locator('[data-language-switch]').scrollIntoViewIfNeeded();
   }
+  await page.locator('[data-language="zh"]').click();
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
-  await page.locator('[data-language-switch]').click();
+  await page.locator('[data-language="en"]').click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('#hero-title')).toHaveText(title, { useInnerText: true });
   await expect(page.locator('.lock-form')).toHaveAttribute('action', '/__preview_logout');
   expect(failures).toEqual([]);
+});
+
+test('French and German preserve credentials, disclosures, and language across insights', async ({ page }) => {
+  await authenticate(page);
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  await expect(page.locator('[data-language]')).toHaveText(['EN', '中文', 'FR', 'DE']);
+  const firstService = page.locator('#care .care-item').first();
+  await firstService.locator('summary').click();
+  for (const [code, name, service, article] of [
+    ['fr', 'Français', 'Santé hormonale et ménopause', 'La perte osseuse silencieuse après la ménopause'],
+    ['de', 'Deutsch', 'Hormongesundheit und Wechseljahre', 'Stiller Knochenverlust nach den Wechseljahren'],
+  ]) {
+    await page.getByRole('button', { name, exact: true }).focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('html')).toHaveAttribute('lang', code);
+    await expect(page.locator('[data-language][aria-pressed="true"]')).toHaveAttribute('data-language', code);
+    await expect(firstService).toHaveAttribute('open', '');
+    await expect(firstService.locator('h3')).toHaveText(service);
+    await expect(page.locator('.profile-details')).not.toHaveAttribute('open');
+    await page.locator('.profile-details summary').click();
+    const credential = page.locator('[data-i18n-html="aboutBody"]');
+    await expect(credential.locator('strong')).toHaveCount(2);
+    await expect(credential).toContainText('FACOG');
+    await expect(page.locator('[data-i18n-html="profileDegree"] strong')).toHaveText('Doctor of Medicine');
+    await expect(page.locator('[data-i18n="profileResidency"]')).toContainText('Rutgers Robert Wood Johnson Medical School');
+    await expect(page.locator('[data-i18n="profileTraining"]')).toContainText('New York University');
+    await expect(page.locator('[data-i18n="carePMOS"]')).toContainText('PMOS');
+    await assertNoOverflow(page);
+    await page.reload();
+    await expect(page.locator('html')).toHaveAttribute('lang', code);
+    await expect(page.locator('#care .care-item[open]')).toHaveCount(0);
+    await page.locator('[data-i18n="insightBone"]').click();
+    await expect(page.locator('html')).toHaveAttribute('lang', code);
+    await expect(page.locator('#bone-title')).toHaveText(article);
+    await expect(page.locator('[data-i18n="series"]')).toContainText(code === 'fr' ? 'anglais' : 'Englisch');
+    await expect(page.locator('video')).not.toHaveAttribute('autoplay');
+    const copy = await page.locator('[data-i18n]').allTextContents();
+    expect(copy.every(text => text.trim() && !text.includes('undefined'))).toBe(true);
+    await assertLinks(page);
+    await assertNoOverflow(page);
+    await page.locator('[data-i18n="back"]').click();
+    await expect(page.locator('html')).toHaveAttribute('lang', code);
+    await firstService.locator('summary').click();
+  }
+});
+
+test('four-language selection works when optional preference storage is disabled', async ({ page, context }) => {
+  await context.addInitScript(() => {
+    Storage.prototype.getItem = () => { throw new Error('Storage unavailable'); };
+    Storage.prototype.setItem = () => { throw new Error('Storage unavailable'); };
+  });
+  await authenticate(page);
+  await page.goto('/');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await waitForRenderedPage(page);
+  for (const code of ['fr', 'de', 'zh', 'en']) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(page.locator('html')).toHaveAttribute('lang', code === 'zh' ? 'zh-CN' : code);
+    await expect(page.locator('[data-language][aria-pressed="true"]')).toHaveAttribute('data-language', code);
+    await assertNoOverflow(page);
+  }
 });
 
 test('community and education efforts link to bilingual insights and a local video', async ({ page }) => {
@@ -265,7 +328,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await summary.focus();
   await page.keyboard.press('Space');
   await expect(details).not.toHaveAttribute('open');
-  await page.locator('[data-language-switch]').click();
+  await page.locator('[data-language="en"]').click();
   await expect(page.locator('.profile-role')).toHaveText('Founder & President, Ferguson Women’s Health');
   await expect(introduction.locator('strong').first()).toHaveText('American board-certified OB/GYN specialist');
   await assertNoOverflow(page);
@@ -443,6 +506,7 @@ test('booking occupies the first row and official accounts share the lower row',
   else expect(booking[1].card.left).toBeGreaterThan(booking[0].card.right);
   await page.locator('[data-language-switch]').click();
   await expect(page.locator('#connected-title')).toHaveText('保持联系');
+  await expect(page.locator('[data-i18n="locationsTitle"]')).toHaveText('咨询地点');
   await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('扫码关注，获取最新资讯。');
   await expect(page.locator('.practice h4')).toHaveText(['1. 美华丁香门诊部', '2. 百汇新天地医疗中心']);
   await expect(page.locator('.wechat-contact h4')).toHaveText('官方微信公众号');
@@ -452,7 +516,7 @@ test('booking occupies the first row and official accounts share the lower row',
     for (const width of [1000, 860, 701]) {
       await page.setViewportSize({ width, height: 900 });
       for (const language of ['zh-CN', 'en']) {
-        if (await page.locator('html').getAttribute('lang') !== language) await page.locator('[data-language-switch]').click();
+        await page.locator(`[data-language="${language === 'zh-CN' ? 'zh' : language}"]`).click();
         const codes = await page.locator('.appointment-code').evaluateAll(elements => elements.map(element => ({
           top: element.getBoundingClientRect().top,
           caption: element.querySelector('figcaption').getBoundingClientRect().top,
@@ -555,7 +619,7 @@ test('service disclosures preserve their state across languages and support keyb
   await expect(cards.first().locator('.care-list')).toBeHidden();
   await cards.first().locator('summary').click();
   await expect(cards.first().locator('.care-list')).toBeVisible();
-  await page.locator('[data-language-switch]').click();
+  await page.locator('[data-language="en"]').click();
   await expect(cards.first().locator('.care-list')).toBeVisible();
   await cards.first().locator('summary').click();
   await expect(page.locator('#care details[open]')).toHaveCount(0);
@@ -644,13 +708,15 @@ test('hero stays slightly smaller and section labels stay readable in both langu
   }
 });
 
-test('header navigation keeps readable type in both languages', async ({ page, isMobile }) => {
+test('header navigation keeps readable type in all four languages', async ({ page, isMobile }) => {
   await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
-  for (const language of ['en', 'zh-CN']) {
-    if (language === 'zh-CN') await page.locator('[data-language-switch]').click();
-    await expect(page.locator('.language-switch')).toHaveCSS('font-size', '15px');
+  for (const language of ['en', 'zh', 'fr', 'de']) {
+    await page.locator(`[data-language="${language}"]`).click();
+    for (const button of await page.locator('.language-switch').all()) {
+      await expect(button).toHaveCSS('font-size', '15px');
+    }
     if (isMobile) {
       const menu = page.locator('button[aria-controls="mobile-nav"]');
       await menu.click();
@@ -720,7 +786,7 @@ test('Ferguson Plus has a compact local logo, bilingual group information and it
   await expect(details).not.toHaveAttribute('open');
   await expect(card.locator('.plus-values')).not.toBeVisible();
   await assertNoOverflow(page);
-  await page.locator('[data-language-switch]').click();
+  await page.locator('[data-language="en"]').click();
   await expect(card.locator('.plus-intro')).toContainText('brought together by Dr. Ferguson');
   await assertNoOverflow(page);
 });

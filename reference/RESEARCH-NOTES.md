@@ -186,3 +186,10 @@ expandable section in **03 / Her work** so the initial page stays concise.
   Health”, with “Ferguson 女性健康” in Chinese, without the doctor's name.
 - The Chinese hero link now reads “了解我们的咨询服务”; preserve the English
   “Explore our care” text and its existing service-section destination.
+- Owner requested French and German versions based on the English website,
+  including homepage and educational article overviews. Retain names, MD/FACOG
+  credentials, university names, clinical scope, local QR images, and English
+  video. PhD-level research training must not become a claim of a PhD degree.
+  Explicit EN / 中文 / FR / DE controls share one optional stored preference;
+  changing language must preserve the disclosure states. The password gate
+  and private OSS remain unchanged. Chinese “执业地点” becomes “咨询地点”.

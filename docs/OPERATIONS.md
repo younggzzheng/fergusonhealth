@@ -54,7 +54,12 @@ npm test
 python3 build.py --revision "$(git rev-parse HEAD)"
 ```
 
-Inspect English/Chinese desktop/mobile layouts and test links and navigation.
+Inspect English/Chinese/French/German desktop/mobile layouts and test links and
+navigation. English HTML is the source for French and German copy; preserve
+proper names, credentials, and the original scope of services. Translation
+dictionaries live in `draft/site.js` and `draft/insights.js`; shared language
+controls in `draft/languages.js` retain the selection across both pages. The
+video remains in English and is labelled accordingly in each language.
 Then commit, push, and open a PR against **main**. Use a file for multiline PR
 bodies:
 
@@ -110,7 +115,7 @@ asset URLs, invalid passwords, logout, and private OSS. Network requests allow
 settle. Verification does not download every image or font, and there is no
 page-speed budget. The build still checks that referenced local files exist.
 
-Detailed browser checks inspect rendering, both languages, images, links, and
+Detailed browser checks inspect rendering, all four languages, images, links, and
 layout. They run in separate advisory jobs: a failure or timeout is visible in
 Actions but does not block publishing or restore the previous release. Their
 browser installation and runtime do not hold up the deployment job. Review

@@ -7,19 +7,25 @@
   <meta name="description" content="Educational article overviews and a menopause video from Ferguson Health.">
   <title>Health insights · Ferguson Health</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="languages.js" defer></script>
   <script src="insights.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#insights-main" data-i18n="skip">Skip to content</a>
   <header class="wrap insights-header">
     <a class="insights-home" href="/#work">Ferguson Health</a>
-    <div class="insights-actions"><a href="/#work" data-i18n="back">Back to home</a><button class="language-switch" type="button" data-language-switch aria-label="切换至简体中文" lang="zh-CN">中文</button></div>
+    <div class="insights-actions"><a href="/#work" data-i18n="back">Back to home</a><div class="language-options" role="group" aria-label="Choose language" data-i18n-aria-label="languageChoice">
+      <button class="language-switch" type="button" data-language="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+      <button class="language-switch" type="button" data-language="zh" data-language-switch lang="zh-CN" aria-label="简体中文" aria-pressed="false">中文</button>
+      <button class="language-switch" type="button" data-language="fr" lang="fr" aria-label="Français" aria-pressed="false">FR</button>
+      <button class="language-switch" type="button" data-language="de" lang="de" aria-label="Deutsch" aria-pressed="false">DE</button>
+    </div></div>
   </header>
   <main id="insights-main" class="wrap insights-main">
     <p class="eyebrow" data-i18n="eyebrow">Articles &amp; videos</p>
     <h1 data-i18n="title">Health insights</h1>
     <p class="insights-intro" data-i18n="intro">A clearer understanding of your health, one topic at a time. These short overviews introduce our article themes; the video is part of our menopause series.</p>
-    <nav class="insights-menu" aria-label="Health topics">
+    <nav class="insights-menu" aria-label="Health topics" data-i18n-aria-label="topicsLabel">
       <a href="#bone-health" data-i18n="boneNav">Bone health</a><a href="#fertility" data-i18n="fertilityNav">Fertility</a><a href="#protein" data-i18n="proteinNav">Nutrition</a><a href="#menopause-video" data-i18n="videoNav">Menopause video</a>
     </nav>
     <article id="bone-health" class="insight-article" aria-labelledby="bone-title">
@@ -27,21 +33,21 @@
       <h2 id="bone-title" data-i18n="boneTitle">Silent bone loss after menopause</h2>
       <p data-i18n="boneBody">Bone loss can happen without obvious symptoms. After menopause, lower estrogen levels can accelerate bone loss; osteoporosis may only become apparent when a fracture occurs.</p>
       <p data-i18n="boneBody2">Bone health is worth discussing before a problem develops. Personal and family history, previous fractures and other risk factors help guide whether a bone density test is appropriate. Regular weight-bearing and resistance exercise, adequate calcium and vitamin D, and avoiding smoking are important parts of protecting bone health.</p>
-      <p class="insight-source"><span data-i18n="reading">Further reading: </span><a href="https://www.niams.nih.gov/health-topics/osteoporosis" target="_blank" rel="noopener noreferrer">NIAMS · Osteoporosis</a></p>
+      <p class="insight-source"><span data-i18n="reading">Further reading: </span><a href="https://www.niams.nih.gov/health-topics/osteoporosis" target="_blank" rel="noopener noreferrer" data-i18n="boneSource">NIAMS · Osteoporosis</a></p>
     </article>
     <article id="fertility" class="insight-article" aria-labelledby="fertility-title">
       <p class="insight-label" data-i18n="overview">Article overview</p>
       <h2 id="fertility-title" data-i18n="fertilityTitle">Fertility after age 35</h2>
       <p data-i18n="fertilityBody">Fertility changes with age, but no single age or test tells the whole story for an individual. Understanding your menstrual cycle, medical history and plans can help you approach pregnancy with clearer expectations.</p>
       <p data-i18n="fertilityBody2">A preconception discussion can cover existing health conditions, medications and practical preparation for pregnancy. If pregnancy is taking longer than expected, the timing of a fertility assessment depends on age and medical history; known concerns may warrant earlier evaluation.</p>
-      <p class="insight-source"><span data-i18n="reading">Further reading: </span><a href="https://www.asrm.org/practice-guidance/practice-committee-documents/fertility-evaluation-of-infertile-women-a-committee-opinion-2021/" target="_blank" rel="noopener noreferrer">ASRM · Fertility evaluation</a></p>
+      <p class="insight-source"><span data-i18n="reading">Further reading: </span><a href="https://www.asrm.org/practice-guidance/practice-committee-documents/fertility-evaluation-of-infertile-women-a-committee-opinion-2021/" target="_blank" rel="noopener noreferrer" data-i18n="fertilitySource">ASRM · Fertility evaluation</a></p>
     </article>
     <article id="protein" class="insight-article" aria-labelledby="protein-title">
       <p class="insight-label" data-i18n="overview">Article overview</p>
       <h2 id="protein-title" data-i18n="proteinTitle">After 50, protein matters more than you think</h2>
       <p data-i18n="proteinBody">Maintaining muscle matters as we get older. Protein contributes to a balanced diet that supports strength and everyday activity, alongside regular physical activity.</p>
       <p data-i18n="proteinBody2">Fish, eggs, dairy, lean meat, beans and soy foods offer different ways to include protein in everyday meals. A varied diet is more useful than focusing on a single food or supplement. Individual needs can differ, particularly for people with kidney disease or other medical conditions; dietary changes should take those needs into account.</p>
-      <p class="insight-source"><span data-i18n="reading">Further reading: </span><a href="https://www.nia.nih.gov/health/healthy-eating-nutrition-and-diet/healthy-meal-planning-tips-older-adults" target="_blank" rel="noopener noreferrer">NIA · Healthy meal planning</a></p>
+      <p class="insight-source"><span data-i18n="reading">Further reading: </span><a href="https://www.nia.nih.gov/health/healthy-eating-nutrition-and-diet/healthy-meal-planning-tips-older-adults" target="_blank" rel="noopener noreferrer" data-i18n="proteinSource">NIA · Healthy meal planning</a></p>
     </article>
     <article id="menopause-video" class="insight-article" aria-labelledby="video-title">
       <p class="insight-label" data-i18n="series">Menopause series · Video in English</p>

@@ -9,6 +9,7 @@
   <title>Ferguson Women's Health</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
+  <script src="languages.js" defer></script>
   <script src="site.js" defer></script>
 </head>
 <body>
@@ -20,17 +21,22 @@
 
   <header class="site-header">
     <div class="header-inner wrap">
-      <a class="brand-logo" href="#" aria-label="Ferguson Women's Health home"><img src="assets/ferguson-logo.png" alt="Ferguson Women's Health · 弗阁笙健康管理" width="2481" height="1792"></a>
-      <nav class="desktop-nav" aria-label="Main navigation">
+      <a class="brand-logo" href="#" aria-label="Ferguson Women's Health home" data-i18n-aria-label="brandHome"><img src="assets/ferguson-logo.png" alt="Ferguson Women's Health · 弗阁笙健康管理" width="2481" height="1792"></a>
+      <nav class="desktop-nav" aria-label="Main navigation" data-i18n-aria-label="mainNavigation">
         <a href="#care" data-i18n="navCare">Areas of care</a><a href="#about" data-i18n="navAbout">Meet Dr. Ferguson</a><a href="#work" data-i18n="navWork">Our efforts</a>
       </nav>
       <div class="header-actions">
-        <button class="language-switch" type="button" aria-label="切换至简体中文" data-language-switch>中文</button>
+        <div class="language-options" role="group" aria-label="Choose language" data-i18n-aria-label="languageChoice">
+          <button class="language-switch" type="button" data-language="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+          <button class="language-switch" type="button" data-language="zh" data-language-switch lang="zh-CN" aria-label="简体中文" aria-pressed="false">中文</button>
+          <button class="language-switch" type="button" data-language="fr" lang="fr" aria-label="Français" aria-pressed="false">FR</button>
+          <button class="language-switch" type="button" data-language="de" lang="de" aria-label="Deutsch" aria-pressed="false">DE</button>
+        </div>
         <a class="contact-link" href="#contact"><span data-i18n="navContact">Get in touch</span><svg aria-hidden="true"><use href="#arrow-up"/></svg></a>
         <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav" type="button"><span></span><span></span></button>
       </div>
     </div>
-    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="#care" data-i18n="navCare">Areas of care</a><a href="#about" data-i18n="navAbout">Meet Dr. Ferguson</a><a href="#work" data-i18n="navWork">Our efforts</a><a href="#contact" data-i18n="navContact">Get in touch</a></nav>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" data-i18n-aria-label="mobileNavigation" hidden><a href="#care" data-i18n="navCare">Areas of care</a><a href="#about" data-i18n="navAbout">Meet Dr. Ferguson</a><a href="#work" data-i18n="navWork">Our efforts</a><a href="#contact" data-i18n="navContact">Get in touch</a></nav>
   </header>
 
   <main id="main">
@@ -55,7 +61,7 @@
           </article>
         </div>
       </div>
-      <div class="hero-bottom"><span data-i18n="heroBottom">Expertise. Empathy. A little more understanding.</span><a href="#care" aria-label="Discover more"><svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
+      <div class="hero-bottom"><span data-i18n="heroBottom">Expertise. Empathy. A little more understanding.</span><a href="#care" aria-label="Discover more" data-i18n-aria-label="discoverMore"><svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
     </section>
 
     <section id="care" class="care-section section-pad" aria-labelledby="care-title">
@@ -189,7 +195,7 @@
         <div class="work-content">
           <article class="work-feature plus-feature" aria-labelledby="plus-title">
             <div class="plus-heading">
-              <img class="plus-logo" src="assets/ferguson-plus-logo.png" alt="Ferguson Plus logo" width="686" height="583">
+              <img class="plus-logo" src="assets/ferguson-plus-logo.png" alt="Ferguson Plus logo" data-i18n-alt="plusLogoAlt" width="686" height="583">
               <div><span class="eyebrow" data-i18n="workFeatureType">Working together</span><h3 id="plus-title">Ferguson Plus</h3></div>
             </div>
             <p class="plus-intro" data-i18n="plusIntro">A multidisciplinary healthcare group brought together by Dr. Ferguson and fellow medical professionals.</p>
@@ -240,14 +246,14 @@
       </div>
       <div class="practice-locations" aria-labelledby="locations-title">
         <h3 id="locations-title" class="eyebrow" data-i18n="locationsTitle">Where to find us</h3>
-        <article class="practice"><div class="practice-details"><h4 data-i18n="clinic1Name">1. Am-Sino Ding Xiang Clinic</h4><address data-i18n-html="clinic1Address">3rd Floor, Building 6,<br>800 Hua Shan Road</address><p class="practice-note" data-i18n="clinic1Entrance">(Entrance on Zhen Ning Road)</p></div><figure class="appointment-code"><div class="appointment-qr-frame"><img src="assets/am-sino-appointment-qr.png" alt="Am-Sino appointment QR code" width="460" height="460" loading="lazy"></div><figcaption data-i18n="clinic1Appointment">Scan with WeChat to book</figcaption></figure></article>
-        <article class="practice"><div class="practice-details"><h4 data-i18n="clinic2Name">2. Parkway MediCentre Xintiandi</h4><address data-i18n-html="clinic2Address">3F, Shanghai Plaza,<br>138 Middle Huaihai Road.</address></div><figure class="appointment-code"><div class="appointment-qr-frame"><img src="assets/parkway-appointment-qr.png" alt="Parkway appointment QR code" width="460" height="460" loading="lazy"></div><figcaption data-i18n="clinic2Appointment">Scan with WeChat to book</figcaption></figure></article>
+        <article class="practice"><div class="practice-details"><h4 data-i18n="clinic1Name">1. Am-Sino Ding Xiang Clinic</h4><address data-i18n-html="clinic1Address">3rd Floor, Building 6,<br>800 Hua Shan Road</address><p class="practice-note" data-i18n="clinic1Entrance">(Entrance on Zhen Ning Road)</p></div><figure class="appointment-code"><div class="appointment-qr-frame"><img src="assets/am-sino-appointment-qr.png" alt="Am-Sino appointment QR code" data-i18n-alt="clinic1QrAlt" width="460" height="460" loading="lazy"></div><figcaption data-i18n="clinic1Appointment">Scan with WeChat to book</figcaption></figure></article>
+        <article class="practice"><div class="practice-details"><h4 data-i18n="clinic2Name">2. Parkway MediCentre Xintiandi</h4><address data-i18n-html="clinic2Address">3F, Shanghai Plaza,<br>138 Middle Huaihai Road.</address></div><figure class="appointment-code"><div class="appointment-qr-frame"><img src="assets/parkway-appointment-qr.png" alt="Parkway appointment QR code" data-i18n-alt="clinic2QrAlt" width="460" height="460" loading="lazy"></div><figcaption data-i18n="clinic2Appointment">Scan with WeChat to book</figcaption></figure></article>
       </div>
       <section class="wechat-and-social" aria-labelledby="connected-title">
         <h3 id="connected-title" class="eyebrow" data-i18n="connectedTitle">Stay connected</h3>
         <div class="connected-grid">
         <figure class="wechat-contact">
-          <div class="connected-visual"><div class="qr-frame"><img src="assets/wechat-official-account-qr-hd.png" alt="Ferguson Women's Health WeChat official-account QR code" width="600" height="600" loading="lazy"></div></div>
+          <div class="connected-visual"><div class="qr-frame"><img src="assets/wechat-official-account-qr-hd.png" alt="Ferguson Women's Health WeChat official-account QR code" data-i18n-alt="wechatQrAlt" width="600" height="600" loading="lazy"></div></div>
           <figcaption><h4 data-i18n="wechatTitle">WeChat official account</h4><p data-i18n="wechatBody">Scan for news &amp; updates.</p></figcaption>
         </figure>
         <article class="connected-profile" aria-labelledby="xiaohongshu-title"><div class="connected-visual"><span class="social-icon xiaohongshu-icon" aria-hidden="true"></span></div><h4 id="xiaohongshu-title" data-i18n="socialXiaohongshu">Xiaohongshu · 小红书</h4><p class="social-handle" lang="zh-CN">@Ferguson健康咨询上海</p></article>
