@@ -1,7 +1,7 @@
 /* Shared, entirely local language controls for the homepage and insights. */
 (() => {
   'use strict';
-  const codes = { en: 'en', zh: 'zh-CN', fr: 'fr', de: 'de' };
+  const codes = { en: 'en', zh: 'zh-CN', fr: 'fr', de: 'de', es: 'es' };
   window.FergusonLanguages = {
     init({ translations, titles, onChange = () => {} }) {
       const elements = [...document.querySelectorAll('[data-i18n], [data-i18n-html], [data-i18n-alt], [data-i18n-aria-label]')];

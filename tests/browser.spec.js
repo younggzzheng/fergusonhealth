@@ -117,7 +117,7 @@ test('preview form supports language, password visibility, invalid and valid log
   await expect(page.locator('#hero-title')).toBeVisible();
 });
 
-test('all four languages render without broken resources, broken links or overflow', async ({ page }) => {
+test('all five languages render without broken resources, broken links or overflow', async ({ page }) => {
   await authenticate(page);
   const failures = [];
   page.on('pageerror', error => failures.push(`Script error: ${error.message}`));
@@ -129,7 +129,7 @@ test('all four languages render without broken resources, broken links or overfl
   await expect(page.locator('base')).toHaveCount(0);
   await expect(page.locator('meta[name="build-revision"]')).toHaveAttribute('content', '0123456789abcdef0123456789abcdef01234567');
   const title = await page.locator('#hero-title').innerText();
-  for (const language of ['en', 'zh-CN', 'fr', 'de']) {
+  for (const language of ['en', 'zh-CN', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${language === 'zh-CN' ? 'zh' : language}"]`).click();
     await expect(page.locator('html')).toHaveAttribute('lang', language);
     await expect(page).toHaveTitle(language === 'zh-CN' ? 'Ferguson 女性健康' : "Ferguson Women's Health");
@@ -161,16 +161,17 @@ test('all four languages render without broken resources, broken links or overfl
   expect(failures).toEqual([]);
 });
 
-test('French and German preserve credentials, disclosures, and language across insights', async ({ page }) => {
+test('French, German and Spanish preserve credentials, disclosures, and language across insights', async ({ page }) => {
   await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
-  await expect(page.locator('[data-language]')).toHaveText(['EN', '中文', 'FR', 'DE']);
+  await expect(page.locator('[data-language]')).toHaveText(['EN', '中文', 'FR', 'DE', 'ES']);
   const firstService = page.locator('#care .care-item').first();
   await firstService.locator('summary').click();
   for (const [code, name, service, article] of [
     ['fr', 'Français', 'Santé hormonale et ménopause', 'La perte osseuse silencieuse après la ménopause'],
     ['de', 'Deutsch', 'Hormongesundheit und Wechseljahre', 'Stiller Knochenverlust nach den Wechseljahren'],
+    ['es', 'Español', 'Salud hormonal y menopausia', 'La pérdida ósea silenciosa después de la menopausia'],
   ]) {
     await page.getByRole('button', { name, exact: true }).focus();
     await page.keyboard.press('Enter');
@@ -194,7 +195,7 @@ test('French and German preserve credentials, disclosures, and language across i
     await page.locator('[data-i18n="insightBone"]').click();
     await expect(page.locator('html')).toHaveAttribute('lang', code);
     await expect(page.locator('#bone-title')).toHaveText(article);
-    await expect(page.locator('[data-i18n="series"]')).toContainText(code === 'fr' ? 'anglais' : 'Englisch');
+    await expect(page.locator('[data-i18n="series"]')).toContainText({ fr: 'anglais', de: 'Englisch', es: 'inglés' }[code]);
     await expect(page.locator('video')).not.toHaveAttribute('autoplay');
     const copy = await page.locator('[data-i18n]').allTextContents();
     expect(copy.every(text => text.trim() && !text.includes('undefined'))).toBe(true);
@@ -206,7 +207,7 @@ test('French and German preserve credentials, disclosures, and language across i
   }
 });
 
-test('four-language selection works when optional preference storage is disabled', async ({ page, context }) => {
+test('five-language selection works when optional preference storage is disabled', async ({ page, context }) => {
   await context.addInitScript(() => {
     Storage.prototype.getItem = () => { throw new Error('Storage unavailable'); };
     Storage.prototype.setItem = () => { throw new Error('Storage unavailable'); };
@@ -215,7 +216,7 @@ test('four-language selection works when optional preference storage is disabled
   await page.goto('/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await waitForRenderedPage(page);
-  for (const code of ['fr', 'de', 'zh', 'en']) {
+  for (const code of ['fr', 'de', 'es', 'zh', 'en']) {
     await page.locator(`[data-language="${code}"]`).click();
     await expect(page.locator('html')).toHaveAttribute('lang', code === 'zh' ? 'zh-CN' : code);
     await expect(page.locator('[data-language][aria-pressed="true"]')).toHaveAttribute('data-language', code);
@@ -708,11 +709,11 @@ test('hero stays slightly smaller and section labels stay readable in both langu
   }
 });
 
-test('header navigation keeps readable type in all four languages', async ({ page, isMobile }) => {
+test('header navigation keeps readable type in all five languages', async ({ page, isMobile }) => {
   await authenticate(page);
   await page.goto('/');
   await waitForRenderedPage(page);
-  for (const language of ['en', 'zh', 'fr', 'de']) {
+  for (const language of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${language}"]`).click();
     for (const button of await page.locator('.language-switch').all()) {
       await expect(button).toHaveCSS('font-size', '15px');

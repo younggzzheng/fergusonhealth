@@ -135,6 +135,49 @@
       contactEyebrow: 'Ein guter Anfang', contactTitle: 'Gehen wir den nächsten<br><em>Schritt gemeinsam.</em>', contactBody: 'Für einen Termin scannen Sie den untenstehenden Klinikcode in WeChat. Für weitere Informationen kontaktieren Sie uns per E-Mail. Unser offizielles WeChat-Konto teilt Neuigkeiten und aktuelle Informationen.',
       locationsTitle: 'Wo Sie uns finden', clinic1Name: '1. Am-Sino Ding Xiang Clinic', clinic1Address: '3. Etage, Gebäude 6,<br>800 Hua Shan Road', clinic1Entrance: '(Eingang an der Zhen Ning Road)', clinic1Appointment: 'Mit WeChat scannen und Termin buchen', clinic2Name: '2. Parkway MediCentre Xintiandi', clinic2Address: '3. Etage, Shanghai Plaza,<br>138 Middle Huaihai Road.', clinic2Appointment: 'Mit WeChat scannen und Termin buchen',
       connectedTitle: 'Bleiben wir in Kontakt', wechatTitle: 'Offizielles WeChat-Konto', wechatBody: 'Für Neuigkeiten scannen und folgen.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Nach oben', lockPreview: 'Vorschau sperren'
+    },
+    es: {
+      brandHome: 'Inicio de Ferguson Women’s Health', mainNavigation: 'Navegación principal', mobileNavigation: 'Navegación móvil', discoverMore: 'Descubre más',
+      plusLogoAlt: 'Logotipo de Ferguson Plus', clinic1QrAlt: 'Código QR para citas en Am-Sino', clinic2QrAlt: 'Código QR para citas en Parkway', wechatQrAlt: 'Código QR de la cuenta oficial de WeChat de Ferguson Women’s Health',
+      languageChoice: 'Elegir idioma', skip: 'Ir al contenido', navAbout: 'Conoce a la Dra. Ferguson', navCare: 'Áreas de atención', navWork: 'Nuestro compromiso', navContact: 'Contacta con nosotros',
+      heroEyebrow: 'Un enfoque personal de la salud de la mujer', heroTitle: 'Para cada etapa<br><em>de tu vida.</em>',
+      heroWhoTitle: 'Quiénes somos', heroIntro: 'Somos un equipo dedicado a la salud de la mujer, comprometido con una comunicación clara, una atención basada en la evidencia y un acompañamiento a largo plazo.', heroCta: 'Descubre nuestra atención',
+      missionTitle: 'Nuestra misión', missionBody: 'Ofrecer una atención fiable y basada en la evidencia que ayude a cada mujer a comprender su cuerpo y a tomar decisiones sobre su salud con confianza.',
+      visionTitle: 'Nuestra visión', visionBody: 'Acercar los estándares internacionales de atención a la salud de la mujer a todas las mujeres, apoyando su salud y calidad de vida.',
+      heroLocation: 'Shanghái, China', portraitName: 'Michelle Lu-Ferguson', signatureDetail: 'MD, FACOG · Obstetricia y ginecología · Salud de la mujer', heroBottom: 'Experiencia. Empatía. Un poco más de comprensión.',
+      aboutEyebrow: '02 / Conoce a la Dra. Ferguson', aboutTitle: 'Médica.<br>A tu escucha.<br><em>A tu lado.</em>',
+      profileName: 'Dra. Michelle Lu-Ferguson, MD, FACOG', profileRole: 'Fundadora y presidenta, Ferguson Women’s Health',
+      aboutBody: 'La Dra. Michelle Lu-Ferguson es <strong>especialista en obstetricia y ginecología certificada en Estados Unidos (board-certified)</strong> y <strong>Fellow del American College of Obstetricians and Gynecologists (FACOG).</strong> Con décadas de experiencia clínica en Estados Unidos y China, se dedica a impulsar una atención a la salud de la mujer basada en la evidencia y abierta a distintas culturas.',
+      aboutBody2: 'Su práctica actual abarca todo el espectro de la salud de la mujer, con especial atención a la salud endocrina y hormonal, el manejo de la menopausia, el PMOS (Polyendocrine Metabolic Ovarian Syndrome), el diagnóstico y tratamiento ginecológicos, la fertilidad y el asesoramiento preconcepcional, la anticoncepción y la planificación familiar, la salud sexual y vulvovaginal, la ginecología de la adolescencia, los procedimientos ginecológicos mínimamente invasivos, la salud del suelo pélvico y la prevención a largo plazo. También ofrece consultas para situaciones prenatales complejas y embarazos de alto riesgo, con orientación clara y apoyo individualizado.',
+      profileDetailsTitle: 'Áreas clínicas y formación médica', profileFocusTitle: 'Áreas clínicas', profileTrainingTitle: 'Formación y docencia médica',
+      profileDegree: 'La Dra. Lu-Ferguson obtuvo su título de <strong>Doctor of Medicine</strong> en la Medical University of Ohio.',
+      profileResidency: 'Completó su residencia en obstetricia y ginecología en la Rutgers Robert Wood Johnson Medical School, un importante centro médico académico de Estados Unidos. Después se incorporó al equipo docente, participando en la atención clínica, la educación médica y la investigación clínica; esta experiencia sigue marcando su estilo clínico riguroso y basado en la evidencia.',
+      profileTraining: 'Al principio de su formación académica, cursó estudios premédicos en Peking University y continuó en Peking Union Medical College, una de las principales facultades de medicina de China. Más adelante recibió formación en investigación de nivel doctoral en New York University, reforzando sus bases en ciencia médica e investigación clínica.',
+      profileApproachTitle: 'Enfoque de atención', profileApproach: 'Reconocida por sus rigurosos estándares clínicos, su formación internacional y su comunicación cuidadosa, goza de una gran consideración tanto en las comunidades locales como entre las personas expatriadas.',
+      careClosing: 'Comprender tus necesidades. Acompañarte en cada etapa.', aboutClosing: 'Experiencia que escucha. Atención que se siente personal.', workClosing: 'Compartir conocimientos. Conectar comunidades.', contactClosing: 'Tus preguntas son bienvenidas. Aquí empieza el diálogo.',
+      careEyebrow: '01 / Áreas de atención', careTitle: 'Una atención que crece<br><em>contigo.</em>',
+      careHormoneTitle: 'Salud hormonal y menopausia', careMenopause: 'Atención en la perimenopausia y la menopausia', careHRT: 'Terapia hormonal sustitutiva (HRT)', carePMOS: 'PMOS (Polyendocrine Metabolic Ovarian Syndrome, antes PCOS) y evaluación endocrina', careHormoneChanges: 'Cambios del ánimo, el sueño y el peso relacionados con las hormonas',
+      careGynecologyTitle: 'Atención ginecológica', careCervicalScreening: 'Cribado cervical (HPV / TCT / colposcopia)', careEndometrial: 'Trastornos menstruales y enfermedades del endometrio', careGynecologicConditions: 'Miomas uterinos, quistes ováricos y endometriosis', careVaginitis: 'Vaginitis y enfermedades de la piel de la vulva',
+      careFertilityTitle: 'Salud reproductiva y fertilidad', careFertilityAssessment: 'Evaluación de la fertilidad (AMH y reserva ovárica)', carePreconception: 'Planificación y asesoramiento antes del embarazo', careEarlyPregnancy: 'Atención al inicio del embarazo (hasta las 12 semanas)', careHighRiskPregnancy: 'Consulta sobre embarazo de alto riesgo', careFertilityPreservation: 'Preservación de la fertilidad',
+      careContraceptionTitle: 'Anticoncepción y planificación familiar', careIUD: 'Dispositivos intrauterinos (DIU)', careImplant: 'Implantes anticonceptivos', careContraceptiveMedication: 'Elección individualizada de medicamentos anticonceptivos',
+      careSexualTitle: 'Salud sexual y vulvovaginal', careSexualPain: 'Dolor sexual (dispareunia y vaginismo)', careVulvarSkin: 'Enfermedades de la piel de la vulva (incluido el liquen escleroso)', careGSM: 'Síndrome genitourinario de la menopausia (GSM)',
+      careAdolescentTitle: 'Salud de las adolescentes', carePuberty: 'Asesoramiento sobre la primera menstruación y la pubertad', careAdolescentMenstrual: 'Problemas menstruales en la adolescencia', careSexEducation: 'Educación sexual y orientación sobre anticoncepción',
+      careSurgeryTitle: 'Procedimientos mínimamente invasivos', careHysteroscopy: 'Histeroscopia', careLaparoscopy: 'Laparoscopia', careMinimallyInvasive: 'Tratamiento mínimamente invasivo de miomas y quistes',
+      carePelvicTitle: 'Salud del suelo pélvico', carePelvicAssessment: 'Evaluación de la función del suelo pélvico', careIncontinence: 'Incontinencia urinaria leve', carePostpartumPelvic: 'Rehabilitación del suelo pélvico después del parto',
+      carePreventiveTitle: 'Salud preventiva de la mujer', careBone: 'Densidad y salud ósea', careCardiovascular: 'Evaluación del riesgo cardiovascular y relacionado con la menopausia', careChronic: 'Enfermedades crónicas y manejo hormonal', careLifestyle: 'Peso y medicina del estilo de vida',
+      workEyebrow: '03 / Nuestro compromiso', workTitle: 'Más allá<br><em>de la consulta.</em>', workFeatureType: 'Trabajamos juntos',
+      effortCommunity: 'Educación para la salud en la comunidad', effortCommunityBody: 'La Dra. Ferguson y el equipo dan charlas sobre la salud de la mujer con regularidad en la comunidad, compartiendo conocimientos claros y prácticos y dejando espacio para las preguntas y el diálogo abierto.',
+      effortMDT: 'Intercambio multidisciplinar', effortMDTBody: 'En las plataformas de hospitales colaboradores, reunimos a colegas de distintas especialidades para debates de equipos multidisciplinares (MDT), intercambiando perspectivas y explorando cuestiones clínicas complejas.',
+      effortCME: 'Aprender juntos', effortCMEBody: 'Mediante debates de educación médica continua (CME), compartimos conocimientos y experiencias clínicas, apoyamos el aprendizaje continuo y reforzamos los vínculos entre profesionales de la salud.',
+      insightsEyebrow: 'Artículos y vídeos', insightsTitle: 'Comprender tu salud', insightsIntro: 'Un poco de conocimiento, una perspectiva más clara. Explora nuestros resúmenes de artículos y el vídeo sobre la menopausia.',
+      insightBone: 'La pérdida ósea silenciosa después de la menopausia', insightFertility: 'La fertilidad después de los 35 años', insightProtein: 'Después de los 50, las proteínas importan más de lo que crees', insightVideo: 'Vídeo: ¿cambios de ánimo o depresión?',
+      insightsUpdates: 'Para nuevos artículos, vídeos y noticias, sigue nuestra cuenta oficial de WeChat.',
+      eventsEyebrow: 'Noticias y eventos', eventDate: '24 de octubre de 2026 · 14:00–16:00 (Shanghái)', eventIntro: 'Una charla de salud de Ferguson Plus para familias con niños de 6 a 18 años, sobre la piel adolescente, la visión infantil, la postura y el movimiento.', eventLink: 'Detalles e inscripción',
+      plusIntro: 'Un grupo de salud multidisciplinar reunido por la Dra. Ferguson y otros profesionales médicos.', plusDetailsTitle: 'Especialidades y enfoque', plusSpecialties: 'Salud de la mujer · Medicina general · Dermatología · Salud venosa · Nutrición · Fisioterapia',
+      plusCulture: 'Compasión entre culturas', plusScience: 'Ciencia con comprensión', plusJourney: 'Un camino compartido hacia la salud', plusLink: 'Descubre Ferguson Plus',
+      contactEyebrow: 'Un buen punto de partida', contactTitle: 'Demos el siguiente<br><em>paso, juntos.</em>', contactBody: 'Para pedir cita, escanea en WeChat el código de la clínica que aparece abajo. Para más información, contacta por correo electrónico. Nuestra cuenta oficial de WeChat comparte noticias y novedades.',
+      locationsTitle: 'Dónde encontrarnos', clinic1Name: '1. Am-Sino Ding Xiang Clinic', clinic1Address: '3.ª planta, edificio 6,<br>800 Hua Shan Road', clinic1Entrance: '(Entrada por Zhen Ning Road)', clinic1Appointment: 'Escanea con WeChat para pedir cita', clinic2Name: '2. Parkway MediCentre Xintiandi', clinic2Address: '3.ª planta, Shanghai Plaza,<br>138 Middle Huaihai Road.', clinic2Appointment: 'Escanea con WeChat para pedir cita',
+      connectedTitle: 'Sigamos en contacto', wechatTitle: 'Cuenta oficial de WeChat', wechatBody: 'Escanea para seguir las novedades.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Volver arriba', lockPreview: 'Bloquear la vista previa'
     }
   };
   let language = 'en';
@@ -142,7 +185,7 @@
   const mobileNav = document.querySelector('#mobile-nav');
   const menuLabels = {
     en: ['Open navigation', 'Close navigation'], zh: ['打开导航', '关闭导航'],
-    fr: ['Ouvrir le menu', 'Fermer le menu'], de: ['Menü öffnen', 'Menü schließen']
+    fr: ['Ouvrir le menu', 'Fermer le menu'], de: ['Menü öffnen', 'Menü schließen'], es: ['Abrir el menú', 'Cerrar el menú']
   };
   function updateMenuLabel() {
     const open = menuButton.getAttribute('aria-expanded') === 'true';
@@ -168,14 +211,14 @@
       if (!response.ok || (await response.text()).trim() !== 'ok') throw new Error('Logout failed');
       window.location.replace('/preview.html');
     } catch (_) {
-      button.textContent = { en: 'Try locking again', zh: '请重试锁定', fr: 'Réessayez de verrouiller', de: 'Erneut sperren' }[language];
+      button.textContent = { en: 'Try locking again', zh: '请重试锁定', fr: 'Réessayez de verrouiller', de: 'Erneut sperren', es: 'Intenta bloquear de nuevo' }[language];
       button.disabled = false;
     }
   });
   document.getElementById('year').textContent = String(new Date().getFullYear());
   window.FergusonLanguages.init({
     translations,
-    titles: { en: "Ferguson Women's Health", zh: 'Ferguson 女性健康', fr: "Ferguson Women's Health", de: "Ferguson Women's Health" },
+    titles: { en: "Ferguson Women's Health", zh: 'Ferguson 女性健康', fr: "Ferguson Women's Health", de: "Ferguson Women's Health", es: "Ferguson Women's Health" },
     onChange(code) { language = code; updateMenuLabel(); }
   });
 })();

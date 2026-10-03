@@ -2,8 +2,8 @@
 
 Public source for **https://www.fergusonhealth.com/**. A small, multilingual static
 website for Dr. Michelle Lu-Ferguson, hosted on Alibaba Cloud OSS and CDN.
-English, Chinese, French, and German share the same layout and local assets;
-French and German copy is translated from the English source.
+English, Chinese, French, German, and Spanish share the same layout and local
+assets; French, German, and Spanish copy is translated from the English source.
 Visitors load images, fonts, styles, and scripts from the website itself.
 The hosted draft remains password protected. Publishing requires repository
 write/Actions access; public read access does not grant deployment access.
@@ -46,8 +46,8 @@ including for direct image and asset URLs.
 | Path | Purpose |
 | --- | --- |
 | `draft/index.html` | English content and page structure |
-| `draft/site.js` | Chinese, French, German translations and homepage interactions |
-| `draft/languages.js` | Shared four-language selection, preference, and translation checks |
+| `draft/site.js` | Chinese, French, German, Spanish translations and homepage interactions |
+| `draft/languages.js` | Shared five-language selection, preference, and translation checks |
 | `draft/insights.html`, `draft/insights.js` | Separate educational article overviews/video and translations |
 | `draft/styles.css` | Layout, typography, brand colors, responsive rules |
 | `draft/assets/` | Locally hosted images, icons, fonts, and licenses |

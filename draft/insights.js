@@ -57,8 +57,27 @@
     videoFallback: 'Ihr Browser unterstützt keine eingebetteten Videos.', videoNote: 'Das bereitgestellte Video ist auf Englisch. Mit den Bedienelementen können Sie die Wiedergabe starten, pausieren und die Lautstärke einstellen.',
     disclaimer: 'Nur zur allgemeinen Gesundheitsbildung, nicht als individuelle medizinische Beratung. Die Artikelübersichten wurden aus bereitgestellten Materialien von Ferguson Health erstellt. Ihre persönlichen Gesundheitsfragen erfordern eine Beurteilung durch eine qualifizierte medizinische Fachkraft.'
   };
+  const es = {
+    boneSource: 'NIAMS · Osteoporosis', fertilitySource: 'ASRM · Evaluación de la fertilidad', proteinSource: 'NIA · Planificar comidas saludables',
+    languageChoice: 'Elegir idioma', topicsLabel: 'Temas de salud', skip: 'Ir al contenido', back: 'Volver al inicio', eyebrow: 'Artículos y vídeos', title: 'Comprender tu salud',
+    intro: 'Comprender mejor tu salud, un tema a la vez. Estos breves resúmenes presentan los temas de nuestros artículos; el vídeo forma parte de nuestra serie sobre la menopausia.',
+    boneNav: 'Salud ósea', fertilityNav: 'Fertilidad', proteinNav: 'Nutrición', videoNav: 'Vídeo sobre menopausia', overview: 'Resumen del artículo', reading: 'Para saber más: ',
+    boneTitle: 'La pérdida ósea silenciosa después de la menopausia',
+    boneBody: 'La pérdida ósea puede producirse sin síntomas evidentes. Después de la menopausia, la disminución de los niveles de estrógenos puede acelerar esta pérdida; la osteoporosis puede no hacerse evidente hasta que se produce una fractura.',
+    boneBody2: 'Conviene hablar de la salud ósea antes de que aparezca un problema. Los antecedentes personales y familiares, las fracturas previas y otros factores de riesgo ayudan a decidir si es adecuada una prueba de densidad ósea. El ejercicio regular con carga de peso y de resistencia, un aporte suficiente de calcio y vitamina D y evitar el tabaco son aspectos importantes para proteger los huesos.',
+    fertilityTitle: 'La fertilidad después de los 35 años',
+    fertilityBody: 'La fertilidad cambia con la edad, pero ninguna edad concreta ni una única prueba describe por completo la situación de una persona. Comprender tu ciclo menstrual, tus antecedentes médicos y tus planes puede ayudarte a afrontar el embarazo con expectativas más claras.',
+    fertilityBody2: 'Una conversación antes del embarazo puede abordar las enfermedades existentes, los medicamentos y la preparación práctica para la gestación. Si el embarazo tarda más de lo esperado, el momento de evaluar la fertilidad depende de la edad y los antecedentes médicos; los problemas ya conocidos pueden justificar una evaluación más temprana.',
+    proteinTitle: 'Después de los 50, las proteínas importan más de lo que crees',
+    proteinBody: 'Mantener la masa muscular es importante al envejecer. Las proteínas forman parte de una dieta equilibrada que, junto con la actividad física regular, apoya la fuerza y las actividades cotidianas.',
+    proteinBody2: 'El pescado, los huevos, los lácteos, la carne magra, las legumbres y los alimentos de soja ofrecen distintas formas de incluir proteínas en las comidas diarias. Una dieta variada resulta más útil que centrarse en un solo alimento o suplemento. Las necesidades individuales pueden variar, especialmente en personas con enfermedades renales u otros problemas médicos; los cambios en la alimentación deben tener en cuenta esas necesidades.',
+    series: 'Serie sobre menopausia · Vídeo en inglés', videoTitle: '¿Cambios de ánimo o depresión? Conoce la diferencia',
+    videoIntro: 'Una introducción a los cambios de ánimo en torno a la menopausia y a la importancia de distinguirlos de la depresión.',
+    videoFallback: 'Tu navegador no admite vídeo integrado.', videoNote: 'El vídeo proporcionado está en inglés. Utiliza los controles del reproductor para reproducir, pausar y ajustar el volumen.',
+    disclaimer: 'Contenido para educación general, no para asesoramiento médico individual. Los resúmenes de artículos se han adaptado de materiales proporcionados por Ferguson Health. Tus dudas personales de salud requieren la evaluación de un profesional sanitario cualificado.'
+  };
   window.FergusonLanguages.init({
-    translations: { en: {}, zh, fr, de },
-    titles: { en: 'Health insights · Ferguson Health', zh: '健康知识 · Ferguson Health', fr: 'Mieux comprendre sa santé · Ferguson Health', de: 'Gesundheit verstehen · Ferguson Health' }
+    translations: { en: {}, zh, fr, de, es },
+    titles: { en: 'Health insights · Ferguson Health', zh: '健康知识 · Ferguson Health', fr: 'Mieux comprendre sa santé · Ferguson Health', de: 'Gesundheit verstehen · Ferguson Health', es: 'Comprender tu salud · Ferguson Health' }
   });
 })();
