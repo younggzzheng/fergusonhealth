@@ -17,6 +17,9 @@ expandable section in **03 / Her work** so the initial page stays concise.
   These are group booking hotlines, not Dr. Ferguson's personal numbers.
   Keep the domestic 400 format (no Shanghai area-code prefix). The website adds
   telephone links beneath the clinic addresses; existing booking QR codes are unchanged.
+  The owner wants these numbers as backup contact details only: use the address
+  text size and colour, with no appointment label or prominent calling treatment.
+  Keep the clinic QR codes as the primary booking option.
 
 - Owner-supplied biography, 3 October 2026: the revised **Meet Dr. Ferguson**
   introduction retains the supplied name, MD/FACOG qualifications,

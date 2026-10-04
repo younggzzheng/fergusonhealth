@@ -559,30 +559,36 @@ test('contact introduction stays compact and keeps booking details readable', as
   await assertNoOverflow(page);
 });
 
-test('clinic booking hotlines stay below the addresses in every language', async ({ page }) => {
+test('clinic phone numbers match address styling without a booking label in every language', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
   const phones = page.locator('.practice-phone a');
   await expect(phones).toHaveText(['400-163-4482', '400-819-6622']);
   await expect(phones.nth(0)).toHaveAttribute('href', 'tel:4001634482');
   await expect(phones.nth(1)).toHaveAttribute('href', 'tel:4008196622');
-  for (const [code, label] of [
-    ['en', 'Appointments:'], ['zh', '预约电话：'], ['fr', 'Rendez-vous :'],
-    ['de', 'Terminvereinbarung:'], ['es', 'Citas:'],
-  ]) {
+  for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${code}"]`).click();
-    await expect(page.locator('[data-i18n="clinicBookingPhone"]')).toHaveText([label, label]);
+    await expect(page.locator('.practice-phone')).toHaveText(['400-163-4482', '400-819-6622']);
+    await expect(page.locator('[data-i18n="clinicBookingPhone"]')).toHaveCount(0);
     await expect(phones).toHaveText(['400-163-4482', '400-819-6622']);
     const locations = await page.locator('.practice-details').evaluateAll(details => details.map(card => ({
       cityBottom: card.querySelector('.practice-city').getBoundingClientRect().bottom,
       phoneTop: card.querySelector('.practice-phone').getBoundingClientRect().top,
       card: card.getBoundingClientRect().toJSON(),
       phone: card.querySelector('.practice-phone a').getBoundingClientRect().toJSON(),
+      addressSize: getComputedStyle(card.querySelector('address')).fontSize,
+      phoneSize: getComputedStyle(card.querySelector('.practice-phone a')).fontSize,
+      addressColor: getComputedStyle(card.querySelector('address')).color,
+      phoneColor: getComputedStyle(card.querySelector('.practice-phone a')).color,
+      phoneDecoration: getComputedStyle(card.querySelector('.practice-phone a')).textDecorationLine,
     })));
     for (const location of locations) {
       expect(location.phoneTop).toBeGreaterThan(location.cityBottom);
       expect(location.phone.left).toBeGreaterThanOrEqual(location.card.left);
       expect(location.phone.right).toBeLessThanOrEqual(location.card.right + 1);
+      expect(location.phoneSize).toBe(location.addressSize);
+      expect(location.phoneColor).toBe(location.addressColor);
+      expect(location.phoneDecoration).toBe('none');
     }
     await assertNoOverflow(page);
   }
