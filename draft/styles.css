@@ -51,6 +51,11 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 .hero-copy{padding-top:0;max-width:none}
 .hero h1{margin-bottom:32px}
 .hero-copy .text-link{margin-top:0;font-size:13px}
+.hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:28px;width:100%;max-width:570px}
+.hero-actions .text-link{display:flex;min-height:44px;min-width:0;gap:14px;line-height:1.6}
+.hero-actions .text-link>span:first-child{min-width:0;overflow-wrap:anywhere}
+.hero-actions .link-circle{flex-shrink:0}
+@media(max-width:700px){.hero-actions{gap:20px}.hero-actions .text-link{gap:10px}.hero-actions .link-circle{width:32px;height:32px}}
 .hero-team{padding:48px 40px 40px;background:var(--sage);border:1px solid #e3e3dc;border-radius:220px 220px 8px 8px}
 .team-flower{display:block;width:48px;height:48px;margin:0 auto 22px;stroke:#8d99ad;stroke-width:1}
 .hero-who-title,html[lang=zh-CN] .hero-who-title{font-family:var(--sans);font-size:20px;line-height:1.5;letter-spacing:.3px;margin-bottom:12px}
@@ -115,14 +120,12 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 
 /* Shell ribs and pearl glows echo the logo, without adding interactive content. */
 .hero,.care-section,.contact-section{position:relative;isolation:isolate}
-.hero::before,.care-section::before,.contact-section::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:url('assets/shell-and-pearl.svg');background-repeat:no-repeat;opacity:.15}
-.hero::before{background-size:430px auto;background-position:left -165px bottom 120px}
+.care-section::before,.contact-section::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:url('assets/shell-and-pearl.svg');background-repeat:no-repeat;opacity:.15}
 .care-section::before{background-size:390px auto;background-position:right -170px top 30px}
 .contact-section::before{background-size:460px auto;background-position:left -130px top 30px}
 .hero-team{background-image:radial-gradient(circle at 87% 28%,#fff9ec 0,transparent 27%)}
 .footer-main>p{font-size:26px;font-style:normal;letter-spacing:.2px}
-@media(max-width:1000px){.hero::before{background-position:right -180px top 60px;background-size:350px auto}}
-@media(max-width:700px){.hero::before{background-size:270px auto;background-position:right -155px top 45px;opacity:.12}.care-section::before{background-size:250px auto;background-position:right -125px top 24px;opacity:.12}.contact-section::before{background-size:280px auto;background-position:right -130px top 25px;opacity:.12}.footer-main>p{font-size:24px}}
+@media(max-width:700px){.care-section::before{background-size:250px auto;background-position:right -125px top 24px;opacity:.12}.contact-section::before{background-size:280px auto;background-position:right -130px top 25px;opacity:.12}.footer-main>p{font-size:24px}}
 
 /* Our own care philosophy replaces the external professional-profile promotion. */
 .about-copy .about-philosophy{margin-top:24px;padding-top:24px;border-top:1px solid var(--line)}

@@ -424,8 +424,8 @@ test('balanced team panel leads to services before the doctor profile', async ({
   else expect(arrangement.panel.left).toBeGreaterThan(arrangement.copy.right);
   await expect(page.locator('[data-i18n="careEyebrow"]')).toHaveText('01 / Areas of care');
   await expect(page.locator('[data-i18n="aboutEyebrow"]')).toHaveText('02 / Meet Dr. Ferguson');
-  await expect(page.locator('.hero .text-link')).toHaveAttribute('href', '#care');
-  await page.locator('.hero .text-link').click();
+  await expect(page.locator('.hero .text-link[href="#care"]')).toHaveAttribute('href', '#care');
+  await page.locator('.hero .text-link[href="#care"]').click();
   await expect(page).toHaveURL(/#care$/);
   await expect(page.locator('#care')).toBeInViewport();
   await page.locator('[data-language-switch]').click();
@@ -637,6 +637,37 @@ test('calendar month is based on Shanghai even when the visitor is in another ti
   } finally { await context.close(); }
 });
 
+test('hero care and calendar shortcuts stay side by side and calendar navigation expands its target', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const calendar = page.locator('.appointment-calendar');
+  const shortcut = page.locator('.hero-actions [data-calendar-link]');
+  await expect(calendar).not.toHaveAttribute('open');
+  for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(page.locator('.hero-actions a')).toHaveCount(2);
+    await expect(page.locator('.hero-actions a .link-circle use')).toHaveCount(2);
+    await expect(shortcut).toHaveAttribute('href', '#appointment-calendar');
+    const links = await page.locator('.hero-actions a').evaluateAll(elements => elements.map(element => element.getBoundingClientRect().toJSON()));
+    expect(links[1].left).toBeGreaterThan(links[0].right);
+    expect(Math.abs((links[0].top + links[0].bottom) / 2 - (links[1].top + links[1].bottom) / 2)).toBeLessThan(1);
+    await assertNoOverflow(page);
+  }
+  await shortcut.focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#appointment-calendar$/);
+  await expect(calendar).toHaveAttribute('open', '');
+  await expect(calendar.locator('summary')).toBeFocused();
+  await expect(calendar.locator('summary')).toBeInViewport();
+  await page.reload();
+  await expect(calendar).toHaveAttribute('open', '');
+  await expect(calendar.locator('summary')).toBeInViewport();
+  await calendar.locator('summary').click();
+  await expect(calendar).not.toHaveAttribute('open');
+  await shortcut.click();
+  await expect(calendar).toHaveAttribute('open', '');
+});
+
 test('nine unnumbered service categories put hormone and menopause health first', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
@@ -758,14 +789,19 @@ test('section colors and decorative marks use the local brand and platform asset
   }
 });
 
-test('shell and pearl backgrounds stay decorative and the official slogan is retained in both languages', async ({ page }) => {
+test('hero stays free of a shell background while other shell decorations and the official slogan are retained', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
-  const decoration = await page.locator('.hero, #care, #contact').evaluateAll(sections => sections.map(section => {
+  const heroDecoration = await page.locator('.hero').evaluate(section => {
+    const style = getComputedStyle(section, '::before');
+    return { content: style.content, background: style.backgroundImage };
+  });
+  expect(heroDecoration).toEqual({ content: 'none', background: 'none' });
+  const decoration = await page.locator('#care, #contact').evaluateAll(sections => sections.map(section => {
     const style = getComputedStyle(section, '::before');
     return { background: style.backgroundImage, pointerEvents: style.pointerEvents, opacity: Number(style.opacity), zIndex: style.zIndex };
   }));
-  expect(decoration).toHaveLength(3);
+  expect(decoration).toHaveLength(2);
   for (const item of decoration) {
     expect(item.background).toMatch(/\/assets\/shell-and-pearl\.svg/);
     expect(item.pointerEvents).toBe('none');

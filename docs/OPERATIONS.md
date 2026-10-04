@@ -91,8 +91,10 @@ deployment even if someone merges a broken change.
 
 ## Maintaining the appointment calendar
 
-The optional homepage month calendar is collapsed by default. Its working
-periods and weekly clinic sessions are defined at the top of `draft/calendar.js`.
+The optional homepage month calendar is collapsed by default. Its
+shortcut sits beside “Explore our care” in the hero; following that
+link or loading `#appointment-calendar` opens and focuses the calendar.
+Working periods and weekly clinic sessions are defined at the top of `draft/calendar.js`.
 Dates are inclusive, in Shanghai time. A period with `end: null` continues until
 the owner supplies another end date; do not invent one or infer holiday changes.
 The current schedule is October 5–20, 2026, then November 7, 2026 onward:

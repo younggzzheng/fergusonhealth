@@ -35,6 +35,18 @@
       const weekdays = calendar.querySelector('.calendar-weekdays');
       const heading = document.getElementById('calendar-month');
       const dialog = document.querySelector('.booking-dialog');
+      function revealCalendar() {
+        calendar.open = true;
+        calendar.querySelector('summary').focus({ preventScroll: true });
+      }
+      document.querySelectorAll('[data-calendar-link]').forEach(link => link.addEventListener('click', event => {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        revealCalendar(); // Keep the native anchor URL, scrolling and browser history.
+      }));
+      window.addEventListener('hashchange', () => {
+        if (window.location.hash === '#appointment-calendar') revealCalendar();
+      });
+      if (window.location.hash === '#appointment-calendar') revealCalendar();
       const practice = [...document.querySelectorAll('.practice')];
       const clinics = { 'am-sino': practice[0], parkway: practice[1] };
       const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit' })
