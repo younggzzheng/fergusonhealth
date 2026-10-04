@@ -643,8 +643,10 @@ test('hero care and calendar shortcuts stay side by side and calendar navigation
   const calendar = page.locator('.appointment-calendar');
   const shortcut = page.locator('.hero-actions [data-calendar-link]');
   await expect(calendar).not.toHaveAttribute('open');
+  await expect(calendar.locator('[data-i18n="calendarTitle"]')).toHaveText('Appointment calendar for Dr. Ferguson');
   for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${code}"]`).click();
+    await expect(calendar.locator('[data-i18n="calendarTitle"]')).toContainText(code === 'zh' ? '吕明旭医生' : 'Ferguson');
     await expect(page.locator('.hero-actions a')).toHaveCount(2);
     await expect(page.locator('.hero-actions a .link-circle use')).toHaveCount(2);
     await expect(shortcut).toHaveAttribute('href', '#appointment-calendar');
@@ -659,6 +661,15 @@ test('hero care and calendar shortcuts stay side by side and calendar navigation
   await expect(calendar).toHaveAttribute('open', '');
   await expect(calendar.locator('summary')).toBeFocused();
   await expect(calendar.locator('summary')).toBeInViewport();
+  await expect(calendar.locator('summary')).toHaveCSS('outline-style', 'none');
+  await expect(calendar.locator('summary .details-toggle')).toHaveCSS('outline-style', 'solid');
+  await expect(calendar.locator('summary .details-toggle')).toHaveCSS('outline-width', '2px');
+  await expect(calendar.locator('summary .details-toggle')).toHaveCSS('border-radius', '50%');
+  const headingSpacing = await calendar.evaluate(element => ({
+    summaryBottom: element.querySelector('summary').getBoundingClientRect().bottom,
+    introTop: element.querySelector('.calendar-intro').getBoundingClientRect().top,
+  }));
+  expect(headingSpacing.introTop - headingSpacing.summaryBottom).toBeGreaterThanOrEqual(8);
   await page.reload();
   await expect(calendar).toHaveAttribute('open', '');
   await expect(calendar.locator('summary')).toBeInViewport();

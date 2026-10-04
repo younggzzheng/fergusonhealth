@@ -220,10 +220,16 @@ html[lang=zh-CN] .contact-section h2{font-size:clamp(34px,3.1vw,44px);line-heigh
 .appointment-calendar{grid-column:1/-1;min-width:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .appointment-calendar summary{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font-size:18px;line-height:1.6;list-style:none;cursor:pointer}
 .appointment-calendar summary::-webkit-details-marker{display:none}
+.appointment-calendar summary .details-toggle{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;transition:background .2s}
+.appointment-calendar summary .details-toggle:before,.appointment-calendar summary .details-toggle:after{left:10px;top:16px}
+.appointment-calendar summary:hover .details-toggle{background:#e9edf3}
+/* Keep keyboard focus on the compact control, not a frame around the full row. */
+.appointment-calendar summary:focus-visible{outline:none}
+.appointment-calendar summary:focus-visible .details-toggle{outline:2px solid var(--ink);outline-offset:4px}
 .appointment-calendar[open] .details-toggle:after{transform:none}
-.calendar-content{padding-bottom:24px}
+.calendar-content{padding-top:8px;padding-bottom:24px}
 .calendar-intro,.calendar-note,.calendar-empty{font-size:13px;line-height:1.8;color:var(--body)}
-.calendar-hours{display:flex;flex-wrap:wrap;gap:10px 32px;margin-top:18px}
+.calendar-hours{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;margin-top:20px}
 .calendar-hours p{display:flex;gap:9px;align-items:baseline;font-size:13px;line-height:1.8;color:var(--ink)}
 .clinic-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .clinic-dot.am-sino{background:#1a2d56}.clinic-dot.parkway{background:#326b68}
@@ -254,7 +260,7 @@ html[lang=zh-CN] .contact-section h2{font-size:clamp(34px,3.1vw,44px);line-heigh
 .booking-dialog p{font-size:13px;line-height:1.8;color:var(--body);margin-top:12px}
 .booking-code{max-width:260px;padding:12px;background:#fff;margin:20px auto}
 .booking-code img{width:100%;height:auto}
-@media(max-width:700px){.calendar-weekdays,.calendar-days{gap:3px}.calendar-days li,.calendar-session{min-height:64px}.calendar-session{padding:8px 1px;align-items:center;text-align:center;gap:5px}.calendar-off{padding:8px 1px;text-align:center}.calendar-day-number{font-size:14px}.calendar-clinic{font-size:clamp(8px,2.4vw,11px);white-space:nowrap}.calendar-time{display:none}.calendar-hours{display:grid;gap:8px}.calendar-toolbar h4{font-size:17px}.booking-dialog{padding:18px}}
+@media(max-width:700px){.calendar-weekdays,.calendar-days{gap:3px}.calendar-days li,.calendar-session{min-height:64px}.calendar-session{padding:8px 1px;align-items:center;text-align:center;gap:5px}.calendar-off{padding:8px 1px;text-align:center}.calendar-day-number{font-size:14px}.calendar-clinic{font-size:clamp(8px,2.4vw,11px);white-space:nowrap}.calendar-time{display:none}.calendar-hours{grid-template-columns:minmax(0,1fr);gap:8px}.calendar-toolbar h4{font-size:17px}.booking-dialog{padding:18px}}
 .effort-list{margin:32px 0 0;display:grid;gap:23px;max-width:450px}
 .effort-list dt{font-size:16px;font-weight:550;line-height:1.6}
 .effort-list dd{margin:6px 0 0;font-size:14px;line-height:1.9;color:var(--body)}
