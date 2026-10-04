@@ -321,7 +321,7 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   await expect(page.locator('#hero-title')).toHaveText('For every chapterof your life.');
   await expect(page.locator('.hero .doctor-photo')).toHaveCount(0);
   await expect(page.locator('.hero-who-title')).toHaveText('Who We Are');
-  await expect(page.locator('.hero-intro')).toHaveText('We are a women’s health team committed to clear communication, evidence-based care, and long-term support.');
+  await expect(page.locator('.hero-intro')).toHaveText('We are a women’s health team combining evidence-based care with clear communication, cross-cultural understanding, and long-term support.');
   await expect(page.locator('.purpose-item h2')).toHaveText(['Mission', 'Vision']);
   const englishHeadings = await page.locator('.hero-who-title, .purpose-item h2').evaluateAll(elements => elements.map(element => {
     const style = getComputedStyle(element);
@@ -330,9 +330,12 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   expect(englishHeadings).toHaveLength(3);
   for (const style of englishHeadings) expect(style).toEqual(englishHeadings[0]);
   await expect(page.locator('.purpose-item p')).toHaveText([
-    'To provide reliable, evidence-based care that helps every woman understand her body and make confident health decisions.',
-    'Bringing international standards of women’s healthcare to every woman, supporting her health and quality of life.',
+    'To help every woman understand her body and make informed, confident health decisions through thoughtful guidance and personalized care.',
+    'A future where every woman can benefit from international standards of women’s healthcare and live a healthier, fuller life.',
   ]);
+  const teamCopy = await page.locator('.hero-team').innerText();
+  expect(teamCopy.match(/international/gi)).toHaveLength(1);
+  expect(teamCopy.match(/evidence-based/gi)).toHaveLength(1);
   const portrait = page.locator('#about .doctor-photo');
   await expect(portrait).toHaveCount(1);
   await expect(page.locator('.doctor-photo')).toHaveCount(1);
@@ -357,7 +360,7 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   await page.locator('[data-language-switch]').click();
   await expect(page.locator('#hero-title')).toHaveText('关爱人生的每一个阶段。');
   await expect(page.locator('.hero-who-title')).toHaveText('我们是谁');
-  await expect(page.locator('.hero-intro')).toHaveText('我们是一支专注女性健康的团队，以清晰沟通、科学诊疗和长期陪伴为核心。');
+  await expect(page.locator('.hero-intro')).toHaveText('我们是一支专注女性健康的团队，以循证医学为基础，注重清晰沟通、跨文化理解和长期支持。');
   await expect(page.locator('.purpose-item h2')).toHaveText(['使命', '愿景']);
   const chineseHeadings = await page.locator('.hero-who-title, .purpose-item h2').evaluateAll(elements => elements.map(element => {
     const style = getComputedStyle(element);
@@ -366,12 +369,23 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   expect(chineseHeadings).toHaveLength(3);
   for (const style of chineseHeadings) expect(style).toEqual(chineseHeadings[0]);
   await expect(page.locator('.purpose-item p')).toHaveText([
-    '以科学、可信赖的方式，帮助每位女性更好地了解自己，做出清晰而自信的健康选择。',
-    '以国际标准的诊疗体系，让每位女性拥有更健康、更有力量的生活。',
+    '通过细致指导与个性化照护，帮助每位女性了解自己的身体，充分知情、自信地做出健康选择。',
+    '让每位女性都能受益于国际标准的女性健康照护，拥有更健康、更充实的生活。',
   ]);
   await expect(page.locator('#about .about-portrait figcaption')).toHaveCount(0);
   await expect(page.locator('.profile-identity > h3, .profile-identity > p')).toHaveText(['吕明旭医生', 'MD, FACOG · 妇产科 · 女性健康', 'Ferguson Women’s Health 创始人兼总裁']);
   await assertNoOverflow(page);
+  for (const [code, understanding, care, future] of [
+    ['fr', 'compréhension interculturelle', 'des soins personnalisés', 'Un avenir'],
+    ['de', 'interkulturellem Verständnis', 'individuell abgestimmte Versorgung', 'Eine Zukunft'],
+    ['es', 'comprensión intercultural', 'una atención personalizada', 'Un futuro'],
+  ]) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(page.locator('.hero-intro')).toContainText(understanding);
+    await expect(page.locator('[data-i18n="missionBody"]')).toContainText(care);
+    await expect(page.locator('[data-i18n="visionBody"]')).toContainText(future);
+    await assertNoOverflow(page);
+  }
 });
 
 test('section closing lines stay understated and news precedes articles', async ({ page, isMobile }) => {
