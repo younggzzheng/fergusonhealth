@@ -8,6 +8,16 @@ expandable section in **03 / Her work** so the initial page stays concise.
 
 ## Primary sources used
 
+- Appointment hotlines checked 4 October 2026:
+  [Am-Sino's Ding Xiang clinic page](https://www.am-sino.com/en/medical-network/2)
+  lists **400-163-4482** alongside its service appointment section.
+  [Parkway's Xintiandi clinic page](https://www.parkwayshanghai.com/en/explore-hospital-and-clinics-10)
+  lists **400-819-6622** for outpatient/surgery contact; the same number appears
+  as a hotline on its [international services page](https://www.parkwayshanghai.com/en/international).
+  These are group booking hotlines, not Dr. Ferguson's personal numbers.
+  Keep the domestic 400 format (no Shanghai area-code prefix). The website adds
+  telephone links beneath the clinic addresses; existing booking QR codes are unchanged.
+
 - Owner-supplied biography, 3 October 2026: the revised **Meet Dr. Ferguson**
   introduction retains the supplied name, MD/FACOG qualifications,
   **Founder & President, Ferguson Women’s Health** title, US/China experience,

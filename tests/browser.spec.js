@@ -559,6 +559,37 @@ test('contact introduction stays compact and keeps booking details readable', as
   await assertNoOverflow(page);
 });
 
+test('clinic booking hotlines stay below the addresses in every language', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const phones = page.locator('.practice-phone a');
+  await expect(phones).toHaveText(['400-163-4482', '400-819-6622']);
+  await expect(phones.nth(0)).toHaveAttribute('href', 'tel:4001634482');
+  await expect(phones.nth(1)).toHaveAttribute('href', 'tel:4008196622');
+  for (const [code, label] of [
+    ['en', 'Appointments:'], ['zh', '预约电话：'], ['fr', 'Rendez-vous :'],
+    ['de', 'Terminvereinbarung:'], ['es', 'Citas:'],
+  ]) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(page.locator('[data-i18n="clinicBookingPhone"]')).toHaveText([label, label]);
+    await expect(phones).toHaveText(['400-163-4482', '400-819-6622']);
+    const locations = await page.locator('.practice-details').evaluateAll(details => details.map(card => ({
+      cityBottom: card.querySelector('.practice-city').getBoundingClientRect().bottom,
+      phoneTop: card.querySelector('.practice-phone').getBoundingClientRect().top,
+      card: card.getBoundingClientRect().toJSON(),
+      phone: card.querySelector('.practice-phone a').getBoundingClientRect().toJSON(),
+    })));
+    for (const location of locations) {
+      expect(location.phoneTop).toBeGreaterThan(location.cityBottom);
+      expect(location.phone.left).toBeGreaterThanOrEqual(location.card.left);
+      expect(location.phone.right).toBeLessThanOrEqual(location.card.right + 1);
+    }
+    await assertNoOverflow(page);
+  }
+  await phones.nth(0).focus();
+  await expect(phones.nth(0)).toBeFocused();
+});
+
 test('clinic calendar date rules include both boundaries, the break and an open-ended return', () => {
   const { sessionFor, daysInMonth } = require('../draft/calendar.js');
   expect(sessionFor('2026-10-03')).toBeNull();
