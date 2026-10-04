@@ -559,6 +559,21 @@ test('contact introduction stays compact and keeps booking details readable', as
   await assertNoOverflow(page);
 });
 
+test('contact email opens the configured email app in every language', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const email = page.locator('.contact-copy .email-address a');
+  for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(email).toHaveText('info@fergusonhealth.com');
+    await expect(email).toHaveAttribute('href', 'mailto:info@fergusonhealth.com');
+  }
+  // Verify keyboard access without opening an external app or sending mail.
+  await email.focus();
+  await expect(email).toBeFocused();
+  await assertNoOverflow(page);
+});
+
 test('clinic phone numbers match address styling without a booking label in every language', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);

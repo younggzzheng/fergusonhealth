@@ -46,7 +46,10 @@ Read `AGENTS.md` first. Edit English in `draft/index.html`, Chinese in
 `draft/site.js`, and styles in `draft/styles.css`. Published images belong in
 `draft/assets/`; other references are not deployed. Preserve the actual QR and
 its destination and white margin. Keep browser dependencies local to the website.
-The contact email is plain selectable text; no form service is needed.
+The contact email is a selectable `mailto:` link that opens the visitor's
+configured email app; no form service is needed. Do not send messages while
+testing it. Social profile links require the owner's exact URLs, not guessed
+destinations based on display names.
 
 ```sh
 python3 -m unittest discover -s tests -p 'test_*.py'
