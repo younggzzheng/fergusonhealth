@@ -89,6 +89,24 @@ permission; maintainers need write/Actions access. Always check the PR before
 merging. The main workflow checks again, so failed required checks prevent
 deployment even if someone merges a broken change.
 
+## Maintaining the appointment calendar
+
+The optional homepage month calendar is collapsed by default. Its working
+periods and weekly clinic sessions are defined at the top of `draft/calendar.js`.
+Dates are inclusive, in Shanghai time. A period with `end: null` continues until
+the owner supplies another end date; do not invent one or infer holiday changes.
+The current schedule is October 5–20, 2026, then November 7, 2026 onward:
+Am-Sino on Monday afternoons and all day Wednesday/Saturday; Parkway on
+Tuesday/Friday 13:00–19:00. Exact Am-Sino hours have not been supplied.
+
+Clicking a session opens the existing corresponding clinic mini-program QR
+image from the location card. It does not preselect a date or confirm a booking.
+Do not substitute the official-account QR or invent a mini-program deep link.
+Keep the QR pixels, white margins and blue border unchanged. Calendar labels
+are translated in `draft/site.js`; month/day names use the selected language.
+Calendar regression cases in `tests/browser.spec.js` cover date boundaries,
+the break, ongoing months, clinic selection, language, focus and Shanghai time.
+
 ## What happens after a merge
 
 ```mermaid

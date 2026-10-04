@@ -9,6 +9,7 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <script src="languages.js" defer></script>
+  <script src="calendar.js" defer></script>
   <script src="site.js" defer></script>
 </head>
 <body>
@@ -244,13 +245,32 @@
       <div class="contact-copy">
         <p data-i18n="contactBody">For appointments, scan a clinic code below in WeChat. For other enquiries, email us.</p>
         <p class="email-address">info@fergusonhealth.com</p>
-        <p class="contact-location"><span class="location-dot" aria-hidden="true"></span><span data-i18n="heroLocation">Shanghai, China</span></p>
       </div>
       <div class="practice-locations" aria-labelledby="locations-title">
         <h3 id="locations-title" class="eyebrow" data-i18n="locationsTitle">Where to find us</h3>
-        <article class="practice"><div class="practice-details"><h4 data-i18n="clinic1Name">1. Am-Sino Ding Xiang Clinic</h4><address data-i18n-html="clinic1Address">3rd Floor, Building 6,<br>800 Hua Shan Road</address><p class="practice-note" data-i18n="clinic1Entrance">(Entrance on Zhen Ning Road)</p></div><figure class="appointment-code"><div class="appointment-qr-frame"><img src="assets/am-sino-appointment-qr.png" alt="Am-Sino appointment QR code" data-i18n-alt="clinic1QrAlt" width="460" height="460" loading="lazy"></div><figcaption data-i18n="clinic1Appointment">Scan with WeChat to book</figcaption></figure></article>
-        <article class="practice"><div class="practice-details"><h4 data-i18n="clinic2Name">2. Parkway MediCentre Xintiandi</h4><address data-i18n-html="clinic2Address">3F, Shanghai Plaza,<br>138 Middle Huaihai Road.</address></div><figure class="appointment-code"><div class="appointment-qr-frame"><img src="assets/parkway-appointment-qr.png" alt="Parkway appointment QR code" data-i18n-alt="clinic2QrAlt" width="460" height="460" loading="lazy"></div><figcaption data-i18n="clinic2Appointment">Scan with WeChat to book</figcaption></figure></article>
+        <article class="practice"><div class="practice-details"><h4 data-i18n="clinic1Name">1. Am-Sino Ding Xiang Clinic</h4><address data-i18n-html="clinic1Address">3rd Floor, Building 6,<br>800 Hua Shan Road</address><p class="practice-note" data-i18n="clinic1Entrance">(Entrance on Zhen Ning Road)</p><p class="practice-city" data-i18n="clinicCity">Shanghai, China</p></div><figure class="appointment-code"><div class="appointment-qr-frame"><img src="assets/am-sino-appointment-qr.png" alt="Am-Sino appointment QR code" data-i18n-alt="clinic1QrAlt" width="460" height="460" loading="lazy"></div><figcaption data-i18n="clinic1Appointment">Scan with WeChat to book</figcaption></figure></article>
+        <article class="practice"><div class="practice-details"><h4 data-i18n="clinic2Name">2. Parkway MediCentre Xintiandi</h4><address data-i18n-html="clinic2Address">3F, Shanghai Plaza,<br>138 Middle Huaihai Road.</address><p class="practice-city" data-i18n="clinicCity">Shanghai, China</p></div><figure class="appointment-code"><div class="appointment-qr-frame"><img src="assets/parkway-appointment-qr.png" alt="Parkway appointment QR code" data-i18n-alt="clinic2QrAlt" width="460" height="460" loading="lazy"></div><figcaption data-i18n="clinic2Appointment">Scan with WeChat to book</figcaption></figure></article>
       </div>
+      <details class="appointment-calendar" id="appointment-calendar">
+        <summary><span data-i18n="calendarTitle">Appointment calendar</span><span class="details-toggle" aria-hidden="true"></span></summary>
+        <div class="calendar-content">
+          <p class="calendar-intro" data-i18n="calendarIntro">Choose a clinic session to view its WeChat booking code. All times are Shanghai time.</p>
+          <div class="calendar-hours">
+            <p><span class="clinic-dot am-sino" aria-hidden="true"></span><span data-i18n="calendarAmSinoHours">Am-Sino · Monday afternoons, Wednesdays &amp; Saturdays all day</span></p>
+            <p><span class="clinic-dot parkway" aria-hidden="true"></span><span data-i18n="calendarParkwayHours">Parkway · Tuesdays &amp; Fridays, 13:00–19:00</span></p>
+          </div>
+          <div class="calendar-toolbar">
+            <button type="button" class="calendar-prev" aria-label="Previous month" data-i18n-aria-label="calendarPrevious"><span aria-hidden="true">←</span></button>
+            <h4 id="calendar-month" aria-live="polite" aria-atomic="true"></h4>
+            <button type="button" class="calendar-next" aria-label="Next month" data-i18n-aria-label="calendarNext"><span aria-hidden="true">→</span></button>
+          </div>
+          <div class="calendar-weekdays" aria-hidden="true"></div>
+          <ol class="calendar-days" aria-labelledby="calendar-month"></ol>
+          <p class="calendar-empty" data-i18n="calendarEmpty" hidden>No clinic sessions are scheduled this month.</p>
+          <p class="calendar-note" data-i18n="calendarNote">Clinic sessions are a guide, not available appointment slots. Please confirm dates and availability in the clinic’s mini-program.</p>
+          <noscript><p>For appointments, use the clinic booking codes above. The interactive calendar requires JavaScript.</p></noscript>
+        </div>
+      </details>
       <section class="wechat-and-social" aria-labelledby="connected-title">
         <h3 id="connected-title" class="eyebrow" data-i18n="connectedTitle">Stay connected</h3>
         <div class="connected-grid">
@@ -267,6 +287,14 @@
       <p class="wrap section-closing" data-i18n="contactClosing">Questions welcome. Connections begin here.</p>
     </section>
   </main>
+  <dialog class="booking-dialog" aria-labelledby="booking-clinic" aria-describedby="booking-date booking-help booking-note">
+    <form method="dialog"><button type="submit" class="booking-close" data-i18n="calendarClose" autofocus>Close</button></form>
+    <h3 id="booking-clinic"></h3>
+    <p id="booking-date"></p>
+    <figure class="booking-code"></figure>
+    <p id="booking-help" data-i18n="calendarBookingHelp">Scan with WeChat, or save this code and open it in WeChat to book.</p>
+    <p id="booking-note" data-i18n="calendarBookingNote">This is the clinic’s booking mini-program. Select Dr. Lu-Ferguson and confirm your appointment date there.</p>
+  </dialog>
   <footer class="site-footer"><div class="wrap footer-main"><a class="brand-logo" href="#" aria-label="Back to top"><img src="assets/ferguson-logo.png" alt="Ferguson Women's Health · 弗阁笙健康管理" width="2481" height="1792"></a><p data-i18n="footerMessage" lang="en">Because We Care</p><a href="#main" class="back-top"><span data-i18n="backTop">Back to top</span><svg aria-hidden="true"><use href="#arrow"/></svg></a></div><div class="wrap footer-bottom"><span>© <span id="year">2026</span> Ferguson Women's Health</span></div></footer>
 </body>
 </html>

@@ -48,6 +48,11 @@
       workDetailsTitle: '进一步了解她的专业历程', workEducationTitle: '医学教育与医疗质量', workEducationBody: '在罗伯特·伍德·约翰逊医学院完成妇产科住院医师培训后，吕医生留校任教，在临床工作之外参与住院医师培训、医学生教育及临床研究。2005年回国后，她在上海多家医疗机构承担临床管理与医疗质量、安全方面的工作。', workLeadershipTitle: '诊室之外的健康教育', workLeadershipBody: '她也参与社区健康教育。在2026年美华的医学职业体验活动中，她向 SCIS 学生介绍了从青春期到更年期的女性健康。', workBackgroundLink: '了解这次学生体验活动',
       contactEyebrow: '从这里开始', contactTitle: '下一步，<br><em>我们一起走。</em>', contactBody: '预约请用微信扫描下方门诊二维码；其他咨询可通过邮件联系我们。',
       locationsTitle: '咨询地点', clinic1Name: '1. 美华丁香门诊部', clinic1Address: '华山路800弄<br>6号楼3层', clinic1Entrance: '（入口在镇宁路上）', clinic1Appointment: '微信扫码预约', clinic2Name: '2. 百汇新天地医疗中心', clinic2Address: '淮海中路138号<br>上海广场3楼', clinic2Appointment: '微信扫码预约',
+      clinicCity: '中国 · 上海', calendarTitle: '出诊月历', calendarIntro: '点击出诊项，查看对应门诊的微信预约二维码。所有时间均为上海时间。',
+      calendarAmSinoHours: '美华 · 周一下午，周三与周六全天', calendarParkwayHours: '百汇 · 周二与周五，13:00–19:00',
+      calendarPrevious: '上个月', calendarNext: '下个月', calendarEmpty: '本月暂无出诊安排。',
+      calendarNote: '出诊安排仅供参考，不代表可预约名额。请在门诊小程序中确认日期与预约情况。', calendarClose: '关闭',
+      calendarBookingHelp: '请用微信扫码，或保存二维码后在微信中识别预约。', calendarBookingNote: '此二维码进入门诊预约小程序。请在小程序中选择吕明旭医生，并确认预约日期。',
       connectedTitle: '保持联系', wechatTitle: '官方微信公众号', wechatBody: '扫码关注，获取最新资讯。', socialXiaohongshu: '小红书', footerMessage: 'Because We Care', backTop: '返回顶部', languageChoice: '选择语言'
     },
     fr: {
@@ -91,6 +96,11 @@
       plusCulture: 'La bienveillance au-delà des cultures', plusScience: 'La science avec compréhension', plusJourney: 'Un parcours de santé partagé', plusLink: 'Découvrir Ferguson Plus',
       contactEyebrow: 'Un bon point de départ', contactTitle: 'Faisons le prochain<br><em>pas, ensemble.</em>', contactBody: 'Pour un rendez-vous, scannez le code d’une clinique ci-dessous avec WeChat. Pour toute autre question, écrivez-nous par e-mail.',
       locationsTitle: 'Où nous trouver', clinic1Name: '1. Am-Sino Ding Xiang Clinic', clinic1Address: '3e étage, bâtiment 6,<br>800 Hua Shan Road', clinic1Entrance: '(Entrée sur Zhen Ning Road)', clinic1Appointment: 'Scannez avec WeChat pour réserver', clinic2Name: '2. Parkway MediCentre Xintiandi', clinic2Address: '3e étage, Shanghai Plaza,<br>138 Middle Huaihai Road.', clinic2Appointment: 'Scannez avec WeChat pour réserver',
+      clinicCity: 'Shanghai, Chine', calendarTitle: 'Calendrier des consultations', calendarIntro: 'Choisissez une consultation pour afficher le code de réservation WeChat de la clinique. Tous les horaires sont ceux de Shanghai.',
+      calendarAmSinoHours: 'Am-Sino · Lundi après-midi, mercredi et samedi toute la journée', calendarParkwayHours: 'Parkway · Mardi et vendredi, 13 h–19 h',
+      calendarPrevious: 'Mois précédent', calendarNext: 'Mois suivant', calendarEmpty: 'Aucune consultation prévue ce mois-ci.',
+      calendarNote: 'Ce calendrier indique les jours de consultation, pas les créneaux disponibles. Confirmez les dates et les disponibilités dans le mini-programme de la clinique.', calendarClose: 'Fermer',
+      calendarBookingHelp: 'Scannez ce code avec WeChat, ou enregistrez-le puis ouvrez-le dans WeChat pour réserver.', calendarBookingNote: 'Ce code ouvre le mini-programme de réservation de la clinique. Sélectionnez Dr Lu-Ferguson et confirmez la date du rendez-vous.',
       connectedTitle: 'Restons en contact', wechatTitle: 'Compte officiel WeChat', wechatBody: 'Scannez pour suivre les actualités.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Retour en haut'
     },
     de: {
@@ -134,6 +144,11 @@
       plusCulture: 'Mitgefühl über Kulturen hinweg', plusScience: 'Wissenschaft mit Verständnis', plusJourney: 'Ein gemeinsamer Weg zur Gesundheit', plusLink: 'Ferguson Plus entdecken',
       contactEyebrow: 'Ein guter Anfang', contactTitle: 'Gehen wir den nächsten<br><em>Schritt gemeinsam.</em>', contactBody: 'Für einen Termin scannen Sie einen der Klinikcodes unten mit WeChat. Bei weiteren Fragen schreiben Sie uns eine E-Mail.',
       locationsTitle: 'Wo Sie uns finden', clinic1Name: '1. Am-Sino Ding Xiang Clinic', clinic1Address: '3. Etage, Gebäude 6,<br>800 Hua Shan Road', clinic1Entrance: '(Eingang an der Zhen Ning Road)', clinic1Appointment: 'Mit WeChat scannen und Termin buchen', clinic2Name: '2. Parkway MediCentre Xintiandi', clinic2Address: '3. Etage, Shanghai Plaza,<br>138 Middle Huaihai Road.', clinic2Appointment: 'Mit WeChat scannen und Termin buchen',
+      clinicCity: 'Shanghai, China', calendarTitle: 'Sprechstundenkalender', calendarIntro: 'Wählen Sie eine Sprechstunde, um den WeChat-Buchungscode der Klinik anzuzeigen. Alle Zeiten gelten für Shanghai.',
+      calendarAmSinoHours: 'Am-Sino · Montagnachmittag, Mittwoch und Samstag ganztägig', calendarParkwayHours: 'Parkway · Dienstag und Freitag, 13:00–19:00 Uhr',
+      calendarPrevious: 'Voriger Monat', calendarNext: 'Nächster Monat', calendarEmpty: 'Für diesen Monat sind keine Sprechstunden geplant.',
+      calendarNote: 'Der Kalender zeigt Sprechstunden, keine verfügbaren Termine. Bitte bestätigen Sie Datum und Verfügbarkeit im Mini-Programm der Klinik.', calendarClose: 'Schließen',
+      calendarBookingHelp: 'Scannen Sie den Code mit WeChat oder speichern und öffnen Sie ihn dort, um einen Termin zu buchen.', calendarBookingNote: 'Dieser Code führt zum Buchungs-Mini-Programm der Klinik. Wählen Sie Dr. Lu-Ferguson und bestätigen Sie dort das Termindatum.',
       connectedTitle: 'Bleiben wir in Kontakt', wechatTitle: 'Offizielles WeChat-Konto', wechatBody: 'Für Neuigkeiten scannen und folgen.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Nach oben'
     },
     es: {
@@ -177,6 +192,11 @@
       plusCulture: 'Compasión entre culturas', plusScience: 'Ciencia con comprensión', plusJourney: 'Un camino compartido hacia la salud', plusLink: 'Descubre Ferguson Plus',
       contactEyebrow: 'Un buen punto de partida', contactTitle: 'Demos el siguiente<br><em>paso, juntos.</em>', contactBody: 'Para pedir cita, escanea con WeChat el código de una clínica abajo. Para otras consultas, escríbenos por correo electrónico.',
       locationsTitle: 'Dónde encontrarnos', clinic1Name: '1. Am-Sino Ding Xiang Clinic', clinic1Address: '3.ª planta, edificio 6,<br>800 Hua Shan Road', clinic1Entrance: '(Entrada por Zhen Ning Road)', clinic1Appointment: 'Escanea con WeChat para pedir cita', clinic2Name: '2. Parkway MediCentre Xintiandi', clinic2Address: '3.ª planta, Shanghai Plaza,<br>138 Middle Huaihai Road.', clinic2Appointment: 'Escanea con WeChat para pedir cita',
+      clinicCity: 'Shanghái, China', calendarTitle: 'Calendario de consultas', calendarIntro: 'Elige una consulta para ver el código de reserva de WeChat de la clínica. Todos los horarios corresponden a Shanghái.',
+      calendarAmSinoHours: 'Am-Sino · Lunes por la tarde, miércoles y sábados todo el día', calendarParkwayHours: 'Parkway · Martes y viernes, 13:00–19:00',
+      calendarPrevious: 'Mes anterior', calendarNext: 'Mes siguiente', calendarEmpty: 'No hay consultas programadas este mes.',
+      calendarNote: 'El calendario indica las consultas, no las citas disponibles. Confirma las fechas y la disponibilidad en el miniprograma de la clínica.', calendarClose: 'Cerrar',
+      calendarBookingHelp: 'Escanea este código con WeChat, o guárdalo y ábrelo en WeChat para pedir cita.', calendarBookingNote: 'Este código abre el miniprograma de reservas de la clínica. Selecciona a la Dra. Lu-Ferguson y confirma allí la fecha de tu cita.',
       connectedTitle: 'Sigamos en contacto', wechatTitle: 'Cuenta oficial de WeChat', wechatBody: 'Escanea para seguir las novedades.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Volver arriba'
     }
   };
@@ -203,9 +223,15 @@
   const desktop = window.matchMedia('(min-width: 701px)');
   desktop.addEventListener('change', event => { if (event.matches) closeMenu(); });
   document.getElementById('year').textContent = String(new Date().getFullYear());
+  const calendar = window.FergusonCalendar.init();
+  const calendarTimes = {
+    en: { afternoon: 'Afternoon', allDay: 'All day' }, zh: { afternoon: '下午', allDay: '全天', 'am-sino': '美华', parkway: '百汇' },
+    fr: { afternoon: 'Après-midi', allDay: 'Journée' }, de: { afternoon: 'Nachmittag', allDay: 'Ganztägig' },
+    es: { afternoon: 'Por la tarde', allDay: 'Todo el día' }
+  };
   window.FergusonLanguages.init({
     translations,
     titles: { en: "Ferguson Women's Health", zh: 'Ferguson 女性健康', fr: "Ferguson Women's Health", de: "Ferguson Women's Health", es: "Ferguson Women's Health" },
-    onChange(code) { language = code; updateMenuLabel(); }
+    onChange(code) { language = code; updateMenuLabel(); calendar.update(calendarTimes[code]); }
   });
 })();

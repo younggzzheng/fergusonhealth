@@ -537,9 +537,104 @@ test('contact introduction stays compact and keeps booking details readable', as
   expect(layout.decorationOpacity).toBeLessThanOrEqual(0.06);
   for (const size of layout.codes) expect(size).toBeGreaterThanOrEqual(108);
   await expect(page.locator('.contact-copy .email-address')).toHaveText('info@fergusonhealth.com');
+  await expect(page.locator('.contact-copy .contact-location')).toHaveCount(0);
+  await expect(page.locator('.practice-city')).toHaveText(['Shanghai, China', 'Shanghai, China']);
   await page.locator('[data-language="zh"]').click();
   await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('预约请用微信扫描下方门诊二维码；其他咨询可通过邮件联系我们。');
+  await expect(page.locator('.practice-city')).toHaveText(['中国 · 上海', '中国 · 上海']);
   await assertNoOverflow(page);
+});
+
+test('clinic calendar date rules include both boundaries, the break and an open-ended return', () => {
+  const { sessionFor, daysInMonth } = require('../draft/calendar.js');
+  expect(sessionFor('2026-10-03')).toBeNull();
+  expect(sessionFor('2026-10-05')).toEqual({ clinic: 'am-sino', time: 'afternoon' });
+  expect(sessionFor('2026-10-06')).toEqual({ clinic: 'parkway', time: '13:00–19:00' });
+  expect(sessionFor('2026-10-07')).toEqual({ clinic: 'am-sino', time: 'allDay' });
+  expect(sessionFor('2026-10-08')).toBeNull();
+  expect(sessionFor('2026-10-09')).toEqual({ clinic: 'parkway', time: '13:00–19:00' });
+  expect(sessionFor('2026-10-10')).toEqual({ clinic: 'am-sino', time: 'allDay' });
+  expect(sessionFor('2026-10-11')).toBeNull();
+  expect(sessionFor('2026-10-20')).toEqual({ clinic: 'parkway', time: '13:00–19:00' });
+  for (const date of ['2026-10-21', '2026-10-31', '2026-11-02', '2026-11-06']) expect(sessionFor(date)).toBeNull();
+  expect(sessionFor('2026-11-07')).toEqual({ clinic: 'am-sino', time: 'allDay' });
+  expect(sessionFor('2026-12-01')).toEqual({ clinic: 'parkway', time: '13:00–19:00' });
+  expect(sessionFor('2027-01-04')).toEqual({ clinic: 'am-sino', time: 'afternoon' });
+  expect(daysInMonth(2026, 9).filter(day => day.session)).toHaveLength(12);
+  expect(daysInMonth(2026, 10)).toHaveLength(30);
+  expect(daysInMonth(2028, 1)).toHaveLength(29);
+});
+
+test('optional calendar shows the right clinic QR, closes with Escape and retains its month across languages', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-10-04T00:00:00Z') });
+  await page.goto('/');
+  const calendar = page.locator('.appointment-calendar');
+  await expect(calendar).not.toHaveAttribute('open');
+  await calendar.locator('summary').focus();
+  await page.keyboard.press('Enter');
+  await expect(calendar).toHaveAttribute('open', '');
+  await expect(page.locator('#calendar-month')).toHaveText('October 2026');
+  await expect(page.getByRole('button', { name: 'Previous month', exact: true })).toBeDisabled();
+  await expect(calendar.locator('.calendar-session')).toHaveCount(12);
+  await expect(calendar.locator('[data-date="2026-10-01"]')).toHaveCSS('grid-column-start', '4');
+  await expect(calendar.locator('[data-date="2026-10-21"] button')).toHaveCount(0);
+  await expect(page.locator('.calendar-note')).toContainText('not available appointment slots');
+  const dialog = page.locator('.booking-dialog');
+  for (const [date, clinic, practiceIndex] of [['2026-10-05', 'Am-Sino Ding Xiang Clinic', 0], ['2026-10-06', 'Parkway MediCentre Xintiandi', 1]]) {
+    const session = calendar.locator(`[data-date="${date}"] button`);
+    await session.focus();
+    await page.keyboard.press('Enter');
+    await expect(dialog).toBeVisible();
+    await expect(page.locator('#booking-clinic')).toHaveText(clinic);
+    await expect(dialog.locator('img')).toHaveAttribute('src', await page.locator('.appointment-qr-frame img').nth(practiceIndex).getAttribute('src'));
+    await expect.poll(() => dialog.locator('img').evaluate(image => image.complete && image.naturalWidth === 460)).toBe(true);
+    await expect(page.locator('.booking-close')).toBeFocused();
+    await assertNoOverflow(page);
+    await page.keyboard.press('Escape');
+    await expect(dialog).not.toBeVisible();
+    await expect(session).toBeFocused();
+    await expect(dialog.locator('img')).toHaveCount(0);
+  }
+  await page.getByRole('button', { name: 'Next month', exact: true }).click();
+  await expect(page.locator('#calendar-month')).toHaveText('November 2026');
+  await expect(calendar.locator('[data-date="2026-11-01"]')).toHaveCSS('grid-column-start', '7');
+  await expect(calendar.locator('[data-date="2026-11-06"] button')).toHaveCount(0);
+  await expect(calendar.locator('[data-date="2026-11-07"] button')).toHaveAttribute('data-clinic', 'am-sino');
+  await expect(calendar.locator('[data-date="2026-11-30"] button')).toHaveAttribute('data-clinic', 'am-sino');
+  for (const [code, month, clinic] of [
+    ['zh', '2026年11月', '美华丁香门诊部'], ['fr', 'novembre 2026', 'Am-Sino Ding Xiang Clinic'],
+    ['de', 'November 2026', 'Am-Sino Ding Xiang Clinic'], ['es', 'noviembre de 2026', 'Am-Sino Ding Xiang Clinic'],
+  ]) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(calendar).toHaveAttribute('open', '');
+    await expect(page.locator('#calendar-month')).toHaveText(month);
+    await calendar.locator('[data-date="2026-11-07"] button').click();
+    await expect(page.locator('#booking-clinic')).toHaveText(clinic);
+    await expect(dialog.locator('img')).toHaveAttribute('alt', await page.locator('.appointment-qr-frame img').first().getAttribute('alt'));
+    await expect(dialog.locator('#booking-help')).not.toContainText('undefined');
+    await assertNoOverflow(page);
+    await dialog.locator('.booking-close').click();
+  }
+  await page.locator('[data-language="en"]').click();
+  await page.getByRole('button', { name: 'Next month', exact: true }).click();
+  await expect(calendar.locator('[data-date="2026-12-01"] button')).toHaveAttribute('data-clinic', 'parkway');
+  await page.getByRole('button', { name: 'Next month', exact: true }).click();
+  await expect(page.locator('#calendar-month')).toHaveText('January 2027');
+  await expect(calendar.locator('[data-date="2027-01-04"] button')).toHaveAttribute('data-clinic', 'am-sino');
+  await page.getByRole('button', { name: 'Previous month', exact: true }).click();
+  await expect(page.locator('#calendar-month')).toHaveText('December 2026');
+  await page.reload();
+  await expect(calendar).not.toHaveAttribute('open');
+});
+
+test('calendar month is based on Shanghai even when the visitor is in another time zone', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ timezoneId: 'America/Los_Angeles', baseURL });
+  try {
+    const page = await context.newPage();
+    await page.clock.install({ time: new Date('2026-10-31T17:00:00Z') });
+    await page.goto('/');
+    await expect(page.locator('#calendar-month')).toHaveText('November 2026');
+  } finally { await context.close(); }
 });
 
 test('nine unnumbered service categories put hormone and menopause health first', async ({ page, isMobile }) => {
