@@ -474,10 +474,10 @@ test('booking occupies the first row and official accounts share the lower row',
   await expect(page.locator('[data-i18n="wechatNote"], [data-i18n="socialTitle"]')).toHaveCount(0);
   await expect(page.locator('.practice h4')).toHaveText(['1. Am-Sino Ding Xiang Clinic', '2. Parkway MediCentre Xintiandi']);
   await expect(page.locator('.connected-grid > *')).toHaveCount(4);
-  await expect(social.locator('.social-handle')).toHaveText([
-    '@Ferguson健康咨询上海', '@FergusonHealth_SH', '@FergusonHealth_SH',
-  ]);
-  await expect(social.locator('a')).toHaveCount(0);
+  await expect(social.locator('.social-handle')).toHaveCount(0);
+  await expect(social.locator('a')).toHaveCount(1);
+  await expect(page.getByRole('article', { name: 'Facebook', exact: true }).locator('a')).toHaveCount(0);
+  await expect(page.getByRole('article', { name: 'Instagram', exact: true }).locator('a')).toHaveCount(0);
   await expect(social.locator('h4')).toHaveText(['Xiaohongshu · 小红书', 'Facebook', 'Instagram']);
   await expect(social.locator('h4:not(.visually-hidden)')).toHaveCount(0);
   for (const label of await social.locator('h4').all()) await expect(label).toHaveCSS('clip-path', 'inset(50%)');
@@ -493,14 +493,14 @@ test('booking occupies the first row and official accounts share the lower row',
   expect(position.social.left).toBeGreaterThan(position.qr.right);
   const channels = await page.locator('.connected-grid > *').evaluateAll(elements => elements.map(element => ({
     card: element.getBoundingClientRect().toJSON(),
-    label: (element.querySelector('.social-handle') || element.querySelector('h4')).getBoundingClientRect().toJSON(),
+    visual: element.querySelector('.connected-visual').getBoundingClientRect().toJSON(),
   })));
-  expect(Math.abs(channels[0].label.top - channels[1].label.top)).toBeLessThan(1);
+  expect(Math.abs(channels[0].visual.top - channels[1].visual.top)).toBeLessThan(1);
   if (isMobile) {
     expect(channels[2].card.top).toBeGreaterThan(channels[0].card.bottom);
-    expect(Math.abs(channels[2].label.top - channels[3].label.top)).toBeLessThan(1);
+    expect(Math.abs(channels[2].visual.top - channels[3].visual.top)).toBeLessThan(1);
   } else {
-    for (const channel of channels) expect(Math.abs(channel.label.top - channels[0].label.top)).toBeLessThan(1);
+    for (const channel of channels) expect(Math.abs(channel.visual.top - channels[0].visual.top)).toBeLessThan(1);
   }
   const booking = await page.locator('.practice').evaluateAll(practices => practices.map(practice => ({
     text: practice.querySelector('.practice-details').getBoundingClientRect().toJSON(),
@@ -557,6 +557,38 @@ test('contact introduction stays compact and keeps booking details readable', as
   await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('预约请用微信扫描下方门诊二维码；其他咨询可通过邮件联系我们。');
   await expect(page.locator('.practice-city')).toHaveText(['中国 · 上海', '中国 · 上海']);
   await assertNoOverflow(page);
+});
+
+test('Xiaohongshu icon opens the owner-supplied profile link and stays accessible in every language', async ({ page, context }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const profileUrl = 'https://xhslink.cn/o/3PidH8Y4ZmB';
+  for (const [code, name] of [
+    ['en', 'Xiaohongshu · 小红书'], ['zh', '小红书'], ['fr', 'Xiaohongshu · 小红书'],
+    ['de', 'Xiaohongshu · 小红书'], ['es', 'Xiaohongshu · 小红书'],
+  ]) {
+    await page.locator(`[data-language="${code}"]`).click();
+    const link = page.getByRole('link', { name, exact: true });
+    await expect(link).toHaveAttribute('href', profileUrl);
+    await expect(link).toHaveAttribute('target', '_blank');
+    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    await link.focus();
+    await expect(link).toBeFocused();
+    const size = await link.boundingBox();
+    expect(size.width).toBeGreaterThanOrEqual(44);
+    expect(size.height).toBeGreaterThanOrEqual(44);
+    await assertNoOverflow(page);
+  }
+  // Exercise the real link without requiring a third-party login or network access.
+  await context.route(profileUrl, route => route.fulfill({
+    status: 200, contentType: 'text/html', body: '<title>Profile link test</title>',
+  }));
+  const popupPromise = page.waitForEvent('popup');
+  await page.getByRole('link', { name: 'Xiaohongshu · 小红书', exact: true }).click();
+  const popup = await popupPromise;
+  await popup.waitForLoadState('domcontentloaded');
+  await expect(popup).toHaveURL(profileUrl);
+  await popup.close();
 });
 
 test('contact email opens the configured email app in every language', async ({ page }) => {
