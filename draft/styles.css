@@ -194,10 +194,12 @@ html[lang=zh-CN] .contact-section h2{font-size:clamp(34px,3.1vw,44px);line-heigh
 .appointment-qr-frame img{width:150px;height:150px}
 .wechat-and-social{grid-column:1/-1;display:block;border-top:1px solid var(--line);padding-top:32px}
 .wechat-and-social>h3{font-family:var(--sans)}
-.connected-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin-top:24px}
-.connected-grid .wechat-contact{display:block;border:0;padding:0;min-width:0}
+.connected-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;margin-top:24px}
+.connected-grid .wechat-contact{display:flex;flex-direction:row;align-items:center;gap:28px;border:0;padding:0;min-width:0}
+.connected-grid .wechat-contact figcaption{min-width:0;max-width:400px}
+.social-icon-row{display:flex;align-items:center;gap:24px;width:max-content;max-width:100%}
 .connected-profile{min-width:0}
-.connected-visual{height:196px;display:flex;align-items:center;justify-content:flex-start;margin-bottom:18px}
+.connected-visual{display:flex;align-items:center;justify-content:flex-start;flex-shrink:0}
 .connected-visual .social-icon{width:64px;height:64px}
 .social-profile-link{display:inline-flex;border-radius:7px}
 .social-profile-link:hover{opacity:.85}
@@ -206,11 +208,10 @@ html[lang=zh-CN] .contact-section h2{font-size:clamp(34px,3.1vw,44px);line-heigh
 .connected-grid .wechat-contact p,.social-handle{font-size:14px;line-height:1.8;color:var(--body);margin-top:9px;overflow-wrap:anywhere}
 .social-handle{user-select:all}
 .connected-profile .social-handle{margin-top:0}
-.connected-grid .qr-frame{width:100%;max-width:196px;padding:12px}
+.connected-grid .qr-frame{width:196px;max-width:100%;padding:12px}
 .connected-grid .qr-frame img{width:calc(100% - 8px);height:auto;aspect-ratio:1}
 @media(min-width:701px) and (max-width:1000px){.practice-locations{column-gap:32px;grid-template-rows:auto auto auto}.practice{grid-row:2/span 2;grid-template-columns:1fr;grid-template-rows:subgrid;row-gap:18px}.practice:first-of-type{grid-column:1}.practice:last-of-type{grid-column:2}}
-@media(max-width:900px){.connected-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 32px}}
-@media(max-width:700px){.contact-grid{row-gap:30px}.practice-locations{grid-template-columns:1fr;row-gap:28px}.practice{grid-template-columns:minmax(0,1fr) 142px;gap:18px}.appointment-code{max-width:142px}.appointment-qr-frame{padding:8px}.appointment-qr-frame img{width:124px;height:124px}.wechat-and-social{padding-top:28px}.connected-grid{column-gap:24px}.connected-visual{height:150px;margin-bottom:14px}.connected-grid .qr-frame{max-width:150px;padding:8px}.connected-grid .qr-frame img{width:calc(100% - 6px)}.connected-visual .social-icon{width:48px;height:48px}.connected-grid h4{font-size:14px}.connected-grid .wechat-contact p,.social-handle{font-size:13px}}
+@media(max-width:700px){.contact-grid{row-gap:30px}.practice-locations{grid-template-columns:1fr;row-gap:28px}.practice{grid-template-columns:minmax(0,1fr) 142px;gap:18px}.appointment-code{max-width:142px}.appointment-qr-frame{padding:8px}.appointment-qr-frame img{width:124px;height:124px}.wechat-and-social{padding-top:28px}.connected-grid .wechat-contact{gap:20px}.connected-grid .qr-frame{width:128px;padding:8px}.connected-grid .qr-frame img{width:calc(100% - 6px)}.connected-visual .social-icon{width:48px;height:48px}.connected-grid h4{font-size:14px}.connected-grid .wechat-contact p,.social-handle{font-size:13px}}
 @media(max-width:360px){.practice{grid-template-columns:minmax(0,1fr) 126px;gap:14px}.appointment-code{max-width:126px}.appointment-qr-frame img{width:108px;height:108px}}
 @media(max-width:700px){.contact-section{padding-top:56px}.contact-section::before{background-size:210px auto;background-position:right -145px top 18px;opacity:.055}.contact-grid{row-gap:24px}.contact-section h2{font-size:40px}html[lang=zh-CN] .contact-section h2{font-size:34px}.contact-copy{padding-top:0}.practice-locations{row-gap:6px;padding-top:24px}.practice{padding:18px 0;border:0;border-top:1px solid var(--line);border-radius:0;background:transparent}.practice h4{font-size:14px}}
 .about-portrait .portrait-frame{aspect-ratio:1}

@@ -464,7 +464,7 @@ test('official-account QR keeps its white margin inside the matching blue frame'
   await assertNoOverflow(page);
 });
 
-test('booking occupies the first row and official accounts share the lower row', async ({ page, isMobile }) => {
+test('booking stays above a separate WeChat row and a compact row of social icons', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
   const social = page.locator('.connected-profile');
@@ -473,7 +473,8 @@ test('booking occupies the first row and official accounts share the lower row',
   await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('Scan for news & updates.');
   await expect(page.locator('[data-i18n="wechatNote"], [data-i18n="socialTitle"]')).toHaveCount(0);
   await expect(page.locator('.practice h4')).toHaveText(['1. Am-Sino Ding Xiang Clinic', '2. Parkway MediCentre Xintiandi']);
-  await expect(page.locator('.connected-grid > *')).toHaveCount(4);
+  await expect(page.locator('.connected-grid > *')).toHaveCount(2);
+  await expect(page.locator('.social-icon-row > .connected-profile')).toHaveCount(3);
   await expect(social.locator('.social-handle')).toHaveCount(0);
   await expect(social.locator('a')).toHaveCount(3);
   await expect(page.getByRole('article', { name: 'Facebook', exact: true }).locator('a')).toHaveCount(1);
@@ -487,20 +488,21 @@ test('booking occupies the first row and official accounts share the lower row',
     groupTop: group.getBoundingClientRect().top,
     bookingBottom: document.querySelector('.practice-locations').getBoundingClientRect().bottom,
     qr: group.querySelector('.wechat-contact').getBoundingClientRect().toJSON(),
-    social: group.querySelector('.connected-profile').getBoundingClientRect().toJSON(),
+    social: group.querySelector('.social-icon-row').getBoundingClientRect().toJSON(),
+    code: group.querySelector('.wechat-contact .connected-visual').getBoundingClientRect().toJSON(),
+    caption: group.querySelector('.wechat-contact figcaption').getBoundingClientRect().toJSON(),
   }));
   expect(position.groupTop).toBeGreaterThan(position.bookingBottom);
-  expect(position.social.left).toBeGreaterThan(position.qr.right);
-  const channels = await page.locator('.connected-grid > *').evaluateAll(elements => elements.map(element => ({
-    card: element.getBoundingClientRect().toJSON(),
-    visual: element.querySelector('.connected-visual').getBoundingClientRect().toJSON(),
-  })));
-  expect(Math.abs(channels[0].visual.top - channels[1].visual.top)).toBeLessThan(1);
-  if (isMobile) {
-    expect(channels[2].card.top).toBeGreaterThan(channels[0].card.bottom);
-    expect(Math.abs(channels[2].visual.top - channels[3].visual.top)).toBeLessThan(1);
-  } else {
-    for (const channel of channels) expect(Math.abs(channel.visual.top - channels[0].visual.top)).toBeLessThan(1);
+  expect(position.social.top).toBeGreaterThanOrEqual(position.qr.bottom + 20);
+  expect(Math.abs(position.social.left - position.qr.left)).toBeLessThan(1);
+  expect(position.social.width).toBeLessThanOrEqual(isMobile ? 200 : 260);
+  expect(position.caption.left).toBeGreaterThan(position.code.right);
+  const channels = await page.locator('.social-icon-row .social-profile-link').evaluateAll(elements => elements.map(element => element.getBoundingClientRect().toJSON()));
+  for (const channel of channels) expect(Math.abs(channel.top - channels[0].top)).toBeLessThan(1);
+  for (let index = 1; index < channels.length; index++) {
+    const gap = channels[index].left - channels[index - 1].right;
+    expect(gap).toBeGreaterThanOrEqual(20);
+    expect(gap).toBeLessThanOrEqual(28);
   }
   const booking = await page.locator('.practice').evaluateAll(practices => practices.map(practice => ({
     text: practice.querySelector('.practice-details').getBoundingClientRect().toJSON(),
