@@ -12,8 +12,6 @@ The flyer supplies account names, not profile URLs. Do not infer destinations
 from these display names. On 4 October 2026 the owner requested removing the
 visible account handles beneath all three social icons. Keep the names above
 for reference; platform headings remain visually hidden for accessibility.
-Facebook and Instagram remain unlinked icons until the owner supplies their
-exact profile links.
 
 On 4 October 2026 the owner supplied the Xiaohongshu share link:
 https://xhslink.cn/o/3PidH8Y4ZmB
@@ -24,6 +22,23 @@ or account action was performed. An initial automated HEAD request returned
 The icon uses the supplied share URL, not a resolved URL with temporary share
 parameters. It opens in a new tab, retaining the local icon. Its accessible name
 follows the translated platform heading.
+
+The owner later supplied an Instagram profile share link. The website uses its
+clean profile address, with the share and QR tracking parameters removed:
+https://www.instagram.com/fergusonhealth_sh/
+This opened the public "FergusonHealth_SH (@fergusonhealth_sh)" profile in the
+browser without requiring login. No following, messaging, or login action was
+performed. The Instagram icon opens the profile in a new tab with the existing
+hidden platform heading as its accessible name; the account handle remains
+hidden from the visible layout.
+
+The owner also supplied a Facebook share link. The website keeps that share
+destination while removing the `mibextid` tracking parameter:
+https://www.facebook.com/share/19wwsiyueH/
+It opened a page titled "Ferguson Health Shanghai | Shanghai" in the browser.
+No login, following, messaging, or other account action was performed. The
+Facebook icon uses the same new-tab and accessible-heading treatment as the
+other social links. All three visible account handles remain removed.
 
 Keep these accounts separate from the clinic appointment codes. No social
 embeds or external rendering assets are needed.

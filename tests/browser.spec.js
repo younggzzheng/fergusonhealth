@@ -475,9 +475,9 @@ test('booking occupies the first row and official accounts share the lower row',
   await expect(page.locator('.practice h4')).toHaveText(['1. Am-Sino Ding Xiang Clinic', '2. Parkway MediCentre Xintiandi']);
   await expect(page.locator('.connected-grid > *')).toHaveCount(4);
   await expect(social.locator('.social-handle')).toHaveCount(0);
-  await expect(social.locator('a')).toHaveCount(1);
-  await expect(page.getByRole('article', { name: 'Facebook', exact: true }).locator('a')).toHaveCount(0);
-  await expect(page.getByRole('article', { name: 'Instagram', exact: true }).locator('a')).toHaveCount(0);
+  await expect(social.locator('a')).toHaveCount(3);
+  await expect(page.getByRole('article', { name: 'Facebook', exact: true }).locator('a')).toHaveCount(1);
+  await expect(page.getByRole('article', { name: 'Instagram', exact: true }).locator('a')).toHaveCount(1);
   await expect(social.locator('h4')).toHaveText(['Xiaohongshu · 小红书', 'Facebook', 'Instagram']);
   await expect(social.locator('h4:not(.visually-hidden)')).toHaveCount(0);
   for (const label of await social.locator('h4').all()) await expect(label).toHaveCSS('clip-path', 'inset(50%)');
@@ -559,36 +559,42 @@ test('contact introduction stays compact and keeps booking details readable', as
   await assertNoOverflow(page);
 });
 
-test('Xiaohongshu icon opens the owner-supplied profile link and stays accessible in every language', async ({ page, context }) => {
+test('social icons open the owner-supplied profiles and stay accessible in every language', async ({ page, context }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
-  const profileUrl = 'https://xhslink.cn/o/3PidH8Y4ZmB';
-  for (const [code, name] of [
+  const xiaohongshuUrl = 'https://xhslink.cn/o/3PidH8Y4ZmB';
+  const instagramUrl = 'https://www.instagram.com/fergusonhealth_sh/';
+  const facebookUrl = 'https://www.facebook.com/share/19wwsiyueH/';
+  for (const [code, xiaohongshuName] of [
     ['en', 'Xiaohongshu · 小红书'], ['zh', '小红书'], ['fr', 'Xiaohongshu · 小红书'],
     ['de', 'Xiaohongshu · 小红书'], ['es', 'Xiaohongshu · 小红书'],
   ]) {
     await page.locator(`[data-language="${code}"]`).click();
-    const link = page.getByRole('link', { name, exact: true });
-    await expect(link).toHaveAttribute('href', profileUrl);
-    await expect(link).toHaveAttribute('target', '_blank');
-    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-    await link.focus();
-    await expect(link).toBeFocused();
-    const size = await link.boundingBox();
-    expect(size.width).toBeGreaterThanOrEqual(44);
-    expect(size.height).toBeGreaterThanOrEqual(44);
+    for (const [name, profileUrl] of [[xiaohongshuName, xiaohongshuUrl], ['Instagram', instagramUrl], ['Facebook', facebookUrl]]) {
+      const link = page.getByRole('link', { name, exact: true });
+      await expect(link).toHaveAttribute('href', profileUrl);
+      await expect(link).toHaveAttribute('target', '_blank');
+      await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+      await link.focus();
+      await expect(link).toBeFocused();
+      const size = await link.boundingBox();
+      expect(size.width).toBeGreaterThanOrEqual(44);
+      expect(size.height).toBeGreaterThanOrEqual(44);
+    }
     await assertNoOverflow(page);
   }
-  // Exercise the real link without requiring a third-party login or network access.
-  await context.route(profileUrl, route => route.fulfill({
-    status: 200, contentType: 'text/html', body: '<title>Profile link test</title>',
-  }));
-  const popupPromise = page.waitForEvent('popup');
-  await page.getByRole('link', { name: 'Xiaohongshu · 小红书', exact: true }).click();
-  const popup = await popupPromise;
-  await popup.waitForLoadState('domcontentloaded');
-  await expect(popup).toHaveURL(profileUrl);
-  await popup.close();
+  // Exercise the real links without requiring a third-party login or network access.
+  for (const [name, profileUrl] of [['Xiaohongshu · 小红书', xiaohongshuUrl], ['Instagram', instagramUrl], ['Facebook', facebookUrl]]) {
+    await context.route(profileUrl, route => route.fulfill({
+      status: 200, contentType: 'text/html', body: '<title>Profile link test</title>',
+    }));
+    const popupPromise = page.waitForEvent('popup');
+    await page.getByRole('link', { name, exact: true }).click();
+    const popup = await popupPromise;
+    await popup.waitForLoadState('domcontentloaded');
+    await expect(popup).toHaveURL(profileUrl);
+    await popup.close();
+  }
 });
 
 test('contact email opens the configured email app in every language', async ({ page }) => {
