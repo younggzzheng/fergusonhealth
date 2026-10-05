@@ -40,10 +40,11 @@ No login, following, messaging, or other account action was performed. The
 Facebook icon uses the same new-tab and accessible-heading treatment as the
 other social links. All three visible account handles remain removed.
 
-The owner requested a dedicated row for the official WeChat account, followed
-by a compact single row of the three social icons. Keep that two-row layout on
-desktop and mobile, without restoring visible handles or spacing the social
-icons across the full page width.
+The owner revised the layout: show the official WeChat account and the three
+social icons on one row when there is enough space. Keep the three social
+icons together as a compact, non-wrapping group; when space is narrow, move
+that entire group below WeChat. Do not split the icons between rows, restore
+visible handles, or space the social icons across the full page width.
 
 Keep these accounts separate from the clinic appointment codes. No social
 embeds or external rendering assets are needed.

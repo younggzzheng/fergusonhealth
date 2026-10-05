@@ -464,7 +464,7 @@ test('official-account QR keeps its white margin inside the matching blue frame'
   await assertNoOverflow(page);
 });
 
-test('booking stays above a separate WeChat row and a compact row of social icons', async ({ page, isMobile }) => {
+test('social icons stay beside WeChat when they fit and wrap together when space is narrow', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
   const social = page.locator('.connected-profile');
@@ -493,8 +493,13 @@ test('booking stays above a separate WeChat row and a compact row of social icon
     caption: group.querySelector('.wechat-contact figcaption').getBoundingClientRect().toJSON(),
   }));
   expect(position.groupTop).toBeGreaterThan(position.bookingBottom);
-  expect(position.social.top).toBeGreaterThanOrEqual(position.qr.bottom + 20);
-  expect(Math.abs(position.social.left - position.qr.left)).toBeLessThan(1);
+  if (isMobile) {
+    expect(position.social.top).toBeGreaterThanOrEqual(position.qr.bottom + 20);
+    expect(Math.abs(position.social.left - position.qr.left)).toBeLessThan(1);
+  } else {
+    expect(position.social.left).toBeGreaterThan(position.qr.right);
+    expect(Math.abs((position.social.top + position.social.bottom) / 2 - (position.qr.top + position.qr.bottom) / 2)).toBeLessThan(1);
+  }
   expect(position.social.width).toBeLessThanOrEqual(isMobile ? 200 : 260);
   expect(position.caption.left).toBeGreaterThan(position.code.right);
   const channels = await page.locator('.social-icon-row .social-profile-link').evaluateAll(elements => elements.map(element => element.getBoundingClientRect().toJSON()));
@@ -536,6 +541,27 @@ test('booking stays above a separate WeChat row and a compact row of social icon
         expect(Math.abs(codes[0].caption - codes[1].caption)).toBeLessThan(1);
         await assertNoOverflow(page);
       }
+    }
+  }
+  for (const width of [1280, 800, 780, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const language of ['en', 'zh', 'fr', 'de', 'es']) {
+      await page.locator(`[data-language="${language}"]`).click();
+      const layout = await page.locator('.connected-grid').evaluate(group => ({
+        qr: group.querySelector('.wechat-contact').getBoundingClientRect().toJSON(),
+        row: group.querySelector('.social-icon-row').getBoundingClientRect().toJSON(),
+        icons: [...group.querySelectorAll('.social-profile-link')].map(icon => icon.getBoundingClientRect().toJSON()),
+      }));
+      for (const icon of layout.icons) {
+        expect(Math.abs(icon.top - layout.icons[0].top)).toBeLessThan(1);
+        expect(icon.width).toBeGreaterThanOrEqual(44);
+      }
+      if (width >= 800) expect(layout.row.left).toBeGreaterThan(layout.qr.right);
+      else {
+        expect(layout.row.top).toBeGreaterThanOrEqual(layout.qr.bottom + 20);
+        expect(Math.abs(layout.row.left - layout.qr.left)).toBeLessThan(1);
+      }
+      await assertNoOverflow(page);
     }
   }
 });
