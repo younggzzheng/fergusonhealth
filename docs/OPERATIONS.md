@@ -51,6 +51,17 @@ configured email app; no form service is needed. Do not send messages while
 testing it. Social profile links require the owner's exact URLs, not guessed
 destinations based on display names.
 
+The homepage's Health insights card has collapsed **Articles**, **Videos**, and
+**Patient feedback** groups (`data-wechat-category` in `draft/index.html`). Keep
+the existing local article overviews and English video. Add published WeChat
+post links to the matching group only when the owner supplies their exact
+share URLs; use a descriptive title, `target="_blank"`, and
+`rel="noopener noreferrer"`, with matching translations. The feedback group
+currently contains only a coming-soon message. Replace it with the supplied
+public links when available; do not upload or copy patient names, photos,
+letters, or private source documents. Patient thank-you letter publication
+remains on hold; the owner requested links to already-published posts only.
+
 ```sh
 python3 -m unittest discover -s tests -p 'test_*.py'
 npm test

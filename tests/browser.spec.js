@@ -172,6 +172,7 @@ test('French, German and Spanish preserve credentials, disclosures, and language
     await page.reload();
     await expect(page.locator('html')).toHaveAttribute('lang', code);
     await expect(page.locator('#care .care-item[open]')).toHaveCount(0);
+    await page.locator('[data-wechat-category="articles"] summary').click();
     await page.locator('[data-i18n="insightBone"]').click();
     await expect(page.locator('html')).toHaveAttribute('lang', code);
     await expect(page.locator('#bone-title')).toHaveText(article);
@@ -203,6 +204,42 @@ test('five-language selection works when optional preference storage is disabled
   }
 });
 
+test('resource categories are translated, keyboard accessible, and keep patient links pending', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const categories = page.locator('.insight-category');
+  await expect(categories).toHaveCount(3);
+  await expect(page.locator('.insight-category[open]')).toHaveCount(0);
+  for (const [code, labels, pending] of [
+    ['en', ['Articles', 'Videos', 'Patient feedback'], 'WeChat links coming soon.'],
+    ['zh', ['文章', '视频', '患者反馈'], '微信公众号链接即将添加。'],
+    ['fr', ['Articles', 'Vidéos', 'Témoignages de patientes'], 'Les liens WeChat seront ajoutés prochainement.'],
+    ['de', ['Artikel', 'Videos', 'Rückmeldungen von Patientinnen'], 'WeChat-Links werden demnächst ergänzt.'],
+    ['es', ['Artículos', 'Vídeos', 'Comentarios de pacientes'], 'Próximamente se añadirán enlaces de WeChat.'],
+  ]) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(categories.locator('summary')).toHaveText(labels);
+    for (const category of await categories.all()) {
+      const summary = category.locator('summary');
+      expect((await summary.boundingBox()).height).toBeGreaterThanOrEqual(44);
+      await summary.focus();
+      await page.keyboard.press('Enter');
+      await expect(category).toHaveAttribute('open', '');
+      if (await category.getAttribute('data-wechat-category') === 'feedback') {
+        await expect(category.locator('.resource-pending')).toHaveText(pending);
+        await expect(category.locator('a, img, video')).toHaveCount(0);
+      }
+      await assertNoOverflow(page);
+      await summary.focus();
+      await page.keyboard.press('Enter');
+      await expect(category).not.toHaveAttribute('open');
+    }
+  }
+  await expect(page.locator('[data-wechat-category="articles"] a')).toHaveCount(3);
+  await expect(page.locator('[data-wechat-category="videos"] a')).toHaveCount(1);
+  await expect(page.locator('.insight-categories a')).toHaveCount(4);
+});
+
 test('community and education efforts link to bilingual insights and a local video', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
@@ -215,6 +252,7 @@ test('community and education efforts link to bilingual insights and a local vid
   await expect(page.locator('.resource-list a')).toHaveCount(4);
   await expect(page.locator('.event-date time')).toHaveAttribute('datetime', '2026-10-24T14:00:00+08:00');
   await expect(page.locator('[data-i18n="eventLink"]').locator('..')).toHaveAttribute('href', 'https://www.theplushealth.org/#events');
+  await page.locator('[data-wechat-category="articles"] summary').click();
   await page.locator('[data-i18n="insightBone"]').click();
   await expect(page.locator('#bone-title')).toHaveText('Silent bone loss after menopause');
   await expect(page.locator('.insight-article')).toHaveCount(4);
