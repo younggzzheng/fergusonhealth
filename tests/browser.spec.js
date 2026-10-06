@@ -827,24 +827,39 @@ test('calendar month is based on Shanghai even when the visitor is in another ti
   } finally { await context.close(); }
 });
 
-test('hero care and calendar shortcuts stay side by side and calendar navigation expands its target', async ({ page }) => {
+test('hero shortcuts put locations before the calendar and navigate to their targets', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
   const calendar = page.locator('.appointment-calendar');
+  const locations = page.locator('.hero-actions a[href="#locations-title"]');
   const shortcut = page.locator('.hero-actions [data-calendar-link]');
   await expect(calendar).not.toHaveAttribute('open');
   await expect(calendar.locator('[data-i18n="calendarTitle"]')).toHaveText('Appointment calendar for Dr. Ferguson');
   for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${code}"]`).click();
     await expect(calendar.locator('[data-i18n="calendarTitle"]')).toContainText(code === 'zh' ? '吕明旭医生' : 'Ferguson');
-    await expect(page.locator('.hero-actions a')).toHaveCount(2);
-    await expect(page.locator('.hero-actions a .link-circle use')).toHaveCount(2);
+    await expect(page.locator('.hero-actions a')).toHaveCount(3);
+    await expect(page.locator('.hero-actions a .link-circle use')).toHaveCount(3);
+    expect(await page.locator('.hero-actions a').evaluateAll(elements => elements.map(element => element.getAttribute('href')))).toEqual(['#locations-title', '#appointment-calendar', '#care']);
+    await expect(locations).toHaveText({ en: 'Locations', zh: '咨询地点', fr: 'Adresses', de: 'Standorte', es: 'Ubicaciones' }[code]);
     await expect(shortcut).toHaveAttribute('href', '#appointment-calendar');
     const links = await page.locator('.hero-actions a').evaluateAll(elements => elements.map(element => element.getBoundingClientRect().toJSON()));
     expect(links[1].left).toBeGreaterThan(links[0].right);
     expect(Math.abs((links[0].top + links[0].bottom) / 2 - (links[1].top + links[1].bottom) / 2)).toBeLessThan(1);
+    if (page.viewportSize().width > 700) {
+      expect(links[2].left).toBeGreaterThan(links[1].right);
+      expect(Math.abs((links[1].top + links[1].bottom) / 2 - (links[2].top + links[2].bottom) / 2)).toBeLessThan(1);
+    } else {
+      expect(links[2].top).toBeGreaterThan(links[1].bottom);
+    }
+    for (const link of links) expect(link.height).toBeGreaterThanOrEqual(44);
     await assertNoOverflow(page);
   }
+  await locations.focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#locations-title$/);
+  await expect(page.locator('#locations-title')).toBeInViewport();
+  await expect(calendar).not.toHaveAttribute('open');
   await shortcut.focus();
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/#appointment-calendar$/);

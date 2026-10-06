@@ -106,7 +106,8 @@ deployment even if someone merges a broken change.
 ## Maintaining the appointment calendar
 
 The optional homepage month calendar is collapsed by default. Its
-shortcut sits beside “Explore our care” in the hero; following that
+shortcut sits between “Locations” and “Explore our care” in the hero. The “Locations”
+link jumps to the clinic addresses and booking codes; following the calendar
 link or loading `#appointment-calendar` opens and focuses the calendar.
 Working periods and weekly clinic sessions are defined at the top of `draft/calendar.js`.
 Dates are inclusive, in Shanghai time. A period with `end: null` continues until
