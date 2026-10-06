@@ -240,6 +240,26 @@ test('resource categories are translated, keyboard accessible, and keep patient 
   await expect(page.locator('.insight-categories a')).toHaveCount(4);
 });
 
+test('the event is clearly labelled as a health talk in every language', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const event = page.getByRole('article', { name: 'Growing Pains', exact: true });
+  for (const [code, label] of [
+    ['en', 'Health talk'], ['zh', '健康讲座'], ['fr', 'Conférence santé'],
+    ['de', 'Gesundheitsvortrag'], ['es', 'Charla de salud'],
+  ]) {
+    await page.locator(`[data-language="${code}"]`).click();
+    const badge = event.locator('.event-heading .event-type');
+    await expect(badge).toBeVisible();
+    await expect(badge).toHaveText(label);
+    await expect(event.getByRole('heading', { name: 'Growing Pains', exact: true })).toHaveCount(1);
+    await expect(event.locator('time')).toHaveAttribute('datetime', '2026-10-24T14:00:00+08:00');
+    await expect(event.locator('a')).toHaveAttribute('href', 'https://www.theplushealth.org/#events');
+    expect((await badge.boundingBox()).height).toBeGreaterThanOrEqual(30);
+    await assertNoOverflow(page);
+  }
+});
+
 test('community and education efforts link to bilingual insights and a local video', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
