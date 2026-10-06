@@ -107,8 +107,10 @@ deployment even if someone merges a broken change.
 
 The optional homepage month calendar is collapsed by default in **03 / Find us**,
 after the doctor profile and before **04 / Our efforts**. “Find us” in the desktop
-and mobile navigation opens the clinic locations and booking codes. Email and
-social links remain in the final contact section; do not duplicate a Locations
+and mobile navigation opens the clinic locations and booking codes. The email
+for general enquiries is just above the clinic cards, with the preserved
+`#contact` anchor for the “Contact” navigation link. Official WeChat and social
+links stay together in the compact final `#connect` section. Do not duplicate a Locations
 shortcut in the hero. The hero links are “Appointment calendar” followed by
 “Explore our care”; following the calendar
 link or loading `#appointment-calendar` opens and focuses the calendar.

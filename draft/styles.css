@@ -179,10 +179,14 @@ html[lang=zh-CN] .hero h1{font-size:clamp(50px,4.55vw,69px)}
 /* Find us brings clinic locations and booking together before Our efforts. */
 .locations-section{border-top:1px solid var(--line)}
 .locations-intro{margin-top:24px;max-width:640px;font-size:14px;line-height:1.8;color:var(--body)}
+.locations-email{display:flex;flex-wrap:wrap;align-items:center;gap:0 12px;margin-top:8px;font-size:14px;line-height:1.8;color:var(--body)}
+.locations-email a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink);text-decoration:underline;text-underline-offset:4px;overflow-wrap:anywhere;user-select:all}
+.practice .clinic-name{font-family:var(--sans);font-size:15px;line-height:1.6;font-weight:550;margin:0 0 13px}
+@media(max-width:700px){.practice .clinic-name{font-size:14px}}
 .locations-section .practice-locations{border-top:0;margin-top:32px;padding-top:0}
 .locations-section .appointment-calendar{margin-top:32px}
 @media(min-width:701px) and (max-width:1000px){.locations-section .practice-locations{grid-template-rows:auto auto}.locations-section .practice{grid-row:1/span 2}}
-/* Email, official updates and social accounts stay at the end of the page. */
+/* Official updates and social accounts stay together at the end of the page. */
 .contact-section{padding-top:80px}
 .contact-section::before{background-size:300px auto;background-position:left -150px top 24px;opacity:.055}
 .contact-grid{row-gap:32px;column-gap:64px;align-items:start}
@@ -209,8 +213,8 @@ html[lang=zh-CN] .contact-section h2{font-size:clamp(34px,3.1vw,44px);line-heigh
 .connected-visual .social-icon{width:64px;height:64px}
 .social-profile-link{display:inline-flex;border-radius:7px}
 .social-profile-link:hover{opacity:.85}
-.connected-grid h4{margin:0;font-family:var(--sans);font-size:15px;font-weight:550;line-height:1.6}
-.connected-profile h4.visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.connected-grid h3,.connected-grid h4{margin:0;font-family:var(--sans);font-size:15px;font-weight:550;line-height:1.6}
+.connected-profile .visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 .connected-grid .wechat-contact p,.social-handle{font-size:14px;line-height:1.8;color:var(--body);margin-top:9px;overflow-wrap:anywhere}
 .social-handle{user-select:all}
 .connected-profile .social-handle{margin-top:0}
@@ -223,6 +227,11 @@ html[lang=zh-CN] .contact-section h2{font-size:clamp(34px,3.1vw,44px);line-heigh
 .about-portrait .portrait-frame{aspect-ratio:1}
 .about-portrait .doctor-photo{object-position:center}
 .work-content .plus-feature{margin-top:0}
+.connect-section{padding-top:56px}
+.connect-section::before{display:none}
+.connect-section .wechat-and-social{border-top:0;padding-top:0}
+.connect-section #connected-title{font-family:var(--sans);font-size:18px;line-height:1.5;letter-spacing:1.5px;margin:0}
+@media(max-width:700px){.connect-section{padding-top:40px}.connected-grid .wechat-contact h3{font-size:14px}}
 
 /* A quiet, optional month view uses the existing clinic booking codes. */
 .practice-city{font-size:12px;line-height:1.9;color:var(--body);margin-top:8px}
@@ -246,7 +255,8 @@ html[lang=zh-CN] .contact-section h2{font-size:clamp(34px,3.1vw,44px);line-heigh
 .clinic-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .clinic-dot.am-sino{background:#1a2d56}.clinic-dot.parkway{background:#326b68}
 .calendar-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:24px;padding-bottom:16px}
-.calendar-toolbar h4{margin:0;text-align:center;font-size:18px;font-weight:500;line-height:1.5}
+.calendar-toolbar #calendar-month{margin:0;text-align:center;font-family:var(--sans);font-size:18px;font-weight:500;line-height:1.5}
+@media(max-width:700px){.calendar-toolbar #calendar-month{font-size:17px}}
 .calendar-toolbar button{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:transparent;cursor:pointer;font-size:20px;flex-shrink:0}
 .calendar-toolbar button:disabled{opacity:.3;cursor:default}
 .calendar-weekdays,.calendar-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
@@ -298,6 +308,7 @@ html[lang=zh-CN] .contact-section h2{font-size:clamp(34px,3.1vw,44px);line-heigh
 .insight-category .resource-list li:first-child{border-top:0}
 .insight-category .resource-pending{padding-bottom:18px}
 .community-card p.community-note{font-size:12px}
+.community-note a{display:inline-block;min-height:44px;padding-block:8px;text-decoration:underline;text-underline-offset:4px}
 .insights-header{display:flex;justify-content:space-between;align-items:center;padding-block:28px;gap:24px;border-bottom:1px solid var(--line)}
 .insights-header a{font-size:14px;line-height:1.6}
 .insights-home{font-family:var(--serif);font-size:24px!important}

@@ -275,6 +275,9 @@ test('community and education efforts link to bilingual insights and a local vid
   await page.locator('[data-wechat-category="articles"] summary').click();
   await page.locator('[data-i18n="insightBone"]').click();
   await expect(page.locator('#bone-title')).toHaveText('Silent bone loss after menopause');
+  await expect(page.locator('.insights-home')).toHaveText("Ferguson Women's Health");
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute('href', /\/assets\/favicon\.svg$/);
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#f8f7f3');
   await expect(page.locator('.insight-article')).toHaveCount(4);
   await expect(page.locator('.practice-locations, .appointment-code, .email-address')).toHaveCount(0);
   const video = page.locator('video');
@@ -481,7 +484,7 @@ test('balanced team panel leads to services before the doctor profile', async ({
   await page.goto('/');
   await waitForRenderedPage(page);
   expect(await page.locator('main > section').evaluateAll(sections => sections.map(section => section.id || 'hero')))
-    .toEqual(['hero', 'care', 'about', 'locations', 'work', 'contact']);
+    .toEqual(['hero', 'care', 'about', 'locations', 'work', 'connect']);
   for (const navigation of ['.desktop-nav', '#mobile-nav']) {
     expect(await page.locator(`${navigation} a`).evaluateAll(links => links.map(link => link.getAttribute('href'))))
       .toEqual(navigation === '.desktop-nav' ? ['#care', '#about', '#locations', '#work'] : ['#care', '#about', '#locations', '#work', '#contact']);
@@ -499,8 +502,10 @@ test('balanced team panel leads to services before the doctor profile', async ({
   await expect(page.locator('[data-i18n="locationsEyebrow"]')).toHaveText('03 / Find us');
   await expect(page.locator('#locations .practice')).toHaveCount(2);
   await expect(page.locator('#locations #appointment-calendar')).toHaveCount(1);
-  await expect(page.locator('#contact .practice, #contact #appointment-calendar')).toHaveCount(0);
-  await expect(page.locator('#contact .wechat-and-social')).toHaveCount(1);
+  await expect(page.locator('#locations #contact')).toHaveCount(1);
+  await expect(page.locator('#connect .practice, #connect #appointment-calendar, #connect a[href^="mailto:"]')).toHaveCount(0);
+  await expect(page.locator('#connect .wechat-and-social')).toHaveCount(1);
+  await expect(page.locator('[data-i18n="insightsUpdates"]')).toHaveAttribute('href', '#connect');
   await expect(page.locator('.hero .text-link[href="#care"]')).toHaveAttribute('href', '#care');
   await page.locator('.hero .text-link[href="#care"]').click();
   await expect(page).toHaveURL(/#care$/);
@@ -508,7 +513,7 @@ test('balanced team panel leads to services before the doctor profile', async ({
   await page.locator('[data-language-switch]').click();
   await expect(page.locator('[data-i18n="careEyebrow"]')).toHaveText('01 / 咨询领域');
   await expect(page.locator('[data-i18n="navCare"]')).toHaveText(['咨询领域', '咨询领域']);
-  await expect(page.locator('[data-i18n="contactBody"]')).toContainText('其他咨询可通过邮件联系我们。');
+  await expect(page.locator('[data-i18n="contactLabel"]')).toHaveText('一般咨询：');
   await expect(page.locator('[data-i18n="aboutEyebrow"]')).toHaveText('02 / 认识吕医生');
   await expect(page.locator('[data-i18n="heroCta"]')).toHaveText('了解我们的咨询服务');
   await assertNoOverflow(page);
@@ -532,19 +537,19 @@ test('social icons stay beside WeChat when they fit and wrap together when space
   await waitForRenderedPage(page);
   const social = page.locator('.connected-profile');
   await expect(page.locator('#connected-title')).toHaveText('Stay connected');
-  await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('For other enquiries, email us.');
+  await expect(page.locator('[data-i18n="contactLabel"]')).toHaveText('General enquiries:');
   await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('Scan for news & updates.');
   await expect(page.locator('[data-i18n="wechatNote"], [data-i18n="socialTitle"]')).toHaveCount(0);
-  await expect(page.locator('.practice h4')).toHaveText(['1. Am-Sino Ding Xiang Clinic', '2. Parkway MediCentre Xintiandi']);
+  await expect(page.locator('.practice h3')).toHaveText(['1. Am-Sino Ding Xiang Clinic', '2. Parkway MediCentre Xintiandi']);
   await expect(page.locator('.connected-grid > *')).toHaveCount(2);
   await expect(page.locator('.social-icon-row > .connected-profile')).toHaveCount(3);
   await expect(social.locator('.social-handle')).toHaveCount(0);
   await expect(social.locator('a')).toHaveCount(3);
   await expect(page.getByRole('article', { name: 'Facebook', exact: true }).locator('a')).toHaveCount(1);
   await expect(page.getByRole('article', { name: 'Instagram', exact: true }).locator('a')).toHaveCount(1);
-  await expect(social.locator('h4')).toHaveText(['Xiaohongshu · 小红书', 'Facebook', 'Instagram']);
-  await expect(social.locator('h4:not(.visually-hidden)')).toHaveCount(0);
-  for (const label of await social.locator('h4').all()) await expect(label).toHaveCSS('clip-path', 'inset(50%)');
+  await expect(social.locator('h3')).toHaveText(['Xiaohongshu · 小红书', 'Facebook', 'Instagram']);
+  await expect(social.locator('h3:not(.visually-hidden)')).toHaveCount(0);
+  for (const label of await social.locator('h3').all()) await expect(label).toHaveCSS('clip-path', 'inset(50%)');
   await expect(page.getByRole('article', { name: 'Facebook', exact: true })).toHaveCount(1);
   await expect(page.getByRole('article', { name: 'Instagram', exact: true })).toHaveCount(1);
   const position = await page.locator('.wechat-and-social').evaluate(group => ({
@@ -587,9 +592,9 @@ test('social icons stay beside WeChat when they fit and wrap together when space
   await expect(page.locator('#connected-title')).toHaveText('保持联系');
   await expect(page.locator('[data-i18n="locationsTitle"]')).toHaveText('咨询地点');
   await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('扫码关注，获取最新资讯。');
-  await expect(page.locator('.practice h4')).toHaveText(['1. 美华丁香门诊部', '2. 百汇新天地医疗中心']);
-  await expect(page.locator('.wechat-contact h4')).toHaveText('官方微信公众号');
-  await expect(social.locator('h4')).toHaveText(['小红书', 'Facebook', 'Instagram']);
+  await expect(page.locator('.practice h3')).toHaveText(['1. 美华丁香门诊部', '2. 百汇新天地医疗中心']);
+  await expect(page.locator('.wechat-contact h3')).toHaveText('官方微信公众号');
+  await expect(social.locator('h3')).toHaveText(['小红书', 'Facebook', 'Instagram']);
   await assertNoOverflow(page);
   if (!isMobile) {
     for (const width of [1000, 860, 701]) {
@@ -629,25 +634,41 @@ test('social icons stay beside WeChat when they fit and wrap together when space
   }
 });
 
-test('contact introduction stays compact and keeps booking details readable', async ({ page, isMobile }) => {
+test('general enquiries sit with clinic locations and Contact reaches the email', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
-  await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('For other enquiries, email us.');
-  const layout = await page.locator('#contact').evaluate(section => ({
-    titleSize: parseFloat(getComputedStyle(section.querySelector('h2')).fontSize),
-    decorationOpacity: Number(getComputedStyle(section, '::before').opacity),
-    codes: [...document.querySelectorAll('#locations .appointment-qr-frame img')].map(image => image.getBoundingClientRect().width),
-  }));
-  expect(layout.titleSize).toBeLessThanOrEqual(isMobile ? 40 : 52);
-  expect(layout.decorationOpacity).toBeLessThanOrEqual(0.06);
-  for (const size of layout.codes) expect(size).toBeGreaterThanOrEqual(108);
-  await expect(page.locator('.contact-copy .email-address')).toHaveText('info@fergusonhealth.com');
-  await expect(page.locator('.contact-copy .contact-location')).toHaveCount(0);
-  await expect(page.locator('.practice-city')).toHaveText(['Shanghai, China', 'Shanghai, China']);
-  await page.locator('[data-language="zh"]').click();
-  await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('其他咨询可通过邮件联系我们。');
-  await expect(page.locator('.practice-city')).toHaveText(['中国 · 上海', '中国 · 上海']);
-  await assertNoOverflow(page);
+  const email = page.locator('#locations #contact');
+  await expect(page.locator('a[href="mailto:info@fergusonhealth.com"]')).toHaveCount(1);
+  await expect(email.locator('a')).toHaveAttribute('href', 'mailto:info@fergusonhealth.com');
+  await expect(page.locator('#connect .contact-heading, #connect .contact-copy')).toHaveCount(0);
+  await expect(page.locator('#connect > .wrap .wechat-and-social')).toHaveCount(1);
+  for (const [code, label, contact] of [
+    ['en', 'General enquiries:', 'Contact'], ['zh', '一般咨询：', '联系我们'],
+    ['fr', 'Renseignements généraux :', 'Contact'], ['de', 'Allgemeine Anfragen:', 'Kontakt'],
+    ['es', 'Consultas generales:', 'Contacto'],
+  ]) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(email.locator('[data-i18n="contactLabel"]')).toHaveText(label);
+    await expect(page.locator('[data-i18n="navContact"]')).toHaveText([contact, contact]);
+    const layout = await email.evaluate(element => ({
+      bottom: element.getBoundingClientRect().bottom,
+      cardsTop: document.querySelector('.practice-locations').getBoundingClientRect().top,
+      emailSize: parseFloat(getComputedStyle(element).fontSize),
+      linkHeight: element.querySelector('a').getBoundingClientRect().height,
+      codes: [...document.querySelectorAll('#locations .appointment-qr-frame img')].map(image => image.getBoundingClientRect().width),
+    }));
+    expect(layout.cardsTop).toBeGreaterThan(layout.bottom);
+    expect(layout.emailSize).toBe(14);
+    expect(layout.linkHeight).toBeGreaterThanOrEqual(44);
+    for (const size of layout.codes) expect(size).toBeGreaterThanOrEqual(108);
+    if (isMobile) await page.locator('.menu-toggle').click();
+    await page.locator(`${isMobile ? '#mobile-nav' : '.header-actions'} a[href="#contact"]`).click();
+    await expect(page).toHaveURL(/#contact$/);
+    await expect(email).toBeInViewport();
+    await assertNoOverflow(page);
+  }
+  await page.reload();
+  await expect(email).toBeInViewport();
 });
 
 test('social icons open the owner-supplied profiles and stay accessible in every language', async ({ page, context }) => {
@@ -691,7 +712,7 @@ test('social icons open the owner-supplied profiles and stay accessible in every
 test('contact email opens the configured email app in every language', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
-  const email = page.locator('.contact-copy .email-address a');
+  const email = page.locator('#locations .locations-email a');
   for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${code}"]`).click();
     await expect(email).toHaveText('info@fergusonhealth.com');
@@ -987,7 +1008,7 @@ test('section colors and decorative marks use the local brand and platform asset
   await expect(page.locator('#care')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
   await expect(page.locator('#about')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
   await expect(page.locator('#work')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
-  await expect(page.locator('#contact')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
+  await expect(page.locator('#connect')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
   await expect(page.locator('use[href="#flower"], use[href="#sprig"], .tiny-star')).toHaveCount(0);
   const marks = page.locator('.brand-mark');
   await expect(marks).toHaveCount(2);
@@ -1016,11 +1037,13 @@ test('hero stays free of a shell background while other shell decorations and th
     return { content: style.content, background: style.backgroundImage };
   });
   expect(heroDecoration).toEqual({ content: 'none', background: 'none' });
-  const decoration = await page.locator('#care, #contact').evaluateAll(sections => sections.map(section => {
+  const decoration = await page.locator('#care').evaluateAll(sections => sections.map(section => {
     const style = getComputedStyle(section, '::before');
     return { background: style.backgroundImage, pointerEvents: style.pointerEvents, opacity: Number(style.opacity), zIndex: style.zIndex };
   }));
-  expect(decoration).toHaveLength(2);
+  expect(decoration).toHaveLength(1);
+  await expect(page.locator('#connect')).toHaveCSS('display', 'block');
+  expect(await page.locator('#connect').evaluate(section => getComputedStyle(section, '::before').display)).toBe('none');
   for (const item of decoration) {
     expect(item.background).toMatch(/\/assets\/shell-and-pearl\.svg/);
     expect(item.pointerEvents).toBe('none');
@@ -1056,8 +1079,8 @@ test('team panel stays light and the doctor introduction uses our own voice with
 test('hero stays slightly smaller and section labels stay readable in both languages', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
-  const labels = page.locator('.hero-copy .eyebrow, [data-i18n="aboutEyebrow"], [data-i18n="careEyebrow"], [data-i18n="workEyebrow"], [data-i18n="contactEyebrow"], [data-i18n="locationsEyebrow"]');
-  await expect(labels).toHaveCount(6);
+  const labels = page.locator('.hero-copy .eyebrow, [data-i18n="aboutEyebrow"], [data-i18n="careEyebrow"], [data-i18n="workEyebrow"], [data-i18n="locationsEyebrow"]');
+  await expect(labels).toHaveCount(5);
   for (const language of ['en', 'zh-CN']) {
     if (language === 'zh-CN') await page.locator('[data-language-switch]').click();
     for (const label of await labels.all()) {

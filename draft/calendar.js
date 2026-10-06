@@ -64,7 +64,7 @@
       const dateLabel = date => new Intl.DateTimeFormat(locale(), {
         timeZone: 'Asia/Shanghai', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
       }).format(new Date(`${date}T04:00:00Z`));
-      const clinicName = clinic => clinics[clinic].querySelector('h4').textContent.replace(/^\d+\.\s*/, '');
+      const clinicName = clinic => clinics[clinic].querySelector('.clinic-name').textContent.replace(/^\d+\.\s*/, '');
       const timeLabel = session => labels[session.time] || session.time;
 
       function updateBooking() {

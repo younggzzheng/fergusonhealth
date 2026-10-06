@@ -78,6 +78,6 @@
   };
   window.FergusonLanguages.init({
     translations: { en: {}, zh, fr, de, es },
-    titles: { en: 'Health insights · Ferguson Health', zh: '健康知识 · Ferguson Health', fr: 'Mieux comprendre sa santé · Ferguson Health', de: 'Gesundheit verstehen · Ferguson Health', es: 'Comprender tu salud · Ferguson Health' }
+    titles: { en: 'Health insights · Ferguson Women’s Health', zh: '健康知识 · Ferguson Women’s Health', fr: 'Mieux comprendre sa santé · Ferguson Women’s Health', de: 'Gesundheit verstehen · Ferguson Women’s Health', es: 'Comprender tu salud · Ferguson Women’s Health' }
   });
 })();

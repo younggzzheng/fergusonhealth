@@ -33,11 +33,11 @@
           <button class="language-switch" type="button" data-language="de" lang="de" aria-label="Deutsch" aria-pressed="false">DE</button>
           <button class="language-switch" type="button" data-language="es" lang="es" aria-label="Español" aria-pressed="false">ES</button>
         </div>
-        <a class="contact-link" href="#contact"><span data-i18n="navContact">Get in touch</span><svg aria-hidden="true"><use href="#arrow-up"/></svg></a>
+        <a class="contact-link" href="#contact"><span data-i18n="navContact">Contact</span><svg aria-hidden="true"><use href="#arrow-up"/></svg></a>
         <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav" type="button"><span></span><span></span></button>
       </div>
     </div>
-    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" data-i18n-aria-label="mobileNavigation" hidden><a href="#care" data-i18n="navCare">Areas of care</a><a href="#about" data-i18n="navAbout">Meet Dr. Ferguson</a><a href="#locations" data-i18n="navLocations">Find us</a><a href="#work" data-i18n="navWork">Our efforts</a><a href="#contact" data-i18n="navContact">Get in touch</a></nav>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" data-i18n-aria-label="mobileNavigation" hidden><a href="#care" data-i18n="navCare">Areas of care</a><a href="#about" data-i18n="navAbout">Meet Dr. Ferguson</a><a href="#locations" data-i18n="navLocations">Find us</a><a href="#work" data-i18n="navWork">Our efforts</a><a href="#contact" data-i18n="navContact">Contact</a></nav>
   </header>
 
   <main id="main">
@@ -193,9 +193,10 @@
       <div class="wrap">
         <div class="section-topline"><div><p class="eyebrow" data-i18n="locationsEyebrow">03 / Find us</p><h2 id="locations-title" data-i18n="locationsTitle">Where to find us</h2></div></div>
         <p class="locations-intro" data-i18n="locationsIntro">Scan a clinic code in WeChat to book, or check Dr. Ferguson’s appointment calendar below.</p>
+        <p id="contact" class="locations-email"><span data-i18n="contactLabel">General enquiries:</span><a href="mailto:info@fergusonhealth.com">info@fergusonhealth.com</a></p>
         <div class="practice-locations" aria-labelledby="locations-title">
-          <article class="practice"><div class="practice-details"><h4 data-i18n="clinic1Name">1. Am-Sino Ding Xiang Clinic</h4><address data-i18n-html="clinic1Address">3rd Floor, Building 6,<br>800 Hua Shan Road</address><p class="practice-note" data-i18n="clinic1Entrance">(Entrance on Zhen Ning Road)</p><p class="practice-city" data-i18n="clinicCity">Shanghai, China</p><p class="practice-phone"><a href="tel:4001634482">400-163-4482</a></p></div><figure class="appointment-code"><div class="appointment-qr-frame"><img src="assets/am-sino-appointment-qr.png" alt="Am-Sino appointment QR code" data-i18n-alt="clinic1QrAlt" width="460" height="460" loading="lazy"></div><figcaption data-i18n="clinic1Appointment">Scan with WeChat to book</figcaption></figure></article>
-          <article class="practice"><div class="practice-details"><h4 data-i18n="clinic2Name">2. Parkway MediCentre Xintiandi</h4><address data-i18n-html="clinic2Address">3F, Shanghai Plaza,<br>138 Middle Huaihai Road.</address><p class="practice-city" data-i18n="clinicCity">Shanghai, China</p><p class="practice-phone"><a href="tel:4008196622">400-819-6622</a></p></div><figure class="appointment-code"><div class="appointment-qr-frame"><img src="assets/parkway-appointment-qr.png" alt="Parkway appointment QR code" data-i18n-alt="clinic2QrAlt" width="460" height="460" loading="lazy"></div><figcaption data-i18n="clinic2Appointment">Scan with WeChat to book</figcaption></figure></article>
+          <article class="practice"><div class="practice-details"><h3 class="clinic-name" data-i18n="clinic1Name">1. Am-Sino Ding Xiang Clinic</h3><address data-i18n-html="clinic1Address">3rd Floor, Building 6,<br>800 Hua Shan Road</address><p class="practice-note" data-i18n="clinic1Entrance">(Entrance on Zhen Ning Road)</p><p class="practice-city" data-i18n="clinicCity">Shanghai, China</p><p class="practice-phone"><a href="tel:4001634482">400-163-4482</a></p></div><figure class="appointment-code"><div class="appointment-qr-frame"><img src="assets/am-sino-appointment-qr.png" alt="Am-Sino appointment QR code" data-i18n-alt="clinic1QrAlt" width="460" height="460" loading="lazy"></div><figcaption data-i18n="clinic1Appointment">Scan with WeChat to book</figcaption></figure></article>
+          <article class="practice"><div class="practice-details"><h3 class="clinic-name" data-i18n="clinic2Name">2. Parkway MediCentre Xintiandi</h3><address data-i18n-html="clinic2Address">3F, Shanghai Plaza,<br>138 Middle Huaihai Road.</address><p class="practice-city" data-i18n="clinicCity">Shanghai, China</p><p class="practice-phone"><a href="tel:4008196622">400-819-6622</a></p></div><figure class="appointment-code"><div class="appointment-qr-frame"><img src="assets/parkway-appointment-qr.png" alt="Parkway appointment QR code" data-i18n-alt="clinic2QrAlt" width="460" height="460" loading="lazy"></div><figcaption data-i18n="clinic2Appointment">Scan with WeChat to book</figcaption></figure></article>
         </div>
         <details class="appointment-calendar" id="appointment-calendar">
           <summary><span data-i18n="calendarTitle">Appointment calendar for Dr. Ferguson</span><span class="details-toggle" aria-hidden="true"></span></summary>
@@ -207,7 +208,7 @@
             </div>
             <div class="calendar-toolbar">
               <button type="button" class="calendar-prev" aria-label="Previous month" data-i18n-aria-label="calendarPrevious"><span aria-hidden="true">←</span></button>
-              <h4 id="calendar-month" aria-live="polite" aria-atomic="true"></h4>
+              <h3 id="calendar-month" aria-live="polite" aria-atomic="true"></h3>
               <button type="button" class="calendar-next" aria-label="Next month" data-i18n-aria-label="calendarNext"><span aria-hidden="true">→</span></button>
             </div>
             <div class="calendar-weekdays" aria-hidden="true"></div>
@@ -281,33 +282,28 @@
               <p class="resource-pending" data-i18n="feedbackLinksPending">WeChat links coming soon.</p>
             </details>
           </div>
-          <p class="community-note" data-i18n="insightsUpdates">For new articles, videos and news, follow our official WeChat account.</p>
+          <p class="community-note"><a href="#connect" data-i18n="insightsUpdates">For new articles, videos and news, follow our official WeChat account.</a></p>
         </article>
       </div>
       <p class="wrap section-closing" data-i18n="workClosing">Sharing knowledge. Connecting communities.</p>
     </section>
 
-    <section id="contact" class="contact-section" aria-labelledby="contact-title">
-      <div class="wrap contact-grid">
-      <div class="contact-heading"><p class="eyebrow" data-i18n="contactEyebrow">A good place to begin</p><h2 id="contact-title" data-i18n-html="contactTitle">Let's take the<br><em>next step, together.</em></h2></div>
-      <div class="contact-copy">
-        <p data-i18n="contactBody">For other enquiries, email us.</p>
-        <p class="email-address"><a href="mailto:info@fergusonhealth.com">info@fergusonhealth.com</a></p>
-      </div>
-      <section class="wechat-and-social" aria-labelledby="connected-title">
-        <h3 id="connected-title" class="eyebrow" data-i18n="connectedTitle">Stay connected</h3>
+    <section id="connect" class="contact-section connect-section" aria-labelledby="connected-title">
+      <div class="wrap">
+      <div class="wechat-and-social">
+        <h2 id="connected-title" class="eyebrow" data-i18n="connectedTitle">Stay connected</h2>
         <div class="connected-grid">
         <figure class="wechat-contact">
           <div class="connected-visual"><div class="qr-frame"><img src="assets/wechat-official-account-qr-hd.png" alt="Ferguson Women's Health WeChat official-account QR code" data-i18n-alt="wechatQrAlt" width="600" height="600" loading="lazy"></div></div>
-          <figcaption><h4 data-i18n="wechatTitle">WeChat official account</h4><p data-i18n="wechatBody">Scan for news &amp; updates.</p></figcaption>
+          <figcaption><h3 data-i18n="wechatTitle">WeChat official account</h3><p data-i18n="wechatBody">Scan for news &amp; updates.</p></figcaption>
         </figure>
         <div class="social-icon-row">
-        <article class="connected-profile" aria-labelledby="xiaohongshu-title"><div class="connected-visual"><a class="social-profile-link" href="https://xhslink.cn/o/3PidH8Y4ZmB" aria-labelledby="xiaohongshu-title" target="_blank" rel="noopener noreferrer"><span class="social-icon xiaohongshu-icon" aria-hidden="true"></span></a></div><h4 id="xiaohongshu-title" class="visually-hidden" data-i18n="socialXiaohongshu">Xiaohongshu · 小红书</h4></article>
-        <article class="connected-profile" aria-labelledby="facebook-title"><div class="connected-visual"><a class="social-profile-link" href="https://www.facebook.com/share/19wwsiyueH/" aria-labelledby="facebook-title" target="_blank" rel="noopener noreferrer"><span class="social-icon facebook-icon" aria-hidden="true"></span></a></div><h4 id="facebook-title" class="visually-hidden">Facebook</h4></article>
-        <article class="connected-profile" aria-labelledby="instagram-title"><div class="connected-visual"><a class="social-profile-link" href="https://www.instagram.com/fergusonhealth_sh/" aria-labelledby="instagram-title" target="_blank" rel="noopener noreferrer"><span class="social-icon instagram-icon" aria-hidden="true"></span></a></div><h4 id="instagram-title" class="visually-hidden">Instagram</h4></article>
+        <article class="connected-profile" aria-labelledby="xiaohongshu-title"><div class="connected-visual"><a class="social-profile-link" href="https://xhslink.cn/o/3PidH8Y4ZmB" aria-labelledby="xiaohongshu-title" target="_blank" rel="noopener noreferrer"><span class="social-icon xiaohongshu-icon" aria-hidden="true"></span></a></div><h3 id="xiaohongshu-title" class="visually-hidden" data-i18n="socialXiaohongshu">Xiaohongshu · 小红书</h3></article>
+        <article class="connected-profile" aria-labelledby="facebook-title"><div class="connected-visual"><a class="social-profile-link" href="https://www.facebook.com/share/19wwsiyueH/" aria-labelledby="facebook-title" target="_blank" rel="noopener noreferrer"><span class="social-icon facebook-icon" aria-hidden="true"></span></a></div><h3 id="facebook-title" class="visually-hidden">Facebook</h3></article>
+        <article class="connected-profile" aria-labelledby="instagram-title"><div class="connected-visual"><a class="social-profile-link" href="https://www.instagram.com/fergusonhealth_sh/" aria-labelledby="instagram-title" target="_blank" rel="noopener noreferrer"><span class="social-icon instagram-icon" aria-hidden="true"></span></a></div><h3 id="instagram-title" class="visually-hidden">Instagram</h3></article>
         </div>
         </div>
-      </section>
+      </div>
       </div>
       <p class="wrap section-closing" data-i18n="contactClosing">Questions welcome. Connections begin here.</p>
     </section>
