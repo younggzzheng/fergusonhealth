@@ -105,9 +105,12 @@ deployment even if someone merges a broken change.
 
 ## Maintaining the appointment calendar
 
-The optional homepage month calendar is collapsed by default. Its
-shortcut sits between “Locations” and “Explore our care” in the hero. The “Locations”
-link jumps to the clinic addresses and booking codes; following the calendar
+The optional homepage month calendar is collapsed by default in **03 / Find us**,
+after the doctor profile and before **04 / Our efforts**. “Find us” in the desktop
+and mobile navigation opens the clinic locations and booking codes. Email and
+social links remain in the final contact section; do not duplicate a Locations
+shortcut in the hero. The hero links are “Appointment calendar” followed by
+“Explore our care”; following the calendar
 link or loading `#appointment-calendar` opens and focuses the calendar.
 Working periods and weekly clinic sessions are defined at the top of `draft/calendar.js`.
 Dates are inclusive, in Shanghai time. A period with `end: null` continues until
@@ -143,6 +146,14 @@ The build contains a manifest of file SHA256 hashes and a full git revision.
 Assets use `/releases/<revision>/...` URLs. Updating the entry page selects that
 set of assets; old assets remain available for rollback. Editing or pushing a
 feature branch does not directly change the live website.
+
+Unchanged MP4 videos are reused with an OSS server-side copy from the previous
+release rather than uploaded again. The previous manifest must have the same
+SHA256, and the copy requires a matching source ETag and verifies the returned
+ETag. New or changed videos still upload normally. Every new release retains
+its own immutable asset URLs. Copy failures stop deployment before entry pages
+change; do not remove the video, broaden permissions, or relax verification.
+This uses the existing site-scoped GetObject/PutObject permissions only.
 
 Required live verification checks the expected revision, entry-page and
 page/stylesheet/script hashes, public access without a login cookie, and

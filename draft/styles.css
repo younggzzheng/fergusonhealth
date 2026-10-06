@@ -51,11 +51,11 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 .hero-copy{padding-top:0;max-width:none}
 .hero h1{margin-bottom:32px}
 .hero-copy .text-link{margin-top:0;font-size:13px}
-.hero-actions{display:grid;grid-template-columns:minmax(125px,.75fr) minmax(0,1.2fr) minmax(0,1.05fr);align-items:center;gap:20px;width:100%}
+.hero-actions{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:center;gap:28px;width:100%;max-width:570px}
 .hero-actions .text-link{display:flex;min-height:44px;min-width:0;gap:14px;line-height:1.6}
 .hero-actions .text-link>span:first-child{min-width:0;overflow-wrap:anywhere}
 .hero-actions .link-circle{flex-shrink:0}
-@media(max-width:700px){.hero-actions{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px}.hero-actions .text-link:last-child{grid-column:1/-1}.hero-actions .text-link{gap:10px}.hero-actions .link-circle{width:32px;height:32px}}
+@media(max-width:700px){.hero-actions{gap:20px}.hero-actions .text-link{gap:10px}.hero-actions .link-circle{width:32px;height:32px}}
 .hero-team{padding:48px 40px 40px;background:var(--sage);border:1px solid #e3e3dc;border-radius:220px 220px 8px 8px}
 .team-flower{display:block;width:48px;height:48px;margin:0 auto 22px;stroke:#8d99ad;stroke-width:1}
 .hero-who-title,html[lang=zh-CN] .hero-who-title{font-family:var(--sans);font-size:20px;line-height:1.5;letter-spacing:.3px;margin-bottom:12px}
@@ -176,7 +176,13 @@ html[lang=zh-CN] .hero h1{font-size:clamp(50px,4.55vw,69px)}
 .section-closing{margin-top:48px;padding:28px 0 30px;border-top:1px solid var(--line);font-size:12px;line-height:1.8;letter-spacing:.8px;color:var(--body)}
 .section-pad:has(>.section-closing),.contact-section:has(>.section-closing){padding-bottom:0}
 @media(max-width:700px){.section-closing{margin-top:32px;padding-block:23px 26px;letter-spacing:.3px}}
-/* Booking first; official updates and social accounts form a separate lower row. */
+/* Find us brings clinic locations and booking together before Our efforts. */
+.locations-section{border-top:1px solid var(--line)}
+.locations-intro{margin-top:24px;max-width:640px;font-size:14px;line-height:1.8;color:var(--body)}
+.locations-section .practice-locations{border-top:0;margin-top:32px;padding-top:0}
+.locations-section .appointment-calendar{margin-top:32px}
+@media(min-width:701px) and (max-width:1000px){.locations-section .practice-locations{grid-template-rows:auto auto}.locations-section .practice{grid-row:1/span 2}}
+/* Email, official updates and social accounts stay at the end of the page. */
 .contact-section{padding-top:80px}
 .contact-section::before{background-size:300px auto;background-position:left -150px top 24px;opacity:.055}
 .contact-grid{row-gap:32px;column-gap:64px;align-items:start}

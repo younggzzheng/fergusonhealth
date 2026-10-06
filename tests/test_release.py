@@ -1,6 +1,7 @@
 """Regression tests for build validation, public access, and rollback."""
 from contextlib import redirect_stdout
 from io import StringIO
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -61,6 +62,60 @@ class ReleaseTests(unittest.TestCase):
         (self.root / "draft" / "index.html").write_text('<video poster="missing.png"></video>')
         with self.assertRaisesRegex(ValueError, "Missing asset"):
             self.prepare()
+
+    def video_release(self, old_revision="b" * 40, old_bytes=b"fixture-video"):
+        (self.root / "draft" / "video.mp4").write_bytes(b"fixture-video")
+        manifest = self.prepare()
+        source = f"/releases/{old_revision}/video.mp4"
+        previous = {"revision": old_revision, "files": {source: sha256(old_bytes)}}
+        api = Mock()
+        api.oss.return_value = (json.dumps(previous).encode(), {})
+        return manifest, source, api
+
+    def test_identical_video_is_copied_inside_oss_before_switching_entry_pages(self):
+        manifest, source, api = self.video_release()
+        verifier = Mock()
+        with redirect_stdout(StringIO()):
+            publish(self.root / "dist", api=api, verifier=verifier)
+        copy = next(call for call in api.oss.call_args_list if call.kwargs.get("copy_source"))
+        self.assertEqual(copy.args, ("PUT", f"releases/{REVISION}/video.mp4"))
+        self.assertEqual(copy.kwargs["copy_source"], source.lstrip("/"))
+        self.assertEqual(copy.kwargs["copy_etag"], hashlib.md5(b"fixture-video").hexdigest().upper())
+        self.assertEqual(copy.kwargs["content_type"], "video/mp4")
+        self.assertEqual(copy.kwargs["cache_control"], "private, no-store")
+        writes = [call for call in api.oss.call_args_list if call.args[0] == "PUT"]
+        self.assertEqual(writes[-1].args[1], "index.html")
+        self.assertLess(writes.index(copy), len(writes) - 3)
+        verifier.assert_called_once_with(manifest)
+
+    def test_changed_video_is_uploaded_instead_of_copied(self):
+        _, _, api = self.video_release(old_bytes=b"older-video")
+        with redirect_stdout(StringIO()):
+            publish(self.root / "dist", api=api, verifier=Mock())
+        video_write = next(call for call in api.oss.call_args_list if call.args[:2] == ("PUT", f"releases/{REVISION}/video.mp4"))
+        self.assertEqual(video_write.args[2], b"fixture-video")
+        self.assertNotIn("copy_source", video_write.kwargs)
+
+    def test_invalid_previous_revision_cannot_select_a_video_copy_source(self):
+        _, _, api = self.video_release(old_revision="../../unrelated")
+        with redirect_stdout(StringIO()):
+            publish(self.root / "dist", api=api, verifier=Mock())
+        self.assertFalse(any(call.kwargs.get("copy_source") for call in api.oss.call_args_list))
+
+    def test_failed_video_copy_leaves_previous_entry_pages_untouched(self):
+        _, _, api = self.video_release()
+        response = api.oss.return_value
+        def oss(method, key, *args, **kwargs):
+            if kwargs.get("copy_source"):
+                raise RuntimeError("Copy failed")
+            return response
+        api.oss.side_effect = oss
+        verifier = Mock()
+        with self.assertRaisesRegex(RuntimeError, "Copy failed"):
+            publish(self.root / "dist", api=api, verifier=verifier)
+        self.assertFalse(any(call.args[0] == "PUT" and call.args[1] in ("index.html", "preview.html", "release.json") for call in api.oss.call_args_list))
+        api.refresh.assert_not_called()
+        verifier.assert_not_called()
 
     def test_missing_css_font_fails_the_build(self):
         (self.root / "draft" / "styles.css").write_text("@font-face{src:url('missing.woff2')}")

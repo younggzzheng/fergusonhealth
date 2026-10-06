@@ -1,8 +1,11 @@
+import base64
+import hashlib
+import hmac
 import unittest
 import urllib.error
 from unittest.mock import MagicMock, patch
 
-from alibaba import Alibaba
+from alibaba import Alibaba, BUCKET
 
 
 class UploadRetryTests(unittest.TestCase):
@@ -65,6 +68,62 @@ class UploadRetryTests(unittest.TestCase):
             self.assertEqual(open_url.call_count, 1)
             self.assertEqual(open_url.call_args.kwargs["timeout"], 40)
         sleep.assert_not_called()
+
+    @patch("alibaba.urllib.request.urlopen")
+    def test_video_copy_has_no_upload_body_and_signs_every_copy_header(self, open_url):
+        etag = hashlib.md5(b"fixture-video").hexdigest().upper()
+        response = self.response()
+        response.read.return_value = f'<CopyObjectResult><ETag>"{etag}"</ETag></CopyObjectResult>'.encode()
+        open_url.return_value = response
+        date = "Tue, 06 Oct 2026 14:00:00 GMT"
+        source = "releases/old/assets/video.mp4"
+        destination = "releases/new/assets/video.mp4"
+        with patch("alibaba.email.utils.formatdate", return_value=date):
+            self.cloud.oss("PUT", destination, content_type="video/mp4", cache_control="private, no-store",
+                           copy_source=source, copy_etag=etag)
+        request = open_url.call_args.args[0]
+        headers = {name.lower(): value for name, value in request.header_items()}
+        self.assertIsNone(request.data)
+        self.assertNotIn("content-md5", headers)
+        self.assertEqual(headers["x-oss-copy-source"], f"/{BUCKET}/{source}")
+        self.assertEqual(headers["x-oss-copy-source-if-match"], etag)
+        self.assertEqual(headers["x-oss-metadata-directive"], "REPLACE")
+        self.assertEqual(headers["cache-control"], "private, no-store")
+        canonical = (f"x-oss-copy-source:/{BUCKET}/{source}\n"
+                     f"x-oss-copy-source-if-match:{etag}\n"
+                     "x-oss-metadata-directive:REPLACE\n")
+        sign = f"PUT\n\nvideo/mp4\n{date}\n{canonical}/{BUCKET}/{destination}"
+        signature = base64.b64encode(hmac.new(b"test-secret", sign.encode(), hashlib.sha1).digest()).decode()
+        self.assertEqual(headers["authorization"], f"OSS test-access-id:{signature}")
+        self.assertEqual(open_url.call_args.kwargs["timeout"], 180)
+
+    @patch("alibaba.urllib.request.urlopen")
+    def test_copy_requires_the_expected_result_etag_even_with_http_success(self, open_url):
+        for body in (b"not XML", b"<Error><Code>CopyFailed</Code></Error>",
+                     b"<CopyObjectResult><ETag>wrong</ETag></CopyObjectResult>"):
+            with self.subTest(body=body):
+                response = self.response()
+                response.read.return_value = body
+                open_url.return_value = response
+                with self.assertRaisesRegex(RuntimeError, "copy verification failed"):
+                    self.cloud.oss("PUT", "releases/new/video.mp4", copy_source="releases/old/video.mp4", copy_etag="A" * 32)
+
+    @patch("alibaba.time.sleep")
+    @patch("alibaba.urllib.request.urlopen")
+    def test_changed_source_is_not_retried_or_uploaded_as_a_fallback(self, open_url, sleep):
+        open_url.side_effect = urllib.error.HTTPError("https://example.invalid", 412, "Precondition Failed", {}, None)
+        with self.assertRaisesRegex(RuntimeError, "HTTP 412"):
+            self.cloud.oss("PUT", "releases/new/video.mp4", copy_source="releases/old/video.mp4", copy_etag="A" * 32)
+        self.assertEqual(open_url.call_count, 1)
+        self.assertIsNone(open_url.call_args.args[0].data)
+        sleep.assert_not_called()
+
+    @patch("alibaba.urllib.request.urlopen")
+    def test_copy_rejects_a_missing_etag_or_an_upload_body(self, open_url):
+        for method, data, etag in (("GET", None, "A" * 32), ("PUT", b"video", "A" * 32), ("PUT", None, None)):
+            with self.assertRaises(ValueError):
+                self.cloud.oss(method, "releases/new/video.mp4", data, copy_source="releases/old/video.mp4", copy_etag=etag)
+        open_url.assert_not_called()
 
 
 if __name__ == "__main__":

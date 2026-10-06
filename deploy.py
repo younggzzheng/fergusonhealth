@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Publish immutable assets, switch entry pages last, and restore them on failure."""
 import argparse
+import hashlib
 import json
 import mimetypes
 import os
@@ -37,12 +38,32 @@ def publish(folder, api=None, verifier=verify, browser=False):
     manifest = validate_build(folder)
     api = api or Alibaba()
     snapshots = {key: api.oss("GET", key) for key in ENTRIES}
+    try:
+        previous = json.loads(snapshots["release.json"][0]) if snapshots["release.json"] else {}
+    except (ValueError, TypeError):
+        previous = {}
+    if not isinstance(previous, dict):
+        previous = {}
+    previous_revision = previous.get("revision", "")
+    previous_files = previous.get("files", {})
+    if not isinstance(previous_revision, str) or not re.fullmatch(r"[0-9a-f]{40}", previous_revision) or not isinstance(previous_files, dict):
+        previous_files = {}
     changed = False
     try:
         for path in sorted(manifest["files"]):
             key = path.lstrip("/")
             if key not in ENTRIES:
-                api.oss("PUT", key, (folder / key).read_bytes(), content_type(key), "private, no-store")
+                data = (folder / key).read_bytes()
+                relative = path.removeprefix(f"/releases/{manifest['revision']}/")
+                source = f"/releases/{previous_revision}/{relative}"
+                if path.endswith(".mp4") and previous_files.get(source) == manifest["files"][path]:
+                    # Reuse identical video bytes inside the same private bucket.
+                    # A source ETag condition and the copy result protect integrity.
+                    api.oss("PUT", key, content_type=content_type(key), cache_control="private, no-store",
+                            copy_source=source.lstrip("/"), copy_etag=hashlib.md5(data).hexdigest().upper())
+                    print(f"Reused unchanged video {relative} from the previous release.", flush=True)
+                else:
+                    api.oss("PUT", key, data, content_type(key), "private, no-store")
         for key in ENTRIES:
             changed = True
             api.oss("PUT", key, (folder / key).read_bytes(), content_type(key), "private, no-store")

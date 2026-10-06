@@ -6,11 +6,13 @@ import hashlib
 import hmac
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
 import uuid
+from xml.etree import ElementTree
 
 BUCKET = "fergusonhealth-cn-web"
 DOMAIN = "www.fergusonhealth.com"
@@ -21,7 +23,17 @@ class Alibaba:
         self.access_id = os.environ["ALIBABA_CLOUD_ACCESS_KEY_ID"]
         self.secret = os.environ["ALIBABA_CLOUD_ACCESS_KEY_SECRET"]
 
-    def oss(self, method, key, data=None, content_type="", cache_control=None):
+    def oss(self, method, key, data=None, content_type="", cache_control=None, *, copy_source=None, copy_etag=None):
+        copy_headers = {}
+        if copy_source is not None:
+            if method != "PUT" or data is not None or not re.fullmatch(r"[0-9a-fA-F]{32}", copy_etag or ""):
+                raise ValueError("Object copies require an empty PUT and the expected source ETag")
+            copy_headers = {
+                "x-oss-copy-source": f"/{BUCKET}/{urllib.parse.quote(copy_source, safe='/')}",
+                "x-oss-copy-source-if-match": copy_etag.upper(),
+                "x-oss-metadata-directive": "REPLACE",
+            }
+        canonical_headers = "".join(f"{name}:{value}\n" for name, value in sorted(copy_headers.items()))
         digest = base64.b64encode(hashlib.md5(data).digest()).decode() if data is not None else ""
         url = f"https://{BUCKET}.oss-cn-shanghai.aliyuncs.com/{urllib.parse.quote(key, safe='/')}"
         # Repeating a PUT writes the same bytes to the same key. Give larger
@@ -29,9 +41,9 @@ class Alibaba:
         attempts = 3 if method == "PUT" else 1
         for attempt in range(attempts):
             date = email.utils.formatdate(usegmt=True)
-            sign = f"{method}\n{digest}\n{content_type}\n{date}\n/{BUCKET}/{key}"
+            sign = f"{method}\n{digest}\n{content_type}\n{date}\n{canonical_headers}/{BUCKET}/{key}"
             signature = base64.b64encode(hmac.new(self.secret.encode(), sign.encode(), hashlib.sha1).digest()).decode()
-            headers = {"Date": date, "Authorization": f"OSS {self.access_id}:{signature}"}
+            headers = {"Date": date, "Authorization": f"OSS {self.access_id}:{signature}", **copy_headers}
             if content_type:
                 headers["Content-Type"] = content_type
             if digest:
@@ -41,7 +53,16 @@ class Alibaba:
             request = urllib.request.Request(url, data=data, method=method, headers=headers)
             try:
                 with urllib.request.urlopen(request, timeout=180 if method == "PUT" else 40) as response:
-                    return response.read(), dict(response.headers)
+                    body = response.read()
+                    if copy_source is not None:
+                        try:
+                            result = ElementTree.fromstring(body)
+                            verified = result.tag == "CopyObjectResult" and (result.findtext("ETag") or "").strip('"').upper() == copy_etag.upper()
+                        except ElementTree.ParseError:
+                            verified = False
+                        if not verified:
+                            raise RuntimeError(f"OSS PUT {key}: copy verification failed")
+                    return body, dict(response.headers)
             except urllib.error.HTTPError as error:
                 if method == "GET" and error.code == 404:
                     return None

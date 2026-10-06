@@ -263,7 +263,7 @@ test('the event is clearly labelled as a health talk in every language', async (
 test('community and education efforts link to bilingual insights and a local video', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
-  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / Our efforts');
+  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('04 / Our efforts');
   await expect(page.locator('#work-title')).toHaveText('Beyondthe clinic.');
   await expect(page.locator('.effort-list dt')).toHaveText(['Community education', 'Multidisciplinary exchange', 'Learning together']);
   await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('Dr. Ferguson and the team regularly give community talks on women’s health, sharing clear, practical knowledge and making space for questions and open conversation.');
@@ -291,7 +291,7 @@ test('community and education efforts link to bilingual insights and a local vid
   await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
   await assertNoOverflow(page);
   await page.locator('[data-i18n="back"]').click();
-  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('03 / 社区与教育');
+  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('04 / 社区与教育');
   await expect(page.locator('.effort-list dt')).toHaveText(['社区健康教育', '多学科交流', '共同学习']);
   await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('吕医生与团队经常开展女性健康主题的社区讲座，以清晰、实用的方式分享知识，也为提问和坦诚交流留出空间。');
   await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('合作医院的平台');
@@ -481,10 +481,10 @@ test('balanced team panel leads to services before the doctor profile', async ({
   await page.goto('/');
   await waitForRenderedPage(page);
   expect(await page.locator('main > section').evaluateAll(sections => sections.map(section => section.id || 'hero')))
-    .toEqual(['hero', 'care', 'about', 'work', 'contact']);
+    .toEqual(['hero', 'care', 'about', 'locations', 'work', 'contact']);
   for (const navigation of ['.desktop-nav', '#mobile-nav']) {
     expect(await page.locator(`${navigation} a`).evaluateAll(links => links.map(link => link.getAttribute('href'))))
-      .toEqual(navigation === '.desktop-nav' ? ['#care', '#about', '#work'] : ['#care', '#about', '#work', '#contact']);
+      .toEqual(navigation === '.desktop-nav' ? ['#care', '#about', '#locations', '#work'] : ['#care', '#about', '#locations', '#work', '#contact']);
   }
   await expect(page.locator('.hero-team .hero-who-title')).toHaveText('Who We Are');
   await expect(page.locator('.hero-team .purpose-item')).toHaveCount(2);
@@ -496,6 +496,11 @@ test('balanced team panel leads to services before the doctor profile', async ({
   else expect(arrangement.panel.left).toBeGreaterThan(arrangement.copy.right);
   await expect(page.locator('[data-i18n="careEyebrow"]')).toHaveText('01 / Areas of care');
   await expect(page.locator('[data-i18n="aboutEyebrow"]')).toHaveText('02 / Meet Dr. Ferguson');
+  await expect(page.locator('[data-i18n="locationsEyebrow"]')).toHaveText('03 / Find us');
+  await expect(page.locator('#locations .practice')).toHaveCount(2);
+  await expect(page.locator('#locations #appointment-calendar')).toHaveCount(1);
+  await expect(page.locator('#contact .practice, #contact #appointment-calendar')).toHaveCount(0);
+  await expect(page.locator('#contact .wechat-and-social')).toHaveCount(1);
   await expect(page.locator('.hero .text-link[href="#care"]')).toHaveAttribute('href', '#care');
   await page.locator('.hero .text-link[href="#care"]').click();
   await expect(page).toHaveURL(/#care$/);
@@ -527,7 +532,7 @@ test('social icons stay beside WeChat when they fit and wrap together when space
   await waitForRenderedPage(page);
   const social = page.locator('.connected-profile');
   await expect(page.locator('#connected-title')).toHaveText('Stay connected');
-  await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('For appointments, scan a clinic code below in WeChat. For other enquiries, email us.');
+  await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('For other enquiries, email us.');
   await expect(page.locator('[data-i18n="wechatBody"]')).toHaveText('Scan for news & updates.');
   await expect(page.locator('[data-i18n="wechatNote"], [data-i18n="socialTitle"]')).toHaveCount(0);
   await expect(page.locator('.practice h4')).toHaveText(['1. Am-Sino Ding Xiang Clinic', '2. Parkway MediCentre Xintiandi']);
@@ -627,11 +632,11 @@ test('social icons stay beside WeChat when they fit and wrap together when space
 test('contact introduction stays compact and keeps booking details readable', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
-  await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('For appointments, scan a clinic code below in WeChat. For other enquiries, email us.');
+  await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('For other enquiries, email us.');
   const layout = await page.locator('#contact').evaluate(section => ({
     titleSize: parseFloat(getComputedStyle(section.querySelector('h2')).fontSize),
     decorationOpacity: Number(getComputedStyle(section, '::before').opacity),
-    codes: [...section.querySelectorAll('.appointment-qr-frame img')].map(image => image.getBoundingClientRect().width),
+    codes: [...document.querySelectorAll('#locations .appointment-qr-frame img')].map(image => image.getBoundingClientRect().width),
   }));
   expect(layout.titleSize).toBeLessThanOrEqual(isMobile ? 40 : 52);
   expect(layout.decorationOpacity).toBeLessThanOrEqual(0.06);
@@ -640,7 +645,7 @@ test('contact introduction stays compact and keeps booking details readable', as
   await expect(page.locator('.contact-copy .contact-location')).toHaveCount(0);
   await expect(page.locator('.practice-city')).toHaveText(['Shanghai, China', 'Shanghai, China']);
   await page.locator('[data-language="zh"]').click();
-  await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('预约请用微信扫描下方门诊二维码；其他咨询可通过邮件联系我们。');
+  await expect(page.locator('[data-i18n="contactBody"]')).toHaveText('其他咨询可通过邮件联系我们。');
   await expect(page.locator('.practice-city')).toHaveText(['中国 · 上海', '中国 · 上海']);
   await assertNoOverflow(page);
 });
@@ -827,37 +832,35 @@ test('calendar month is based on Shanghai even when the visitor is in another ti
   } finally { await context.close(); }
 });
 
-test('hero shortcuts put locations before the calendar and navigate to their targets', async ({ page }) => {
+test('Find us navigation replaces the duplicate hero shortcut and the calendar opens in its new section', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
   const calendar = page.locator('.appointment-calendar');
-  const locations = page.locator('.hero-actions a[href="#locations-title"]');
   const shortcut = page.locator('.hero-actions [data-calendar-link]');
   await expect(calendar).not.toHaveAttribute('open');
   await expect(calendar.locator('[data-i18n="calendarTitle"]')).toHaveText('Appointment calendar for Dr. Ferguson');
   for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${code}"]`).click();
     await expect(calendar.locator('[data-i18n="calendarTitle"]')).toContainText(code === 'zh' ? '吕明旭医生' : 'Ferguson');
-    await expect(page.locator('.hero-actions a')).toHaveCount(3);
-    await expect(page.locator('.hero-actions a .link-circle use')).toHaveCount(3);
-    expect(await page.locator('.hero-actions a').evaluateAll(elements => elements.map(element => element.getAttribute('href')))).toEqual(['#locations-title', '#appointment-calendar', '#care']);
-    await expect(locations).toHaveText({ en: 'Locations', zh: '咨询地点', fr: 'Adresses', de: 'Standorte', es: 'Ubicaciones' }[code]);
+    await expect(page.locator('.hero-actions a')).toHaveCount(2);
+    await expect(page.locator('.hero-actions a .link-circle use')).toHaveCount(2);
+    expect(await page.locator('.hero-actions a').evaluateAll(elements => elements.map(element => element.getAttribute('href')))).toEqual(['#appointment-calendar', '#care']);
+    await expect(page.locator('[data-i18n="heroLocationsCta"]')).toHaveCount(0);
+    await expect(page.locator('.desktop-nav [data-i18n="navLocations"]')).toHaveText({ en: 'Find us', zh: '咨询地点', fr: 'Nous trouver', de: 'Standorte', es: 'Encuéntranos' }[code]);
+    await expect(page.locator('[data-i18n="locationsEyebrow"]')).toContainText('03 /');
+    await expect(page.locator('[data-i18n="workEyebrow"]')).toContainText('04 /');
     await expect(shortcut).toHaveAttribute('href', '#appointment-calendar');
     const links = await page.locator('.hero-actions a').evaluateAll(elements => elements.map(element => element.getBoundingClientRect().toJSON()));
     expect(links[1].left).toBeGreaterThan(links[0].right);
     expect(Math.abs((links[0].top + links[0].bottom) / 2 - (links[1].top + links[1].bottom) / 2)).toBeLessThan(1);
-    if (page.viewportSize().width > 700) {
-      expect(links[2].left).toBeGreaterThan(links[1].right);
-      expect(Math.abs((links[1].top + links[1].bottom) / 2 - (links[2].top + links[2].bottom) / 2)).toBeLessThan(1);
-    } else {
-      expect(links[2].top).toBeGreaterThan(links[1].bottom);
-    }
     for (const link of links) expect(link.height).toBeGreaterThanOrEqual(44);
     await assertNoOverflow(page);
   }
+  if (isMobile) await page.locator('.menu-toggle').click();
+  const locations = page.locator(`${isMobile ? '#mobile-nav' : '.desktop-nav'} a[href="#locations"]`);
   await locations.focus();
   await page.keyboard.press('Enter');
-  await expect(page).toHaveURL(/#locations-title$/);
+  await expect(page).toHaveURL(/#locations$/);
   await expect(page.locator('#locations-title')).toBeInViewport();
   await expect(calendar).not.toHaveAttribute('open');
   await shortcut.focus();
@@ -1053,7 +1056,7 @@ test('team panel stays light and the doctor introduction uses our own voice with
 test('hero stays slightly smaller and section labels stay readable in both languages', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
-  const labels = page.locator('.hero-copy .eyebrow, [data-i18n="aboutEyebrow"], [data-i18n="careEyebrow"], [data-i18n="workEyebrow"], [data-i18n="contactEyebrow"], [data-i18n="locationsTitle"]');
+  const labels = page.locator('.hero-copy .eyebrow, [data-i18n="aboutEyebrow"], [data-i18n="careEyebrow"], [data-i18n="workEyebrow"], [data-i18n="contactEyebrow"], [data-i18n="locationsEyebrow"]');
   await expect(labels).toHaveCount(6);
   for (const language of ['en', 'zh-CN']) {
     if (language === 'zh-CN') await page.locator('[data-language-switch]').click();
