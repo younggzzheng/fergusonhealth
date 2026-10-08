@@ -88,7 +88,6 @@ html[lang=zh-CN]{--serif:'Songti SC','STSong','Noto Serif CJK SC',Georgia,serif}
 
 /* Display the shell and pearl from the supplied logo, not a substitute logo. */
 .brand-mark{display:block;width:64px;height:48px;background-image:url('assets/ferguson-logo.png');background-size:349.44% 339.39%;background-position:63.23% 31.65%;background-repeat:no-repeat;mix-blend-mode:multiply;flex-shrink:0}
-.pearl-mark{display:block;width:22px;height:22px;background:url('assets/pearl.svg') center/contain no-repeat;flex-shrink:0}
 .team-flower{width:72px;height:54px}
 .care-sprig,.contact-flower{width:56px;height:42px}
 .portrait-brand{width:160px;height:120px}
@@ -228,6 +227,23 @@ html[lang=zh-CN] .contact-section h2{font-size:clamp(34px,3.1vw,44px);line-heigh
 .about-portrait .doctor-photo{object-position:center}
 .work-content .plus-feature{margin-top:0}
 .connect-section{padding-top:56px}
+/* WeCare stays separate from clinical care and booking. The supplied poster is
+   shown through two CSS windows, keeping its original logo and code pixels. */
+.wecare-section{padding-top:48px}
+.wecare-panel{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:40px 64px;align-items:center;padding:44px 48px;background:#f0f1e9;border:1px solid #e1e4d6;border-radius:10px}
+.wecare-copy{min-width:0;max-width:630px}
+.wecare-copy .eyebrow{color:#616947;font-size:12px;letter-spacing:1.5px}
+.wecare-logo-window{position:relative;overflow:hidden;width:216px;max-width:100%;aspect-ratio:468/160;margin-top:20px;mix-blend-mode:multiply}
+.wecare-logo-window img{position:absolute;width:170.940171%;height:auto;max-width:none;left:-35.897436%;top:0}
+.wecare-tagline{font-family:var(--sans);font-size:24px;line-height:1.5;color:var(--ink);margin-top:22px}
+.wecare-description{font-size:14px;line-height:1.9;color:var(--body);margin-top:14px;max-width:520px}
+.wecare-shop{width:100%;max-width:260px;justify-self:end;text-align:center}
+.wecare-code-surface{width:216px;max-width:100%;padding:12px;margin-inline:auto;background:#fff;border-radius:50%}
+.wecare-code-window{position:relative;width:100%;aspect-ratio:1;overflow:hidden;border-radius:50%}
+.wecare-code-window img{position:absolute;width:285.714286%;height:auto;max-width:none;left:-3.214286%;top:-101.428571%}
+.wecare-shop figcaption{margin-top:16px;font-size:13px;line-height:1.8;color:var(--ink)}
+@media(max-width:900px){.wecare-panel{grid-template-columns:minmax(0,1fr) 216px;gap:32px;padding:36px}.wecare-tagline{font-size:21px}}
+@media(max-width:700px){.wecare-section{padding-top:32px}.wecare-panel{grid-template-columns:minmax(0,1fr);gap:28px;padding:28px 24px}.wecare-logo-window{width:196px;margin-top:16px}.wecare-tagline{font-size:21px;margin-top:18px}.wecare-description{font-size:14px}.wecare-shop{justify-self:start;text-align:left;max-width:100%}.wecare-code-surface{margin-inline:0}.wecare-shop figcaption{max-width:240px;margin-top:12px}}
 .connect-section::before{display:none}
 .connect-section .wechat-and-social{border-top:0;padding-top:0}
 .connect-section #connected-title{font-family:var(--sans);font-size:18px;line-height:1.5;letter-spacing:1.5px;margin:0}

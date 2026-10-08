@@ -69,6 +69,28 @@ test('public website and release assets load without a password or cookie', asyn
   await expect(page.locator('#hero-title')).toBeVisible();
 });
 
+test('WeCare uses the supplied shop code and stays separate from appointments', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#wecare').scrollIntoViewIfNeeded();
+  await waitForRenderedPage(page);
+  const sections = await page.locator('main > section[id]').evaluateAll(elements => elements.map(element => element.id));
+  expect(sections.indexOf('wecare')).toBe(sections.indexOf('connect') - 1);
+  await expect(page.locator('#wecare-title img')).toHaveAttribute('alt', 'WeCare');
+  await expect(page.locator('#wecare img')).toHaveCount(2);
+  for (const image of await page.locator('#wecare img').all()) {
+    await expect(image).toHaveAttribute('src', /\/assets\/wecare-poster\.jpg$/);
+    await expect.poll(() => image.evaluate(element => element.complete && element.naturalWidth === 800 && element.naturalHeight === 1009)).toBe(true);
+  }
+  await expect(page.locator('#wecare a[href]')).toHaveCount(0);
+  await expect(page.locator('.desktop-nav a[href="#wecare"], .mobile-nav a[href="#wecare"]')).toHaveCount(0);
+  const panel = await page.locator('.wecare-panel').boundingBox();
+  const code = await page.locator('.wecare-code-window').boundingBox();
+  expect(Math.abs(code.width - code.height)).toBeLessThan(1);
+  expect(code.x).toBeGreaterThanOrEqual(panel.x);
+  expect(code.x + code.width).toBeLessThanOrEqual(panel.x + panel.width);
+  await assertNoOverflow(page);
+});
+
 test('all five languages render without broken resources, broken links or overflow', async ({ page }) => {
   const failures = [];
   page.on('pageerror', error => failures.push(`Script error: ${error.message}`));
@@ -484,7 +506,7 @@ test('balanced team panel leads to services before the doctor profile', async ({
   await page.goto('/');
   await waitForRenderedPage(page);
   expect(await page.locator('main > section').evaluateAll(sections => sections.map(section => section.id || 'hero')))
-    .toEqual(['hero', 'care', 'about', 'locations', 'work', 'connect']);
+    .toEqual(['hero', 'care', 'about', 'locations', 'work', 'wecare', 'connect']);
   for (const navigation of ['.desktop-nav', '#mobile-nav']) {
     expect(await page.locator(`${navigation} a`).evaluateAll(links => links.map(link => link.getAttribute('href'))))
       .toEqual(navigation === '.desktop-nav' ? ['#care', '#about', '#locations', '#work'] : ['#care', '#about', '#locations', '#work', '#contact']);
@@ -1015,13 +1037,9 @@ test('section colors and decorative marks use the local brand and platform asset
   for (const mark of await marks.all()) {
     await expect(mark).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
   }
-  const pearl = page.locator('.hero-copy .pearl-mark');
-  await expect(pearl).toHaveCount(1);
-  await expect(pearl).toHaveAttribute('aria-hidden', 'true');
-  await expect(pearl).toHaveCSS('background-image', /\/assets\/pearl\.svg/);
+  await expect(page.locator('.hero-copy .pearl-mark')).toHaveCount(0);
+  await expect(page.locator('[data-i18n="heroEyebrow"]')).toHaveText("A personal approach to women's health");
   await expect(page.locator('.hero-copy .brand-mark')).toHaveCount(0);
-  const pearlUrl = await pearl.evaluate(element => getComputedStyle(element).backgroundImage.match(/url\("([^\"]+)"\)/)[1]);
-  expect((await page.request.get(pearlUrl)).ok()).toBeTruthy();
   const icons = page.locator('.connected-profile .social-icon');
   await expect(icons).toHaveCount(3);
   for (const icon of await icons.all()) {

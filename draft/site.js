@@ -3,6 +3,9 @@
   const translations = {
     en: {},
     zh: {
+      wecareEyebrow: '日常健康与生活', wecareTagline: '关爱女性与家庭的日常健康。',
+      wecareDescription: '探索实用的健康资讯与产品，Ferguson Health 参与推荐。',
+      wecareScan: '微信扫码，进入 WeCare。', wecareCodeAlt: 'WeCare 微店微信小程序码',
       brandHome: 'Ferguson 女性健康首页', mainNavigation: '主要导航', mobileNavigation: '手机导航', discoverMore: '了解更多',
       plusLogoAlt: 'Ferguson Plus 标志', clinic1QrAlt: '美华预约二维码', clinic2QrAlt: '百汇预约二维码', wechatQrAlt: 'Ferguson 女性健康官方微信公众号二维码',
       skip: '跳转到正文', navAbout: '认识吕医生', navCare: '咨询领域', navLocations: '咨询地点', navWork: '社区与教育', navContact: '联系我们',
@@ -58,6 +61,9 @@
       connectedTitle: '保持联系', wechatTitle: '官方微信公众号', wechatBody: '扫码关注，获取最新资讯。', socialXiaohongshu: '小红书', footerMessage: 'Because We Care', backTop: '返回顶部', languageChoice: '选择语言'
     },
     fr: {
+      wecareEyebrow: 'Le bien-être au quotidien', wecareTagline: 'Le bien-être au quotidien pour les femmes et les familles.',
+      wecareDescription: 'Découvrez des informations pratiques sur le bien-être et des produits de santé, avec les recommandations de Ferguson Health.',
+      wecareScan: 'Scannez avec WeChat pour découvrir WeCare.', wecareCodeAlt: 'Code du mini-programme WeChat de la boutique WeCare',
       brandHome: 'Accueil de Ferguson Women’s Health', mainNavigation: 'Navigation principale', mobileNavigation: 'Navigation mobile', discoverMore: 'En savoir plus',
       plusLogoAlt: 'Logo Ferguson Plus', clinic1QrAlt: 'Code QR de rendez-vous Am-Sino', clinic2QrAlt: 'Code QR de rendez-vous Parkway', wechatQrAlt: 'Code QR du compte officiel WeChat de Ferguson Women’s Health',
       languageChoice: 'Choisir la langue', skip: 'Aller au contenu', navAbout: 'Rencontrez Dr Ferguson', navCare: 'Nos domaines de soins', navLocations: 'Nous trouver', navWork: 'Nos engagements', navContact: 'Contact',
@@ -108,6 +114,9 @@
       connectedTitle: 'Restons en contact', wechatTitle: 'Compte officiel WeChat', wechatBody: 'Scannez pour suivre les actualités.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Retour en haut'
     },
     de: {
+      wecareEyebrow: 'Wohlbefinden im Alltag', wecareTagline: 'Wohlbefinden im Alltag für Frauen und Familien.',
+      wecareDescription: 'Entdecken Sie praktische Gesundheitsinformationen und Gesundheitsprodukte mit Empfehlungen von Ferguson Health.',
+      wecareScan: 'Mit WeChat scannen und WeCare besuchen.', wecareCodeAlt: 'WeChat-Mini-Programm-Code des WeCare-Shops',
       brandHome: 'Startseite von Ferguson Women’s Health', mainNavigation: 'Hauptnavigation', mobileNavigation: 'Mobile Navigation', discoverMore: 'Mehr erfahren',
       plusLogoAlt: 'Ferguson-Plus-Logo', clinic1QrAlt: 'QR-Code für Termine bei Am-Sino', clinic2QrAlt: 'QR-Code für Termine bei Parkway', wechatQrAlt: 'QR-Code des offiziellen WeChat-Kontos von Ferguson Women’s Health',
       languageChoice: 'Sprache wählen', skip: 'Zum Inhalt springen', navAbout: 'Dr. Ferguson kennenlernen', navCare: 'Unsere Leistungen', navLocations: 'Standorte', navWork: 'Unser Engagement', navContact: 'Kontakt',
@@ -158,6 +167,9 @@
       connectedTitle: 'Bleiben wir in Kontakt', wechatTitle: 'Offizielles WeChat-Konto', wechatBody: 'Für Neuigkeiten scannen und folgen.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Nach oben'
     },
     es: {
+      wecareEyebrow: 'Bienestar cotidiano', wecareTagline: 'Bienestar cotidiano para mujeres y familias.',
+      wecareDescription: 'Descubre información práctica sobre bienestar y productos de salud, con recomendaciones de Ferguson Health.',
+      wecareScan: 'Escanea con WeChat para visitar WeCare.', wecareCodeAlt: 'Código del miniprograma de WeChat de la tienda WeCare',
       brandHome: 'Inicio de Ferguson Women’s Health', mainNavigation: 'Navegación principal', mobileNavigation: 'Navegación móvil', discoverMore: 'Descubre más',
       plusLogoAlt: 'Logotipo de Ferguson Plus', clinic1QrAlt: 'Código QR para citas en Am-Sino', clinic2QrAlt: 'Código QR para citas en Parkway', wechatQrAlt: 'Código QR de la cuenta oficial de WeChat de Ferguson Women’s Health',
       languageChoice: 'Elegir idioma', skip: 'Ir al contenido', navAbout: 'Conoce a la Dra. Ferguson', navCare: 'Áreas de atención', navLocations: 'Encuéntranos', navWork: 'Nuestro compromiso', navContact: 'Contacto',
