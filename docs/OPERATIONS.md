@@ -62,6 +62,17 @@ public links when available; do not upload or copy patient names, photos,
 letters, or private source documents. Patient thank-you letter publication
 remains on hold; the owner requested links to already-published posts only.
 
+The Articles group links to `insights.html#wechat-articles`, a collapsed topic
+library of owner-supplied public WeChat posts. The normalized source links are
+in `reference/WECHAT-ARTICLE-LINKS.json`; update both that file and the matching
+static links in `draft/insights.html`. Preserve the original article titles and
+the public `__biz`, `mid`, `idx`, and `sn` identifiers only; do not publish copied
+account tokens or tracking parameters. Chinese mode shows Chinese posts, and
+English/French/German/Spanish modes show clearly labelled English originals.
+Do not invent translations of the linked article bodies or language pairings.
+The owner excluded pregnancy, maternity, newborn and egg-freezing articles;
+adolescent topics remain. Keep existing local overviews and the video.
+
 ```sh
 python3 -m unittest discover -s tests -p 'test_*.py'
 npm test

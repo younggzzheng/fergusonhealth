@@ -76,3 +76,21 @@ professional-profile link in favour of Ferguson Health's own voice. Do not resto
 that promotional link during later edits. The latest supplied flyer takes priority
 over the earlier draft for services and practice locations. Chinese service
 descriptions here are draft translations of the English flyer.
+
+## WeChat article selection
+
+On 9 October 2026, the owner requested excluding pregnancy, maternity, and
+newborn-focused articles from the supplied bilingual WeChat article list.
+Apply this exclusion to both English and Chinese links when preparing the
+website article library. Keep adolescent-health articles from mixed
+baby/child/adolescent categories; do not discard the whole mixed category.
+Fertility and preconception articles remain in scope. Egg-freezing articles
+remain excluded under the owner's earlier instruction.
+
+This changes article selection only, not the approved early-pregnancy and
+high-risk pregnancy consultation services. The owner approved publishing the
+filtered library on 9 October 2026. The selected 40 links (25 English and 15
+Chinese) are retained in `WECHAT-ARTICLE-LINKS.json` without copied account or
+tracking parameters. Breastfeeding and newborn-focused BCG items were also
+excluded with the maternity/newborn material. Existing article overviews and
+the English video remain unchanged; patient feedback remains on hold.

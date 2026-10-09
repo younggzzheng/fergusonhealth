@@ -257,9 +257,42 @@ test('resource categories are translated, keyboard accessible, and keep patient 
       await expect(category).not.toHaveAttribute('open');
     }
   }
-  await expect(page.locator('[data-wechat-category="articles"] a')).toHaveCount(3);
+  await expect(page.locator('[data-wechat-category="articles"] a')).toHaveCount(4);
   await expect(page.locator('[data-wechat-category="videos"] a')).toHaveCount(1);
-  await expect(page.locator('.insight-categories a')).toHaveCount(4);
+  await expect(page.locator('.insight-categories a')).toHaveCount(5);
+});
+
+test('WeChat article topics preserve the supplied language, links and collapsed layout', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('[data-wechat-category="articles"] summary').click();
+  await page.locator('[data-i18n="insightAllArticles"]').click();
+  await expect(page.locator('#wechat-articles-title')).toBeVisible();
+  for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
+    await page.locator(`[data-language="${code}"]`).click();
+    const language = code === 'zh' ? 'zh' : 'en';
+    const library = page.locator(`[data-wechat-library="${language}"]`);
+    await expect(library).toBeVisible();
+    await expect(page.locator('[data-wechat-library]:not([hidden])')).toHaveCount(1);
+    await expect(library.locator('a')).toHaveCount(language === 'zh' ? 15 : 25);
+    await expect(library.locator('details')).toHaveCount(5);
+    await expect(library.locator('details[open]')).toHaveCount(0);
+    for (const topic of await library.locator('details').all()) {
+      await topic.locator('summary').press('Enter');
+      await expect(topic).toHaveAttribute('open', '');
+      await expect(topic.locator('a').first()).toBeVisible();
+      for (const link of await topic.locator('a').all()) {
+        await expect(link).toHaveAttribute('href', /^https:\/\/mp\.weixin\.qq\.com\/s\?/);
+        await expect(link).toHaveAttribute('lang', language === 'zh' ? 'zh-CN' : 'en');
+        await expect(link).toHaveAttribute('target', '_blank');
+        await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+      }
+      await assertNoOverflow(page);
+      await topic.locator('summary').press('Enter');
+      await expect(topic).not.toHaveAttribute('open');
+    }
+    await assertLinks(page);
+  }
+  await expect(page.locator('video source')).toHaveAttribute('src', /\/assets\/mood-swings\.mp4$/);
 });
 
 test('the event is clearly labelled as a health talk in every language', async ({ page }) => {
@@ -291,7 +324,7 @@ test('community and education efforts link to bilingual insights and a local vid
   await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('Dr. Ferguson and the team regularly give community talks on women’s health, sharing clear, practical knowledge and making space for questions and open conversation.');
   await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('multidisciplinary team (MDT) discussions');
   await expect(page.locator('[data-i18n="effortCMEBody"]')).toContainText('continuing medical education (CME) discussions');
-  await expect(page.locator('.resource-list a')).toHaveCount(4);
+  await expect(page.locator('.resource-list a')).toHaveCount(5);
   await expect(page.locator('.event-date time')).toHaveAttribute('datetime', '2026-10-24T14:00:00+08:00');
   await expect(page.locator('[data-i18n="eventLink"]').locator('..')).toHaveAttribute('href', 'https://www.theplushealth.org/#events');
   await page.locator('[data-wechat-category="articles"] summary').click();

@@ -3,7 +3,11 @@
   const zh = {
     boneSource: 'NIAMS · 骨质疏松', fertilitySource: 'ASRM · 生育力评估', proteinSource: 'NIA · 健康膳食规划',
     languageChoice: '选择语言', topicsLabel: '健康主题', skip: '跳转到正文', back: '返回首页', eyebrow: '文章与视频', title: '健康知识',
-    intro: '一个话题，多一份理解。以下摘要介绍我们的文章主题；视频来自更年期系列。',
+    intro: '阅读官方微信公众号文章、健康主题摘要，观看更年期系列视频。',
+    libraryNav: '公众号文章', libraryTitle: '来自我们的官方微信公众号',
+    libraryIntro: '按主题浏览，点击标题即可在新标签页打开公众号原文。',
+    libraryLanguage: '以下为中文原文；如需英文文章，请选择 EN。',
+    topicMenopause: '激素与更年期', topicWomen: '女性与综合健康', topicFertility: '生育力', topicAdolescent: '青少年健康', topicPrevention: '预防与疫苗',
     boneNav: '骨健康', fertilityNav: '生育力', proteinNav: '营养', videoNav: '更年期视频', overview: '文章摘要', reading: '延伸阅读：',
     boneTitle: '绝经后的无声骨流失',
     boneBody: '骨流失可能没有明显症状。绝经后，雌激素水平下降可能加速骨量减少；有时直到发生骨折，才发现骨质疏松。',
@@ -22,7 +26,11 @@
   const fr = {
     boneSource: 'NIAMS · Ostéoporose', fertilitySource: 'ASRM · Évaluation de la fertilité', proteinSource: 'NIA · Planifier des repas sains',
     languageChoice: 'Choisir la langue', topicsLabel: 'Thèmes de santé', skip: 'Aller au contenu', back: 'Retour à l’accueil', eyebrow: 'Articles et vidéos', title: 'Mieux comprendre sa santé',
-    intro: 'Mieux comprendre votre santé, un sujet à la fois. Ces courts résumés présentent les thèmes de nos articles ; la vidéo fait partie de notre série sur la ménopause.',
+    intro: 'Découvrez les articles de notre compte officiel WeChat, de courts résumés et notre vidéo sur la ménopause.',
+    libraryNav: 'Articles WeChat', libraryTitle: 'Notre compte officiel WeChat',
+    libraryIntro: 'Parcourez les thèmes. Les liens ouvrent les articles originaux WeChat dans un nouvel onglet.',
+    libraryLanguage: 'Les articles ci-dessous sont en anglais. Choisissez 中文 pour les articles en chinois.',
+    topicMenopause: 'Hormones et ménopause', topicWomen: 'Santé des femmes et santé générale', topicFertility: 'Fertilité', topicAdolescent: 'Santé des adolescentes', topicPrevention: 'Prévention et vaccination',
     boneNav: 'Santé osseuse', fertilityNav: 'Fertilité', proteinNav: 'Nutrition', videoNav: 'Vidéo sur la ménopause', overview: 'Résumé de l’article', reading: 'Pour en savoir plus : ',
     boneTitle: 'La perte osseuse silencieuse après la ménopause',
     boneBody: 'La perte osseuse peut survenir sans symptômes évidents. Après la ménopause, la baisse du taux d’œstrogènes peut accélérer cette perte ; l’ostéoporose peut ne se révéler qu’à l’occasion d’une fracture.',
@@ -41,7 +49,11 @@
   const de = {
     boneSource: 'NIAMS · Osteoporose', fertilitySource: 'ASRM · Fertilitätsdiagnostik', proteinSource: 'NIA · Gesunde Mahlzeiten planen',
     languageChoice: 'Sprache wählen', topicsLabel: 'Gesundheitsthemen', skip: 'Zum Inhalt springen', back: 'Zur Startseite', eyebrow: 'Artikel und Videos', title: 'Gesundheit verstehen',
-    intro: 'Ihre Gesundheit besser verstehen — ein Thema nach dem anderen. Diese kurzen Übersichten stellen unsere Artikelthemen vor; das Video gehört zu unserer Reihe über die Wechseljahre.',
+    intro: 'Entdecken Sie Artikel unseres offiziellen WeChat-Kontos, kurze Themenübersichten und unser Video zu den Wechseljahren.',
+    libraryNav: 'WeChat-Artikel', libraryTitle: 'Von unserem offiziellen WeChat-Konto',
+    libraryIntro: 'Entdecken Sie Artikel nach Thema. Die Links öffnen die WeChat-Originalartikel in einem neuen Tab.',
+    libraryLanguage: 'Die folgenden Artikel sind auf Englisch. Wählen Sie 中文 für Artikel auf Chinesisch.',
+    topicMenopause: 'Hormone und Wechseljahre', topicWomen: 'Frauengesundheit und allgemeine Gesundheit', topicFertility: 'Fertilität', topicAdolescent: 'Gesundheit von Jugendlichen', topicPrevention: 'Prävention und Impfungen',
     boneNav: 'Knochengesundheit', fertilityNav: 'Fertilität', proteinNav: 'Ernährung', videoNav: 'Wechseljahresvideo', overview: 'Artikelübersicht', reading: 'Weiterführende Informationen: ',
     boneTitle: 'Stiller Knochenverlust nach den Wechseljahren',
     boneBody: 'Knochenverlust kann ohne deutliche Symptome auftreten. Nach den Wechseljahren können niedrigere Östrogenspiegel den Knochenabbau beschleunigen; Osteoporose wird unter Umständen erst bei einem Knochenbruch erkennbar.',
@@ -60,7 +72,11 @@
   const es = {
     boneSource: 'NIAMS · Osteoporosis', fertilitySource: 'ASRM · Evaluación de la fertilidad', proteinSource: 'NIA · Planificar comidas saludables',
     languageChoice: 'Elegir idioma', topicsLabel: 'Temas de salud', skip: 'Ir al contenido', back: 'Volver al inicio', eyebrow: 'Artículos y vídeos', title: 'Comprender tu salud',
-    intro: 'Comprender mejor tu salud, un tema a la vez. Estos breves resúmenes presentan los temas de nuestros artículos; el vídeo forma parte de nuestra serie sobre la menopausia.',
+    intro: 'Explora los artículos de nuestra cuenta oficial de WeChat, breves resúmenes y nuestro vídeo sobre la menopausia.',
+    libraryNav: 'Artículos de WeChat', libraryTitle: 'Nuestra cuenta oficial de WeChat',
+    libraryIntro: 'Explora los temas. Los enlaces abren los artículos originales de WeChat en una nueva pestaña.',
+    libraryLanguage: 'Los artículos siguientes están en inglés. Elige 中文 para leer artículos en chino.',
+    topicMenopause: 'Hormonas y menopausia', topicWomen: 'Salud de la mujer y salud general', topicFertility: 'Fertilidad', topicAdolescent: 'Salud adolescente', topicPrevention: 'Prevención y vacunación',
     boneNav: 'Salud ósea', fertilityNav: 'Fertilidad', proteinNav: 'Nutrición', videoNav: 'Vídeo sobre menopausia', overview: 'Resumen del artículo', reading: 'Para saber más: ',
     boneTitle: 'La pérdida ósea silenciosa después de la menopausia',
     boneBody: 'La pérdida ósea puede producirse sin síntomas evidentes. Después de la menopausia, la disminución de los niveles de estrógenos puede acelerar esta pérdida; la osteoporosis puede no hacerse evidente hasta que se produce una fractura.',
@@ -78,6 +94,11 @@
   };
   window.FergusonLanguages.init({
     translations: { en: {}, zh, fr, de, es },
-    titles: { en: 'Health insights · Ferguson Women’s Health', zh: '健康知识 · Ferguson Women’s Health', fr: 'Mieux comprendre sa santé · Ferguson Women’s Health', de: 'Gesundheit verstehen · Ferguson Women’s Health', es: 'Comprender tu salud · Ferguson Women’s Health' }
+    titles: { en: 'Health insights · Ferguson Women’s Health', zh: '健康知识 · Ferguson Women’s Health', fr: 'Mieux comprendre sa santé · Ferguson Women’s Health', de: 'Gesundheit verstehen · Ferguson Women’s Health', es: 'Comprender tu salud · Ferguson Women’s Health' },
+    onChange(code) {
+      document.querySelectorAll('[data-wechat-library]').forEach(library => {
+        library.hidden = library.dataset.wechatLibrary !== (code === 'zh' ? 'zh' : 'en');
+      });
+    }
   });
 })();
