@@ -38,6 +38,9 @@
       function revealCalendar() {
         calendar.open = true;
         calendar.querySelector('summary').focus({ preventScroll: true });
+        // Finish after native anchor handling so a competing smooth scroll or
+        // focus change cannot leave the opened calendar outside the viewport.
+        requestAnimationFrame(() => calendar.scrollIntoView({ behavior: 'instant', block: 'start' }));
       }
       document.querySelectorAll('[data-calendar-link]').forEach(link => link.addEventListener('click', event => {
         if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
