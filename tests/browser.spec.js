@@ -461,7 +461,8 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   await expect(page.locator('#about .about-portrait figcaption')).toHaveCount(0);
   await expect(page.locator('#about .about-portrait')).toHaveAttribute('aria-labelledby', 'profile-name');
   await expect(page.locator('.profile-identity > h3, .profile-identity > p')).toHaveText(['Dr. Michelle Lu-Ferguson', 'MD, FACOG · Obstetrics & Gynaecology · Women’s Health', 'Founder & President, Ferguson Women’s Health']);
-  await expect(portrait).toHaveAttribute('src', /dr-ferguson-grey\.jpg/);
+  await expect(portrait).toHaveAttribute('src', /dr-ferguson-office\.jpg/);
+  expect(await portrait.evaluate(image => [image.naturalWidth, image.naturalHeight])).toEqual([1587, 2125]);
   if (isMobile) {
     const order = await page.locator('.about-grid').evaluate(grid => ({
       headingBottom: grid.querySelector('.section-heading').getBoundingClientRect().bottom,
@@ -1255,10 +1256,10 @@ test('navigation reaches contact and mobile menu closes on selection and Escape'
 });
 
 test('image checks detect a failed portrait even when its fallback hides the image', async ({ page }) => {
-  await page.route('**/assets/dr-ferguson-grey.jpg', route => route.fulfill({ status: 404, body: 'missing image' }));
+  await page.route('**/assets/dr-ferguson-office.jpg', route => route.fulfill({ status: 404, body: 'missing image' }));
   await page.goto('/');
   const failures = await brokenImages(page);
-  expect(failures.some(source => source.endsWith('/dr-ferguson-grey.jpg'))).toBe(true);
+  expect(failures.some(source => source.endsWith('/dr-ferguson-office.jpg'))).toBe(true);
 });
 
 test('live layout readiness waits for a delayed stylesheet before checking mobile overflow', async ({ page, isMobile }) => {

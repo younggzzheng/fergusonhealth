@@ -132,9 +132,10 @@ expandable section in **03 / Her work** so the initial page stays concise.
   its formal title. Retain the official residency designation; the current
   program description does not independently establish a graduate's historical
   rotation details or a separate fellowship qualification.
-- The grey-haired portrait is the owner's requested photo, sourced from the
-  group's own [website](https://www.theplushealth.org/) at `/assets/michelle.jpg`;
-  it is copied locally rather than hotlinked.
+- On 11 October 2026, the owner supplied `IMG_1287.JPG` to replace the doctor
+  profile portrait. It is hosted locally as `dr-ferguson-office.jpg`, retaining
+  the original 1587 × 2125 image; the existing photo frame crops it with CSS.
+  It supersedes the previous portrait from the group's own website.
 - The group's upcoming **Growing Pains** event was checked on the same official
   website on 3 October 2026: 24 October, 14:00–16:00 Shanghai time, for families
   with children aged 6–18. Link to `https://www.theplushealth.org/#events` for
