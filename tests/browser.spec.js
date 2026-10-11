@@ -443,6 +443,10 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   await expect(page.locator('.hero .doctor-photo')).toHaveCount(0);
   await expect(page.locator('.hero-who-title')).toHaveText('Who We Are');
   await expect(page.locator('.hero-intro')).toHaveText('We are a women’s health team combining evidence-based care with clear communication, cross-cultural understanding, and long-term support.');
+  await expect(page.locator('.purpose-details')).not.toHaveAttribute('open');
+  await expect(page.locator('#mission-title')).toBeHidden();
+  await page.locator('.purpose-details summary').click();
+  await expect(page.locator('#mission-title')).toBeVisible();
   await expect(page.locator('.purpose-item h2')).toHaveText(['Mission', 'Vision']);
   const englishHeadings = await page.locator('.hero-who-title, .purpose-item h2').evaluateAll(elements => elements.map(element => {
     const style = getComputedStyle(element);
@@ -508,6 +512,50 @@ test('team introduction keeps the hero headline and moves the portrait to the do
     await expect(page.locator('[data-i18n="visionBody"]')).toContainText(future);
     await assertNoOverflow(page);
   }
+});
+
+test('mission and vision stay compact with a keyboard-accessible disclosure in every language', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const details = page.locator('.purpose-details');
+  const summary = details.locator('summary');
+  for (const [code, label] of [
+    ['en', 'Our mission & vision'], ['zh', '我们的使命与愿景'],
+    ['fr', 'Notre mission et notre vision'], ['de', 'Unsere Mission und Vision'],
+    ['es', 'Nuestra misión y visión'],
+  ]) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(summary).toHaveText(label);
+    await expect(details).not.toHaveAttribute('open');
+    await expect(page.locator('.hero-who-title')).toBeVisible();
+    await expect(page.locator('.hero-intro')).toBeVisible();
+    await expect(page.locator('#mission-title')).toBeHidden();
+    await expect(page.locator('#vision-title')).toBeHidden();
+    const compactHeight = await page.locator('.hero-team').evaluate(panel => panel.getBoundingClientRect().height);
+    await summary.focus();
+    await summary.press('Enter');
+    await expect(details).toHaveAttribute('open', '');
+    await expect(page.locator('#mission-title')).toBeVisible();
+    await expect(page.locator('#vision-title')).toBeVisible();
+    expect(await page.locator('.hero-team').evaluate(panel => panel.getBoundingClientRect().height)).toBeGreaterThan(compactHeight + 100);
+    await assertNoOverflow(page);
+    await summary.press('Space');
+    await expect(details).not.toHaveAttribute('open');
+    await expect(page.locator('#mission-title')).toBeHidden();
+    await expect(summary).toBeFocused();
+    await assertNoOverflow(page);
+  }
+});
+
+test('mission and vision can expand without JavaScript', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
+  const page = await context.newPage();
+  await page.goto('/');
+  await expect(page.locator('#mission-title')).toBeHidden();
+  await page.locator('.purpose-details summary').click();
+  await expect(page.locator('#mission-title')).toBeVisible();
+  await expect(page.locator('#vision-title')).toBeVisible();
+  await context.close();
 });
 
 test('section closing lines stay understated and news precedes articles', async ({ page, isMobile }) => {

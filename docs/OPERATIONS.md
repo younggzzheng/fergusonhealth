@@ -82,7 +82,9 @@ python3 build.py --revision "$(git rev-parse HEAD)"
 Inspect English/Chinese/French/German/Spanish desktop/mobile layouts and test
 links and navigation. English HTML is the source for French, German, and
 Spanish copy; preserve proper names, credentials, and the original scope of
-services. Translation
+services. The hero keeps Who We Are and the team introduction visible; Mission
+and Vision are inside the native, default-collapsed “Our mission & vision”
+disclosure. Keep its label translated and its keyboard access intact. Translation
 dictionaries live in `draft/site.js` and `draft/insights.js`; shared language
 controls in `draft/languages.js` retain the selection across both pages. The
 video remains in English and is labelled accordingly in each language.
