@@ -1133,7 +1133,7 @@ test('team panel stays light and the doctor introduction uses our own voice with
   await assertNoOverflow(page);
 });
 
-test('hero stays slightly smaller and section labels stay readable in both languages', async ({ page, isMobile }) => {
+test('English hero matches section heading scale and section labels stay readable in both languages', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
   const labels = page.locator('.hero-copy .eyebrow, [data-i18n="aboutEyebrow"], [data-i18n="careEyebrow"], [data-i18n="workEyebrow"], [data-i18n="locationsEyebrow"]');
@@ -1144,7 +1144,9 @@ test('hero stays slightly smaller and section labels stay readable in both langu
       await expect(label).toHaveCSS('font-size', '14px');
     }
     const heroSize = await page.locator('.hero h1').evaluate(heading => parseFloat(getComputedStyle(heading).fontSize));
-    const expectedHeroSize = language === 'en' ? (isMobile ? 55.5 : 79.92) : (isMobile ? 43.5 : 65.52);
+    const expectedHeroSize = language === 'en'
+      ? await page.locator('#care-title').evaluate(heading => parseFloat(getComputedStyle(heading).fontSize))
+      : (isMobile ? 43.5 : 65.52);
     expect(heroSize).toBeCloseTo(expectedHeroSize, 1);
     await expect(page.locator('.hero h1 br')).toHaveCount(1);
     await expect(page.locator('.hero h1 em')).toHaveCount(1);
