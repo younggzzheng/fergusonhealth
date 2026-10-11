@@ -171,6 +171,10 @@ html[lang=zh-CN] .hero h1{font-size:clamp(50px,4.55vw,69px)}
 @media(max-width:1200px){.hero h1{font-size:65.5px;letter-spacing:-2.55px}}
 @media(max-width:900px){.hero h1{font-size:55.5px;letter-spacing:-2.25px}html[lang=zh-CN] .hero h1{font-size:45.5px}}
 @media(max-width:700px){.hero h1{font-size:clamp(55.5px,11.75vw,79px)}html[lang=zh-CN] .hero h1{font-size:clamp(43.5px,10.45vw,60px)}}
+/* Match the English introduction to the care section's heading scale. */
+html[lang=en] .hero h1{font-size:clamp(46px,4.1vw,64px);line-height:1.08;letter-spacing:-2px}
+@media(max-width:900px){html[lang=en] .hero h1{font-size:48px}}
+@media(max-width:700px){html[lang=en] .hero h1{font-size:49px;letter-spacing:-1.4px}}
 .hero-bottom{font-size:12px;line-height:1.8}
 .section-closing{margin-top:48px;padding:28px 0 30px;border-top:1px solid var(--line);font-size:12px;line-height:1.8;letter-spacing:.8px;color:var(--body)}
 .section-pad:has(>.section-closing),.contact-section:has(>.section-closing){padding-bottom:0}

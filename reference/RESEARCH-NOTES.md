@@ -20,6 +20,10 @@ expandable section in **03 / Her work** so the initial page stays concise.
   The owner wants these numbers as backup contact details only: use the address
   text size and colour, with no appointment label or prominent calling treatment.
   Keep the clinic QR codes as the primary booking option.
+  On 11 October 2026, the owner replaced Am-Sino's displayed backup number with
+  **（021）3175-2500**. Its link uses `tel:+862131752500` (China +86, Shanghai 21,
+  subscriber number 31752500); the number and link are shared by all languages.
+  Parkway's number and both booking QR codes remain unchanged.
 
 - Owner-supplied biography, 3 October 2026: the revised **Meet Dr. Ferguson**
   introduction retains the supplied name, MD/FACOG qualifications,
@@ -136,6 +140,10 @@ expandable section in **03 / Her work** so the initial page stays concise.
   profile portrait. It is hosted locally as `dr-ferguson-office.jpg`, retaining
   the original 1587 × 2125 image; the existing photo frame crops it with CSS.
   It supersedes the previous portrait from the group's own website.
+  Later that day, the owner explicitly requested a uniform light-grey background.
+  The built-in image editor replaced the office background; the selected result
+  is hosted as `dr-ferguson-light-grey.jpg` (1084 × 1451), with the unedited photo
+  retained. See [the edit record](PORTRAIT-EDIT.md) for the prompt and provenance.
 - The group's upcoming **Growing Pains** event was checked on the same official
   website on 3 October 2026: 24 October, 14:00–16:00 Shanghai time, for families
   with children aged 6–18. Link to `https://www.theplushealth.org/#events` for

@@ -435,6 +435,11 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   await page.goto('/');
   await waitForRenderedPage(page);
   await expect(page.locator('#hero-title')).toHaveText('For every chapterof your life.');
+  const headlineScale = await page.locator('#hero-title, #care-title').evaluateAll(headings => headings.map(heading => {
+    const style = getComputedStyle(heading);
+    return [style.fontSize, style.lineHeight, style.letterSpacing];
+  }));
+  expect(headlineScale[0]).toEqual(headlineScale[1]);
   await expect(page.locator('.hero .doctor-photo')).toHaveCount(0);
   await expect(page.locator('.hero-who-title')).toHaveText('Who We Are');
   await expect(page.locator('.hero-intro')).toHaveText('We are a women’s health team combining evidence-based care with clear communication, cross-cultural understanding, and long-term support.');
@@ -461,8 +466,8 @@ test('team introduction keeps the hero headline and moves the portrait to the do
   await expect(page.locator('#about .about-portrait figcaption')).toHaveCount(0);
   await expect(page.locator('#about .about-portrait')).toHaveAttribute('aria-labelledby', 'profile-name');
   await expect(page.locator('.profile-identity > h3, .profile-identity > p')).toHaveText(['Dr. Michelle Lu-Ferguson', 'MD, FACOG · Obstetrics & Gynaecology · Women’s Health', 'Founder & President, Ferguson Women’s Health']);
-  await expect(portrait).toHaveAttribute('src', /dr-ferguson-office\.jpg/);
-  expect(await portrait.evaluate(image => [image.naturalWidth, image.naturalHeight])).toEqual([1587, 2125]);
+  await expect(portrait).toHaveAttribute('src', /dr-ferguson-light-grey\.jpg/);
+  expect(await portrait.evaluate(image => [image.naturalWidth, image.naturalHeight])).toEqual([1084, 1451]);
   if (isMobile) {
     const order = await page.locator('.about-grid').evaluate(grid => ({
       headingBottom: grid.querySelector('.section-heading').getBoundingClientRect().bottom,
@@ -784,14 +789,14 @@ test('clinic phone numbers match address styling without a booking label in ever
   await page.goto('/');
   await waitForRenderedPage(page);
   const phones = page.locator('.practice-phone a');
-  await expect(phones).toHaveText(['400-163-4482', '400-819-6622']);
-  await expect(phones.nth(0)).toHaveAttribute('href', 'tel:4001634482');
+  await expect(phones).toHaveText(['（021）3175-2500', '400-819-6622']);
+  await expect(phones.nth(0)).toHaveAttribute('href', 'tel:+862131752500');
   await expect(phones.nth(1)).toHaveAttribute('href', 'tel:4008196622');
   for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${code}"]`).click();
-    await expect(page.locator('.practice-phone')).toHaveText(['400-163-4482', '400-819-6622']);
+    await expect(page.locator('.practice-phone')).toHaveText(['（021）3175-2500', '400-819-6622']);
     await expect(page.locator('[data-i18n="clinicBookingPhone"]')).toHaveCount(0);
-    await expect(phones).toHaveText(['400-163-4482', '400-819-6622']);
+    await expect(phones).toHaveText(['（021）3175-2500', '400-819-6622']);
     const locations = await page.locator('.practice-details').evaluateAll(details => details.map(card => ({
       cityBottom: card.querySelector('.practice-city').getBoundingClientRect().bottom,
       phoneTop: card.querySelector('.practice-phone').getBoundingClientRect().top,
@@ -1256,10 +1261,10 @@ test('navigation reaches contact and mobile menu closes on selection and Escape'
 });
 
 test('image checks detect a failed portrait even when its fallback hides the image', async ({ page }) => {
-  await page.route('**/assets/dr-ferguson-office.jpg', route => route.fulfill({ status: 404, body: 'missing image' }));
+  await page.route('**/assets/dr-ferguson-light-grey.jpg', route => route.fulfill({ status: 404, body: 'missing image' }));
   await page.goto('/');
   const failures = await brokenImages(page);
-  expect(failures.some(source => source.endsWith('/dr-ferguson-office.jpg'))).toBe(true);
+  expect(failures.some(source => source.endsWith('/dr-ferguson-light-grey.jpg'))).toBe(true);
 });
 
 test('live layout readiness waits for a delayed stylesheet before checking mobile overflow', async ({ page, isMobile }) => {
