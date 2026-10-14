@@ -222,3 +222,10 @@ expandable section in **03 / Her work** so the initial page stays concise.
   2026. The November 7 working period now ends inclusively on December 15.
   December follows the established weekly hours, giving 11 sessions; no
   sessions are shown after December 15 and no 2027 return date is assumed.
+- On 2026-10-14 the owner approved publishing the separately reviewed homepage
+  design: serif practice name, the shorter personal-care subtitle, a smaller
+  life-stage tagline, one appointment shortcut with its arrow on the left,
+  and a plain team panel. She also approved the shared reading scale after
+  a desktop/mobile English/Chinese audit, removal of the decorative down-arrow,
+  and an appointment calendar that is expanded by default. No clinic dates,
+  clinical scope, portrait, video or booking QR images changed in this update.

@@ -18,14 +18,16 @@ test('public deployed revision renders all five languages without login', async 
   await expect(page.locator('meta[name="build-revision"]')).toHaveAttribute('content', process.env.EXPECTED_REVISION);
   await expect(page.locator('base')).toHaveCount(0);
   await expect(page.locator('#hero-title')).toBeVisible();
-  const englishTitle = await page.locator('#hero-title').innerText();
+  const englishTitle = await page.locator('.hero-life').innerText();
+  await expect(page.locator('.appointment-calendar')).toHaveAttribute('open', '');
   for (const language of ['en', 'zh-CN', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${language === 'zh-CN' ? 'zh' : language}"]`).click();
     await expect(page.locator('html')).toHaveAttribute('lang', language);
     await waitForRenderedPage(page);
     const overflow = await page.evaluate(() => Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - document.documentElement.clientWidth);
     expect(overflow, `${language} horizontal overflow`).toBeLessThanOrEqual(1);
-    if (language !== 'en') expect(await page.locator('#hero-title').innerText()).not.toBe(englishTitle);
+    await expect(page.locator('#hero-title')).toHaveText('Ferguson Women’s Health');
+    if (language !== 'en') expect(await page.locator('.hero-life').innerText()).not.toBe(englishTitle);
     const images = page.locator('img');
     expect(await images.count()).toBeGreaterThan(0);
     for (const image of await images.all()) {

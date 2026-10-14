@@ -118,15 +118,17 @@ deployment even if someone merges a broken change.
 
 ## Maintaining the appointment calendar
 
-The optional homepage month calendar is collapsed by default in **03 / Find us**,
+The homepage month calendar is expanded by default in **03 / Find us**,
 after the doctor profile and before **04 / Our efforts**. “Find us” in the desktop
 and mobile navigation opens the clinic locations and booking codes. The email
 for general enquiries is just above the clinic cards, with the preserved
 `#contact` anchor for the “Contact” navigation link. Official WeChat and social
 links stay together in the compact final `#connect` section. Do not duplicate a Locations
-shortcut in the hero. The hero links are “Appointment calendar” followed by
-“Explore our care”; following the calendar
-link or loading `#appointment-calendar` opens and focuses the calendar.
+shortcut in the hero. The hero has one “Appointment calendar” shortcut with
+its circular arrow before the label; the duplicate care shortcut and decorative
+down-arrow are removed. Following the calendar link or loading
+`#appointment-calendar` opens and focuses the calendar. Visitors can still
+collapse it manually; a fresh page load restores the default expanded state.
 Working periods and weekly clinic sessions are defined at the top of `draft/calendar.js`.
 Dates are inclusive, in Shanghai time. A period with `end: null` continues until
 the owner supplies another end date; do not invent one or infer holiday changes.
@@ -144,6 +146,19 @@ Keep the QR pixels, white margins and blue border unchanged. Calendar labels
 are translated in `draft/site.js`; month/day names use the selected language.
 Calendar regression cases in `tests/browser.spec.js` cover date boundaries,
 the break, the confirmed year-end cutoff, clinic selection, language, focus and Shanghai time.
+
+## Homepage hierarchy and type scale
+
+The owner-approved October 2026 design makes the serif practice name the main
+heading, with “A personal approach to care.” and a smaller translated life-stage
+tagline underneath. Who We Are stays visible; mission and vision remain collapsed.
+The plain team panel has no arch or additional visible shell mark.
+`draft/refined.css`, loaded after the legacy stylesheet on both entry pages,
+maintains the approved layout and shared 15px body/action/disclosure scale.
+Supporting captions use 12–13px, while article prose remains 16px on desktop
+and 15px on phones. Section headings retain their larger responsive hierarchy.
+Phone calendar labels use 12px and line-break opportunities within the complete
+clinic names, preserving their identity and full accessible booking labels.
 
 ## What happens after a merge
 

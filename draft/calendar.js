@@ -111,7 +111,12 @@
             button.setAttribute('aria-label', `${dateLabel(date)} · ${clinicName(session.clinic)} · ${timeLabel(session)}`);
             const clinic = document.createElement('span');
             clinic.className = 'calendar-clinic';
-            clinic.textContent = labels[session.clinic] || (session.clinic === 'am-sino' ? 'Am-Sino' : 'Parkway');
+            const name = labels[session.clinic] || (session.clinic === 'am-sino' ? 'Am-Sino' : 'Parkway');
+            // Keep the complete clinic name, but allow a readable two-line
+            // label on narrow screens instead of shrinking it to 8–9px.
+            if (name === 'Am-Sino') clinic.append('Am-', document.createElement('wbr'), 'Sino');
+            else if (name === 'Parkway') clinic.append('Park', document.createElement('wbr'), 'way');
+            else clinic.textContent = name;
             const time = document.createElement('span');
             time.className = 'calendar-time';
             time.textContent = timeLabel(session);

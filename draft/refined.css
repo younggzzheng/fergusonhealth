@@ -1,0 +1,91 @@
+/* Approved homepage refinement and shared reading scale, October 2026.
+   Headings retain their hierarchy; normal copy/actions share one size. */
+:root{--copy-size:15px;--note-size:13px;--small-note-size:12px}
+
+.site-header .header-inner{height:96px}
+.site-header .header-inner>.brand-logo{width:105px;height:76px}
+.site-header .header-inner>.brand-logo img{width:207px;left:-47px;top:-33px}
+.hero{padding-top:64px;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);column-gap:92px;align-items:center}
+.hero .hero-copy{padding:0;max-width:none}
+.hero h1.practice-name{margin:0;font-family:var(--serif);font-style:normal;font-size:clamp(55px,5.1vw,72px);font-weight:400;letter-spacing:-1.8px;line-height:1.05}
+.practice-name span{display:block;margin-top:9px;font-size:.61em;font-weight:400;letter-spacing:-.8px;line-height:1.2}
+.practice-description{margin-top:24px;font-size:17px;line-height:1.65;letter-spacing:0;color:var(--body);max-width:100%}
+.hero-life{margin-top:25px;font-family:var(--serif);font-size:34px;line-height:1.25;letter-spacing:-.4px;color:var(--ink)}
+.hero-life br{display:none}
+.hero-life em{color:#61718f}
+.hero .hero-actions{margin-top:30px;display:flex;flex-wrap:wrap;gap:18px 36px;max-width:none}
+.hero .hero-actions .text-link{font-size:var(--copy-size);gap:14px;line-height:1.5}
+.hero .hero-actions .link-circle{width:35px;height:35px}
+.hero .hero-team{background:none;border:0;border-left:1px solid var(--line);border-radius:0;padding:6px 0 6px 38px}
+.hero .team-flower{display:none}
+.hero .hero-who-title,.hero .purpose-item h2,
+html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{font-family:var(--sans);font-size:20px;line-height:1.5;letter-spacing:0;font-weight:500;margin-bottom:12px}
+.hero .hero-intro{font-size:var(--copy-size);line-height:1.9;max-width:none}
+.hero .purpose-details{margin-top:23px}
+.hero .purpose-details summary{font-size:var(--copy-size);padding-top:15px}
+.hero .purpose-details[open] summary{padding-bottom:20px}
+.hero .purpose-grid{grid-template-columns:minmax(0,1fr);gap:20px}
+.hero .purpose-item+.purpose-item{border-top:1px solid var(--line);padding-top:20px}
+.hero .purpose-item p{font-size:var(--copy-size);line-height:1.85}
+.hero .hero-bottom{margin-top:52px;padding:24px 0;font-size:var(--small-note-size);letter-spacing:.45px}
+.care-section{padding-top:76px}
+
+/* Ordinary text, profile metadata and clinic contact details. */
+.about-copy>p:not(.lead),.profile-identity>p,
+.profile-details .details-content p,.care-item .care-list li,
+.locations-intro,.locations-email,.locations-email span,.locations-email a,
+.practice address,.practice .practice-note,.practice .practice-city,
+.practice .practice-phone,.practice .practice-phone a,
+.effort-list dd,.plus-feature p,.plus-feature .plus-specialties,.plus-values li,
+.community-card p:not(.eyebrow),.wecare-description{font-size:var(--copy-size)}
+.profile-details .details-content h4{font-size:var(--copy-size)}
+.practice .clinic-name,.connected-grid .wechat-contact h3{font-size:var(--copy-size)}
+
+/* Disclosure labels and actions remain readable, including on phones. */
+.profile-details summary,.plus-details summary,.insight-category summary,
+.underlined-link,.community-card .underlined-link,.plus-feature .underlined-link,
+.resource-list a,.insights-menu a,.insights-header a:not(.insights-home),
+.booking-close,.back-top{font-size:var(--copy-size)}
+
+/* Short supporting text can be quieter; no tiny 10–11px captions. */
+.appointment-code figcaption,.wecare-shop figcaption,
+.wechat-contact figcaption p,.community-card p.community-note{font-size:var(--note-size)}
+.section-closing,.footer-bottom{font-size:var(--small-note-size)}
+
+@media(max-width:1150px){
+  .hero{column-gap:48px;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}
+  .hero .hero-team{padding-left:28px}
+  .hero h1.practice-name{font-size:58px}
+  .practice-description{font-size:var(--copy-size)}
+  .hero-life{font-size:31px}
+}
+@media(max-width:900px){
+  .hero{grid-template-columns:minmax(0,1fr);row-gap:34px;padding-top:44px}
+  .hero .hero-copy{max-width:740px}
+  .hero .hero-team{border-left:0;border-top:1px solid var(--line);padding:26px 0 0}
+  .hero .hero-intro{max-width:650px}
+  .hero .hero-bottom{margin-top:0}
+}
+@media(max-width:700px){
+  .site-header .header-inner{height:91px}
+  .hero{padding-top:36px;row-gap:30px}
+  .hero h1.practice-name{font-size:52px;letter-spacing:-1px}
+  .practice-name span{font-size:31px;letter-spacing:-.5px;margin-top:8px}
+  .practice-description{line-height:1.7;margin-top:21px;max-width:320px}
+  .hero-life{font-size:29px;line-height:1.25;margin-top:22px;letter-spacing:-.4px}
+  .hero-life br{display:block}
+  .hero .hero-actions{margin-top:24px}
+  .hero .hero-actions .text-link{gap:10px}
+  .hero .hero-actions .link-circle{width:31px;height:31px}
+  .hero .hero-team{padding-top:23px}
+  .hero .hero-who-title,.hero .purpose-item h2,
+  html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{font-size:18px}
+  .hero .hero-bottom{padding-block:20px;letter-spacing:.2px}
+  .care-section{padding-top:56px}
+  .calendar-days li,.calendar-session{min-height:80px}
+  .calendar-clinic{font-size:var(--small-note-size);white-space:normal;line-height:1.25}
+}
+@media(max-width:360px){
+  .hero h1.practice-name{font-size:47px}
+  .practice-name span{font-size:28px}
+}
