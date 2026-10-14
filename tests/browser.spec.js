@@ -771,7 +771,7 @@ test('general enquiries sit with clinic locations and Contact reaches the email'
       codes: [...document.querySelectorAll('#locations .appointment-qr-frame img')].map(image => image.getBoundingClientRect().width),
     }));
     expect(layout.cardsTop).toBeGreaterThan(layout.bottom);
-    expect(layout.emailSize).toBe(14);
+    expect(layout.emailSize).toBe(15);
     expect(layout.linkHeight).toBeGreaterThanOrEqual(44);
     for (const size of layout.codes) expect(size).toBeGreaterThanOrEqual(108);
     if (isMobile) await page.locator('.menu-toggle').click();
