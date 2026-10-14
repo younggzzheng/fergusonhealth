@@ -238,3 +238,6 @@ expandable section in **03 / Her work** so the initial page stays concise.
   controls), not the homepage title area, should use the same pale blue as the
   care section. Apply it to the mobile menu as well; keep the main page paper
   color and the existing type, assets and navigation behavior.
+- The owner approved a deep-blue circle with a pale-yellow arrow for the hero
+  appointment shortcut, while keeping the adjacent label deep blue. Preserve
+  its dimensions, accessible focus, destination and default-open calendar.

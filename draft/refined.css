@@ -16,7 +16,7 @@
 .hero-life em{color:#61718f}
 .hero .hero-actions{margin-top:30px;display:flex;flex-wrap:wrap;gap:18px 36px;max-width:none}
 .hero .hero-actions .text-link{font-size:var(--copy-size);gap:14px;line-height:1.5}
-.hero .hero-actions .link-circle{width:35px;height:35px}
+.hero .hero-actions .link-circle{width:35px;height:35px;background:var(--ink);border-color:var(--ink);color:#fff0c2}
 .hero .hero-team{background:none;border:0;border-left:1px solid var(--line);border-radius:0;padding:6px 0 6px 38px}
 .hero .team-flower{display:none}
 .hero .hero-who-title,.hero .purpose-item h2,
