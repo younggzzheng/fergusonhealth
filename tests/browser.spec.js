@@ -953,7 +953,7 @@ test('optional calendar shows the right clinic QR, closes with Escape and retain
   await page.getByRole('button', { name: 'Next month', exact: true }).click();
   await expect(calendar.locator('[data-date="2026-12-01"] button')).toHaveAttribute('data-clinic', 'parkway');
   await expect(calendar.locator('.calendar-session')).toHaveCount(11);
-  await expect(calendar.locator('[data-i18n="calendarSeasonEnd"]')).toHaveText('Last clinic day in 2026: 15 December.');
+  await expect(calendar.locator('.calendar-year-end')).toHaveCount(0);
   await expect(calendar.locator('[data-date="2026-12-16"] button, [data-date="2026-12-31"] button')).toHaveCount(0);
   await calendar.locator('[data-date="2026-12-15"] button').click();
   await expect(page.locator('#booking-clinic')).toHaveText('Parkway MediCentre Xintiandi');
