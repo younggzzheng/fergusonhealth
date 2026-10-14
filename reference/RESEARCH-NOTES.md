@@ -229,3 +229,8 @@ expandable section in **03 / Her work** so the initial page stays concise.
   a desktop/mobile English/Chinese audit, removal of the decorative down-arrow,
   and an appointment calendar that is expanded by default. No clinic dates,
   clinical scope, portrait, video or booking QR images changed in this update.
+- The owner also approved a matching section closing below the appointment
+  calendar: “Making time for your health.” / “为健康，留一点时间。”, with French,
+  German and Spanish equivalents. Reuse the existing quiet divider and caption
+  style, avoid duplicate bottom rules, and keep the line visible if the calendar
+  is manually collapsed. Booking details and default expansion are unchanged.

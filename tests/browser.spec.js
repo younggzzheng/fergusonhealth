@@ -568,6 +568,7 @@ test('section closing lines stay understated and news precedes articles', async 
   await expect(closings).toHaveText([
     'Understanding your needs. Supporting every stage.',
     'Experience that listens. Care that feels personal.',
+    'Making time for your health.',
     'Sharing knowledge. Connecting communities.',
     'Questions welcome. Connections begin here.',
   ]);
@@ -586,9 +587,26 @@ test('section closing lines stay understated and news precedes articles', async 
   await assertNoOverflow(page);
   await page.locator('[data-language-switch]').click();
   await expect(closings).toHaveText([
-    '了解您的需要，陪伴每一个阶段。', '专业始于经验，关怀始于倾听。',
+    '了解您的需要，陪伴每一个阶段。', '专业始于经验，关怀始于倾听。', '为健康，留一点时间。',
     '分享知识，连接社区。', '欢迎提问，从交流开始。',
   ]);
+  const calendar = page.locator('#appointment-calendar');
+  const closing = page.locator('#locations > .section-closing');
+  await expect(closing).toHaveCount(1);
+  for (const [language, text] of Object.entries({
+    en: 'Making time for your health.', zh: '为健康，留一点时间。',
+    fr: 'Du temps pour votre santé.', de: 'Zeit für Ihre Gesundheit.', es: 'Tiempo para tu salud.',
+  })) {
+    await page.locator(`[data-language="${language}"]`).click();
+    await expect(closing).toHaveText(text);
+    await expect(closing).toBeVisible();
+    await expect(calendar).toHaveCSS('border-bottom-width', '0px');
+    expect((await closing.boundingBox()).y).toBeGreaterThanOrEqual((await calendar.boundingBox()).y + (await calendar.boundingBox()).height);
+    await assertNoOverflow(page);
+  }
+  await calendar.locator('summary').click();
+  await expect(calendar).not.toHaveAttribute('open');
+  await expect(closing).toBeVisible();
   await assertNoOverflow(page);
 });
 

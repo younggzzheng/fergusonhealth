@@ -51,6 +51,8 @@ html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{f
 .appointment-code figcaption,.wecare-shop figcaption,
 .wechat-contact figcaption p,.community-card p.community-note{font-size:var(--note-size)}
 .section-closing,.footer-bottom{font-size:var(--small-note-size)}
+/* The location section's closing line supplies the calendar's lower divider. */
+.locations-section .appointment-calendar{border-bottom:0}
 
 @media(max-width:1150px){
   .hero{column-gap:48px;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}
