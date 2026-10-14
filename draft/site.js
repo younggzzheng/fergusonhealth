@@ -59,6 +59,7 @@
       calendarAmSinoHours: '美华 · 周一下午，周三与周六全天', calendarParkwayHours: '百汇 · 周二与周五，13:00–19:00',
       calendarPrevious: '上个月', calendarNext: '下个月', calendarEmpty: '本月暂无出诊安排。',
       calendarNote: '出诊安排仅供参考，不代表可预约名额。请在门诊小程序中确认日期与预约情况。', calendarClose: '关闭',
+      calendarSeasonEnd: '2026年最后出诊日：12月15日。',
       calendarBookingHelp: '请用微信扫码，或保存二维码后在微信中识别预约。', calendarBookingNote: '此二维码进入门诊预约小程序。请在小程序中选择吕明旭医生，并确认预约日期。',
       connectedTitle: '保持联系', wechatTitle: '官方微信公众号', wechatBody: '扫码关注，获取最新资讯。', socialXiaohongshu: '小红书', footerMessage: 'Because We Care', backTop: '返回顶部', languageChoice: '选择语言'
     },
@@ -114,6 +115,7 @@
       calendarAmSinoHours: 'Am-Sino · Lundi après-midi, mercredi et samedi toute la journée', calendarParkwayHours: 'Parkway · Mardi et vendredi, 13 h–19 h',
       calendarPrevious: 'Mois précédent', calendarNext: 'Mois suivant', calendarEmpty: 'Aucune consultation prévue ce mois-ci.',
       calendarNote: 'Ce calendrier indique les jours de consultation, pas les créneaux disponibles. Confirmez les dates et les disponibilités dans le mini-programme de la clinique.', calendarClose: 'Fermer',
+      calendarSeasonEnd: 'Dernier jour de consultation en 2026 : le 15 décembre.',
       calendarBookingHelp: 'Scannez ce code avec WeChat, ou enregistrez-le puis ouvrez-le dans WeChat pour réserver.', calendarBookingNote: 'Ce code ouvre le mini-programme de réservation de la clinique. Sélectionnez Dr Lu-Ferguson et confirmez la date du rendez-vous.',
       connectedTitle: 'Restons en contact', wechatTitle: 'Compte officiel WeChat', wechatBody: 'Scannez pour suivre les actualités.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Retour en haut'
     },
@@ -169,6 +171,7 @@
       calendarAmSinoHours: 'Am-Sino · Montagnachmittag, Mittwoch und Samstag ganztägig', calendarParkwayHours: 'Parkway · Dienstag und Freitag, 13:00–19:00 Uhr',
       calendarPrevious: 'Voriger Monat', calendarNext: 'Nächster Monat', calendarEmpty: 'Für diesen Monat sind keine Sprechstunden geplant.',
       calendarNote: 'Der Kalender zeigt Sprechstunden, keine verfügbaren Termine. Bitte bestätigen Sie Datum und Verfügbarkeit im Mini-Programm der Klinik.', calendarClose: 'Schließen',
+      calendarSeasonEnd: 'Letzter Sprechstundentag 2026: 15. Dezember.',
       calendarBookingHelp: 'Scannen Sie den Code mit WeChat oder speichern und öffnen Sie ihn dort, um einen Termin zu buchen.', calendarBookingNote: 'Dieser Code führt zum Buchungs-Mini-Programm der Klinik. Wählen Sie Dr. Lu-Ferguson und bestätigen Sie dort das Termindatum.',
       connectedTitle: 'Bleiben wir in Kontakt', wechatTitle: 'Offizielles WeChat-Konto', wechatBody: 'Für Neuigkeiten scannen und folgen.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Nach oben'
     },
@@ -224,6 +227,7 @@
       calendarAmSinoHours: 'Am-Sino · Lunes por la tarde, miércoles y sábados todo el día', calendarParkwayHours: 'Parkway · Martes y viernes, 13:00–19:00',
       calendarPrevious: 'Mes anterior', calendarNext: 'Mes siguiente', calendarEmpty: 'No hay consultas programadas este mes.',
       calendarNote: 'El calendario indica las consultas, no las citas disponibles. Confirma las fechas y la disponibilidad en el miniprograma de la clínica.', calendarClose: 'Cerrar',
+      calendarSeasonEnd: 'Último día de consulta de 2026: 15 de diciembre.',
       calendarBookingHelp: 'Escanea este código con WeChat, o guárdalo y ábrelo en WeChat para pedir cita.', calendarBookingNote: 'Este código abre el miniprograma de reservas de la clínica. Selecciona a la Dra. Lu-Ferguson y confirma allí la fecha de tu cita.',
       connectedTitle: 'Sigamos en contacto', wechatTitle: 'Cuenta oficial de WeChat', wechatBody: 'Escanea para seguir las novedades.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Volver arriba'
     }

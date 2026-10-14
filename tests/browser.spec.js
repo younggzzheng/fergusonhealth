@@ -870,7 +870,7 @@ test('clinic phone numbers match address styling without a booking label in ever
   await expect(phones.nth(0)).toBeFocused();
 });
 
-test('clinic calendar date rules include both boundaries, the break and an open-ended return', () => {
+test('clinic calendar date rules include both boundaries, the break and the confirmed year-end date', () => {
   const { sessionFor, daysInMonth } = require('../draft/calendar.js');
   expect(sessionFor('2026-10-03')).toBeNull();
   expect(sessionFor('2026-10-05')).toEqual({ clinic: 'am-sino', time: 'afternoon' });
@@ -884,7 +884,16 @@ test('clinic calendar date rules include both boundaries, the break and an open-
   for (const date of ['2026-10-21', '2026-10-31', '2026-11-02', '2026-11-06']) expect(sessionFor(date)).toBeNull();
   expect(sessionFor('2026-11-07')).toEqual({ clinic: 'am-sino', time: 'allDay' });
   expect(sessionFor('2026-12-01')).toEqual({ clinic: 'parkway', time: '13:00–19:00' });
-  expect(sessionFor('2027-01-04')).toEqual({ clinic: 'am-sino', time: 'afternoon' });
+  expect(sessionFor('2026-12-15')).toEqual({ clinic: 'parkway', time: '13:00–19:00' });
+  for (const date of ['2026-12-16', '2026-12-18', '2026-12-31', '2027-01-04']) expect(sessionFor(date)).toBeNull();
+  expect(daysInMonth(2026, 11).filter(day => day.session).map(({ date, session }) => [date, session.clinic, session.time])).toEqual([
+    ['2026-12-01', 'parkway', '13:00–19:00'], ['2026-12-02', 'am-sino', 'allDay'],
+    ['2026-12-04', 'parkway', '13:00–19:00'], ['2026-12-05', 'am-sino', 'allDay'],
+    ['2026-12-07', 'am-sino', 'afternoon'], ['2026-12-08', 'parkway', '13:00–19:00'],
+    ['2026-12-09', 'am-sino', 'allDay'], ['2026-12-11', 'parkway', '13:00–19:00'],
+    ['2026-12-12', 'am-sino', 'allDay'], ['2026-12-14', 'am-sino', 'afternoon'],
+    ['2026-12-15', 'parkway', '13:00–19:00'],
+  ]);
   expect(daysInMonth(2026, 9).filter(day => day.session)).toHaveLength(12);
   expect(daysInMonth(2026, 10)).toHaveLength(30);
   expect(daysInMonth(2028, 1)).toHaveLength(29);
@@ -943,9 +952,18 @@ test('optional calendar shows the right clinic QR, closes with Escape and retain
   await page.locator('[data-language="en"]').click();
   await page.getByRole('button', { name: 'Next month', exact: true }).click();
   await expect(calendar.locator('[data-date="2026-12-01"] button')).toHaveAttribute('data-clinic', 'parkway');
+  await expect(calendar.locator('.calendar-session')).toHaveCount(11);
+  await expect(calendar.locator('[data-i18n="calendarSeasonEnd"]')).toHaveText('Last clinic day in 2026: 15 December.');
+  await expect(calendar.locator('[data-date="2026-12-16"] button, [data-date="2026-12-31"] button')).toHaveCount(0);
+  await calendar.locator('[data-date="2026-12-15"] button').click();
+  await expect(page.locator('#booking-clinic')).toHaveText('Parkway MediCentre Xintiandi');
+  await expect(page.locator('#booking-date')).toContainText('December 15, 2026');
+  await expect(dialog.locator('img')).toHaveAttribute('src', await page.locator('.appointment-qr-frame img').nth(1).getAttribute('src'));
+  await dialog.locator('.booking-close').click();
   await page.getByRole('button', { name: 'Next month', exact: true }).click();
   await expect(page.locator('#calendar-month')).toHaveText('January 2027');
-  await expect(calendar.locator('[data-date="2027-01-04"] button')).toHaveAttribute('data-clinic', 'am-sino');
+  await expect(calendar.locator('.calendar-session')).toHaveCount(0);
+  await expect(calendar.locator('.calendar-empty')).toBeVisible();
   await page.getByRole('button', { name: 'Previous month', exact: true }).click();
   await expect(page.locator('#calendar-month')).toHaveText('December 2026');
   await page.reload();

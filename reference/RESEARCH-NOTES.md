@@ -218,3 +218,7 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - Owner subsequently requested Spanish as well, using the same English source
   and safeguards. Both pages now offer EN / 中文 / FR / DE / ES. Keep the
   English video and supplied account names, addresses, and clinical scope.
+- On 2026-10-14 the owner confirmed December 15 as her final working day of
+  2026. The November 7 working period now ends inclusively on December 15.
+  December follows the established weekly hours, giving 11 sessions; no
+  sessions are shown after December 15 and no 2027 return date is assumed.

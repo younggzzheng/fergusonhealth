@@ -4,7 +4,7 @@
   'use strict';
   const workingPeriods = [
     { start: '2026-10-05', end: '2026-10-20' },
-    { start: '2026-11-07', end: null }
+    { start: '2026-11-07', end: '2026-12-15' }
   ];
   const weeklySessions = {
     1: { clinic: 'am-sino', time: 'afternoon' },
