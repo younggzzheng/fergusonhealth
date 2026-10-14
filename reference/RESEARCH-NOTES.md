@@ -234,3 +234,7 @@ expandable section in **03 / Her work** so the initial page stays concise.
   German and Spanish equivalents. Reuse the existing quiet divider and caption
   style, avoid duplicate bottom rules, and keep the line visible if the calendar
   is manually collapsed. Booking details and default expansion are unchanged.
+- The owner clarified that the top navigation strip (logo, menu and language
+  controls), not the homepage title area, should use the same pale blue as the
+  care section. Apply it to the mobile menu as well; keep the main page paper
+  color and the existing type, assets and navigation behavior.

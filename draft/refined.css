@@ -2,6 +2,7 @@
    Headings retain their hierarchy; normal copy/actions share one size. */
 :root{--copy-size:15px;--note-size:13px;--small-note-size:12px}
 
+.site-header,.site-header .mobile-nav:not([hidden]){background:#edf2f8}
 .site-header .header-inner{height:96px}
 .site-header .header-inner>.brand-logo{width:105px;height:76px}
 .site-header .header-inner>.brand-logo img{width:207px;left:-47px;top:-33px}

@@ -1281,12 +1281,15 @@ test('header navigation keeps readable type in all five languages', async ({ pag
   await waitForRenderedPage(page);
   for (const language of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${language}"]`).click();
+    await expect(page.locator('.site-header')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
     for (const button of await page.locator('.language-switch').all()) {
       await expect(button).toHaveCSS('font-size', '15px');
     }
     if (isMobile) {
       const menu = page.locator('button[aria-controls="mobile-nav"]');
       await menu.click();
+      await expect(page.locator('#mobile-nav')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
       for (const link of await page.locator('#mobile-nav a').all()) {
         await expect(link).toBeVisible();
         await expect(link).toHaveCSS('font-size', '16px');
