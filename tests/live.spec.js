@@ -19,7 +19,7 @@ test('public deployed revision renders all five languages without login', async 
   await expect(page.locator('base')).toHaveCount(0);
   await expect(page.locator('#hero-title')).toBeVisible();
   const englishTitle = await page.locator('.hero-life').innerText();
-  await expect(page.locator('.appointment-calendar')).toHaveAttribute('open', '');
+  await expect(page.locator('.appointment-calendar')).not.toHaveAttribute('open');
   for (const language of ['en', 'zh-CN', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${language === 'zh-CN' ? 'zh' : language}"]`).click();
     await expect(page.locator('html')).toHaveAttribute('lang', language);

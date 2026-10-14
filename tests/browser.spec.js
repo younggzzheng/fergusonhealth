@@ -592,6 +592,7 @@ test('section closing lines stay understated and news precedes articles', async 
   ]);
   const calendar = page.locator('#appointment-calendar');
   const closing = page.locator('#locations > .section-closing');
+  await expect(calendar).not.toHaveAttribute('open');
   await expect(closing).toHaveCount(1);
   for (const [language, text] of Object.entries({
     en: 'Making time for your health.', zh: '为健康，留一点时间。',
@@ -604,6 +605,9 @@ test('section closing lines stay understated and news precedes articles', async 
     expect((await closing.boundingBox()).y).toBeGreaterThanOrEqual((await calendar.boundingBox()).y + (await calendar.boundingBox()).height);
     await assertNoOverflow(page);
   }
+  await calendar.locator('summary').click();
+  await expect(calendar).toHaveAttribute('open', '');
+  await expect(closing).toBeVisible();
   await calendar.locator('summary').click();
   await expect(calendar).not.toHaveAttribute('open');
   await expect(closing).toBeVisible();
@@ -921,16 +925,15 @@ test('clinic calendar date rules include both boundaries, the break and the conf
   expect(daysInMonth(2028, 1)).toHaveLength(29);
 });
 
-test('default-open calendar shows the right clinic QR, closes with Escape and retains its month across languages', async ({ page }) => {
+test('collapsed calendar shows the right clinic QR, closes with Escape and retains its month across languages', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-10-04T00:00:00Z') });
   await page.goto('/');
   const calendar = page.locator('.appointment-calendar');
-  await expect(calendar).toHaveAttribute('open', '');
+  await expect(calendar).not.toHaveAttribute('open');
   await calendar.locator('summary').focus();
   await page.keyboard.press('Enter');
-  await expect(calendar).not.toHaveAttribute('open');
-  await page.keyboard.press('Enter');
   await expect(calendar).toHaveAttribute('open', '');
+  await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
   await expect(page.locator('#calendar-month')).toHaveText('October 2026');
   await expect(page.getByRole('button', { name: 'Previous month', exact: true })).toBeDisabled();
   await expect(calendar.locator('.calendar-session')).toHaveCount(12);
@@ -991,7 +994,7 @@ test('default-open calendar shows the right clinic QR, closes with Escape and re
   await page.getByRole('button', { name: 'Previous month', exact: true }).click();
   await expect(page.locator('#calendar-month')).toHaveText('December 2026');
   await page.reload();
-  await expect(calendar).toHaveAttribute('open', '');
+  await expect(calendar).not.toHaveAttribute('open');
 });
 
 test('calendar month is based on Shanghai even when the visitor is in another time zone', async ({ browser, baseURL }) => {
@@ -1009,11 +1012,20 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
   await waitForRenderedPage(page);
   const calendar = page.locator('.appointment-calendar');
   const shortcut = page.locator('.hero-actions [data-calendar-link]');
-  await expect(calendar).toHaveAttribute('open', '');
+  await expect(calendar).not.toHaveAttribute('open');
+  await expect(calendar.locator('.details-toggle')).toHaveCount(0);
   await expect(calendar.locator('[data-i18n="calendarTitle"]')).toHaveText('Appointment calendar for Dr. Ferguson');
   for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${code}"]`).click();
     await expect(calendar.locator('[data-i18n="calendarTitle"]')).toContainText(code === 'zh' ? '吕明旭医生' : 'Ferguson');
+    await expect(calendar).not.toHaveAttribute('open');
+    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('background-color', 'rgb(26, 45, 86)');
+    await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('stroke', 'rgb(255, 240, 194)');
+    const titleLayout = await calendar.locator('summary').evaluate(summary => ({
+      arrow: summary.querySelector('.calendar-disclosure-icon').getBoundingClientRect().toJSON(),
+      text: summary.querySelector('[data-i18n="calendarTitle"]').getBoundingClientRect().toJSON(),
+    }));
+    expect(titleLayout.arrow.right).toBeLessThan(titleLayout.text.left);
     await expect(page.locator('.hero-actions a')).toHaveCount(1);
     await expect(page.locator('.hero-actions a .link-circle use')).toHaveCount(1);
     expect(await page.locator('.hero-actions a').evaluateAll(elements => elements.map(element => element.getAttribute('href')))).toEqual(['#appointment-calendar']);
@@ -1043,7 +1055,7 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/#locations$/);
   await expect(page.locator('#locations-title')).toBeInViewport();
-  await expect(calendar).toHaveAttribute('open', '');
+  await expect(calendar).not.toHaveAttribute('open');
   await shortcut.focus();
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/#appointment-calendar$/);
@@ -1051,9 +1063,9 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
   await expect(calendar.locator('summary')).toBeFocused();
   await expect(calendar.locator('summary')).toBeInViewport();
   await expect(calendar.locator('summary')).toHaveCSS('outline-style', 'none');
-  await expect(calendar.locator('summary .details-toggle')).toHaveCSS('outline-style', 'solid');
-  await expect(calendar.locator('summary .details-toggle')).toHaveCSS('outline-width', '2px');
-  await expect(calendar.locator('summary .details-toggle')).toHaveCSS('border-radius', '50%');
+  await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('outline-style', 'solid');
+  await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('outline-width', '2px');
+  await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('border-radius', '50%');
   const headingSpacing = await calendar.evaluate(element => ({
     summaryBottom: element.querySelector('summary').getBoundingClientRect().bottom,
     introTop: element.querySelector('.calendar-intro').getBoundingClientRect().top,

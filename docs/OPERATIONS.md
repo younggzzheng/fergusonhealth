@@ -118,7 +118,7 @@ deployment even if someone merges a broken change.
 
 ## Maintaining the appointment calendar
 
-The homepage month calendar is expanded by default in **03 / Find us**,
+The homepage month calendar is collapsed by default in **03 / Find us**,
 after the doctor profile and before **04 / Our efforts**. “Find us” in the desktop
 and mobile navigation opens the clinic locations and booking codes. The email
 for general enquiries is just above the clinic cards, with the preserved
@@ -127,8 +127,11 @@ links stay together in the compact final `#connect` section. Do not duplicate a 
 shortcut in the hero. The hero has one “Appointment calendar” shortcut with
 its circular arrow before the label; the duplicate care shortcut and decorative
 down-arrow are removed. Following the calendar link or loading
-`#appointment-calendar` opens and focuses the calendar. Visitors can still
-collapse it manually; a fresh page load restores the default expanded state.
+`#appointment-calendar` opens and focuses the calendar. The calendar title has
+the same deep-blue circle and pale-yellow arrow before its label, replacing the
+right-side plus/minus. The arrow rotates down when open. Native click, Enter and
+Space toggle it, and keyboard focus remains clearly outlined on the circle.
+A fresh page load without the calendar hash restores the collapsed state.
 Working periods and weekly clinic sessions are defined at the top of `draft/calendar.js`.
 Dates are inclusive, in Shanghai time. A period with `end: null` continues until
 the owner supplies another end date; do not invent one or infer holiday changes.

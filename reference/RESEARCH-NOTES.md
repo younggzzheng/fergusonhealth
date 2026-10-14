@@ -241,3 +241,8 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - The owner approved a deep-blue circle with a pale-yellow arrow for the hero
   appointment shortcut, while keeping the adjacent label deep blue. Preserve
   its dimensions, accessible focus, destination and default-open calendar.
+- The owner subsequently requested that the calendar return to a collapsed
+  default. Add the matching blue-circle/yellow-arrow control before its title,
+  replacing the trailing plus/minus; rotate the arrow when expanded. Preserve
+  native keyboard access, the hero shortcut and calendar deep-link auto-opening,
+  the closing line, dates and booking QR images.
