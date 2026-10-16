@@ -50,7 +50,7 @@ test('public deployed revision renders all five languages without login', async 
     const brandSizes = await page.locator('#hero-title').evaluate(element => [getComputedStyle(element).fontSize, getComputedStyle(element.querySelector('span')).fontSize]);
     expect(brandSizes[0]).toBe(brandSizes[1]);
     await expect(page.locator('.practice-description')).toHaveCSS('font-size', page.viewportSize().width <= 1150 ? '18px' : '20px');
-    if (language === 'zh-CN') {
+    if (language === 'zh-CN' || language === 'en') {
       const headingSizes = await page.locator('.hero-life, #care-title').evaluateAll(elements => elements.map(element => getComputedStyle(element).fontSize));
       expect(headingSizes[0]).toBe(headingSizes[1]);
     }

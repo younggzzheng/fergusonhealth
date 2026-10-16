@@ -14,7 +14,9 @@ html .hero h1.practice-name{margin:0;max-width:100%;font-family:var(--serif);fon
 .hero-life{margin-top:25px;font-family:var(--serif);font-size:34px;line-height:1.25;letter-spacing:-.4px;color:var(--ink)}
 .hero-life br{display:none}
 .hero-life em{color:#61718f}
-/* Keep the Chinese life-stage message on the care heading's responsive scale. */
+/* Keep each requested life-stage message on its care heading's responsive scale. */
+html[lang=en]{--en-life-heading-size:clamp(46px,4.1vw,64px)}
+html[lang=en] .hero-life,html[lang=en] #care-title{font-size:var(--en-life-heading-size)}
 html[lang=zh-CN]{--zh-life-heading-size:clamp(39px,3.5vw,55px)}
 html[lang=zh-CN] .hero-life,html[lang=zh-CN] #care-title{font-size:var(--zh-life-heading-size)}
 .hero .hero-actions{margin-top:30px;display:flex;flex-wrap:wrap;gap:18px 36px;max-width:none}
@@ -89,6 +91,7 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   .hero-life{font-size:31px}
 }
 @media(max-width:900px){
+  html[lang=en]{--en-life-heading-size:48px}
   .hero{grid-template-columns:minmax(0,1fr);row-gap:34px;padding-top:44px}
   .hero .hero-copy{max-width:740px}
   .hero .hero-team{border-left:0;border-top:1px solid var(--line);padding:26px 0 0}
@@ -96,6 +99,7 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   .hero .hero-bottom{margin-top:0}
 }
 @media(max-width:700px){
+  html[lang=en]{--en-life-heading-size:49px}
   html[lang=zh-CN]{--zh-life-heading-size:41px}
   .site-header .header-inner{height:91px}
   .hero{padding-top:36px;row-gap:30px}

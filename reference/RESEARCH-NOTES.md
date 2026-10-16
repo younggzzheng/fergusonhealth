@@ -292,3 +292,6 @@ expandable section in **03 / Her work** so the initial page stays concise.
   wording and existing break behavior; other languages' life-stage sizes stay
   unchanged. The owner also requested a larger “A personal approach to care.”
   subtitle, with the corresponding translations enlarged consistently.
+- The owner clarified that the English “For every chapter / of your life.”
+  message should also be enlarged to its care heading's responsive size,
+  retaining the existing italic second phrase, colors and break behavior.

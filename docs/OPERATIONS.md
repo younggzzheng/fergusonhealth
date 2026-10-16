@@ -166,7 +166,9 @@ the same responsive scale in every language; phones use 44–52px so the intact
 phrase fits within the content margins even at a 320px viewport.
 The Chinese life-stage message (“关爱人生的每一个阶段。”) shares the care
 heading's responsive size (39–55px on desktop/tablet and 41px on phones).
-Other languages retain their existing smaller life-stage message. The
+The English “For every chapter / of your life.” message also shares its care
+heading's size (46–64px on wide screens, 48px at 900px and below, and 49px on
+phones). French, German and Spanish retain their smaller life-stage message. The
 “A personal approach to care.” subtitle and its translations use 20px on wider
 desktops and 18px at 1150px and below; keep its existing color and wording.
 Who We Are stays visible; mission and vision remain collapsed.

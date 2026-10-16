@@ -1393,7 +1393,7 @@ test('team panel stays light and the doctor introduction uses our own voice with
   await assertNoOverflow(page);
 });
 
-test('Chinese life-stage message matches the care heading and the larger subtitle stays responsive', async ({ page }) => {
+test('English and Chinese life-stage messages match the care heading and the larger subtitle stays responsive', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
   for (const width of [1440, 1280, 1024, 768, 390, 320]) {
@@ -1405,7 +1405,7 @@ test('Chinese life-stage message matches the care heading and the larger subtitl
         life: getComputedStyle(element.querySelector('.hero-life')).fontSize,
         care: getComputedStyle(document.querySelector('#care-title')).fontSize,
       }));
-      if (code === 'zh') expect(scale.life).toBe(scale.care);
+      if (code === 'zh' || code === 'en') expect(scale.life).toBe(scale.care);
       else expect(scale.life).toBe(width <= 700 ? '29px' : width <= 1150 ? '31px' : '34px');
       await expect(page.locator('.hero-life')).toContainText(code === 'zh' ? '关爱人生的' : { en: 'For every chapter', fr: 'À chaque étape', de: 'Für jede Phase', es: 'Para cada etapa' }[code]);
       await assertNoOverflow(page);
@@ -1413,7 +1413,7 @@ test('Chinese life-stage message matches the care heading and the larger subtitl
   }
 });
 
-test('serif practice name leads the smaller tagline and section labels stay readable', async ({ page }) => {
+test('practice name and life-stage headings retain the approved type hierarchy and readable labels', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
   const labels = page.locator('[data-i18n="aboutEyebrow"], [data-i18n="careEyebrow"], [data-i18n="workEyebrow"], [data-i18n="locationsEyebrow"]');
@@ -1425,7 +1425,9 @@ test('serif practice name leads the smaller tagline and section labels stay read
     }
     const heroSize = await page.locator('.hero h1').evaluate(heading => parseFloat(getComputedStyle(heading).fontSize));
     const taglineSize = await page.locator('.hero-life').evaluate(element => parseFloat(getComputedStyle(element).fontSize));
-    expect(heroSize).toBeGreaterThan(taglineSize);
+    const careSize = await page.locator('#care-title').evaluate(element => parseFloat(getComputedStyle(element).fontSize));
+    expect(taglineSize).toBe(careSize);
+    if (language === 'zh-CN') expect(heroSize).toBeGreaterThan(taglineSize);
     await expect(page.locator('.hero h1')).toHaveCSS('font-style', 'normal');
     await expect(page.locator('.hero h1')).toHaveCSS('font-weight', '400');
     await expect(page.locator('.hero-life br')).toHaveCount(1);
