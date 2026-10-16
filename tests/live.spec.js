@@ -26,6 +26,13 @@ test('public deployed revision renders all five languages without login', async 
   await expect(page.locator('.hero-actions .link-circle')).toHaveCSS('border-color', 'rgb(225, 137, 0)');
   await expect(page.locator('.hero-actions .link-circle svg')).toHaveCSS('transform', 'none');
   await expect(page.locator('.event-type')).toHaveCSS('border-color', 'rgb(225, 137, 0)');
+  await expect(page.locator('.external-link-circle')).toHaveCount(2);
+  for (const circle of await page.locator('.external-link-circle').all()) {
+    await expect(circle).toHaveCSS('border-color', 'rgb(225, 137, 0)');
+    await expect(circle).toHaveCSS('border-radius', '50%');
+    await expect(circle).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+    await expect(circle.locator('use')).toHaveAttribute('href', '#arrow-up');
+  }
   await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
   await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-color', 'rgb(225, 137, 0)');
   await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-radius', '50%');

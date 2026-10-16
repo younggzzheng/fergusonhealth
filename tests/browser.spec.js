@@ -318,6 +318,39 @@ test('the event is clearly labelled as a health talk in every language', async (
   }
 });
 
+test('both Ferguson Plus external actions use matching unfilled gold circles', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const links = page.locator('.external-circle-link');
+  await expect(links).toHaveCount(2);
+  expect(await links.evaluateAll(elements => elements.map(element => element.getAttribute('href')))).toEqual([
+    'https://www.theplushealth.org/', 'https://www.theplushealth.org/#events',
+  ]);
+  for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
+    await page.locator(`[data-language="${code}"]`).click();
+    for (const link of await links.all()) {
+      const circle = link.locator('.external-link-circle');
+      await expect(circle).toHaveCSS('border-color', 'rgb(225, 137, 0)');
+      await expect(circle).toHaveCSS('border-radius', '50%');
+      await expect(circle).toHaveCSS('width', '40px');
+      await expect(circle).toHaveCSS('height', '40px');
+      await expect(circle).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+      await expect(circle.locator('svg')).toHaveCSS('stroke', 'rgb(26, 45, 86)');
+      await expect(circle.locator('use')).toHaveAttribute('href', '#arrow-up');
+      await expect(link).toHaveAttribute('target', '_blank');
+      await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+      const layout = await link.evaluate(element => ({
+        label: element.firstElementChild.getBoundingClientRect().toJSON(),
+        circle: element.lastElementChild.getBoundingClientRect().toJSON(),
+        height: element.getBoundingClientRect().height,
+      }));
+      expect(layout.circle.left).toBeGreaterThan(layout.label.right);
+      expect(layout.height).toBeGreaterThanOrEqual(44);
+    }
+    await assertNoOverflow(page);
+  }
+});
+
 test('community and education efforts link to bilingual insights and a local video', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);

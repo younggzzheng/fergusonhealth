@@ -49,6 +49,10 @@ html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{f
 .underlined-link,.community-card .underlined-link,.plus-feature .underlined-link,
 .resource-list a,.insights-menu a,.insights-header a:not(.insights-home),
 .booking-close,.back-top{font-size:var(--copy-size)}
+.external-circle-link{max-width:100%;min-height:44px}
+.external-circle-link>span:first-child{min-width:0}
+.external-link-circle{display:flex;align-items:center;justify-content:center;width:40px;height:40px;flex:0 0 40px;border:1px solid var(--accent);border-radius:50%;background:transparent;color:var(--ink)}
+.external-circle-link .external-link-circle svg{width:21px;height:21px}
 
 /* Short supporting text can be quieter; no tiny 10–11px captions. */
 .appointment-code figcaption,.wecare-shop figcaption,

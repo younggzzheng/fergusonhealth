@@ -275,3 +275,8 @@ expandable section in **03 / Her work** so the initial page stays concise.
   title's trailing arrow. Match the homepage circle's 40px size, retain a deep-blue
   down arrow when closed and up arrow when expanded, and preserve its position
   on the right, keyboard focus, native disclosure behavior and booking schedule.
+- The owner requested matching gold-outline circles on “Visit Ferguson Plus”
+  and the other similar action, “Talk details & registration”. Keep the arrows
+  diagonal to indicate external destinations, preserve the existing underlines,
+  target URLs, new-tab behavior, labels and translations, and use the same
+  unfilled 40px circle with a deep-blue 21px arrow.
