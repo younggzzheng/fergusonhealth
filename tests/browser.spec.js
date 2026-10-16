@@ -140,8 +140,6 @@ test('practice name uses one type size and wraps only before the intact Women’
     });
     expect(layout.phraseSize).toBe(layout.size);
     expect(layout.phraseFamily).toBe(layout.family);
-    expect(layout.family).toContain('Kalam');
-    expect(await page.evaluate(() => [...document.fonts].some(face => face.family === 'Kalam' && face.status === 'loaded'))).toBe(true);
     expect(layout.nowrap).toBe('nowrap');
     expect(layout.phrase.right).toBeLessThanOrEqual(layout.heading.right + 1);
     if (width >= 768) expect(layout.phrase.top).toBeLessThan(layout.name.bottom);
@@ -581,8 +579,7 @@ test('practice name leads the compact hero and the portrait stays with the docto
     const style = getComputedStyle(heading);
     return [style.fontFamily, style.fontStyle, style.fontWeight];
   }));
-  expect(headlineScale[0][0]).toContain('Kalam');
-  expect(headlineScale[0].slice(1)).toEqual(headlineScale[1].slice(1));
+  expect(headlineScale[0]).toEqual(headlineScale[1]);
   await expect(page.locator('.hero .doctor-photo')).toHaveCount(0);
   await expect(page.locator('.hero-who-title')).toHaveText('Who We Are');
   await expect(page.locator('.hero-intro')).toHaveText('We are a women’s health team combining evidence-based care with clear communication, cross-cultural understanding, and long-term support.');
@@ -1458,7 +1455,8 @@ test('practice name and life-stage headings retain the approved type hierarchy a
     const taglineSize = await page.locator('.hero-life').evaluate(element => parseFloat(getComputedStyle(element).fontSize));
     const careSize = await page.locator('#care-title').evaluate(element => parseFloat(getComputedStyle(element).fontSize));
     expect(taglineSize).toBe(careSize);
-    await expect(page.locator('.hero h1')).toHaveCSS('font-family', /Kalam/);
+    const headingFamilies = await page.locator('#hero-title, #care-title').evaluateAll(elements => elements.map(element => getComputedStyle(element).fontFamily));
+    expect(headingFamilies[0]).toBe(headingFamilies[1]);
     await expect(page.locator('.hero h1')).toHaveCSS('font-style', 'normal');
     await expect(page.locator('.hero h1')).toHaveCSS('font-weight', '400');
     await expect(page.locator('.hero-life br')).toHaveCount(1);

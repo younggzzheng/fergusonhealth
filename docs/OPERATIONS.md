@@ -157,18 +157,17 @@ the break, the confirmed year-end cutoff, clinic selection, language, focus and 
 
 ## Homepage hierarchy and type scale
 
-The owner-approved October 2026 design makes the handwritten practice name the main
+The owner-approved October 2026 design makes the serif practice name the main
 heading, followed directly by the translated life-stage message and appointment
 shortcut. The owner removed “A personal approach to care.” and all corresponding
 translations; do not leave an empty subtitle row. “Ferguson” and “Women’s Health” share one type size and family,
 staying on one line when they fit. Keep “Women’s Health” intact when it wraps to
 the next line; do not force a break or a smaller second line. The brand uses
-the same responsive scale in every language; phones use 39–50px so the intact
+the same responsive scale in every language; phones use 44–52px so the intact
 phrase fits within the content margins even at a 320px viewport.
-The owner named Segoe Print and approved a similar font. The title uses locally
-hosted Kalam Regular as the available handwriting treatment, with its SIL OFL
-license included. Preload its local WOFF2 asset; do not depend on an external
-font service or change the serif typography of other section headings.
+The owner tried a handwriting treatment and then requested restoring the
+original serif title. Keep the logo's own handwriting artwork unchanged;
+do not apply the withdrawn Kalam treatment to the page title.
 The Chinese life-stage message (“关爱人生的每一个阶段。”) shares the care
 heading's responsive size (39–55px on desktop/tablet and 41px on phones).
 The English “For every chapter / of your life.” message also shares its care

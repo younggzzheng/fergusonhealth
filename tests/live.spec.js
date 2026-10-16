@@ -49,8 +49,6 @@ test('public deployed revision renders all five languages without login', async 
     await expect(page.locator('.wecare-shop-label')).toHaveText({ en: 'Shop', 'zh-CN': '微店', fr: 'Boutique', de: 'Shop', es: 'Tienda' }[language]);
     const brandSizes = await page.locator('#hero-title').evaluate(element => [getComputedStyle(element).fontSize, getComputedStyle(element.querySelector('span')).fontSize]);
     expect(brandSizes[0]).toBe(brandSizes[1]);
-    await expect(page.locator('#hero-title')).toHaveCSS('font-family', /Kalam/);
-    expect(await page.evaluate(() => [...document.fonts].some(face => face.family === 'Kalam' && face.status === 'loaded'))).toBe(true);
     await expect(page.locator('.practice-description, [data-i18n="heroEyebrow"]')).toHaveCount(0);
     if (language === 'zh-CN' || language === 'en') {
       const headingSizes = await page.locator('.hero-life, #care-title').evaluateAll(elements => elements.map(element => getComputedStyle(element).fontSize));
