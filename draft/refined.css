@@ -10,17 +10,13 @@
 .hero .hero-copy{padding:0;max-width:none}
 html .hero h1.practice-name{margin:0;max-width:100%;font-family:var(--serif);font-style:normal;font-size:clamp(55px,5.1vw,72px);font-weight:400;letter-spacing:-1.8px;line-height:1.05}
 .practice-name span{display:inline-block;margin-top:0;font:inherit;letter-spacing:inherit;white-space:nowrap}
-.hero-life{margin-top:25px;font-family:var(--serif);font-size:34px;line-height:1.25;letter-spacing:-.4px;color:var(--ink)}
+.hero-life{margin-top:25px;max-width:100%;font-family:var(--serif);line-height:1.25;letter-spacing:-.4px;color:#61718f}
 .hero-life br{display:none}
-.hero-life em{color:#61718f}
-/* Keep each requested life-stage message on its care heading's responsive scale. */
-html[lang=en]{--en-life-heading-size:clamp(46px,4.1vw,64px)}
-html[lang=en] .hero-life,html[lang=en] #care-title{font-size:var(--en-life-heading-size)}
-html[lang=en] .hero-life{max-width:100%;color:#61718f}
-html[lang=en] .hero-life br{display:none}
-html[lang=en] .hero-life em{display:inline-block;white-space:nowrap}
-html[lang=zh-CN]{--zh-life-heading-size:clamp(39px,3.5vw,55px)}
-html[lang=zh-CN] .hero-life,html[lang=zh-CN] #care-title{font-size:var(--zh-life-heading-size)}
+.hero-life em{display:inline-block;white-space:nowrap;color:inherit}
+/* Every language shares the approved hierarchy, color and natural wrapping. */
+:root{--life-heading-size:clamp(46px,4.1vw,64px)}
+html[lang=zh-CN]{--life-heading-size:clamp(39px,3.5vw,55px)}
+.hero-life,#care-title{font-size:var(--life-heading-size)}
 .hero .hero-actions{margin:0 0 30px;display:flex;flex-wrap:wrap;gap:18px 36px;max-width:none}
 .hero .hero-actions .calendar-shortcut{font-size:var(--copy-size);gap:14px;line-height:1.5;min-height:44px;margin-top:0}
 .hero .hero-actions .calendar-shortcut .link-circle{width:40px;height:40px;flex:0 0 40px;background:transparent;border-color:var(--accent);color:var(--ink)}
@@ -89,10 +85,9 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   .hero{column-gap:48px;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}
   .hero .hero-team{padding-left:28px}
   html .hero h1.practice-name{font-size:58px}
-  .hero-life{font-size:31px}
 }
 @media(max-width:900px){
-  html[lang=en]{--en-life-heading-size:48px}
+  :root{--life-heading-size:48px}
   .hero{grid-template-columns:minmax(0,1fr);row-gap:34px;padding-top:44px}
   .hero .hero-copy{max-width:740px}
   .hero .hero-team{border-left:0;border-top:1px solid var(--line);padding:26px 0 0}
@@ -100,13 +95,12 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   .hero .hero-bottom{margin-top:0}
 }
 @media(max-width:700px){
-  html[lang=en]{--en-life-heading-size:49px}
-  html[lang=zh-CN]{--zh-life-heading-size:41px}
+  :root{--life-heading-size:49px}
+  html[lang=zh-CN]{--life-heading-size:41px}
   .site-header .header-inner{height:91px}
   .hero{padding-top:36px;row-gap:30px}
   html .hero h1.practice-name{font-size:clamp(44px,13vw,52px);letter-spacing:-1px}
-  .hero-life{font-size:29px;line-height:1.25;margin-top:22px;letter-spacing:-.4px}
-  .hero-life br{display:block}
+  .hero-life{line-height:1.25;margin-top:22px;letter-spacing:-.4px}
   .hero .hero-actions{margin-bottom:24px}
   .hero .hero-actions .calendar-shortcut{gap:14px}
   .hero .hero-team{padding-top:23px}

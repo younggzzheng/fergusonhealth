@@ -160,8 +160,9 @@ the break, the confirmed year-end cutoff, clinic selection, language, focus and 
 
 The owner-approved October 2026 design makes the serif practice name the main
 heading, preceded by the upper-left booking shortcut and followed directly by
-the translated life-stage message. The English shortcut says “Booking”; other
-languages retain their calendar labels and the full calendar title is unchanged.
+the translated life-stage message. The shortcut says “Booking”, “预约”,
+“Prendre rendez-vous”, “Termin buchen” and “Pedir cita” in the five languages;
+the full calendar title is unchanged.
 The owner removed “A personal approach to care.” and all corresponding
 translations; do not leave an empty subtitle row. “Ferguson” and “Women’s Health” share one type size and family,
 staying on one line when they fit. Keep “Women’s Health” intact when it wraps to
@@ -173,14 +174,13 @@ original serif title. Keep the logo's own handwriting artwork unchanged;
 do not apply the withdrawn Kalam treatment to the page title.
 The Chinese life-stage message (“关爱人生的每一个阶段。”) shares the care
 heading's responsive size (39–55px on desktop/tablet and 41px on phones).
-The English “- for every chapter / of your life.” message also shares its care
+English, French, German and Spanish life-stage messages also share their care
 heading's size (46–64px on wide screens, 48px at 900px and below, and 49px on
-phones). French, German and Spanish retain their smaller life-stage message.
-The English message has no forced line break: keep it on one line where space
-allows, and move the complete italic “of your life.” phrase to the next line
-when it does not fit. Do not split that phrase or change other languages' breaks.
-The entire English message, including the leading hyphen, uses the existing
-blue-grey `#61718f` of its italic ending. Other languages retain their two-tone color treatment.
+phones). All five languages use natural wrapping rather than forced breaks:
+keep the message on one line where space allows and move the complete ending
+phrase to the next line when it does not fit. Retain the supplied wording and
+italic endings (Chinese remains upright). Every language's full message uses
+the same blue-grey `#61718f`, including the English message's leading hyphen.
 Who We Are stays visible; mission and vision remain collapsed.
 The plain team panel has no arch or additional visible shell mark.
 `draft/refined.css`, loaded after the legacy stylesheet on both entry pages,

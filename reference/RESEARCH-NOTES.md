@@ -321,3 +321,10 @@ expandable section in **03 / Her work** so the initial page stays concise.
   before the practice name. Preserve its leading unfilled gold-orange circle,
   navy arrow, calendar destination/opening behavior, other languages' labels,
   and the full calendar title; do not duplicate the entrance below the tagline.
+- The owner then requested that the recent design changes apply to every
+  language throughout the homepage, not just the English booking entrance.
+  Localize that entrance as 预约 / Prendre rendez-vous / Termin buchen / Pedir
+  cita, and share the enlarged care-heading scale, full blue-grey life-stage
+  message and natural whole-ending wrapping across all five languages. Retain
+  the Chinese glyph-adjusted scale, existing prose, serif brand, shared body
+  sizes, gold-outline actions and native plus/minus disclosures.

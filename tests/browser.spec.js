@@ -1156,6 +1156,7 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
   await expect(calendar.locator('[data-i18n="calendarTitle"]')).toHaveText('Appointment calendar for Dr. Ferguson');
   for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${code}"]`).click();
+    await expect(shortcut.locator('[data-i18n="heroCalendarCta"]')).toHaveText({ en: 'Booking', zh: '预约', fr: 'Prendre rendez-vous', de: 'Termin buchen', es: 'Pedir cita' }[code]);
     await expect(calendar.locator('[data-i18n="calendarTitle"]')).toContainText(code === 'zh' ? '吕明旭医生' : 'Ferguson');
     await expect(calendar).not.toHaveAttribute('open');
     await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
@@ -1394,7 +1395,7 @@ test('team panel stays light and the doctor introduction uses our own voice with
   await assertNoOverflow(page);
 });
 
-test('the removed subtitle stays absent and English and Chinese life-stage messages match the care heading', async ({ page }) => {
+test('the removed subtitle stays absent and all languages share the approved life-stage design', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
   for (const width of [1440, 1280, 1024, 768, 390, 320]) {
@@ -1416,10 +1417,16 @@ test('the removed subtitle stays absent and English and Chinese life-stage messa
         life: getComputedStyle(element.querySelector('.hero-life')).fontSize,
         care: getComputedStyle(document.querySelector('#care-title')).fontSize,
       }));
-      if (code === 'zh' || code === 'en') expect(scale.life).toBe(scale.care);
-      else expect(scale.life).toBe(width <= 700 ? '29px' : width <= 1150 ? '31px' : '34px');
-      await expect(page.locator('.hero-life')).toHaveCSS('color', code === 'en' ? 'rgb(97, 113, 143)' : 'rgb(26, 45, 86)');
+      expect(scale.life).toBe(scale.care);
+      await expect(page.locator('.hero-life')).toHaveCSS('color', 'rgb(97, 113, 143)');
       await expect(page.locator('.hero-life em')).toHaveCSS('color', 'rgb(97, 113, 143)');
+      await expect(page.locator('.hero-life br')).toHaveCSS('display', 'none');
+      await expect(page.locator('.hero-life em')).toHaveCSS('white-space', 'nowrap');
+      const endingPosition = await page.locator('.hero-life').evaluate(element => ({
+        right: element.querySelector('em').getBoundingClientRect().right,
+        containerRight: element.getBoundingClientRect().right,
+      }));
+      expect(endingPosition.right).toBeLessThanOrEqual(endingPosition.containerRight + 1);
       await expect(page.locator('.hero-life')).toContainText(code === 'zh' ? '关爱人生的' : { en: '- for every chapter', fr: 'À chaque étape', de: 'Für jede Phase', es: 'Para cada etapa' }[code]);
       await assertNoOverflow(page);
     }
@@ -1459,8 +1466,8 @@ test('practice name and life-stage headings retain the approved type hierarchy a
   await waitForRenderedPage(page);
   const labels = page.locator('[data-i18n="aboutEyebrow"], [data-i18n="careEyebrow"], [data-i18n="workEyebrow"], [data-i18n="locationsEyebrow"]');
   await expect(labels).toHaveCount(4);
-  for (const language of ['en', 'zh-CN']) {
-    if (language === 'zh-CN') await page.locator('[data-language-switch]').click();
+  for (const language of ['en', 'zh', 'fr', 'de', 'es']) {
+    await page.locator(`[data-language="${language}"]`).click();
     for (const label of await labels.all()) {
       await expect(label).toHaveCSS('font-size', '14px');
     }
