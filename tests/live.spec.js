@@ -46,6 +46,9 @@ test('public deployed revision renders all five languages without login', async 
     const overflow = await page.evaluate(() => Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - document.documentElement.clientWidth);
     expect(overflow, `${language} horizontal overflow`).toBeLessThanOrEqual(1);
     await expect(page.locator('#hero-title')).toHaveText('Ferguson Women’s Health');
+    await expect(page.locator('.wecare-shop-label')).toHaveText({ en: 'Shop', 'zh-CN': '微店', fr: 'Boutique', de: 'Shop', es: 'Tienda' }[language]);
+    const brandSizes = await page.locator('#hero-title').evaluate(element => [getComputedStyle(element).fontSize, getComputedStyle(element.querySelector('span')).fontSize]);
+    expect(brandSizes[0]).toBe(brandSizes[1]);
     if (language !== 'en') expect(await page.locator('.hero-life').innerText()).not.toBe(englishTitle);
     const images = page.locator('img');
     expect(await images.count()).toBeGreaterThan(0);

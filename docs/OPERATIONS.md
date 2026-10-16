@@ -159,7 +159,10 @@ the break, the confirmed year-end cutoff, clinic selection, language, focus and 
 
 The owner-approved October 2026 design makes the serif practice name the main
 heading, with “A personal approach to care.” and a smaller translated life-stage
-tagline underneath. Who We Are stays visible; mission and vision remain collapsed.
+tagline underneath. “Ferguson” and “Women’s Health” share one type size and family,
+staying on one line when they fit. Keep “Women’s Health” intact when it wraps to
+the next line; do not force a break or a smaller second line.
+Who We Are stays visible; mission and vision remain collapsed.
 The plain team panel has no arch or additional visible shell mark.
 `draft/refined.css`, loaded after the legacy stylesheet on both entry pages,
 maintains the approved layout and shared 15px body/action/disclosure scale.
@@ -176,6 +179,10 @@ and click all work without scripts.
 Mission/vision, care categories, the profile, Ferguson Plus and resource topics
 retain their plus/minus controls. Only the calendar title uses a trailing down/up
 arrow, while the homepage appointment shortcut has its prominent leading circle.
+The WeCare heading retains the supplied logo image, with a smaller shop descriptor
+beside it: Shop in English/German, 微店 in Chinese, Boutique in French and Tienda
+in Spanish. The descriptor is 18px on desktop and 16px on phones; allow the logo
+window to shrink on narrow screens without changing the source image or QR code.
 
 ## What happens after a merge
 

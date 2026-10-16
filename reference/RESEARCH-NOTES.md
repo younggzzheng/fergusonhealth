@@ -280,3 +280,10 @@ expandable section in **03 / Her work** so the initial page stays concise.
   diagonal to indicate external destinations, preserve the existing underlines,
   target URLs, new-tab behavior, labels and translations, and use the same
   unfilled 40px circle with a deep-blue 21px arrow.
+- The owner requested a smaller “Shop” beside the original WeCare logo, with
+  “微店” in Chinese. Add matching French/German/Spanish descriptors and keep
+  the supplied logo and shop-code pixels unchanged.
+- The owner requested one consistent font and size for “Ferguson Women’s Health”.
+  Keep the name on one line when it fits; at smaller widths move the complete
+  “Women’s Health” phrase to the next line instead of forcing a permanent break
+  or using a smaller second line. Preserve the established serif typeface.

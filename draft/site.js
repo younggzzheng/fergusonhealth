@@ -3,7 +3,7 @@
   const translations = {
     en: {},
     zh: {
-      wecareEyebrow: '日常健康与生活', wecareTagline: '关爱女性与家庭的日常健康。',
+      wecareEyebrow: '日常健康与生活', wecareTagline: '关爱女性与家庭的日常健康。', wecareShopLabel: '微店',
       wecareDescription: '探索实用的健康资讯与产品，Ferguson Health 参与推荐。',
       wecareScan: '微信扫码，进入 WeCare。', wecareCodeAlt: 'WeCare 微店微信小程序码',
       brandHome: 'Ferguson 女性健康首页', mainNavigation: '主要导航', mobileNavigation: '手机导航', discoverMore: '了解更多',
@@ -63,7 +63,7 @@
       connectedTitle: '保持联系', wechatTitle: '官方微信公众号', wechatBody: '扫码关注，获取最新资讯。', socialXiaohongshu: '小红书', footerMessage: 'Because We Care', backTop: '返回顶部', languageChoice: '选择语言'
     },
     fr: {
-      wecareEyebrow: 'Le bien-être au quotidien', wecareTagline: 'Le bien-être au quotidien pour les femmes et les familles.',
+      wecareEyebrow: 'Le bien-être au quotidien', wecareTagline: 'Le bien-être au quotidien pour les femmes et les familles.', wecareShopLabel: 'Boutique',
       wecareDescription: 'Découvrez des informations pratiques sur le bien-être et des produits de santé, avec les recommandations de Ferguson Health.',
       wecareScan: 'Scannez avec WeChat pour découvrir WeCare.', wecareCodeAlt: 'Code du mini-programme WeChat de la boutique WeCare',
       brandHome: 'Accueil de Ferguson Women’s Health', mainNavigation: 'Navigation principale', mobileNavigation: 'Navigation mobile', discoverMore: 'En savoir plus',
@@ -118,7 +118,7 @@
       connectedTitle: 'Restons en contact', wechatTitle: 'Compte officiel WeChat', wechatBody: 'Scannez pour suivre les actualités.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Retour en haut'
     },
     de: {
-      wecareEyebrow: 'Wohlbefinden im Alltag', wecareTagline: 'Wohlbefinden im Alltag für Frauen und Familien.',
+      wecareEyebrow: 'Wohlbefinden im Alltag', wecareTagline: 'Wohlbefinden im Alltag für Frauen und Familien.', wecareShopLabel: 'Shop',
       wecareDescription: 'Entdecken Sie praktische Gesundheitsinformationen und Gesundheitsprodukte mit Empfehlungen von Ferguson Health.',
       wecareScan: 'Mit WeChat scannen und WeCare besuchen.', wecareCodeAlt: 'WeChat-Mini-Programm-Code des WeCare-Shops',
       brandHome: 'Startseite von Ferguson Women’s Health', mainNavigation: 'Hauptnavigation', mobileNavigation: 'Mobile Navigation', discoverMore: 'Mehr erfahren',
@@ -173,7 +173,7 @@
       connectedTitle: 'Bleiben wir in Kontakt', wechatTitle: 'Offizielles WeChat-Konto', wechatBody: 'Für Neuigkeiten scannen und folgen.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Nach oben'
     },
     es: {
-      wecareEyebrow: 'Bienestar cotidiano', wecareTagline: 'Bienestar cotidiano para mujeres y familias.',
+      wecareEyebrow: 'Bienestar cotidiano', wecareTagline: 'Bienestar cotidiano para mujeres y familias.', wecareShopLabel: 'Tienda',
       wecareDescription: 'Descubre información práctica sobre bienestar y productos de salud, con recomendaciones de Ferguson Health.',
       wecareScan: 'Escanea con WeChat para visitar WeCare.', wecareCodeAlt: 'Código del miniprograma de WeChat de la tienda WeCare',
       brandHome: 'Inicio de Ferguson Women’s Health', mainNavigation: 'Navegación principal', mobileNavigation: 'Navegación móvil', discoverMore: 'Descubre más',

@@ -8,8 +8,8 @@
 .site-header .header-inner>.brand-logo img{width:207px;left:-47px;top:-33px}
 .hero{padding-top:64px;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);column-gap:92px;align-items:center}
 .hero .hero-copy{padding:0;max-width:none}
-.hero h1.practice-name{margin:0;font-family:var(--serif);font-style:normal;font-size:clamp(55px,5.1vw,72px);font-weight:400;letter-spacing:-1.8px;line-height:1.05}
-.practice-name span{display:block;margin-top:9px;font-size:.61em;font-weight:400;letter-spacing:-.8px;line-height:1.2}
+.hero h1.practice-name{margin:0;max-width:100%;font-family:var(--serif);font-style:normal;font-size:clamp(55px,5.1vw,72px);font-weight:400;letter-spacing:-1.8px;line-height:1.05}
+.practice-name span{display:inline-block;margin-top:0;font:inherit;letter-spacing:inherit;white-space:nowrap}
 .practice-description{margin-top:24px;font-size:17px;line-height:1.65;letter-spacing:0;color:var(--body);max-width:100%}
 .hero-life{margin-top:25px;font-family:var(--serif);font-size:34px;line-height:1.25;letter-spacing:-.4px;color:var(--ink)}
 .hero-life br{display:none}
@@ -96,7 +96,6 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   .site-header .header-inner{height:91px}
   .hero{padding-top:36px;row-gap:30px}
   .hero h1.practice-name{font-size:52px;letter-spacing:-1px}
-  .practice-name span{font-size:31px;letter-spacing:-.5px;margin-top:8px}
   .practice-description{line-height:1.7;margin-top:21px;max-width:320px}
   .hero-life{font-size:29px;line-height:1.25;margin-top:22px;letter-spacing:-.4px}
   .hero-life br{display:block}
@@ -112,5 +111,4 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
 }
 @media(max-width:360px){
   .hero h1.practice-name{font-size:47px}
-  .practice-name span{font-size:28px}
 }

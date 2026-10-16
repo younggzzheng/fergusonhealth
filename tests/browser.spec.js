@@ -91,6 +91,63 @@ test('WeCare uses the supplied shop code and stays separate from appointments', 
   await assertNoOverflow(page);
 });
 
+test('WeCare shop descriptor stays beside the original logo in every language and viewport', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  for (const width of [1280, 390, 320]) {
+    await page.setViewportSize({ width, height: 800 });
+    for (const [code, label] of [['en', 'Shop'], ['zh', '微店'], ['fr', 'Boutique'], ['de', 'Shop'], ['es', 'Tienda']]) {
+      await page.locator(`[data-language="${code}"]`).click();
+      await expect(page.locator('.wecare-shop-label')).toHaveText(label);
+      await expect(page.locator('.wecare-shop-label')).toHaveCSS('font-size', width <= 700 ? '16px' : '18px');
+      const layout = await page.locator('#wecare-title').evaluate(element => ({
+        logo: element.querySelector('.wecare-logo-window').getBoundingClientRect().toJSON(),
+        label: element.querySelector('.wecare-shop-label').getBoundingClientRect().toJSON(),
+        heading: element.getBoundingClientRect().toJSON(),
+      }));
+      expect(layout.label.left).toBeGreaterThan(layout.logo.right);
+      expect(Math.abs(layout.label.bottom - layout.logo.bottom)).toBeLessThanOrEqual(1);
+      expect(layout.label.height).toBeLessThan(layout.logo.height);
+      expect(Math.abs(layout.logo.width / layout.logo.height - 468 / 160)).toBeLessThan(.01);
+      expect(layout.label.right).toBeLessThanOrEqual(layout.heading.right + 1);
+      await expect(page.locator('#wecare-title img')).toHaveAttribute('alt', 'WeCare');
+      await expect(page.locator('#wecare img')).toHaveCount(2);
+      await assertNoOverflow(page);
+    }
+  }
+});
+
+test('practice name uses one type size and wraps only before the intact Women’s Health phrase', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  for (const width of [1440, 1280, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 800 });
+    const layout = await page.locator('#hero-title').evaluate(element => {
+      const phrase = element.querySelector('span');
+      const nameRange = document.createRange();
+      nameRange.setStart(element.firstChild, 0);
+      nameRange.setEnd(element.firstChild, element.firstChild.textContent.trimEnd().length);
+      return {
+        name: nameRange.getBoundingClientRect().toJSON(),
+        phrase: phrase.getBoundingClientRect().toJSON(),
+        heading: element.getBoundingClientRect().toJSON(),
+        size: getComputedStyle(element).fontSize,
+        phraseSize: getComputedStyle(phrase).fontSize,
+        family: getComputedStyle(element).fontFamily,
+        phraseFamily: getComputedStyle(phrase).fontFamily,
+        nowrap: getComputedStyle(phrase).whiteSpace,
+      };
+    });
+    expect(layout.phraseSize).toBe(layout.size);
+    expect(layout.phraseFamily).toBe(layout.family);
+    expect(layout.nowrap).toBe('nowrap');
+    expect(layout.phrase.right).toBeLessThanOrEqual(layout.heading.right + 1);
+    if (width >= 768) expect(layout.phrase.top).toBeLessThan(layout.name.bottom);
+    else expect(layout.phrase.top).toBeGreaterThan(layout.name.top + layout.name.height / 2);
+    await assertNoOverflow(page);
+  }
+});
+
 test('all five languages render without broken resources, broken links or overflow', async ({ page }) => {
   const failures = [];
   page.on('pageerror', error => failures.push(`Script error: ${error.message}`));
