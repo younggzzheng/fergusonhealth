@@ -308,6 +308,8 @@ test('the event is clearly labelled as a health talk in every language', async (
     const badge = event.locator('.event-heading .event-type');
     await expect(badge).toBeVisible();
     await expect(badge).toHaveText(label);
+    await expect(badge).toHaveCSS('border-color', 'rgb(225, 137, 0)');
+    await expect(badge).toHaveCSS('background-color', 'rgb(237, 242, 248)');
     await expect(event.getByRole('heading', { name: 'Growing Pains', exact: true })).toHaveCount(1);
     await expect(event.locator('time')).toHaveAttribute('datetime', '2026-10-24T14:00:00+08:00');
     await expect(event.locator('a')).toHaveAttribute('href', 'https://www.theplushealth.org/#events');

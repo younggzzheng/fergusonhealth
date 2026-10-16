@@ -268,3 +268,6 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - The owner subsequently rejected the solid fill: the homepage appointment
   circle must be unfilled, using only the existing gold-orange outline and
   the deep-blue horizontal arrow. Retain this unfilled appearance on hover.
+- The owner also requested a matching company gold-orange outline on the
+  “Health talk” event label. Keep its existing pale-blue fill, deep-blue text,
+  dimensions, translations and event details unchanged.
