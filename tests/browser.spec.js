@@ -1150,6 +1150,7 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
   await waitForRenderedPage(page);
   const calendar = page.locator('.appointment-calendar');
   const shortcut = page.locator('.hero-actions [data-calendar-link]');
+  await expect(shortcut.locator('[data-i18n="heroCalendarCta"]')).toHaveText('Booking');
   await expect(calendar).not.toHaveAttribute('open');
   await expect(calendar.locator('.details-toggle')).toHaveCount(0);
   await expect(calendar.locator('[data-i18n="calendarTitle"]')).toHaveText('Appointment calendar for Dr. Ferguson');
@@ -1402,7 +1403,15 @@ test('the removed subtitle stays absent and English and Chinese life-stage messa
       await page.locator(`[data-language="${code}"]`).click();
       await expect(page.locator('.practice-description, [data-i18n="heroEyebrow"]')).toHaveCount(0);
       const heroOrder = await page.locator('.hero-copy').evaluate(element => [...element.children].map(child => child.id || child.className));
-      expect(heroOrder).toEqual(['hero-title', 'hero-life', 'hero-actions']);
+      expect(heroOrder).toEqual(['hero-actions', 'hero-title', 'hero-life']);
+      const bookingPosition = await page.locator('.hero-copy').evaluate(element => ({
+        booking: element.querySelector('.hero-actions').getBoundingClientRect().toJSON(),
+        title: element.querySelector('#hero-title').getBoundingClientRect().toJSON(),
+        headerBottom: document.querySelector('.site-header').getBoundingClientRect().bottom,
+      }));
+      expect(bookingPosition.booking.bottom).toBeLessThan(bookingPosition.title.top);
+      expect(bookingPosition.booking.left).toBe(bookingPosition.title.left);
+      expect(bookingPosition.booking.top).toBeGreaterThanOrEqual(bookingPosition.headerBottom);
       const scale = await page.locator('.hero').evaluate(element => ({
         life: getComputedStyle(element.querySelector('.hero-life')).fontSize,
         care: getComputedStyle(document.querySelector('#care-title')).fontSize,

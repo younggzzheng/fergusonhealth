@@ -316,3 +316,8 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - The owner subsequently requested that the whole English life-stage message
   use the same blue-grey as “of your life.” (`#61718f`). Keep the wording, type,
   italic ending, wrapping and other languages' existing colors unchanged.
+- The owner renamed the English homepage calendar shortcut “Booking” and moved
+  the single entrance to the content's upper left, below the navigation and
+  before the practice name. Preserve its leading unfilled gold-orange circle,
+  navy arrow, calendar destination/opening behavior, other languages' labels,
+  and the full calendar title; do not duplicate the entrance below the tagline.

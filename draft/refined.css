@@ -21,7 +21,7 @@ html[lang=en] .hero-life br{display:none}
 html[lang=en] .hero-life em{display:inline-block;white-space:nowrap}
 html[lang=zh-CN]{--zh-life-heading-size:clamp(39px,3.5vw,55px)}
 html[lang=zh-CN] .hero-life,html[lang=zh-CN] #care-title{font-size:var(--zh-life-heading-size)}
-.hero .hero-actions{margin-top:30px;display:flex;flex-wrap:wrap;gap:18px 36px;max-width:none}
+.hero .hero-actions{margin:0 0 30px;display:flex;flex-wrap:wrap;gap:18px 36px;max-width:none}
 .hero .hero-actions .calendar-shortcut{font-size:var(--copy-size);gap:14px;line-height:1.5;min-height:44px;margin-top:0}
 .hero .hero-actions .calendar-shortcut .link-circle{width:40px;height:40px;flex:0 0 40px;background:transparent;border-color:var(--accent);color:var(--ink)}
 .hero .hero-actions .calendar-shortcut svg{width:21px;height:21px}
@@ -107,7 +107,7 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   html .hero h1.practice-name{font-size:clamp(44px,13vw,52px);letter-spacing:-1px}
   .hero-life{font-size:29px;line-height:1.25;margin-top:22px;letter-spacing:-.4px}
   .hero-life br{display:block}
-  .hero .hero-actions{margin-top:24px}
+  .hero .hero-actions{margin-bottom:24px}
   .hero .hero-actions .calendar-shortcut{gap:14px}
   .hero .hero-team{padding-top:23px}
   .hero .hero-who-title,.hero .purpose-item h2,

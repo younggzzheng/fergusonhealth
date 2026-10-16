@@ -124,7 +124,8 @@ and mobile navigation opens the clinic locations and booking codes. The email
 for general enquiries is just above the clinic cards, with the preserved
 `#contact` anchor for the “Contact” navigation link. Official WeChat and social
 links stay together in the compact final `#connect` section. Do not duplicate a Locations
-shortcut in the hero. The hero has one “Appointment calendar” shortcut with
+shortcut in the hero. The hero has one “Booking” shortcut at the upper left of
+the content, below the navigation and before the practice name, with
 an unfilled circle with the company's warm gold-orange border and a deep-blue
 right arrow before the label; the circle stays unfilled on hover as well.
 the duplicate care shortcut and decorative down-arrow are removed. Following
@@ -158,8 +159,10 @@ the break, the confirmed year-end cutoff, clinic selection, language, focus and 
 ## Homepage hierarchy and type scale
 
 The owner-approved October 2026 design makes the serif practice name the main
-heading, followed directly by the translated life-stage message and appointment
-shortcut. The owner removed “A personal approach to care.” and all corresponding
+heading, preceded by the upper-left booking shortcut and followed directly by
+the translated life-stage message. The English shortcut says “Booking”; other
+languages retain their calendar labels and the full calendar title is unchanged.
+The owner removed “A personal approach to care.” and all corresponding
 translations; do not leave an empty subtitle row. “Ferguson” and “Women’s Health” share one type size and family,
 staying on one line when they fit. Keep “Women’s Health” intact when it wraps to
 the next line; do not force a break or a smaller second line. The brand uses

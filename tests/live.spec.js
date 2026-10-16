@@ -50,11 +50,16 @@ test('public deployed revision renders all five languages without login', async 
     const brandSizes = await page.locator('#hero-title').evaluate(element => [getComputedStyle(element).fontSize, getComputedStyle(element.querySelector('span')).fontSize]);
     expect(brandSizes[0]).toBe(brandSizes[1]);
     await expect(page.locator('.practice-description, [data-i18n="heroEyebrow"]')).toHaveCount(0);
+    const heroOrder = await page.locator('.hero-copy').evaluate(element => [...element.children].map(child => child.id || child.className));
+    expect(heroOrder).toEqual(['hero-actions', 'hero-title', 'hero-life']);
     if (language === 'zh-CN' || language === 'en') {
       const headingSizes = await page.locator('.hero-life, #care-title').evaluateAll(elements => elements.map(element => getComputedStyle(element).fontSize));
       expect(headingSizes[0]).toBe(headingSizes[1]);
     }
     if (language === 'en') {
+      await expect(page.locator('[data-i18n="heroCalendarCta"]')).toHaveText('Booking');
+      await expect(page.locator('.hero-actions [data-calendar-link]')).toHaveAttribute('href', '#appointment-calendar');
+      await expect(calendar.locator('[data-i18n="calendarTitle"]')).toHaveText('Appointment calendar for Dr. Ferguson');
       await expect(page.locator('.hero-life')).toHaveCSS('color', 'rgb(97, 113, 143)');
       await expect(page.locator('.hero-life em')).toHaveCSS('color', 'rgb(97, 113, 143)');
       await expect(page.locator('.hero-life')).toHaveText('- for every chapter of your life.');
