@@ -10,10 +10,13 @@
 .hero .hero-copy{padding:0;max-width:none}
 html .hero h1.practice-name{margin:0;max-width:100%;font-family:var(--serif);font-style:normal;font-size:clamp(55px,5.1vw,72px);font-weight:400;letter-spacing:-1.8px;line-height:1.05}
 .practice-name span{display:inline-block;margin-top:0;font:inherit;letter-spacing:inherit;white-space:nowrap}
-.practice-description{margin-top:24px;font-size:17px;line-height:1.65;letter-spacing:0;color:var(--body);max-width:100%}
+.practice-description{margin-top:24px;font-size:20px;line-height:1.65;letter-spacing:0;color:var(--body);max-width:100%}
 .hero-life{margin-top:25px;font-family:var(--serif);font-size:34px;line-height:1.25;letter-spacing:-.4px;color:var(--ink)}
 .hero-life br{display:none}
 .hero-life em{color:#61718f}
+/* Keep the Chinese life-stage message on the care heading's responsive scale. */
+html[lang=zh-CN]{--zh-life-heading-size:clamp(39px,3.5vw,55px)}
+html[lang=zh-CN] .hero-life,html[lang=zh-CN] #care-title{font-size:var(--zh-life-heading-size)}
 .hero .hero-actions{margin-top:30px;display:flex;flex-wrap:wrap;gap:18px 36px;max-width:none}
 .hero .hero-actions .calendar-shortcut{font-size:var(--copy-size);gap:14px;line-height:1.5;min-height:44px;margin-top:0}
 .hero .hero-actions .calendar-shortcut .link-circle{width:40px;height:40px;flex:0 0 40px;background:transparent;border-color:var(--accent);color:var(--ink)}
@@ -82,7 +85,7 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   .hero{column-gap:48px;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}
   .hero .hero-team{padding-left:28px}
   html .hero h1.practice-name{font-size:58px}
-  .practice-description{font-size:var(--copy-size)}
+  .practice-description{font-size:18px}
   .hero-life{font-size:31px}
 }
 @media(max-width:900px){
@@ -93,6 +96,7 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   .hero .hero-bottom{margin-top:0}
 }
 @media(max-width:700px){
+  html[lang=zh-CN]{--zh-life-heading-size:41px}
   .site-header .header-inner{height:91px}
   .hero{padding-top:36px;row-gap:30px}
   html .hero h1.practice-name{font-size:clamp(44px,13vw,52px);letter-spacing:-1px}

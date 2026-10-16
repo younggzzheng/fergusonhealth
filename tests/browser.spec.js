@@ -1393,6 +1393,26 @@ test('team panel stays light and the doctor introduction uses our own voice with
   await assertNoOverflow(page);
 });
 
+test('Chinese life-stage message matches the care heading and the larger subtitle stays responsive', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  for (const width of [1440, 1280, 1024, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
+      await page.locator(`[data-language="${code}"]`).click();
+      await expect(page.locator('.practice-description')).toHaveCSS('font-size', width <= 1150 ? '18px' : '20px');
+      const scale = await page.locator('.hero').evaluate(element => ({
+        life: getComputedStyle(element.querySelector('.hero-life')).fontSize,
+        care: getComputedStyle(document.querySelector('#care-title')).fontSize,
+      }));
+      if (code === 'zh') expect(scale.life).toBe(scale.care);
+      else expect(scale.life).toBe(width <= 700 ? '29px' : width <= 1150 ? '31px' : '34px');
+      await expect(page.locator('.hero-life')).toContainText(code === 'zh' ? '关爱人生的' : { en: 'For every chapter', fr: 'À chaque étape', de: 'Für jede Phase', es: 'Para cada etapa' }[code]);
+      await assertNoOverflow(page);
+    }
+  }
+});
+
 test('serif practice name leads the smaller tagline and section labels stay readable', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);

@@ -164,6 +164,11 @@ staying on one line when they fit. Keep “Women’s Health” intact when it wr
 the next line; do not force a break or a smaller second line. The brand uses
 the same responsive scale in every language; phones use 44–52px so the intact
 phrase fits within the content margins even at a 320px viewport.
+The Chinese life-stage message (“关爱人生的每一个阶段。”) shares the care
+heading's responsive size (39–55px on desktop/tablet and 41px on phones).
+Other languages retain their existing smaller life-stage message. The
+“A personal approach to care.” subtitle and its translations use 20px on wider
+desktops and 18px at 1150px and below; keep its existing color and wording.
 Who We Are stays visible; mission and vision remain collapsed.
 The plain team panel has no arch or additional visible shell mark.
 `draft/refined.css`, loaded after the legacy stylesheet on both entry pages,

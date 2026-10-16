@@ -287,3 +287,8 @@ expandable section in **03 / Her work** so the initial page stays concise.
   Keep the name on one line when it fits; at smaller widths move the complete
   “Women’s Health” phrase to the next line instead of forcing a permanent break
   or using a smaller second line. Preserve the established serif typeface.
+- The owner requested that the Chinese homepage life-stage message match the
+  “陪伴每一个不同的你。” care heading's size. Keep the two-color treatment,
+  wording and existing break behavior; other languages' life-stage sizes stay
+  unchanged. The owner also requested a larger “A personal approach to care.”
+  subtitle, with the corresponding translations enlarged consistently.
