@@ -161,7 +161,9 @@ The owner-approved October 2026 design makes the serif practice name the main
 heading, with “A personal approach to care.” and a smaller translated life-stage
 tagline underneath. “Ferguson” and “Women’s Health” share one type size and family,
 staying on one line when they fit. Keep “Women’s Health” intact when it wraps to
-the next line; do not force a break or a smaller second line.
+the next line; do not force a break or a smaller second line. The brand uses
+the same responsive scale in every language; phones use 44–52px so the intact
+phrase fits within the content margins even at a 320px viewport.
 Who We Are stays visible; mission and vision remain collapsed.
 The plain team panel has no arch or additional visible shell mark.
 `draft/refined.css`, loaded after the legacy stylesheet on both entry pages,
