@@ -1084,14 +1084,14 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
     await expect(page.locator('[data-i18n="workEyebrow"]')).toContainText('04 /');
     await expect(shortcut).toHaveAttribute('href', '#appointment-calendar');
     await expect(shortcut).toHaveCSS('border-bottom-style', 'none');
-    await expect(shortcut.locator('.link-circle')).toHaveCSS('background-color', 'rgb(225, 137, 0)');
+    await expect(shortcut.locator('.link-circle')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
     await expect(shortcut.locator('.link-circle')).toHaveCSS('border-color', 'rgb(225, 137, 0)');
     await expect(shortcut.locator('.link-circle')).toHaveCSS('border-radius', '50%');
     await expect(shortcut.locator('svg')).toHaveCSS('stroke', 'rgb(26, 45, 86)');
     await expect(shortcut.locator('svg')).toHaveCSS('transform', 'none');
     await expect(shortcut.locator('[data-i18n="heroCalendarCta"]')).toHaveCSS('color', 'rgb(26, 45, 86)');
     await shortcut.hover();
-    await expect(shortcut.locator('.link-circle')).toHaveCSS('background-color', 'rgb(225, 137, 0)');
+    await expect(shortcut.locator('.link-circle')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
     const shortcutLayout = await shortcut.evaluate(link => ({
       arrow: link.querySelector('.link-circle').getBoundingClientRect().toJSON(),
       text: link.querySelector('[data-i18n="heroCalendarCta"]').getBoundingClientRect().toJSON(),

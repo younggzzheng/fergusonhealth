@@ -125,7 +125,8 @@ for general enquiries is just above the clinic cards, with the preserved
 `#contact` anchor for the “Contact” navigation link. Official WeChat and social
 links stay together in the compact final `#connect` section. Do not duplicate a Locations
 shortcut in the hero. The hero has one “Appointment calendar” shortcut with
-the company's warm gold-orange circle and a deep-blue right arrow before the label;
+an unfilled circle with the company's warm gold-orange border and a deep-blue
+right arrow before the label; the circle stays unfilled on hover as well.
 the duplicate care shortcut and decorative down-arrow are removed. Following
 the calendar link or loading `#appointment-calendar` opens and focuses the
 calendar. The calendar title has a light underline and trailing arrow:

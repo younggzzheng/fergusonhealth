@@ -265,3 +265,6 @@ expandable section in **03 / Her work** so the initial page stays concise.
   gold-orange appointment circle, before the label. Keep only the calendar
   title's light down/up arrow. The proposed site-wide arrow replacement is not
   part of the published design.
+- The owner subsequently rejected the solid fill: the homepage appointment
+  circle must be unfilled, using only the existing gold-orange outline and
+  the deep-blue horizontal arrow. Retain this unfilled appearance on hover.
