@@ -129,8 +129,9 @@ an unfilled circle with the company's warm gold-orange border and a deep-blue
 right arrow before the label; the circle stays unfilled on hover as well.
 the duplicate care shortcut and decorative down-arrow are removed. Following
 the calendar link or loading `#appointment-calendar` opens and focuses the
-calendar. The calendar title has a light underline and trailing arrow:
-down when closed, up when open. External Ferguson Plus links keep their
+calendar. The calendar title has a light underline and a trailing arrow inside
+a matching unfilled 40px gold-orange circle: down when closed, up when open.
+External Ferguson Plus links keep their
 diagonal arrows. Native click, Enter and Space toggle the calendar, and keyboard
 focus remains clearly outlined on the compact arrow, not the entire row.
 A fresh page load without the calendar hash restores the collapsed state.

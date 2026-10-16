@@ -271,3 +271,7 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - The owner also requested a matching company gold-orange outline on the
   “Health talk” event label. Keep its existing pale-blue fill, deep-blue text,
   dimensions, translations and event details unchanged.
+- The owner requested the same unfilled gold-orange circle around the calendar
+  title's trailing arrow. Match the homepage circle's 40px size, retain a deep-blue
+  down arrow when closed and up arrow when expanded, and preserve its position
+  on the right, keyboard focus, native disclosure behavior and booking schedule.

@@ -1068,6 +1068,10 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
     await expect(calendar.locator('[data-i18n="calendarTitle"]')).toContainText(code === 'zh' ? '吕明旭医生' : 'Ferguson');
     await expect(calendar).not.toHaveAttribute('open');
     await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-color', 'rgb(225, 137, 0)');
+    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-radius', '50%');
+    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('width', '40px');
+    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('height', '40px');
     await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('stroke', 'rgb(26, 45, 86)');
     await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
     await expect(calendar.locator('summary')).toHaveCSS('border-bottom-style', 'solid');
@@ -1119,7 +1123,7 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
   await expect(calendar.locator('summary')).toHaveCSS('outline-style', 'none');
   await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('outline-style', 'solid');
   await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('outline-width', '2px');
-  await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('border-radius', '0px');
+  await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('border-radius', '50%');
   await expect(calendar.locator('summary .calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, -1, 1, 0, 0, 0)');
   const headingSpacing = await calendar.evaluate(element => ({
     summaryBottom: element.querySelector('summary').getBoundingClientRect().bottom,

@@ -59,6 +59,7 @@ html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{f
 .appointment-calendar summary{justify-content:space-between;gap:22px;border-bottom:1px solid #b8c2d4}
 .appointment-calendar summary [data-i18n="calendarTitle"]{min-width:0;overflow-wrap:anywhere}
 .disclosure-arrow{display:flex;align-items:center;justify-content:center;width:21px;height:21px;flex:0 0 21px;color:var(--ink)}
+.appointment-calendar .calendar-disclosure-icon{width:40px;height:40px;flex-basis:40px;border:1px solid var(--accent);border-radius:50%;background:transparent}
 .disclosure-arrow svg{width:21px;height:21px;transform:rotate(90deg);transition:transform .2s}
 details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
 .appointment-calendar summary:focus-visible .disclosure-arrow,.effort-item summary:focus-visible .details-toggle{outline:2px solid var(--ink);outline-offset:4px}

@@ -27,6 +27,9 @@ test('public deployed revision renders all five languages without login', async 
   await expect(page.locator('.hero-actions .link-circle svg')).toHaveCSS('transform', 'none');
   await expect(page.locator('.event-type')).toHaveCSS('border-color', 'rgb(225, 137, 0)');
   await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
+  await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-color', 'rgb(225, 137, 0)');
+  await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-radius', '50%');
+  await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
   await expect(page.locator('.effort-item')).toHaveCount(3);
   await expect(page.locator('.effort-item[open]')).toHaveCount(0);
   for (const language of ['en', 'zh-CN', 'fr', 'de', 'es']) {
