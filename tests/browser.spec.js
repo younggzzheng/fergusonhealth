@@ -140,6 +140,8 @@ test('practice name uses one type size and wraps only before the intact Women’
     });
     expect(layout.phraseSize).toBe(layout.size);
     expect(layout.phraseFamily).toBe(layout.family);
+    expect(layout.family).toContain('Kalam');
+    expect(await page.evaluate(() => [...document.fonts].some(face => face.family === 'Kalam' && face.status === 'loaded'))).toBe(true);
     expect(layout.nowrap).toBe('nowrap');
     expect(layout.phrase.right).toBeLessThanOrEqual(layout.heading.right + 1);
     if (width >= 768) expect(layout.phrase.top).toBeLessThan(layout.name.bottom);
@@ -579,7 +581,8 @@ test('practice name leads the compact hero and the portrait stays with the docto
     const style = getComputedStyle(heading);
     return [style.fontFamily, style.fontStyle, style.fontWeight];
   }));
-  expect(headlineScale[0]).toEqual(headlineScale[1]);
+  expect(headlineScale[0][0]).toContain('Kalam');
+  expect(headlineScale[0].slice(1)).toEqual(headlineScale[1].slice(1));
   await expect(page.locator('.hero .doctor-photo')).toHaveCount(0);
   await expect(page.locator('.hero-who-title')).toHaveText('Who We Are');
   await expect(page.locator('.hero-intro')).toHaveText('We are a women’s health team combining evidence-based care with clear communication, cross-cultural understanding, and long-term support.');
@@ -1337,7 +1340,7 @@ test('section colors and decorative marks use the local brand and platform asset
     await expect(mark).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
   }
   await expect(page.locator('.hero-copy .pearl-mark')).toHaveCount(0);
-  await expect(page.locator('[data-i18n="heroEyebrow"]')).toHaveText('A personal approach to care.');
+  await expect(page.locator('[data-i18n="heroEyebrow"], .practice-description')).toHaveCount(0);
   await expect(page.locator('.hero-copy .brand-mark')).toHaveCount(0);
   const icons = page.locator('.connected-profile .social-icon');
   await expect(icons).toHaveCount(3);
@@ -1393,14 +1396,16 @@ test('team panel stays light and the doctor introduction uses our own voice with
   await assertNoOverflow(page);
 });
 
-test('English and Chinese life-stage messages match the care heading and the larger subtitle stays responsive', async ({ page }) => {
+test('the removed subtitle stays absent and English and Chinese life-stage messages match the care heading', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
   for (const width of [1440, 1280, 1024, 768, 390, 320]) {
     await page.setViewportSize({ width, height: 844 });
     for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
       await page.locator(`[data-language="${code}"]`).click();
-      await expect(page.locator('.practice-description')).toHaveCSS('font-size', width <= 1150 ? '18px' : '20px');
+      await expect(page.locator('.practice-description, [data-i18n="heroEyebrow"]')).toHaveCount(0);
+      const heroOrder = await page.locator('.hero-copy').evaluate(element => [...element.children].map(child => child.id || child.className));
+      expect(heroOrder).toEqual(['hero-title', 'hero-life', 'hero-actions']);
       const scale = await page.locator('.hero').evaluate(element => ({
         life: getComputedStyle(element.querySelector('.hero-life')).fontSize,
         care: getComputedStyle(document.querySelector('#care-title')).fontSize,
@@ -1410,6 +1415,33 @@ test('English and Chinese life-stage messages match the care heading and the lar
       await expect(page.locator('.hero-life')).toContainText(code === 'zh' ? '关爱人生的' : { en: 'For every chapter', fr: 'À chaque étape', de: 'Für jede Phase', es: 'Para cada etapa' }[code]);
       await assertNoOverflow(page);
     }
+  }
+});
+
+test('English life-stage message shares one line when it fits and wraps the complete italic phrase', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  await page.locator('[data-language="en"]').click();
+  for (const width of [1440, 1280, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 844 });
+    const message = page.locator('.hero-life');
+    await expect(message.locator('br')).toHaveCSS('display', 'none');
+    await expect(message.locator('em')).toHaveText('of your life.');
+    await expect(message.locator('em')).toHaveCSS('white-space', 'nowrap');
+    await expect(message.locator('em')).toHaveCSS('font-style', 'italic');
+    const layout = await message.evaluate(element => {
+      const opening = document.createRange();
+      opening.selectNodeContents(element.firstChild);
+      return {
+        opening: opening.getBoundingClientRect().toJSON(),
+        ending: element.querySelector('em').getBoundingClientRect().toJSON(),
+        message: element.getBoundingClientRect().toJSON(),
+      };
+    });
+    expect(layout.ending.right).toBeLessThanOrEqual(layout.message.right + 1);
+    if (width >= 768) expect(layout.ending.top).toBeLessThan(layout.opening.bottom);
+    else expect(layout.ending.top).toBeGreaterThan(layout.opening.top + layout.opening.height / 2);
+    await assertNoOverflow(page);
   }
 });
 
@@ -1423,11 +1455,10 @@ test('practice name and life-stage headings retain the approved type hierarchy a
     for (const label of await labels.all()) {
       await expect(label).toHaveCSS('font-size', '14px');
     }
-    const heroSize = await page.locator('.hero h1').evaluate(heading => parseFloat(getComputedStyle(heading).fontSize));
     const taglineSize = await page.locator('.hero-life').evaluate(element => parseFloat(getComputedStyle(element).fontSize));
     const careSize = await page.locator('#care-title').evaluate(element => parseFloat(getComputedStyle(element).fontSize));
     expect(taglineSize).toBe(careSize);
-    if (language === 'zh-CN') expect(heroSize).toBeGreaterThan(taglineSize);
+    await expect(page.locator('.hero h1')).toHaveCSS('font-family', /Kalam/);
     await expect(page.locator('.hero h1')).toHaveCSS('font-style', 'normal');
     await expect(page.locator('.hero h1')).toHaveCSS('font-weight', '400');
     await expect(page.locator('.hero-life br')).toHaveCount(1);

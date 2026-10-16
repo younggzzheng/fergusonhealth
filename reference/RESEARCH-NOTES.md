@@ -295,3 +295,21 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - The owner clarified that the English “For every chapter / of your life.”
   message should also be enlarged to its care heading's responsive size,
   retaining the existing italic second phrase, colors and break behavior.
+- The owner subsequently approved removing the “A personal approach to care.”
+  subtitle and its corresponding translations. Keep the practice name,
+  enlarged English/Chinese life-stage message, and appointment shortcut intact.
+  The requested Segoe Print practice-name treatment is still pending a suitable
+  regular-weight font or fixed title artwork; it is not part of this removal.
+- The owner also requested natural wrapping for the English life-stage message:
+  one line when it fits, with the complete italic “of your life.” phrase moving
+  together to the next line on narrower layouts. Other languages keep their
+  existing breaks.
+- The owner identified Segoe Print as the logo's handwriting style and then
+  explicitly accepted a similar font for the practice name. Use Kalam Regular
+  as the locally hosted handwriting treatment, not an exact Segoe Print match.
+  Source: https://github.com/google/fonts/tree/main/ofl/kalam (Indian Type Foundry,
+  400 weight, SIL Open Font License 1.1). The original regular TTF is converted
+  to WOFF2 with FontTools; glyphs and names are unchanged, and the supplied
+  license is retained as `draft/assets/OFL-Kalam.txt`. The title stays real,
+  accessible text, and both parts share one font and size with natural wrapping.
+  Original TTF SHA-256: `57cecb63d4608019371954274ae1d8c397764debd5b19d4a33c1efa4dc923c0b`.
