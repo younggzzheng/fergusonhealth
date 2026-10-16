@@ -125,12 +125,13 @@ for general enquiries is just above the clinic cards, with the preserved
 `#contact` anchor for the “Contact” navigation link. Official WeChat and social
 links stay together in the compact final `#connect` section. Do not duplicate a Locations
 shortcut in the hero. The hero has one “Appointment calendar” shortcut with
-its circular arrow before the label; the duplicate care shortcut and decorative
-down-arrow are removed. Following the calendar link or loading
-`#appointment-calendar` opens and focuses the calendar. The calendar title has
-the same deep-blue circle and pale-yellow arrow before its label, replacing the
-right-side plus/minus. The arrow rotates down when open. Native click, Enter and
-Space toggle it, and keyboard focus remains clearly outlined on the circle.
+an underline and a trailing deep-blue down arrow, without a filled circle;
+the duplicate care shortcut and decorative down-arrow are removed. Following
+the calendar link or loading `#appointment-calendar` opens and focuses the
+calendar. The calendar title has a matching underline and trailing arrow:
+down when closed, up when open. External Ferguson Plus links keep their
+diagonal arrows. Native click, Enter and Space toggle the calendar, and keyboard
+focus remains clearly outlined on the compact arrow, not the entire row.
 A fresh page load without the calendar hash restores the collapsed state.
 Working periods and weekly clinic sessions are defined at the top of `draft/calendar.js`.
 Dates are inclusive, in Shanghai time. A period with `end: null` continues until
@@ -162,6 +163,11 @@ Supporting captions use 12–13px, while article prose remains 16px on desktop
 and 15px on phones. Section headings retain their larger responsive hierarchy.
 Phone calendar labels use 12px and line-break opportunities within the complete
 clinic names, preserving their identity and full accessible booking labels.
+The three “Beyond the clinic” effort descriptions use independent native
+disclosures, all closed on a fresh page load. Preserve their supplied wording
+and translations, the 16px titles and 15px body copy. Each underlined title has
+a down arrow that points up when expanded. Switching languages retains the
+reader's open/closed selections; Enter, Space and click all work without scripts.
 
 ## What happens after a merge
 

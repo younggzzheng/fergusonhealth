@@ -246,3 +246,12 @@ expandable section in **03 / Her work** so the initial page stays concise.
   replacing the trailing plus/minus; rotate the arrow when expanded. Preserve
   native keyboard access, the hero shortcut and calendar deep-link auto-opening,
   the closing line, dates and booking QR images.
+- On 2026-10-16 the owner selected the lighter underlined preview for the
+  homepage calendar shortcut and the calendar disclosure title. Replace the
+  filled circles with trailing deep-blue down arrows; the disclosure arrow
+  points up when open. Preserve collapsed defaults, native focus, the calendar
+  shortcut/deep-link behavior, external diagonal arrows, dates and booking codes.
+  The owner also requested expandable Community education, Multidisciplinary
+  exchange and Learning together descriptions. Use three independently
+  default-closed native disclosures without altering the approved copy or
+  translations; use matching light underlines and down/up arrows.

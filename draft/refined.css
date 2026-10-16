@@ -15,8 +15,9 @@
 .hero-life br{display:none}
 .hero-life em{color:#61718f}
 .hero .hero-actions{margin-top:30px;display:flex;flex-wrap:wrap;gap:18px 36px;max-width:none}
-.hero .hero-actions .text-link{font-size:var(--copy-size);gap:14px;line-height:1.5}
-.hero .hero-actions .link-circle,.appointment-calendar .calendar-disclosure-icon{width:35px;height:35px;background:var(--ink);border-color:var(--ink);color:#fff0c2}
+.hero .hero-actions .calendar-shortcut{font-size:var(--copy-size);gap:22px;line-height:1.5;min-height:44px;margin-top:0;padding:8px 0 10px;border-bottom:1px solid #b8c2d4}
+.hero .hero-actions .calendar-shortcut svg{width:21px;height:21px;flex-shrink:0;transform:rotate(90deg)}
+.hero .hero-actions .calendar-shortcut:hover{border-bottom-color:var(--ink)}
 .hero .hero-team{background:none;border:0;border-left:1px solid var(--line);border-radius:0;padding:6px 0 6px 38px}
 .hero .team-flower{display:none}
 .hero .hero-who-title,.hero .purpose-item h2,
@@ -37,7 +38,7 @@ html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{f
 .locations-intro,.locations-email,.locations-email span,.locations-email a,
 .practice address,.practice .practice-note,.practice .practice-city,
 .practice .practice-phone,.practice .practice-phone a,
-.effort-list dd,.plus-feature p,.plus-feature .plus-specialties,.plus-values li,
+.effort-item>p,.plus-feature p,.plus-feature .plus-specialties,.plus-values li,
 .community-card p:not(.eyebrow),.wecare-description{font-size:var(--copy-size)}
 .profile-details .details-content h4{font-size:var(--copy-size)}
 .practice .clinic-name,.connected-grid .wechat-contact h3{font-size:var(--copy-size)}
@@ -53,13 +54,22 @@ html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{f
 .wechat-contact figcaption p,.community-card p.community-note{font-size:var(--note-size)}
 .section-closing,.footer-bottom{font-size:var(--small-note-size)}
 /* The location section's closing line supplies the calendar's lower divider. */
-.locations-section .appointment-calendar{border-bottom:0}
-.appointment-calendar summary{justify-content:flex-start;gap:14px}
+.locations-section .appointment-calendar{border:0}
+.appointment-calendar summary{justify-content:space-between;gap:22px;border-bottom:1px solid #b8c2d4}
 .appointment-calendar summary [data-i18n="calendarTitle"]{min-width:0;overflow-wrap:anywhere}
-.appointment-calendar .calendar-disclosure-icon{flex-shrink:0}
-.calendar-disclosure-icon svg{transition:transform .2s}
-.appointment-calendar[open]>summary .calendar-disclosure-icon svg{transform:rotate(90deg)}
-.appointment-calendar summary:focus-visible .calendar-disclosure-icon{outline:2px solid var(--ink);outline-offset:4px}
+.disclosure-arrow{display:flex;align-items:center;justify-content:center;width:21px;height:21px;flex:0 0 21px;color:var(--ink)}
+.disclosure-arrow svg{width:21px;height:21px;transform:rotate(90deg);transition:transform .2s}
+details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
+.appointment-calendar summary:focus-visible .disclosure-arrow,.effort-item summary:focus-visible .disclosure-arrow{outline:2px solid var(--ink);outline-offset:4px}
+
+/* Compact native disclosures retain all three effort descriptions. */
+.effort-list{gap:0}
+.effort-item{min-width:0;border-bottom:1px solid var(--line)}
+.effort-item summary{display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:44px;padding:18px 0;font-size:16px;font-weight:550;line-height:1.6;list-style:none;cursor:pointer}
+.effort-item summary>span:first-child{min-width:0}
+.effort-item summary::-webkit-details-marker{display:none}
+.effort-item summary:focus-visible{outline:none}
+.effort-item>p{margin:0;padding-bottom:20px;line-height:1.9;color:var(--body)}
 
 @media(max-width:1150px){
   .hero{column-gap:48px;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}
@@ -84,8 +94,7 @@ html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{f
   .hero-life{font-size:29px;line-height:1.25;margin-top:22px;letter-spacing:-.4px}
   .hero-life br{display:block}
   .hero .hero-actions{margin-top:24px}
-  .hero .hero-actions .text-link{gap:10px}
-  .hero .hero-actions .link-circle,.appointment-calendar .calendar-disclosure-icon{width:31px;height:31px}
+  .hero .hero-actions .calendar-shortcut{gap:22px}
   .hero .hero-team{padding-top:23px}
   .hero .hero-who-title,.hero .purpose-item h2,
   html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{font-size:18px}

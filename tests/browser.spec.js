@@ -321,7 +321,7 @@ test('community and education efforts link to bilingual insights and a local vid
   await waitForRenderedPage(page);
   await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('04 / Our efforts');
   await expect(page.locator('#work-title')).toHaveText('Beyondthe clinic.');
-  await expect(page.locator('.effort-list dt')).toHaveText(['Community education', 'Multidisciplinary exchange', 'Learning together']);
+  await expect(page.locator('.effort-list summary>span:first-child')).toHaveText(['Community education', 'Multidisciplinary exchange', 'Learning together']);
   await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('Dr. Ferguson and the team regularly give community talks on women’s health, sharing clear, practical knowledge and making space for questions and open conversation.');
   await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('multidisciplinary team (MDT) discussions');
   await expect(page.locator('[data-i18n="effortCMEBody"]')).toContainText('continuing medical education (CME) discussions');
@@ -351,10 +351,56 @@ test('community and education efforts link to bilingual insights and a local vid
   await assertNoOverflow(page);
   await page.locator('[data-i18n="back"]').click();
   await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('04 / 社区与教育');
-  await expect(page.locator('.effort-list dt')).toHaveText(['社区健康教育', '多学科交流', '共同学习']);
+  await expect(page.locator('.effort-list summary>span:first-child')).toHaveText(['社区健康教育', '多学科交流', '共同学习']);
   await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('吕医生与团队经常开展女性健康主题的社区讲座，以清晰、实用的方式分享知识，也为提问和坦诚交流留出空间。');
   await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('合作医院的平台');
   await expect(page.locator('[data-i18n="effortCMEBody"]')).toContainText('继续医学教育（CME）讨论');
+});
+
+test('effort descriptions are independent native disclosures with preserved multilingual content', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const efforts = page.locator('.effort-item');
+  await expect(efforts).toHaveCount(3);
+  await expect(page.locator('.effort-item[open]')).toHaveCount(0);
+  for (const effort of await efforts.all()) {
+    await expect(effort.locator('p')).toBeHidden();
+    await expect(effort.locator('summary')).toHaveCSS('font-size', '16px');
+    await expect(effort.locator('.disclosure-arrow svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
+    await effort.locator('summary').focus();
+    await page.keyboard.press('Enter');
+    await expect(effort).toHaveAttribute('open', '');
+    await expect(effort.locator('p')).toBeVisible();
+    await expect(effort.locator('p')).toHaveCSS('font-size', '15px');
+    await expect(effort.locator('.disclosure-arrow svg')).toHaveCSS('transform', 'matrix(0, -1, 1, 0, 0, 0)');
+    await expect(effort.locator('.disclosure-arrow')).toHaveCSS('outline-width', '2px');
+    await page.keyboard.press('Space');
+    await expect(effort).not.toHaveAttribute('open');
+  }
+  await efforts.first().locator('summary').click();
+  await efforts.last().locator('summary').click();
+  for (const code of ['zh', 'fr', 'de', 'es', 'en']) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(efforts.first()).toHaveAttribute('open', '');
+    await expect(efforts.nth(1)).not.toHaveAttribute('open');
+    await expect(efforts.last()).toHaveAttribute('open', '');
+    await expect(efforts.first().locator('p')).toBeVisible();
+    for (const summary of await efforts.locator('summary').all()) {
+      const layout = await summary.evaluate(element => ({
+        title: element.firstElementChild.getBoundingClientRect().toJSON(),
+        arrow: element.lastElementChild.getBoundingClientRect().toJSON(),
+        height: element.getBoundingClientRect().height,
+      }));
+      expect(layout.arrow.left).toBeGreaterThan(layout.title.right);
+      expect(layout.height).toBeGreaterThanOrEqual(44);
+    }
+    await assertNoOverflow(page);
+  }
+  const plus = page.locator('.plus-feature>a');
+  await expect(plus).toHaveAttribute('href', 'https://www.theplushealth.org/');
+  await expect(plus.locator('use')).toHaveAttribute('href', '#arrow-up');
+  await page.reload();
+  await expect(page.locator('.effort-item[open]')).toHaveCount(0);
 });
 
 test('doctor biography retains the supplied role and clinical focus with accessible expanded training', async ({ page }) => {
@@ -933,7 +979,7 @@ test('collapsed calendar shows the right clinic QR, closes with Escape and retai
   await calendar.locator('summary').focus();
   await page.keyboard.press('Enter');
   await expect(calendar).toHaveAttribute('open', '');
-  await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
+  await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, -1, 1, 0, 0, 0)');
   await expect(page.locator('#calendar-month')).toHaveText('October 2026');
   await expect(page.getByRole('button', { name: 'Previous month', exact: true })).toBeDisabled();
   await expect(calendar.locator('.calendar-session')).toHaveCount(12);
@@ -1019,33 +1065,36 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
     await page.locator(`[data-language="${code}"]`).click();
     await expect(calendar.locator('[data-i18n="calendarTitle"]')).toContainText(code === 'zh' ? '吕明旭医生' : 'Ferguson');
     await expect(calendar).not.toHaveAttribute('open');
-    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('background-color', 'rgb(26, 45, 86)');
-    await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('stroke', 'rgb(255, 240, 194)');
+    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+    await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('stroke', 'rgb(26, 45, 86)');
+    await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
+    await expect(calendar.locator('summary')).toHaveCSS('border-bottom-style', 'solid');
     const titleLayout = await calendar.locator('summary').evaluate(summary => ({
       arrow: summary.querySelector('.calendar-disclosure-icon').getBoundingClientRect().toJSON(),
       text: summary.querySelector('[data-i18n="calendarTitle"]').getBoundingClientRect().toJSON(),
     }));
-    expect(titleLayout.arrow.right).toBeLessThan(titleLayout.text.left);
+    expect(titleLayout.arrow.left).toBeGreaterThan(titleLayout.text.right);
     await expect(page.locator('.hero-actions a')).toHaveCount(1);
-    await expect(page.locator('.hero-actions a .link-circle use')).toHaveCount(1);
+    await expect(page.locator('.hero-actions a .link-circle')).toHaveCount(0);
+    await expect(page.locator('.hero-actions a svg use')).toHaveCount(1);
     expect(await page.locator('.hero-actions a').evaluateAll(elements => elements.map(element => element.getAttribute('href')))).toEqual(['#appointment-calendar']);
     await expect(page.locator('[data-i18n="heroLocationsCta"]')).toHaveCount(0);
     await expect(page.locator('.desktop-nav [data-i18n="navLocations"]')).toHaveText({ en: 'Find us', zh: '咨询地点', fr: 'Nous trouver', de: 'Standorte', es: 'Encuéntranos' }[code]);
     await expect(page.locator('[data-i18n="locationsEyebrow"]')).toContainText('03 /');
     await expect(page.locator('[data-i18n="workEyebrow"]')).toContainText('04 /');
     await expect(shortcut).toHaveAttribute('href', '#appointment-calendar');
-    await expect(shortcut.locator('.link-circle')).toHaveCSS('background-color', 'rgb(26, 45, 86)');
-    await expect(shortcut.locator('.link-circle')).toHaveCSS('border-color', 'rgb(26, 45, 86)');
-    await expect(shortcut.locator('.link-circle svg')).toHaveCSS('stroke', 'rgb(255, 240, 194)');
+    await expect(shortcut).toHaveCSS('border-bottom-style', 'solid');
+    await expect(shortcut.locator('svg')).toHaveCSS('stroke', 'rgb(26, 45, 86)');
+    await expect(shortcut.locator('svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
     await expect(shortcut.locator('[data-i18n="heroCalendarCta"]')).toHaveCSS('color', 'rgb(26, 45, 86)');
     await shortcut.hover();
-    await expect(shortcut.locator('.link-circle')).toHaveCSS('background-color', 'rgb(26, 45, 86)');
+    await expect(shortcut).toHaveCSS('border-bottom-color', 'rgb(26, 45, 86)');
     const shortcutLayout = await shortcut.evaluate(link => ({
-      arrow: link.querySelector('.link-circle').getBoundingClientRect().toJSON(),
+      arrow: link.querySelector('svg').getBoundingClientRect().toJSON(),
       text: link.querySelector('[data-i18n="heroCalendarCta"]').getBoundingClientRect().toJSON(),
       height: link.getBoundingClientRect().height,
     }));
-    expect(shortcutLayout.arrow.right).toBeLessThan(shortcutLayout.text.left);
+    expect(shortcutLayout.arrow.left).toBeGreaterThan(shortcutLayout.text.right);
     expect(shortcutLayout.height).toBeGreaterThanOrEqual(44);
     await assertNoOverflow(page);
   }
@@ -1065,7 +1114,8 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
   await expect(calendar.locator('summary')).toHaveCSS('outline-style', 'none');
   await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('outline-style', 'solid');
   await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('outline-width', '2px');
-  await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('border-radius', '50%');
+  await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('border-radius', '0px');
+  await expect(calendar.locator('summary .calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, -1, 1, 0, 0, 0)');
   const headingSpacing = await calendar.evaluate(element => ({
     summaryBottom: element.querySelector('summary').getBoundingClientRect().bottom,
     introTop: element.querySelector('.calendar-intro').getBoundingClientRect().top,

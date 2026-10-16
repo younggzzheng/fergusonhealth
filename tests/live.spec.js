@@ -19,7 +19,13 @@ test('public deployed revision renders all five languages without login', async 
   await expect(page.locator('base')).toHaveCount(0);
   await expect(page.locator('#hero-title')).toBeVisible();
   const englishTitle = await page.locator('.hero-life').innerText();
-  await expect(page.locator('.appointment-calendar')).not.toHaveAttribute('open');
+  const calendar = page.locator('.appointment-calendar');
+  await expect(calendar).not.toHaveAttribute('open');
+  await expect(page.locator('.hero-actions .link-circle')).toHaveCount(0);
+  await expect(page.locator('.hero-actions [data-calendar-link]')).toHaveCSS('border-bottom-style', 'solid');
+  await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
+  await expect(page.locator('.effort-item')).toHaveCount(3);
+  await expect(page.locator('.effort-item[open]')).toHaveCount(0);
   for (const language of ['en', 'zh-CN', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${language === 'zh-CN' ? 'zh' : language}"]`).click();
     await expect(page.locator('html')).toHaveAttribute('lang', language);
@@ -36,6 +42,15 @@ test('public deployed revision renders all five languages without login', async 
     }
     await page.locator('[data-language-switch]').scrollIntoViewIfNeeded();
   }
+  await page.locator('.hero-actions [data-calendar-link]').click();
+  await expect(calendar).toHaveAttribute('open', '');
+  await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, -1, 1, 0, 0, 0)');
+  const effort = page.locator('.effort-item').first();
+  await effort.locator('summary').focus();
+  await page.keyboard.press('Enter');
+  await expect(effort.locator('p')).toBeVisible();
+  await page.keyboard.press('Space');
+  await expect(effort).not.toHaveAttribute('open');
   expect(failures).toEqual([]);
   expect((await context.cookies()).some(cookie => cookie.name === 'fwh_preview')).toBe(false);
 });
