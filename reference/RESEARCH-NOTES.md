@@ -255,3 +255,13 @@ expandable section in **03 / Her work** so the initial page stays concise.
   exchange and Learning together descriptions. Use three independently
   default-closed native disclosures without altering the approved copy or
   translations; use matching light underlines and down/up arrows.
+- The owner then requested one consistent down/up arrow for every expandable
+  section, including the profile, mission/vision, care and article categories.
+  She also preferred a more prominent homepage appointment shortcut: restore
+  its leading circle using the existing company gold-orange accent, with a
+  deep-blue down arrow. Keep the calendar title itself light and underlined.
+- Final owner preference: retain plus/minus for all other disclosures, including
+  the new effort items. Use a horizontal right arrow inside the homepage
+  gold-orange appointment circle, before the label. Keep only the calendar
+  title's light down/up arrow. The proposed site-wide arrow replacement is not
+  part of the published design.

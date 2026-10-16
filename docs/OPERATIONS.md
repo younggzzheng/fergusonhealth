@@ -125,10 +125,10 @@ for general enquiries is just above the clinic cards, with the preserved
 `#contact` anchor for the “Contact” navigation link. Official WeChat and social
 links stay together in the compact final `#connect` section. Do not duplicate a Locations
 shortcut in the hero. The hero has one “Appointment calendar” shortcut with
-an underline and a trailing deep-blue down arrow, without a filled circle;
+the company's warm gold-orange circle and a deep-blue right arrow before the label;
 the duplicate care shortcut and decorative down-arrow are removed. Following
 the calendar link or loading `#appointment-calendar` opens and focuses the
-calendar. The calendar title has a matching underline and trailing arrow:
+calendar. The calendar title has a light underline and trailing arrow:
 down when closed, up when open. External Ferguson Plus links keep their
 diagonal arrows. Native click, Enter and Space toggle the calendar, and keyboard
 focus remains clearly outlined on the compact arrow, not the entire row.
@@ -166,8 +166,12 @@ clinic names, preserving their identity and full accessible booking labels.
 The three “Beyond the clinic” effort descriptions use independent native
 disclosures, all closed on a fresh page load. Preserve their supplied wording
 and translations, the 16px titles and 15px body copy. Each underlined title has
-a down arrow that points up when expanded. Switching languages retains the
-reader's open/closed selections; Enter, Space and click all work without scripts.
+a plus that becomes a minus when expanded, matching the other disclosures.
+Switching languages retains the reader's open/closed selections; Enter, Space
+and click all work without scripts.
+Mission/vision, care categories, the profile, Ferguson Plus and resource topics
+retain their plus/minus controls. Only the calendar title uses a trailing down/up
+arrow, while the homepage appointment shortcut has its prominent leading circle.
 
 ## What happens after a merge
 

@@ -366,14 +366,14 @@ test('effort descriptions are independent native disclosures with preserved mult
   for (const effort of await efforts.all()) {
     await expect(effort.locator('p')).toBeHidden();
     await expect(effort.locator('summary')).toHaveCSS('font-size', '16px');
-    await expect(effort.locator('.disclosure-arrow svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
+    expect(await effort.locator('.details-toggle').evaluate(element => getComputedStyle(element, '::after').transform)).toBe('matrix(0, 1, -1, 0, 0, 0)');
     await effort.locator('summary').focus();
     await page.keyboard.press('Enter');
     await expect(effort).toHaveAttribute('open', '');
     await expect(effort.locator('p')).toBeVisible();
     await expect(effort.locator('p')).toHaveCSS('font-size', '15px');
-    await expect(effort.locator('.disclosure-arrow svg')).toHaveCSS('transform', 'matrix(0, -1, 1, 0, 0, 0)');
-    await expect(effort.locator('.disclosure-arrow')).toHaveCSS('outline-width', '2px');
+    expect(await effort.locator('.details-toggle').evaluate(element => getComputedStyle(element, '::after').transform)).toBe('none');
+    await expect(effort.locator('.details-toggle')).toHaveCSS('outline-width', '2px');
     await page.keyboard.press('Space');
     await expect(effort).not.toHaveAttribute('open');
   }
@@ -1075,7 +1075,7 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
     }));
     expect(titleLayout.arrow.left).toBeGreaterThan(titleLayout.text.right);
     await expect(page.locator('.hero-actions a')).toHaveCount(1);
-    await expect(page.locator('.hero-actions a .link-circle')).toHaveCount(0);
+    await expect(page.locator('.hero-actions a .link-circle')).toHaveCount(1);
     await expect(page.locator('.hero-actions a svg use')).toHaveCount(1);
     expect(await page.locator('.hero-actions a').evaluateAll(elements => elements.map(element => element.getAttribute('href')))).toEqual(['#appointment-calendar']);
     await expect(page.locator('[data-i18n="heroLocationsCta"]')).toHaveCount(0);
@@ -1083,18 +1083,21 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
     await expect(page.locator('[data-i18n="locationsEyebrow"]')).toContainText('03 /');
     await expect(page.locator('[data-i18n="workEyebrow"]')).toContainText('04 /');
     await expect(shortcut).toHaveAttribute('href', '#appointment-calendar');
-    await expect(shortcut).toHaveCSS('border-bottom-style', 'solid');
+    await expect(shortcut).toHaveCSS('border-bottom-style', 'none');
+    await expect(shortcut.locator('.link-circle')).toHaveCSS('background-color', 'rgb(225, 137, 0)');
+    await expect(shortcut.locator('.link-circle')).toHaveCSS('border-color', 'rgb(225, 137, 0)');
+    await expect(shortcut.locator('.link-circle')).toHaveCSS('border-radius', '50%');
     await expect(shortcut.locator('svg')).toHaveCSS('stroke', 'rgb(26, 45, 86)');
-    await expect(shortcut.locator('svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
+    await expect(shortcut.locator('svg')).toHaveCSS('transform', 'none');
     await expect(shortcut.locator('[data-i18n="heroCalendarCta"]')).toHaveCSS('color', 'rgb(26, 45, 86)');
     await shortcut.hover();
-    await expect(shortcut).toHaveCSS('border-bottom-color', 'rgb(26, 45, 86)');
+    await expect(shortcut.locator('.link-circle')).toHaveCSS('background-color', 'rgb(225, 137, 0)');
     const shortcutLayout = await shortcut.evaluate(link => ({
-      arrow: link.querySelector('svg').getBoundingClientRect().toJSON(),
+      arrow: link.querySelector('.link-circle').getBoundingClientRect().toJSON(),
       text: link.querySelector('[data-i18n="heroCalendarCta"]').getBoundingClientRect().toJSON(),
       height: link.getBoundingClientRect().height,
     }));
-    expect(shortcutLayout.arrow.left).toBeGreaterThan(shortcutLayout.text.right);
+    expect(shortcutLayout.arrow.right).toBeLessThan(shortcutLayout.text.left);
     expect(shortcutLayout.height).toBeGreaterThanOrEqual(44);
     await assertNoOverflow(page);
   }

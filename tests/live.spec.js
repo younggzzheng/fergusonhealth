@@ -21,8 +21,9 @@ test('public deployed revision renders all five languages without login', async 
   const englishTitle = await page.locator('.hero-life').innerText();
   const calendar = page.locator('.appointment-calendar');
   await expect(calendar).not.toHaveAttribute('open');
-  await expect(page.locator('.hero-actions .link-circle')).toHaveCount(0);
-  await expect(page.locator('.hero-actions [data-calendar-link]')).toHaveCSS('border-bottom-style', 'solid');
+  await expect(page.locator('.hero-actions .link-circle')).toHaveCount(1);
+  await expect(page.locator('.hero-actions .link-circle')).toHaveCSS('background-color', 'rgb(225, 137, 0)');
+  await expect(page.locator('.hero-actions .link-circle svg')).toHaveCSS('transform', 'none');
   await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
   await expect(page.locator('.effort-item')).toHaveCount(3);
   await expect(page.locator('.effort-item[open]')).toHaveCount(0);

@@ -15,9 +15,10 @@
 .hero-life br{display:none}
 .hero-life em{color:#61718f}
 .hero .hero-actions{margin-top:30px;display:flex;flex-wrap:wrap;gap:18px 36px;max-width:none}
-.hero .hero-actions .calendar-shortcut{font-size:var(--copy-size);gap:22px;line-height:1.5;min-height:44px;margin-top:0;padding:8px 0 10px;border-bottom:1px solid #b8c2d4}
-.hero .hero-actions .calendar-shortcut svg{width:21px;height:21px;flex-shrink:0;transform:rotate(90deg)}
-.hero .hero-actions .calendar-shortcut:hover{border-bottom-color:var(--ink)}
+.hero .hero-actions .calendar-shortcut{font-size:var(--copy-size);gap:14px;line-height:1.5;min-height:44px;margin-top:0}
+.hero .hero-actions .calendar-shortcut .link-circle{width:40px;height:40px;flex:0 0 40px;background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.hero .hero-actions .calendar-shortcut svg{width:21px;height:21px}
+.hero .hero-actions .calendar-shortcut:hover .link-circle{background:var(--accent);transform:translateX(2px)}
 .hero .hero-team{background:none;border:0;border-left:1px solid var(--line);border-radius:0;padding:6px 0 6px 38px}
 .hero .team-flower{display:none}
 .hero .hero-who-title,.hero .purpose-item h2,
@@ -60,7 +61,7 @@ html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{f
 .disclosure-arrow{display:flex;align-items:center;justify-content:center;width:21px;height:21px;flex:0 0 21px;color:var(--ink)}
 .disclosure-arrow svg{width:21px;height:21px;transform:rotate(90deg);transition:transform .2s}
 details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
-.appointment-calendar summary:focus-visible .disclosure-arrow,.effort-item summary:focus-visible .disclosure-arrow{outline:2px solid var(--ink);outline-offset:4px}
+.appointment-calendar summary:focus-visible .disclosure-arrow,.effort-item summary:focus-visible .details-toggle{outline:2px solid var(--ink);outline-offset:4px}
 
 /* Compact native disclosures retain all three effort descriptions. */
 .effort-list{gap:0}
@@ -69,6 +70,7 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
 .effort-item summary>span:first-child{min-width:0}
 .effort-item summary::-webkit-details-marker{display:none}
 .effort-item summary:focus-visible{outline:none}
+.effort-item[open] .details-toggle:after{transform:none}
 .effort-item>p{margin:0;padding-bottom:20px;line-height:1.9;color:var(--body)}
 
 @media(max-width:1150px){
@@ -94,7 +96,7 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   .hero-life{font-size:29px;line-height:1.25;margin-top:22px;letter-spacing:-.4px}
   .hero-life br{display:block}
   .hero .hero-actions{margin-top:24px}
-  .hero .hero-actions .calendar-shortcut{gap:22px}
+  .hero .hero-actions .calendar-shortcut{gap:14px}
   .hero .hero-team{padding-top:23px}
   .hero .hero-who-title,.hero .purpose-item h2,
   html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{font-size:18px}
