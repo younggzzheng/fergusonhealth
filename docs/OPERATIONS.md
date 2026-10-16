@@ -122,7 +122,11 @@ The homepage month calendar is collapsed by default in **03 / Find us**,
 after the doctor profile and before **04 / Our efforts**. “Find us” in the desktop
 and mobile navigation opens the clinic locations and booking codes. The email
 for general enquiries is just above the clinic cards, with the preserved
-`#contact` anchor for the “Contact” navigation link. Official WeChat and social
+`#contact` anchor for the “Contact” navigation link. The title, email and clinic
+cards sit in a full-width pale-blue `#edf2f8` overview band; the calendar and
+closing line retain the original paper `#f8f7f3` background below it. QR surfaces
+stay white. This split applies to every language, with no changes to the next
+Our efforts section or to calendar session colors. Official WeChat and social
 links stay together in the compact final `#connect` section. Do not duplicate a Locations
 shortcut in the hero. The hero has one “Booking” shortcut at the upper left of
 the content, below the navigation and before the practice name, with

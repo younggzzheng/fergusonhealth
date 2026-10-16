@@ -60,6 +60,9 @@ test('public deployed revision renders all five languages without login', async 
     await expect(page.locator('.hero-life em')).toHaveCSS('color', 'rgb(97, 113, 143)');
     await expect(page.locator('.hero-life br')).toHaveCSS('display', 'none');
     await expect(page.locator('.hero-life em')).toHaveCSS('white-space', 'nowrap');
+    await expect(page.locator('.locations-overview')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
+    await expect(calendar).toHaveCSS('background-color', 'rgb(248, 247, 243)');
+    await expect(page.locator('#work')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
     if (language === 'en') {
       await expect(calendar.locator('[data-i18n="calendarTitle"]')).toHaveText('Appointment calendar for Dr. Ferguson');
       await expect(page.locator('.hero-life')).toHaveText('- for every chapter of your life.');

@@ -328,3 +328,8 @@ expandable section in **03 / Her work** so the initial page stays concise.
   message and natural whole-ending wrapping across all five languages. Retain
   the Chinese glyph-adjusted scale, existing prose, serif brand, shared body
   sizes, gold-outline actions and native plus/minus disclosures.
+- The owner preferred pale blue for the Find us clinic-information area, but
+  explicitly kept the appointment calendar's existing background. Use the
+  established pale blue for the heading, general email and clinic cards, then
+  return to the original paper background for the calendar and closing line.
+  Preserve white QR surfaces, calendar session colors and all other sections.

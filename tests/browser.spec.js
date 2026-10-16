@@ -699,6 +699,35 @@ test('mission and vision can expand without JavaScript', async ({ browser, baseU
   await context.close();
 });
 
+test('clinic information is pale blue while the calendar keeps its paper background in every language', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const calendar = page.locator('#appointment-calendar');
+  for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(page.locator('.locations-overview')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
+    await expect(page.locator('#locations')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
+    await expect(calendar).toHaveCSS('background-color', 'rgb(248, 247, 243)');
+    await expect(page.locator('#work')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
+    for (const frame of await page.locator('#locations .appointment-qr-frame').all()) {
+      await expect(frame).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+    }
+    const bands = await page.locator('#locations').evaluate(section => ({
+      overview: section.querySelector('.locations-overview').getBoundingClientRect().toJSON(),
+      calendar: section.querySelector('.appointment-calendar').getBoundingClientRect().toJSON(),
+      section: section.getBoundingClientRect().toJSON(),
+    }));
+    expect(bands.overview.left).toBe(bands.section.left);
+    expect(bands.overview.right).toBe(bands.section.right);
+    expect(bands.overview.bottom).toBeLessThan(bands.calendar.top);
+    await calendar.locator('summary').click();
+    await expect(calendar).toHaveAttribute('open', '');
+    await expect(calendar).toHaveCSS('background-color', 'rgb(248, 247, 243)');
+    await calendar.locator('summary').click();
+    await assertNoOverflow(page);
+  }
+});
+
 test('section closing lines stay understated and news precedes articles', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);

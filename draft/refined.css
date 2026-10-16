@@ -61,8 +61,11 @@ html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{f
 .appointment-code figcaption,.wecare-shop figcaption,
 .wechat-contact figcaption p,.community-card p.community-note{font-size:var(--note-size)}
 .section-closing,.footer-bottom{font-size:var(--small-note-size)}
+/* Clinic information uses pale blue; the calendar keeps its original paper. */
+.locations-section{background:var(--paper)}
+.locations-overview{background:#edf2f8;padding-bottom:16px}
+.locations-section .appointment-calendar{border:0;margin-top:16px;background:var(--paper)}
 /* The location section's closing line supplies the calendar's lower divider. */
-.locations-section .appointment-calendar{border:0}
 .appointment-calendar summary{justify-content:space-between;gap:22px;border-bottom:1px solid #b8c2d4}
 .appointment-calendar summary [data-i18n="calendarTitle"]{min-width:0;overflow-wrap:anywhere}
 .disclosure-arrow{display:flex;align-items:center;justify-content:center;width:21px;height:21px;flex:0 0 21px;color:var(--ink)}
