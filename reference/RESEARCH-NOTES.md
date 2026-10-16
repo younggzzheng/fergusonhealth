@@ -310,3 +310,6 @@ expandable section in **03 / Her work** so the initial page stays concise.
   before it was published. Keep the subtitle removal, larger English/Chinese
   life-stage message and natural English wrapping; withdraw only the handwriting
   font treatment. The supplied logo artwork remains unchanged.
+- The owner requested a leading literal hyphen and a lowercase “for” in the
+  English message: “- for every chapter / of your life.” Preserve the existing
+  font, italic ending, colors, responsive wrapping, and all other translations.

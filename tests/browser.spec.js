@@ -574,7 +574,7 @@ test('practice name leads the compact hero and the portrait stays with the docto
   await page.goto('/');
   await waitForRenderedPage(page);
   await expect(page.locator('#hero-title')).toHaveText('Ferguson Women’s Health');
-  await expect(page.locator('.hero-life')).toHaveText('For every chapter of your life.');
+  await expect(page.locator('.hero-life')).toHaveText('- for every chapter of your life.');
   const headlineScale = await page.locator('#hero-title, #care-title').evaluateAll(headings => headings.map(heading => {
     const style = getComputedStyle(heading);
     return [style.fontFamily, style.fontStyle, style.fontWeight];
@@ -1409,7 +1409,7 @@ test('the removed subtitle stays absent and English and Chinese life-stage messa
       }));
       if (code === 'zh' || code === 'en') expect(scale.life).toBe(scale.care);
       else expect(scale.life).toBe(width <= 700 ? '29px' : width <= 1150 ? '31px' : '34px');
-      await expect(page.locator('.hero-life')).toContainText(code === 'zh' ? '关爱人生的' : { en: 'For every chapter', fr: 'À chaque étape', de: 'Für jede Phase', es: 'Para cada etapa' }[code]);
+      await expect(page.locator('.hero-life')).toContainText(code === 'zh' ? '关爱人生的' : { en: '- for every chapter', fr: 'À chaque étape', de: 'Für jede Phase', es: 'Para cada etapa' }[code]);
       await assertNoOverflow(page);
     }
   }
@@ -1422,6 +1422,7 @@ test('English life-stage message shares one line when it fits and wraps the comp
   for (const width of [1440, 1280, 768, 390, 320]) {
     await page.setViewportSize({ width, height: 844 });
     const message = page.locator('.hero-life');
+    await expect(message).toHaveText('- for every chapter of your life.');
     await expect(message.locator('br')).toHaveCSS('display', 'none');
     await expect(message.locator('em')).toHaveText('of your life.');
     await expect(message.locator('em')).toHaveCSS('white-space', 'nowrap');

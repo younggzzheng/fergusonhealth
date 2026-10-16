@@ -55,6 +55,7 @@ test('public deployed revision renders all five languages without login', async 
       expect(headingSizes[0]).toBe(headingSizes[1]);
     }
     if (language === 'en') {
+      await expect(page.locator('.hero-life')).toHaveText('- for every chapter of your life.');
       await expect(page.locator('.hero-life br')).toHaveCSS('display', 'none');
       await expect(page.locator('.hero-life em')).toHaveCSS('white-space', 'nowrap');
     }

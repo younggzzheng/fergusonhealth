@@ -170,7 +170,7 @@ original serif title. Keep the logo's own handwriting artwork unchanged;
 do not apply the withdrawn Kalam treatment to the page title.
 The Chinese life-stage message (“关爱人生的每一个阶段。”) shares the care
 heading's responsive size (39–55px on desktop/tablet and 41px on phones).
-The English “For every chapter / of your life.” message also shares its care
+The English “- for every chapter / of your life.” message also shares its care
 heading's size (46–64px on wide screens, 48px at 900px and below, and 49px on
 phones). French, German and Spanish retain their smaller life-stage message.
 The English message has no forced line break: keep it on one line where space
