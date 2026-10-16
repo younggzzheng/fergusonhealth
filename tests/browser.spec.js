@@ -1409,6 +1409,8 @@ test('the removed subtitle stays absent and English and Chinese life-stage messa
       }));
       if (code === 'zh' || code === 'en') expect(scale.life).toBe(scale.care);
       else expect(scale.life).toBe(width <= 700 ? '29px' : width <= 1150 ? '31px' : '34px');
+      await expect(page.locator('.hero-life')).toHaveCSS('color', code === 'en' ? 'rgb(97, 113, 143)' : 'rgb(26, 45, 86)');
+      await expect(page.locator('.hero-life em')).toHaveCSS('color', 'rgb(97, 113, 143)');
       await expect(page.locator('.hero-life')).toContainText(code === 'zh' ? '关爱人生的' : { en: '- for every chapter', fr: 'À chaque étape', de: 'Für jede Phase', es: 'Para cada etapa' }[code]);
       await assertNoOverflow(page);
     }

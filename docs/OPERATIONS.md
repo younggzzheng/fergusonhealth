@@ -176,6 +176,8 @@ phones). French, German and Spanish retain their smaller life-stage message.
 The English message has no forced line break: keep it on one line where space
 allows, and move the complete italic “of your life.” phrase to the next line
 when it does not fit. Do not split that phrase or change other languages' breaks.
+The entire English message, including the leading hyphen, uses the existing
+blue-grey `#61718f` of its italic ending. Other languages retain their two-tone color treatment.
 Who We Are stays visible; mission and vision remain collapsed.
 The plain team panel has no arch or additional visible shell mark.
 `draft/refined.css`, loaded after the legacy stylesheet on both entry pages,

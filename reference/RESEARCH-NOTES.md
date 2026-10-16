@@ -313,3 +313,6 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - The owner requested a leading literal hyphen and a lowercase “for” in the
   English message: “- for every chapter / of your life.” Preserve the existing
   font, italic ending, colors, responsive wrapping, and all other translations.
+- The owner subsequently requested that the whole English life-stage message
+  use the same blue-grey as “of your life.” (`#61718f`). Keep the wording, type,
+  italic ending, wrapping and other languages' existing colors unchanged.

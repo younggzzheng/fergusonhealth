@@ -16,7 +16,7 @@ html .hero h1.practice-name{margin:0;max-width:100%;font-family:var(--serif);fon
 /* Keep each requested life-stage message on its care heading's responsive scale. */
 html[lang=en]{--en-life-heading-size:clamp(46px,4.1vw,64px)}
 html[lang=en] .hero-life,html[lang=en] #care-title{font-size:var(--en-life-heading-size)}
-html[lang=en] .hero-life{max-width:100%}
+html[lang=en] .hero-life{max-width:100%;color:#61718f}
 html[lang=en] .hero-life br{display:none}
 html[lang=en] .hero-life em{display:inline-block;white-space:nowrap}
 html[lang=zh-CN]{--zh-life-heading-size:clamp(39px,3.5vw,55px)}
