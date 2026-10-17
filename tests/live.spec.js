@@ -18,6 +18,8 @@ test('public deployed revision renders all five languages without login', async 
   await expect(page.locator('meta[name="build-revision"]')).toHaveAttribute('content', process.env.EXPECTED_REVISION);
   await expect(page.locator('base')).toHaveCount(0);
   await expect(page.locator('#hero-title')).toBeVisible();
+  const englishBrandFamily = await page.locator('#hero-title').evaluate(element => getComputedStyle(element).fontFamily);
+  expect(englishBrandFamily).toMatch(/^Cormorant,/);
   const englishTitle = await page.locator('.hero-life').innerText();
   const calendar = page.locator('.appointment-calendar');
   await expect(calendar).not.toHaveAttribute('open');
@@ -46,6 +48,9 @@ test('public deployed revision renders all five languages without login', async 
     const overflow = await page.evaluate(() => Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - document.documentElement.clientWidth);
     expect(overflow, `${language} horizontal overflow`).toBeLessThanOrEqual(1);
     await expect(page.locator('#hero-title')).toHaveText('Ferguson Women’s Health');
+    await expect(page.locator('#hero-title')).toHaveCSS('font-family', englishBrandFamily);
+    await expect(page.locator('#hero-title span')).toHaveCSS('font-family', englishBrandFamily);
+    if (language === 'zh-CN') await expect(page.locator('#care-title')).toHaveCSS('font-family', /Songti SC/);
     await expect(page.locator('.wecare-shop-label')).toHaveText({ en: 'Shop', 'zh-CN': '微店', fr: 'Boutique', de: 'Shop', es: 'Tienda' }[language]);
     const brandSizes = await page.locator('#hero-title').evaluate(element => [getComputedStyle(element).fontSize, getComputedStyle(element.querySelector('span')).fontSize]);
     expect(brandSizes[0]).toBe(brandSizes[1]);

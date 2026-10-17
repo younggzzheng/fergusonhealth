@@ -333,3 +333,8 @@ expandable section in **03 / Her work** so the initial page stays concise.
   established pale blue for the heading, general email and clinic cards, then
   return to the original paper background for the calendar and closing line.
   Preserve white QR surfaces, calendar session colors and all other sections.
+- The owner identified inconsistent English brand lettering in Chinese mode.
+  Keep “Ferguson Women’s Health” in the same locally hosted Cormorant family
+  used by the other language versions, independent of the Chinese Songti
+  heading override. Retain its shared size, weight and whole-phrase wrapping;
+  do not change Chinese copy fonts or the original logo artwork.

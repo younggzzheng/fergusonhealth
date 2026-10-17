@@ -171,7 +171,10 @@ The owner removed “A personal approach to care.” and all corresponding
 translations; do not leave an empty subtitle row. “Ferguson” and “Women’s Health” share one type size and family,
 staying on one line when they fit. Keep “Women’s Health” intact when it wraps to
 the next line; do not force a break or a smaller second line. The brand uses
-the same responsive scale in every language; phones use 44–52px so the intact
+the same locally hosted Cormorant family and responsive scale in every language,
+including Chinese. Pin the English brand's font independently of the Chinese
+Songti heading family; do not let a language switch replace its Latin letterforms.
+Chinese prose and translated headings keep their own fonts. Phones use 44–52px so the intact
 phrase fits within the content margins even at a 320px viewport.
 The owner tried a handwriting treatment and then requested restoring the
 original serif title. Keep the logo's own handwriting artwork unchanged;

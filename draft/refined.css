@@ -8,7 +8,8 @@
 .site-header .header-inner>.brand-logo img{width:207px;left:-47px;top:-33px}
 .hero{padding-top:64px;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);column-gap:92px;align-items:center}
 .hero .hero-copy{padding:0;max-width:none}
-html .hero h1.practice-name{margin:0;max-width:100%;font-family:var(--serif);font-style:normal;font-size:clamp(55px,5.1vw,72px);font-weight:400;letter-spacing:-1.8px;line-height:1.05}
+/* The English brand keeps its own typeface even when Chinese copy uses Songti. */
+html .hero h1.practice-name{margin:0;max-width:100%;font-family:Cormorant,'Baskerville','Times New Roman','Songti SC',serif;font-style:normal;font-size:clamp(55px,5.1vw,72px);font-weight:400;letter-spacing:-1.8px;line-height:1.05}
 .practice-name span{display:inline-block;margin-top:0;font:inherit;letter-spacing:inherit;white-space:nowrap}
 .hero-life{margin-top:25px;max-width:100%;font-family:var(--serif);line-height:1.25;letter-spacing:-.4px;color:#61718f}
 .hero-life br{display:none}

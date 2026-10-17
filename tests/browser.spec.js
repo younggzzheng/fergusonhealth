@@ -1493,6 +1493,8 @@ test('English life-stage message shares one line when it fits and wraps the comp
 test('practice name and life-stage headings retain the approved type hierarchy and readable labels', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
+  const englishBrandFamily = await page.locator('#hero-title').evaluate(element => getComputedStyle(element).fontFamily);
+  expect(englishBrandFamily).toMatch(/^Cormorant,/);
   const labels = page.locator('[data-i18n="aboutEyebrow"], [data-i18n="careEyebrow"], [data-i18n="workEyebrow"], [data-i18n="locationsEyebrow"]');
   await expect(labels).toHaveCount(4);
   for (const language of ['en', 'zh', 'fr', 'de', 'es']) {
@@ -1504,7 +1506,10 @@ test('practice name and life-stage headings retain the approved type hierarchy a
     const careSize = await page.locator('#care-title').evaluate(element => parseFloat(getComputedStyle(element).fontSize));
     expect(taglineSize).toBe(careSize);
     const headingFamilies = await page.locator('#hero-title, #care-title').evaluateAll(elements => elements.map(element => getComputedStyle(element).fontFamily));
-    expect(headingFamilies[0]).toBe(headingFamilies[1]);
+    expect(headingFamilies[0]).toBe(englishBrandFamily);
+    await expect(page.locator('#hero-title span')).toHaveCSS('font-family', englishBrandFamily);
+    if (language === 'zh') expect(headingFamilies[1]).toContain('Songti SC');
+    else expect(headingFamilies[0]).toBe(headingFamilies[1]);
     await expect(page.locator('.hero h1')).toHaveCSS('font-style', 'normal');
     await expect(page.locator('.hero h1')).toHaveCSS('font-weight', '400');
     await expect(page.locator('.hero-life br')).toHaveCount(1);
