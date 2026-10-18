@@ -120,12 +120,13 @@ deployment even if someone merges a broken change.
 
 The homepage month calendar is collapsed by default in **03 / Find us**,
 after the doctor profile and before **04 / Our efforts**. “Find us” in the desktop
-and mobile navigation opens the clinic locations and booking codes. When
-`#locations` is targeted, align the full-width blue section edge with the top of
-the viewport instead of retaining the site's usual anchor offset (100px on
-desktop, 22px at widths up to 700px). Keep
-native links, history and reload behavior, and preserve the usual offset for
-calendar and other anchors. The email
+and mobile navigation opens the clinic locations and booking codes. Main
+navigation to `#care`, `#about`, `#locations` and `#work` aligns each section edge
+with the top of the viewport, without showing the preceding section's closing
+line. Override the site's usual anchor offset (100px on desktop, 22px at widths
+up to 700px) only for those four targets. Keep native links, history and reload
+behavior; Contact still targets the email, and Booking still opens the calendar
+with its usual offset. The email
 for general enquiries is just above the clinic cards, with the preserved
 `#contact` anchor for the “Contact” navigation link. The title, email and clinic
 cards sit in a full-width pale-blue `#edf2f8` overview band; the calendar and

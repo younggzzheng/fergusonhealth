@@ -351,3 +351,7 @@ expandable section in **03 / Her work** so the initial page stays concise.
   usual scroll padding (100px desktop, 22px on phones) only while `#locations`
   is the target, across all languages and desktop/mobile navigation. Preserve
   calendar and other anchors.
+- The owner requested the same section-start navigation for the other main
+  sections. Extend Find us alignment to Areas of care, Meet Dr. Ferguson and
+  Our efforts, across all languages and desktop/mobile menus. Preserve the
+  Contact email target and Booking calendar behavior; no layout/copy changes.

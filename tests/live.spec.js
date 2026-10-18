@@ -87,11 +87,13 @@ test('public deployed revision renders all five languages without login', async 
     }
     await page.locator('[data-language-switch]').scrollIntoViewIfNeeded();
   }
-  if (isMobile) await page.locator('.menu-toggle').click();
-  await page.locator(`${isMobile ? '#mobile-nav' : '.desktop-nav'} a[href="#locations"]`).click();
-  await expect(page).toHaveURL(/#locations$/);
-  await expect(page.locator('html')).toHaveCSS('scroll-padding-top', '0px');
-  await expect.poll(() => page.locator('#locations').evaluate(el => Math.abs(el.getBoundingClientRect().top))).toBeLessThanOrEqual(1);
+  for (const id of ['care', 'about', 'work', 'locations']) {
+    if (isMobile) await page.locator('.menu-toggle').click();
+    await page.locator(`${isMobile ? '#mobile-nav' : '.desktop-nav'} a[href="#${id}"]`).click();
+    await expect(page).toHaveURL(new RegExp(`#${id}$`));
+    await expect(page.locator('html')).toHaveCSS('scroll-padding-top', '0px');
+    await expect.poll(() => page.locator(`#${id}`).evaluate(el => Math.abs(el.getBoundingClientRect().top))).toBeLessThanOrEqual(1);
+  }
   await page.locator('.hero-actions [data-calendar-link]').click();
   await expect(page.locator('html')).toHaveCSS('scroll-padding-top', originalPadding);
   await expect(calendar).toHaveAttribute('open', '');
