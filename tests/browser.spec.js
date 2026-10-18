@@ -1039,7 +1039,11 @@ test('clinic phone numbers match address styling without a booking label in ever
     await expect(page.locator('[data-i18n="clinicBookingPhone"]')).toHaveCount(0);
     await expect(phones).toHaveText(['（021）3175-2500', '400-819-6622']);
     const locations = await page.locator('.practice-details').evaluateAll(details => details.map(card => ({
+      cityBeforeAddress: Boolean(card.querySelector('.practice-city').compareDocumentPosition(card.querySelector('address')) & Node.DOCUMENT_POSITION_FOLLOWING),
+      cityTop: card.querySelector('.practice-city').getBoundingClientRect().top,
       cityBottom: card.querySelector('.practice-city').getBoundingClientRect().bottom,
+      addressTop: card.querySelector('address').getBoundingClientRect().top,
+      addressBottom: card.querySelector('address').getBoundingClientRect().bottom,
       phoneTop: card.querySelector('.practice-phone').getBoundingClientRect().top,
       card: card.getBoundingClientRect().toJSON(),
       phone: card.querySelector('.practice-phone a').getBoundingClientRect().toJSON(),
@@ -1050,6 +1054,9 @@ test('clinic phone numbers match address styling without a booking label in ever
       phoneDecoration: getComputedStyle(card.querySelector('.practice-phone a')).textDecorationLine,
     })));
     for (const location of locations) {
+      expect(location.cityBeforeAddress).toBe(code === 'zh');
+      if (code === 'zh') expect(location.addressTop).toBeGreaterThanOrEqual(location.cityBottom);
+      else expect(location.cityTop).toBeGreaterThanOrEqual(location.addressBottom);
       expect(location.phoneTop).toBeGreaterThan(location.cityBottom);
       expect(location.phone.left).toBeGreaterThanOrEqual(location.card.left);
       expect(location.phone.right).toBeLessThanOrEqual(location.card.right + 1);
@@ -1059,6 +1066,12 @@ test('clinic phone numbers match address styling without a booking label in ever
     }
     await assertNoOverflow(page);
   }
+  await page.locator('[data-language="zh"]').click();
+  await page.reload();
+  await waitForRenderedPage(page);
+  await expect(page.locator('.practice-details > .clinic-name + .practice-city + address')).toHaveCount(2);
+  await page.locator('[data-language="en"]').click();
+  await expect(page.locator('.practice-details > .practice-city + .practice-phone')).toHaveCount(2);
   await phones.nth(0).focus();
   await expect(phones.nth(0)).toBeFocused();
 });

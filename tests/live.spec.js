@@ -68,6 +68,8 @@ test('public deployed revision renders all five languages without login', async 
     await expect(page.locator('.locations-overview')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
     await expect(calendar).toHaveCSS('background-color', 'rgb(248, 247, 243)');
     await expect(page.locator('#work')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
+    const cityBeforeAddress = await page.locator('.practice-details').evaluateAll(cards => cards.map(card => Boolean(card.querySelector('.practice-city').compareDocumentPosition(card.querySelector('address')) & Node.DOCUMENT_POSITION_FOLLOWING)));
+    expect(cityBeforeAddress).toEqual([language === 'zh-CN', language === 'zh-CN']);
     if (language === 'en') {
       await expect(calendar.locator('[data-i18n="calendarTitle"]')).toHaveText('Appointment calendar for Dr. Ferguson');
       await expect(page.locator('.hero-life')).toHaveText('- for every chapter of your life.');

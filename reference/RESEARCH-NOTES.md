@@ -338,3 +338,7 @@ expandable section in **03 / Her work** so the initial page stays concise.
   used by the other language versions, independent of the Chinese Songti
   heading override. Retain its shared size, weight and whole-phrase wrapping;
   do not change Chinese copy fonts or the original logo artwork.
+- The owner requested “中国 · 上海” before the detailed address in both Chinese
+  clinic cards. Preserve the city wording, address, entrance note, phone and QR
+  code; retain every other language's existing address-first order. Update the
+  actual reading order on language selection and restored Chinese preferences.

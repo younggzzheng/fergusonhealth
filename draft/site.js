@@ -239,6 +239,14 @@
     const open = menuButton.getAttribute('aria-expanded') === 'true';
     menuButton.setAttribute('aria-label', menuLabels[language][Number(open)]);
   }
+  function updateClinicAddressOrder(code) {
+    document.querySelectorAll('#locations .practice-details').forEach(details => {
+      const city = details.querySelector('.practice-city');
+      // Move the existing node so visual and screen-reader order stay aligned.
+      const next = details.querySelector(code === 'zh' ? 'address' : '.practice-phone');
+      next.before(city);
+    });
+  }
   function closeMenu() { mobileNav.hidden = true; menuButton.setAttribute('aria-expanded', 'false'); updateMenuLabel(); }
   menuButton.addEventListener('click', () => {
     const open = menuButton.getAttribute('aria-expanded') === 'true';
@@ -260,6 +268,6 @@
   window.FergusonLanguages.init({
     translations,
     titles: { en: "Ferguson Women's Health", zh: 'Ferguson 女性健康', fr: "Ferguson Women's Health", de: "Ferguson Women's Health", es: "Ferguson Women's Health" },
-    onChange(code) { language = code; updateMenuLabel(); calendar.update(calendarTimes[code]); }
+    onChange(code) { language = code; updateMenuLabel(); updateClinicAddressOrder(code); calendar.update(calendarTimes[code]); }
   });
 })();

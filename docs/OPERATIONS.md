@@ -126,7 +126,12 @@ for general enquiries is just above the clinic cards, with the preserved
 cards sit in a full-width pale-blue `#edf2f8` overview band; the calendar and
 closing line retain the original paper `#f8f7f3` background below it. QR surfaces
 stay white. This split applies to every language, with no changes to the next
-Our efforts section or to calendar session colors. Official WeChat and social
+Our efforts section or to calendar session colors.
+The Chinese clinic cards show “中国 · 上海” before the detailed street address;
+other languages keep the city after the address and before the phone number.
+`updateClinicAddressOrder` moves the existing city node on every language change,
+including restored preferences, so reading order matches the visible order.
+Official WeChat and social
 links stay together in the compact final `#connect` section. Do not duplicate a Locations
 shortcut in the hero. The hero has one “Booking” shortcut at the upper left of
 the content, below the navigation and before the practice name, with
