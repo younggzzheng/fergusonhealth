@@ -346,3 +346,7 @@ expandable section in **03 / Her work** so the initial page stays concise.
   “华山路800号丁香公寓6号裙楼3层”. Show the street and building/floor on two
   readable lines after “中国 · 上海”, retaining the Zhen Ning Road entrance note,
   phone, QR code and every other language's existing address wording.
+- The owner requested that clicking Find us start at that section's blue edge,
+  without showing the preceding doctor-profile closing line. Override the
+  global 100px scroll padding only while `#locations` is the target, across all
+  languages and desktop/mobile navigation. Preserve calendar and other anchors.

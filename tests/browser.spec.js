@@ -1191,6 +1191,29 @@ test('calendar month is based on Shanghai even when the visitor is in another ti
   } finally { await context.close(); }
 });
 
+test('Find us starts at its section edge in every language without changing calendar positioning', async ({ page, isMobile }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
+    await page.locator(`[data-language="${code}"]`).click();
+    if (isMobile) await page.locator('.menu-toggle').click();
+    await page.locator(`${isMobile ? '#mobile-nav' : '.desktop-nav'} a[href="#locations"]`).click();
+    await expect(page).toHaveURL(/#locations$/);
+    await expect(page.locator('html')).toHaveCSS('scroll-padding-top', '0px');
+    await expect.poll(() => page.locator('#locations').evaluate(el => Math.abs(el.getBoundingClientRect().top))).toBeLessThanOrEqual(1);
+    await expect(page.locator('#appointment-calendar')).not.toHaveAttribute('open');
+    await assertNoOverflow(page);
+  }
+  await page.reload();
+  await waitForRenderedPage(page);
+  await expect.poll(() => page.locator('#locations').evaluate(el => Math.abs(el.getBoundingClientRect().top))).toBeLessThanOrEqual(1);
+  await page.locator('.hero-actions [data-calendar-link]').click();
+  await expect(page).toHaveURL(/#appointment-calendar$/);
+  await expect(page.locator('html')).toHaveCSS('scroll-padding-top', '100px');
+  await expect(page.locator('#appointment-calendar')).toHaveAttribute('open', '');
+  await expect.poll(() => page.locator('#appointment-calendar').evaluate(el => Math.abs(el.getBoundingClientRect().top - 100))).toBeLessThanOrEqual(1);
+});
+
 test('Find us navigation replaces the duplicate hero shortcut and the calendar opens in its new section', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
@@ -1251,6 +1274,7 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/#locations$/);
   await expect(page.locator('#locations-title')).toBeInViewport();
+  await expect.poll(() => page.locator('#locations').evaluate(el => Math.abs(el.getBoundingClientRect().top))).toBeLessThanOrEqual(1);
   await expect(calendar).not.toHaveAttribute('open');
   await shortcut.focus();
   await page.keyboard.press('Enter');

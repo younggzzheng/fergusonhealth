@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const { waitForRenderedPage } = require('./render-ready');
 
-test('public deployed revision renders all five languages without login', async ({ page, context, baseURL }) => {
+test('public deployed revision renders all five languages without login', async ({ page, context, baseURL, isMobile }) => {
   const origin = new URL(baseURL).origin;
   const failures = [];
   await context.route('**/*', route => new URL(route.request().url()).origin === origin
@@ -86,7 +86,13 @@ test('public deployed revision renders all five languages without login', async 
     }
     await page.locator('[data-language-switch]').scrollIntoViewIfNeeded();
   }
+  if (isMobile) await page.locator('.menu-toggle').click();
+  await page.locator(`${isMobile ? '#mobile-nav' : '.desktop-nav'} a[href="#locations"]`).click();
+  await expect(page).toHaveURL(/#locations$/);
+  await expect(page.locator('html')).toHaveCSS('scroll-padding-top', '0px');
+  await expect.poll(() => page.locator('#locations').evaluate(el => Math.abs(el.getBoundingClientRect().top))).toBeLessThanOrEqual(1);
   await page.locator('.hero-actions [data-calendar-link]').click();
+  await expect(page.locator('html')).toHaveCSS('scroll-padding-top', '100px');
   await expect(calendar).toHaveAttribute('open', '');
   await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, -1, 1, 0, 0, 0)');
   const effort = page.locator('.effort-item').first();
