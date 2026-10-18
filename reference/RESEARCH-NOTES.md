@@ -342,3 +342,7 @@ expandable section in **03 / Her work** so the initial page stays concise.
   clinic cards. Preserve the city wording, address, entrance note, phone and QR
   code; retain every other language's existing address-first order. Update the
   actual reading order on language selection and restored Chinese preferences.
+- The owner corrected the Chinese Am-Sino Ding Xiang Clinic address to
+  “华山路800号丁香公寓6号裙楼3层”. Show the street and building/floor on two
+  readable lines after “中国 · 上海”, retaining the Zhen Ning Road entrance note,
+  phone, QR code and every other language's existing address wording.

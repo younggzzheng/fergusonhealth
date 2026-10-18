@@ -54,7 +54,7 @@
       workDetailsTitle: '进一步了解她的专业历程', workEducationTitle: '医学教育与医疗质量', workEducationBody: '在罗伯特·伍德·约翰逊医学院完成妇产科住院医师培训后，吕医生留校任教，在临床工作之外参与住院医师培训、医学生教育及临床研究。2005年回国后，她在上海多家医疗机构承担临床管理与医疗质量、安全方面的工作。', workLeadershipTitle: '诊室之外的健康教育', workLeadershipBody: '她也参与社区健康教育。在2026年美华的医学职业体验活动中，她向 SCIS 学生介绍了从青春期到更年期的女性健康。', workBackgroundLink: '了解这次学生体验活动',
       locationsEyebrow: '03 / 咨询地点', locationsIntro: '请用微信扫描门诊二维码预约，或查看下方吕医生的出诊月历。',
       contactLabel: '一般咨询：',
-      locationsTitle: '咨询地点', clinic1Name: '1. 美华丁香门诊部', clinic1Address: '华山路800弄<br>6号楼3层', clinic1Entrance: '（入口在镇宁路上）', clinic1Appointment: '微信扫码预约', clinic2Name: '2. 百汇新天地医疗中心', clinic2Address: '淮海中路138号<br>上海广场3楼', clinic2Appointment: '微信扫码预约',
+      locationsTitle: '咨询地点', clinic1Name: '1. 美华丁香门诊部', clinic1Address: '华山路800号<br>丁香公寓6号裙楼3层', clinic1Entrance: '（入口在镇宁路上）', clinic1Appointment: '微信扫码预约', clinic2Name: '2. 百汇新天地医疗中心', clinic2Address: '淮海中路138号<br>上海广场3楼', clinic2Appointment: '微信扫码预约',
       clinicCity: '中国 · 上海', calendarTitle: '吕明旭医生出诊月历', calendarIntro: '点击出诊项，查看对应门诊的微信预约二维码。所有时间均为上海时间。',
       calendarAmSinoHours: '美华 · 周一下午，周三与周六全天', calendarParkwayHours: '百汇 · 周二与周五，13:00–19:00',
       calendarPrevious: '上个月', calendarNext: '下个月', calendarEmpty: '本月暂无出诊安排。',

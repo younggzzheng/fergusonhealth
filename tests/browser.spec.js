@@ -1036,6 +1036,10 @@ test('clinic phone numbers match address styling without a booking label in ever
   for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${code}"]`).click();
     await expect(page.locator('.practice-phone')).toHaveText(['（021）3175-2500', '400-819-6622']);
+    if (code === 'zh') {
+      await expect(page.locator('[data-i18n-html="clinic1Address"]')).toHaveText('华山路800号丁香公寓6号裙楼3层');
+      await expect(page.locator('[data-i18n="clinic1Entrance"]')).toHaveText('（入口在镇宁路上）');
+    }
     await expect(page.locator('[data-i18n="clinicBookingPhone"]')).toHaveCount(0);
     await expect(phones).toHaveText(['（021）3175-2500', '400-819-6622']);
     const locations = await page.locator('.practice-details').evaluateAll(details => details.map(card => ({
