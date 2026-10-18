@@ -348,5 +348,6 @@ expandable section in **03 / Her work** so the initial page stays concise.
   phone, QR code and every other language's existing address wording.
 - The owner requested that clicking Find us start at that section's blue edge,
   without showing the preceding doctor-profile closing line. Override the
-  global 100px scroll padding only while `#locations` is the target, across all
-  languages and desktop/mobile navigation. Preserve calendar and other anchors.
+  usual scroll padding (100px desktop, 22px on phones) only while `#locations`
+  is the target, across all languages and desktop/mobile navigation. Preserve
+  calendar and other anchors.

@@ -15,6 +15,7 @@ test('public deployed revision renders all five languages without login', async 
   await expect(page).toHaveURL(`${origin}/`);
   await expect(page.locator('#login-form, .lock-form')).toHaveCount(0);
   await waitForRenderedPage(page);
+  const originalPadding = await page.locator('html').evaluate(el => getComputedStyle(el).scrollPaddingTop);
   await expect(page.locator('meta[name="build-revision"]')).toHaveAttribute('content', process.env.EXPECTED_REVISION);
   await expect(page.locator('base')).toHaveCount(0);
   await expect(page.locator('#hero-title')).toBeVisible();
@@ -92,7 +93,7 @@ test('public deployed revision renders all five languages without login', async 
   await expect(page.locator('html')).toHaveCSS('scroll-padding-top', '0px');
   await expect.poll(() => page.locator('#locations').evaluate(el => Math.abs(el.getBoundingClientRect().top))).toBeLessThanOrEqual(1);
   await page.locator('.hero-actions [data-calendar-link]').click();
-  await expect(page.locator('html')).toHaveCSS('scroll-padding-top', '100px');
+  await expect(page.locator('html')).toHaveCSS('scroll-padding-top', originalPadding);
   await expect(calendar).toHaveAttribute('open', '');
   await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, -1, 1, 0, 0, 0)');
   const effort = page.locator('.effort-item').first();

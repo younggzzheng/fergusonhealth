@@ -1194,6 +1194,7 @@ test('calendar month is based on Shanghai even when the visitor is in another ti
 test('Find us starts at its section edge in every language without changing calendar positioning', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
+  const originalPadding = await page.locator('html').evaluate(el => getComputedStyle(el).scrollPaddingTop);
   for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${code}"]`).click();
     if (isMobile) await page.locator('.menu-toggle').click();
@@ -1209,9 +1210,9 @@ test('Find us starts at its section edge in every language without changing cale
   await expect.poll(() => page.locator('#locations').evaluate(el => Math.abs(el.getBoundingClientRect().top))).toBeLessThanOrEqual(1);
   await page.locator('.hero-actions [data-calendar-link]').click();
   await expect(page).toHaveURL(/#appointment-calendar$/);
-  await expect(page.locator('html')).toHaveCSS('scroll-padding-top', '100px');
+  await expect(page.locator('html')).toHaveCSS('scroll-padding-top', originalPadding);
   await expect(page.locator('#appointment-calendar')).toHaveAttribute('open', '');
-  await expect.poll(() => page.locator('#appointment-calendar').evaluate(el => Math.abs(el.getBoundingClientRect().top - 100))).toBeLessThanOrEqual(1);
+  await expect.poll(() => page.locator('#appointment-calendar').evaluate((el, padding) => Math.abs(el.getBoundingClientRect().top - parseFloat(padding)), originalPadding)).toBeLessThanOrEqual(1);
 });
 
 test('Find us navigation replaces the duplicate hero shortcut and the calendar opens in its new section', async ({ page, isMobile }) => {
