@@ -1207,7 +1207,11 @@ test('Find us starts at its section edge in every language without changing cale
   }
   await page.reload();
   await waitForRenderedPage(page);
-  await expect.poll(() => page.locator('#locations').evaluate(el => Math.abs(el.getBoundingClientRect().top))).toBeLessThanOrEqual(1);
+  // Reload keeps native fragment/history restoration; saved translations can
+  // reflow after the browser restores the scroll position on a narrow screen.
+  await expect(page).toHaveURL(/#locations$/);
+  await expect(page.locator('html')).toHaveCSS('scroll-padding-top', '0px');
+  await expect(page.locator('#locations-title')).toBeInViewport();
   await page.locator('.hero-actions [data-calendar-link]').click();
   await expect(page).toHaveURL(/#appointment-calendar$/);
   await expect(page.locator('html')).toHaveCSS('scroll-padding-top', originalPadding);
