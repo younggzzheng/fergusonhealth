@@ -397,3 +397,8 @@ expandable section in **03 / Her work** so the initial page stays concise.
   a quieter secondary role. Apply the same .9 scale in all five languages;
   preserve its color, English full italics, wording and ending-phrase wrapping.
   Leave the brand title, logos and care/other section headings unchanged.
+- The owner's iPhone screenshots showed an extra navy focus ring around the
+  calendar arrow after using Booking, unlike the single gold Booking circle.
+  Keep touch/mouse interactions to one gold circle and reserve the extra focus
+  outline for keyboard interaction. Retain focus transfer, native disclosure
+  semantics, all other action-circle styling and the existing schedule.

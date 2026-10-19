@@ -113,6 +113,8 @@ test('public deployed revision renders all five languages without login', async 
   await page.locator('.hero-actions [data-calendar-link]').click();
   await expect(page.locator('html')).toHaveCSS('scroll-padding-top', originalPadding);
   await expect(calendar).toHaveAttribute('open', '');
+  await expect(calendar).toHaveAttribute('data-pointer-focus', '');
+  await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('outline-style', 'none');
   await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, -1, 1, 0, 0, 0)');
   const effort = page.locator('.effort-item').first();
   await effort.locator('summary').focus();

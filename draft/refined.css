@@ -85,6 +85,7 @@ html .hero .hero-team-heading .hero-who-title{margin:0;min-width:0}
 .disclosure-arrow svg{width:21px;height:21px;transform:rotate(90deg);transition:transform .2s}
 details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
 .appointment-calendar summary:focus-visible .disclosure-arrow,.effort-item summary:focus-visible .details-toggle{outline:2px solid var(--ink);outline-offset:4px}
+.appointment-calendar[data-pointer-focus] summary:focus-visible .disclosure-arrow{outline:none}
 
 /* Compact native disclosures retain all three effort descriptions. */
 .effort-list{gap:0}

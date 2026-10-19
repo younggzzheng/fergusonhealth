@@ -154,6 +154,10 @@ their trailing diagonal arrows, inside matching unfilled 40px gold-orange circle
 Their URLs, underlines and new-tab behavior stay unchanged. Native click, Enter
 and Space toggle the calendar, and keyboard
 focus remains clearly outlined on the compact arrow, not the entire row.
+Touch/mouse activation uses only the single gold border, matching Booking and
+the other main action circles. Explicit pointer/keyboard tracking prevents
+Safari's touch-triggered focus transfer from adding a second navy ring; keyboard
+input restores the visible focus outline. Keep the summary focus transfer itself.
 A fresh page load without the calendar hash restores the collapsed state.
 Working periods and weekly clinic sessions are defined at the top of `draft/calendar.js`.
 Dates are inclusive, in Shanghai time. A period with `end: null` continues until

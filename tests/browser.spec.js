@@ -1342,6 +1342,39 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
   await expect(calendar).toHaveAttribute('open', '');
 });
 
+test('calendar touch and mouse activation keep one gold circle while keyboard focus stays visible', async ({ page, isMobile }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const shortcut = page.locator('.hero-actions [data-calendar-link]');
+  const calendar = page.locator('.appointment-calendar');
+  const summary = calendar.locator('summary');
+  const circle = summary.locator('.calendar-disclosure-icon');
+  // Start with keyboard focus so the pointer action also covers a sticky ring.
+  await shortcut.focus();
+  await page.keyboard.press('Enter');
+  await expect(summary).toBeFocused();
+  await expect(circle).toHaveCSS('outline-style', 'solid');
+  await expect(calendar).not.toHaveAttribute('data-pointer-focus');
+  if (isMobile) await shortcut.tap();
+  else await shortcut.click();
+  await expect(calendar).toHaveAttribute('data-pointer-focus', '');
+  await expect(calendar).toHaveAttribute('open', '');
+  await expect(summary).toBeFocused();
+  await expect(circle).toHaveCSS('outline-style', 'none');
+  await expect(circle).toHaveCSS('border-color', 'rgb(225, 137, 0)');
+  if (isMobile) await summary.tap();
+  else await summary.click();
+  await expect(calendar).not.toHaveAttribute('open');
+  await expect(circle).toHaveCSS('outline-style', 'none');
+  await summary.focus();
+  await page.keyboard.press('Enter');
+  await expect(calendar).not.toHaveAttribute('data-pointer-focus');
+  await expect(calendar).toHaveAttribute('open', '');
+  await expect(circle).toHaveCSS('outline-style', 'solid');
+  await expect(circle).toHaveCSS('outline-width', '2px');
+  await assertNoOverflow(page);
+});
+
 test('nine unnumbered service categories put hormone and menopause health first', async ({ page, isMobile }) => {
   await page.goto('/');
   await waitForRenderedPage(page);

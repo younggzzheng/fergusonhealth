@@ -35,6 +35,10 @@
       const weekdays = calendar.querySelector('.calendar-weekdays');
       const heading = document.getElementById('calendar-month');
       const dialog = document.querySelector('.booking-dialog');
+      // Safari may retain :focus-visible after a touch-triggered focus transfer.
+      // Keep that transfer for accessibility, but reserve its extra ring for keys.
+      document.addEventListener('pointerdown', () => calendar.setAttribute('data-pointer-focus', ''), { capture: true, passive: true });
+      document.addEventListener('keydown', () => calendar.removeAttribute('data-pointer-focus'), true);
       function revealCalendar() {
         calendar.open = true;
         calendar.querySelector('summary').focus({ preventScroll: true });
