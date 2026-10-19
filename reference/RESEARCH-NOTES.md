@@ -378,3 +378,7 @@ expandable section in **03 / Her work** so the initial page stays concise.
   credentials and prose) to the portrait edges, not just the identity lines.
   Keep both centered at the same maximum 430px width and responsive on phones;
   retain the separate left-aligned section heading and the wide-screen grid.
+- After seeing the shared-width version, the owner requested restoring the
+  preceding biography layout. Remove only the new 430px biography cap: restore
+  its centered, maximum-640px column and retain the centered 430px portrait.
+  Keep the approved unified logo sizes and left-aligned section/main heading.

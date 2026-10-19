@@ -1469,7 +1469,7 @@ test('section logos match Who We Are and replace numbers in every language', asy
   }
 });
 
-test('the single-column doctor heading aligns left and the centered biography matches the portrait width', async ({ page }) => {
+test('the single-column doctor heading aligns left while the portrait and readable prose retain their original widths', async ({ page }) => {
   await page.setViewportSize({ width: 897, height: 900 });
   await page.goto('/');
   await waitForRenderedPage(page);
@@ -1491,8 +1491,8 @@ test('the single-column doctor heading aligns left and the centered biography ma
     expect(Math.abs(layout.labelLeft - layout.left)).toBeLessThanOrEqual(1);
     expect(Math.abs(layout.portraitCenter - layout.center)).toBeLessThanOrEqual(1);
     expect(Math.abs(layout.copyCenter - layout.center)).toBeLessThanOrEqual(1);
-    expect(Math.abs(layout.copyWidth - layout.portraitWidth)).toBeLessThanOrEqual(1);
-    expect(layout.copyWidth).toBeLessThanOrEqual(430);
+    expect(layout.portraitWidth).toBe(430);
+    expect(layout.copyWidth).toBe(640);
     await assertNoOverflow(page);
   }
 });
