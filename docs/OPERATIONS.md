@@ -205,11 +205,14 @@ shell mark on the left, cropped from the unchanged local logo without company
 lettering. Keep the translated Who We Are heading beside it: the decorative
 mark is 52×39px on desktop and 44×33px on phones, not a replacement for the
 accessible heading or an additional full wordmark.
-The four main section labels use a smaller 20×15px original logo mark instead
-of numeric prefixes (01–04 and their slashes). Keep the translated label text
-beside each mark in every language. These small label marks do not resize the
-larger Who We Are mark or replace the section titles. Their height stays close
-to the adjacent 14px label type, as requested by the owner.
+The four main section labels replace numeric prefixes (01–04 and their slashes)
+with the same original logo mark and responsive size as Who We Are. Keep the
+translated label text beside each mark in every language. After seeing a small
+version, the owner requested equal, readable sizes: 52×39px desktop and 44×33px
+phones, shared through the two `--ui-logo-*` variables. These marks do not replace
+the section titles. The Meet Dr. Ferguson label is a full-width `.wrap` row above
+the doctor grid, aligned to the same left content edge as the other section
+labels. Retain the existing photo/body grid columns, order and responsive rules.
 `draft/refined.css`, loaded after the legacy stylesheet on both entry pages,
 maintains the approved layout and shared 15px body/action/disclosure scale.
 Supporting captions use 12–13px, while article prose remains 16px on desktop

@@ -55,11 +55,13 @@ test('public deployed revision renders all five languages without login', async 
     await expect(page.locator('.hero-team-heading .brand-mark')).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
     await expect(page.locator('.hero-team-heading .brand-mark')).toHaveText('');
     await expect(page.locator('.section-label-mark')).toHaveCount(4);
+    const logoSize = await page.locator('.team-flower').evaluate(el => [getComputedStyle(el).width, getComputedStyle(el).height]);
     for (const label of await page.locator('.section-label').all()) {
-      await expect(label.locator('.section-label-mark')).toHaveCSS('width', '20px');
-      await expect(label.locator('.section-label-mark')).toHaveCSS('height', '15px');
+      await expect(label.locator('.section-label-mark')).toHaveCSS('width', logoSize[0]);
+      await expect(label.locator('.section-label-mark')).toHaveCSS('height', logoSize[1]);
       await expect(label.locator('[data-i18n]')).not.toHaveText(/^0[1-4]\s*\//);
     }
+    expect(await page.locator('#about').evaluate(section => Math.abs(section.querySelector('.about-section-label').getBoundingClientRect().left - section.querySelector('.about-grid').getBoundingClientRect().left))).toBeLessThanOrEqual(1);
     if (language === 'zh-CN') await expect(page.locator('#care-title')).toHaveCSS('font-family', /Songti SC/);
     await expect(page.locator('.wecare-shop-label')).toHaveText({ en: 'Shop', 'zh-CN': '微店', fr: 'Boutique', de: 'Shop', es: 'Tienda' }[language]);
     const brandSizes = await page.locator('#hero-title').evaluate(element => [getComputedStyle(element).fontSize, getComputedStyle(element.querySelector('span')).fontSize]);

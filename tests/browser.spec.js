@@ -1431,11 +1431,12 @@ test('service disclosures preserve their state across languages and support keyb
   await expect(page.locator('#care details[open]')).toHaveCount(0);
 });
 
-test('small original logo marks replace section numbers in every language', async ({ page }) => {
+test('section logos match Who We Are and replace numbers in every language', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
   const labels = page.locator('.section-label');
   await expect(labels).toHaveCount(4);
+  const expectedSize = await page.evaluate(() => innerWidth <= 700 ? ['44px', '33px'] : ['52px', '39px']);
   for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${code}"]`).click();
     for (const label of await labels.all()) {
@@ -1443,8 +1444,8 @@ test('small original logo marks replace section numbers in every language', asyn
       await expect(mark).toBeVisible();
       await expect(mark).toHaveAttribute('aria-hidden', 'true');
       await expect(mark).toHaveText('');
-      await expect(mark).toHaveCSS('width', '20px');
-      await expect(mark).toHaveCSS('height', '15px');
+      await expect(mark).toHaveCSS('width', expectedSize[0]);
+      await expect(mark).toHaveCSS('height', expectedSize[1]);
       await expect(mark).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
       await expect(label.locator('[data-i18n]')).not.toHaveText(/^0[1-4]\s*\//);
       const row = await label.evaluate(element => {
@@ -1452,10 +1453,18 @@ test('small original logo marks replace section numbers in every language', asyn
         const text = element.querySelector('[data-i18n]').getBoundingClientRect();
         return { gap: text.left - logo.right, centerDifference: Math.abs(logo.top + logo.height / 2 - text.top - text.height / 2) };
       });
-      expect(row.gap).toBeGreaterThanOrEqual(10);
+      expect(row.gap).toBeGreaterThanOrEqual(12);
       expect(row.centerDifference).toBeLessThanOrEqual(1);
     }
-    await expect(page.locator('.hero .team-flower')).toHaveCSS('width', await page.evaluate(() => innerWidth <= 700 ? '44px' : '52px'));
+    await expect(page.locator('.hero .team-flower')).toHaveCSS('width', expectedSize[0]);
+    await expect(page.locator('.hero .team-flower')).toHaveCSS('height', expectedSize[1]);
+    const aboutAlignment = await page.locator('#about').evaluate(section => ({
+      labelLeft: section.querySelector('.about-section-label').getBoundingClientRect().left,
+      contentLeft: section.querySelector('.about-grid').getBoundingClientRect().left,
+      labelPrecedesGrid: Boolean(section.querySelector('.about-section-label').compareDocumentPosition(section.querySelector('.about-grid')) & Node.DOCUMENT_POSITION_FOLLOWING),
+    }));
+    expect(Math.abs(aboutAlignment.labelLeft - aboutAlignment.contentLeft)).toBeLessThanOrEqual(1);
+    expect(aboutAlignment.labelPrecedesGrid).toBe(true);
     await assertNoOverflow(page);
   }
 });

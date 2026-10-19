@@ -365,3 +365,8 @@ expandable section in **03 / Her work** so the initial page stays concise.
   20×15px marks, close to the 14px label type. In the final clarification, the
   owner requested a slight reduction for Who We Are too: 52×39px desktop and
   44×33px phone, still clearly larger than the small section-label marks.
+- After viewing the small section marks, the owner found them unclear and
+  requested the same size as Who We Are instead: all five marks share 52×39px
+  desktop and 44×33px phone sizes. This supersedes the 20×15px label treatment.
+  The owner also approved moving only the Meet Dr. Ferguson label to the
+  section's full-width left content edge, retaining the photo/body grid layout.

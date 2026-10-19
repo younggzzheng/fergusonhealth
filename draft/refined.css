@@ -1,13 +1,14 @@
 /* Approved homepage refinement and shared reading scale, October 2026.
    Headings retain their hierarchy; normal copy/actions share one size. */
-:root{--copy-size:15px;--note-size:13px;--small-note-size:12px}
+:root{--copy-size:15px;--note-size:13px;--small-note-size:12px;--ui-logo-width:52px;--ui-logo-height:39px}
 
 .site-header,.site-header .mobile-nav:not([hidden]){background:#edf2f8}
 /* Main navigation starts at each section edge, without the previous footer. */
 html:has(#care:target,#about:target,#locations:target,#work:target){scroll-padding-top:0}
-/* Small original logo marks replace the four numbered section prefixes. */
-.section-label{display:flex;align-items:center;gap:10px}
-.section-label .section-label-mark{width:20px;height:15px;flex:0 0 20px}
+/* Section labels and Who We Are share the same readable original logo size. */
+.section-label{display:flex;align-items:center;gap:14px}
+.section-label .section-label-mark{width:var(--ui-logo-width);height:var(--ui-logo-height);flex:0 0 var(--ui-logo-width)}
+.about-section-label{margin-bottom:32px}
 .site-header .header-inner{height:96px}
 .site-header .header-inner>.brand-logo{width:105px;height:76px}
 .site-header .header-inner>.brand-logo img{width:207px;left:-47px;top:-33px}
@@ -31,7 +32,7 @@ html[lang=zh-CN]{--life-heading-size:clamp(39px,3.5vw,55px)}
 .hero .hero-team{background:none;border:0;border-left:1px solid var(--line);border-radius:0;padding:6px 0 6px 38px}
 .hero .hero-team-heading{display:flex;align-items:center;gap:14px;margin-bottom:12px}
 /* Reuse the original mark-only crop, without the logo's company lettering. */
-.hero .team-flower{display:block;width:52px;height:39px;flex:0 0 52px;margin:0}
+.hero .team-flower{display:block;width:var(--ui-logo-width);height:var(--ui-logo-height);flex:0 0 var(--ui-logo-width);margin:0}
 .hero .hero-who-title,.hero .purpose-item h2,
 html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{font-family:var(--sans);font-size:20px;line-height:1.5;letter-spacing:0;font-weight:500;margin-bottom:12px}
 html .hero .hero-team-heading .hero-who-title{margin:0;min-width:0}
@@ -107,7 +108,7 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   .hero .hero-bottom{margin-top:0}
 }
 @media(max-width:700px){
-  :root{--life-heading-size:49px}
+  :root{--life-heading-size:49px;--ui-logo-width:44px;--ui-logo-height:33px}
   html[lang=zh-CN]{--life-heading-size:41px}
   .site-header .header-inner{height:91px}
   .hero{padding-top:36px;row-gap:30px}
@@ -117,7 +118,8 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   .hero .hero-actions .calendar-shortcut{gap:14px}
   .hero .hero-team{padding-top:23px}
   .hero .hero-team-heading{gap:12px}
-  .hero .team-flower{width:44px;height:33px;flex-basis:44px}
+  .section-label{gap:12px}
+  .about-section-label{margin-bottom:24px}
   .hero .hero-who-title,.hero .purpose-item h2,
   html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{font-size:18px}
   .hero .hero-bottom{padding-block:20px;letter-spacing:.2px}
