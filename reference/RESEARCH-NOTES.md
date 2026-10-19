@@ -355,3 +355,7 @@ expandable section in **03 / Her work** so the initial page stays concise.
   sections. Extend Find us alignment to Areas of care, Meet Dr. Ferguson and
   Our efforts, across all languages and desktop/mobile menus. Preserve the
   Contact email target and Booking calendar behavior; no layout/copy changes.
+- On 2026-10-19 the owner requested the company's logo beside Who We Are,
+  without lettering. Restore the existing original mark-only logo crop to the
+  left of the translated heading, in navy and gold, keeping the source image,
+  heading text, body copy and collapsed mission/vision unchanged.

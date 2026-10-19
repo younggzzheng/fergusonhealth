@@ -200,7 +200,11 @@ phrase to the next line when it does not fit. Retain the supplied wording and
 italic endings (Chinese remains upright). Every language's full message uses
 the same blue-grey `#61718f`, including the English message's leading hyphen.
 Who We Are stays visible; mission and vision remain collapsed.
-The plain team panel has no arch or additional visible shell mark.
+The plain team panel has no arch. Its heading has the original navy-and-gold
+shell mark on the left, cropped from the unchanged local logo without company
+lettering. Keep the translated Who We Are heading beside it: the decorative
+mark is 56×42px on desktop and 48×36px on phones, not a replacement for the
+accessible heading or an additional full wordmark.
 `draft/refined.css`, loaded after the legacy stylesheet on both entry pages,
 maintains the approved layout and shared 15px body/action/disclosure scale.
 Supporting captions use 12–13px, while article prose remains 16px on desktop

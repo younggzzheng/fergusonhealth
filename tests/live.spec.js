@@ -51,6 +51,9 @@ test('public deployed revision renders all five languages without login', async 
     await expect(page.locator('#hero-title')).toHaveText('Ferguson Women’s Health');
     await expect(page.locator('#hero-title')).toHaveCSS('font-family', englishBrandFamily);
     await expect(page.locator('#hero-title span')).toHaveCSS('font-family', englishBrandFamily);
+    await expect(page.locator('.hero-team-heading .brand-mark')).toBeVisible();
+    await expect(page.locator('.hero-team-heading .brand-mark')).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
+    await expect(page.locator('.hero-team-heading .brand-mark')).toHaveText('');
     if (language === 'zh-CN') await expect(page.locator('#care-title')).toHaveCSS('font-family', /Songti SC/);
     await expect(page.locator('.wecare-shop-label')).toHaveText({ en: 'Shop', 'zh-CN': '微店', fr: 'Boutique', de: 'Shop', es: 'Tienda' }[language]);
     const brandSizes = await page.locator('#hero-title').evaluate(element => [getComputedStyle(element).fontSize, getComputedStyle(element.querySelector('span')).fontSize]);

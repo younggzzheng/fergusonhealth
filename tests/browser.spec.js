@@ -655,6 +655,34 @@ test('practice name leads the compact hero and the portrait stays with the docto
   }
 });
 
+test('Who We Are has the original text-free logo beside its heading in every language', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const mark = page.locator('.hero-team-heading .brand-mark');
+  await expect(mark).toHaveAttribute('aria-hidden', 'true');
+  await expect(mark).toHaveText('');
+  await expect(mark).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
+  await expect(mark).toHaveCSS('background-size', '349.44% 339.39%');
+  await expect(mark).toHaveCSS('background-position', '63.23% 31.65%');
+  for (const [code, label] of [
+    ['en', 'Who We Are'], ['zh', '我们是谁'], ['fr', 'Qui sommes-nous ?'],
+    ['de', 'Wer wir sind'], ['es', 'Quiénes somos'],
+  ]) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(mark).toBeVisible();
+    await expect(page.locator('.hero-who-title')).toHaveText(label);
+    const row = await page.locator('.hero-team-heading').evaluate(element => {
+      const logo = element.querySelector('.brand-mark').getBoundingClientRect();
+      const title = element.querySelector('h2').getBoundingClientRect();
+      return { gap: title.left - logo.right, centerDifference: Math.abs(logo.top + logo.height / 2 - title.top - title.height / 2) };
+    });
+    expect(row.gap).toBeGreaterThanOrEqual(12);
+    expect(row.centerDifference).toBeLessThanOrEqual(1);
+    await expect(page.locator('.purpose-details')).not.toHaveAttribute('open');
+    await assertNoOverflow(page);
+  }
+});
+
 test('mission and vision stay compact with a keyboard-accessible disclosure in every language', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);

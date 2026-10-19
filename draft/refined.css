@@ -26,9 +26,12 @@ html[lang=zh-CN]{--life-heading-size:clamp(39px,3.5vw,55px)}
 .hero .hero-actions .calendar-shortcut svg{width:21px;height:21px}
 .hero .hero-actions .calendar-shortcut:hover .link-circle{background:transparent;transform:translateX(2px)}
 .hero .hero-team{background:none;border:0;border-left:1px solid var(--line);border-radius:0;padding:6px 0 6px 38px}
-.hero .team-flower{display:none}
+.hero .hero-team-heading{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+/* Reuse the original mark-only crop, without the logo's company lettering. */
+.hero .team-flower{display:block;width:56px;height:42px;flex:0 0 56px;margin:0}
 .hero .hero-who-title,.hero .purpose-item h2,
 html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{font-family:var(--sans);font-size:20px;line-height:1.5;letter-spacing:0;font-weight:500;margin-bottom:12px}
+html .hero .hero-team-heading .hero-who-title{margin:0;min-width:0}
 .hero .hero-intro{font-size:var(--copy-size);line-height:1.9;max-width:none}
 .hero .purpose-details{margin-top:23px}
 .hero .purpose-details summary{font-size:var(--copy-size);padding-top:15px}
@@ -110,6 +113,8 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   .hero .hero-actions{margin-bottom:24px}
   .hero .hero-actions .calendar-shortcut{gap:14px}
   .hero .hero-team{padding-top:23px}
+  .hero .hero-team-heading{gap:12px}
+  .hero .team-flower{width:48px;height:36px;flex-basis:48px}
   .hero .hero-who-title,.hero .purpose-item h2,
   html[lang=zh-CN] .hero .hero-who-title,html[lang=zh-CN] .hero .purpose-item h2{font-size:18px}
   .hero .hero-bottom{padding-block:20px;letter-spacing:.2px}
