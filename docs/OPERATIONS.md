@@ -228,6 +228,16 @@ owner tried matching the biography to the photo width, then requested restoring
 the original layout: keep the portrait centered at up to 430px and the readable
 biography column centered at up to 640px, both shrinking on phones. Do not force
 their left edges to match. The wide-screen photo/text grid is unchanged.
+The owner-approved doctor slideshow uses the original portrait first, then the
+blue-shirt microphone photo, then the blue-qipao lectern photo. `photo-carousel.js`
+changes photos every seven seconds with a .65-second fade, without dots or
+play/pause controls. The second and third photos use `object-fit: contain` with
+12–20px paper-colored breathing room so heads are not cropped; the first
+portrait keeps its existing cover crop. Keep the fixed frame and biography
+layout. Suspend rotation offscreen, in background tabs and for reduced-motion
+preferences; retain a static original portrait when JavaScript is unavailable.
+Image descriptions are translated in all five languages. The owner approved
+this final photo treatment for publication on 19 October 2026.
 `draft/refined.css`, loaded after the legacy stylesheet on both entry pages,
 maintains the approved layout and shared 15px body/action/disclosure scale.
 Supporting captions use 12–13px, while article prose remains 16px on desktop

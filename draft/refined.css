@@ -83,6 +83,18 @@ html .hero .hero-team-heading .hero-who-title{margin:0;min-width:0}
 .effort-item summary:focus-visible .details-toggle{outline:2px solid var(--ink);outline-offset:4px}
 .appointment-calendar[data-pointer-focus] summary:focus-visible .details-toggle{outline:none}
 
+/* The slideshow stays inside the approved portrait frame, without shifting the biography. */
+.photo-gallery .doctor-slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .65s ease}
+.photo-gallery .doctor-slide.is-active{opacity:1}
+.photo-gallery .doctor-slide[hidden]{display:none}
+.photo-gallery .doctor-photo{display:block}
+.photo-gallery .doctor-photo[hidden]{display:none}
+.about-portrait.photo-gallery .doctor-slide-blue-shirt .doctor-photo,
+.about-portrait.photo-gallery .doctor-slide-lectern .doctor-photo{object-fit:contain;object-position:center;transform:none;box-sizing:border-box;padding:clamp(12px,2vw,20px);background:var(--paper)}
+.about-section .about-portrait.photo-gallery .portrait-frame .portrait-placeholder{visibility:visible}
+.about-section .about-portrait.photo-gallery .portrait-frame:has(.doctor-slide.is-active .doctor-photo:not([hidden])) .portrait-placeholder{visibility:hidden}
+@media(prefers-reduced-motion:reduce){.photo-gallery .doctor-slide{transition:none}}
+
 /* Compact native disclosures retain all three effort descriptions. */
 .effort-list{gap:0}
 .effort-item{min-width:0;border-bottom:1px solid var(--line)}

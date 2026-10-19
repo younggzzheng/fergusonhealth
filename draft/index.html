@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="refined.css">
   <script src="languages.js" defer></script>
   <script src="calendar.js" defer></script>
+  <script src="photo-carousel.js" defer></script>
   <script src="site.js" defer></script>
 </head>
 <body>
@@ -163,10 +164,18 @@
       <p class="wrap eyebrow section-label about-section-label"><span class="brand-mark section-label-mark" aria-hidden="true"></span><span data-i18n="aboutEyebrow">Meet Dr. Ferguson</span></p>
       <div class="wrap about-grid">
         <div class="section-heading"><h2 id="about-title" data-i18n-html="aboutTitle">A doctor.<br>A listener.<br><em>Your partner in care.</em></h2></div>
-        <figure class="about-portrait" aria-labelledby="profile-name">
+        <figure class="about-portrait photo-gallery" aria-labelledby="profile-name">
           <div class="portrait-frame">
             <div class="portrait-placeholder" aria-hidden="true"><span class="brand-mark portrait-brand"></span></div>
-            <img class="doctor-photo" src="assets/dr-ferguson-light-grey.jpg" alt="Dr. Michelle Lu-Ferguson" width="1084" height="1451" onerror="this.hidden=true;this.closest('.portrait-frame').classList.add('portrait-unavailable')">
+            <div class="doctor-slide is-active" data-photo-slide>
+              <img class="doctor-photo" src="assets/dr-ferguson-light-grey.jpg" alt="Dr. Michelle Lu-Ferguson" width="1084" height="1451" onerror="this.hidden=true">
+            </div>
+            <div class="doctor-slide doctor-slide-blue-shirt" data-photo-slide hidden aria-hidden="true">
+              <img class="doctor-photo" src="assets/dr-ferguson-blue-shirt-talk.jpg" alt="Dr. Ferguson speaking with a handheld microphone" data-i18n-alt="photoBlueShirtAlt" width="649" height="1210" onerror="this.hidden=true">
+            </div>
+            <div class="doctor-slide doctor-slide-lectern" data-photo-slide hidden aria-hidden="true">
+              <img class="doctor-photo" src="assets/dr-ferguson-lectern-talk.jpg" alt="Dr. Ferguson speaking at a lectern" data-i18n-alt="photoLecternAlt" width="1086" height="724" onerror="this.hidden=true">
+            </div>
             <span class="portrait-corner" aria-hidden="true"></span>
           </div>
         </figure>

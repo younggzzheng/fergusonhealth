@@ -3,6 +3,7 @@
   const translations = {
     en: {},
     zh: {
+      photoBlueShirtAlt: '吕医生手持麦克风演讲', photoLecternAlt: '吕医生在讲台上演讲',
       wecareEyebrow: '日常健康与生活', wecareShopLabel: '微店',
       wecareDescription: '探索实用的健康资讯与产品，Ferguson Health 参与推荐。',
       wecareScan: '微信扫码，进入 WeCare。', wecareCodeAlt: 'WeCare 微店微信小程序码',
@@ -63,6 +64,7 @@
       connectedTitle: '保持联系', wechatTitle: '官方微信公众号', wechatBody: '扫码关注，获取最新资讯。', socialXiaohongshu: '小红书', footerMessage: 'Because We Care', backTop: '返回顶部', languageChoice: '选择语言'
     },
     fr: {
+      photoBlueShirtAlt: 'Dr Ferguson prenant la parole avec un microphone à main', photoLecternAlt: 'Dr Ferguson prenant la parole à un pupitre',
       wecareEyebrow: 'Le bien-être au quotidien', wecareShopLabel: 'Boutique',
       wecareDescription: 'Découvrez des informations pratiques sur le bien-être et des produits de santé, avec les recommandations de Ferguson Health.',
       wecareScan: 'Scannez avec WeChat pour découvrir WeCare.', wecareCodeAlt: 'Code du mini-programme WeChat de la boutique WeCare',
@@ -118,6 +120,7 @@
       connectedTitle: 'Restons en contact', wechatTitle: 'Compte officiel WeChat', wechatBody: 'Scannez pour suivre les actualités.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Retour en haut'
     },
     de: {
+      photoBlueShirtAlt: 'Dr. Ferguson bei einem Vortrag mit einem Handmikrofon', photoLecternAlt: 'Dr. Ferguson bei einem Vortrag am Rednerpult',
       wecareEyebrow: 'Wohlbefinden im Alltag', wecareShopLabel: 'Shop',
       wecareDescription: 'Entdecken Sie praktische Gesundheitsinformationen und Gesundheitsprodukte mit Empfehlungen von Ferguson Health.',
       wecareScan: 'Mit WeChat scannen und WeCare besuchen.', wecareCodeAlt: 'WeChat-Mini-Programm-Code des WeCare-Shops',
@@ -173,6 +176,7 @@
       connectedTitle: 'Bleiben wir in Kontakt', wechatTitle: 'Offizielles WeChat-Konto', wechatBody: 'Für Neuigkeiten scannen und folgen.', socialXiaohongshu: 'Xiaohongshu · 小红书', footerMessage: 'Because We Care', backTop: 'Nach oben'
     },
     es: {
+      photoBlueShirtAlt: 'La Dra. Ferguson hablando con un micrófono de mano', photoLecternAlt: 'La Dra. Ferguson hablando desde un atril',
       wecareEyebrow: 'Bienestar cotidiano', wecareShopLabel: 'Tienda',
       wecareDescription: 'Descubre información práctica sobre bienestar y productos de salud, con recomendaciones de Ferguson Health.',
       wecareScan: 'Escanea con WeChat para visitar WeCare.', wecareCodeAlt: 'Código del miniprograma de WeChat de la tienda WeCare',
@@ -260,6 +264,7 @@
   desktop.addEventListener('change', event => { if (event.matches) closeMenu(); });
   document.getElementById('year').textContent = String(new Date().getFullYear());
   const calendar = window.FergusonCalendar.init();
+  window.FergusonPhotos.init();
   const calendarTimes = {
     en: { afternoon: 'Afternoon', allDay: 'All day' }, zh: { afternoon: '下午', allDay: '全天', 'am-sino': '美华', parkway: '百汇' },
     fr: { afternoon: 'Après-midi', allDay: 'Journée' }, de: { afternoon: 'Nachmittag', allDay: 'Ganztägig' },

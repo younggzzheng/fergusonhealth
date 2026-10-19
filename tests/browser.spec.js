@@ -610,9 +610,9 @@ test('practice name leads the compact hero and the portrait stays with the docto
   const teamCopy = await page.locator('.hero-team').innerText();
   expect(teamCopy.match(/international/gi)).toHaveLength(1);
   expect(teamCopy.match(/evidence-based/gi)).toHaveLength(1);
-  const portrait = page.locator('#about .doctor-photo');
-  await expect(portrait).toHaveCount(1);
-  await expect(page.locator('.doctor-photo')).toHaveCount(1);
+  const portrait = page.locator('#about .doctor-photo').first();
+  await expect(page.locator('#about .doctor-photo')).toHaveCount(3);
+  await expect(page.locator('.doctor-photo')).toHaveCount(3);
   await portrait.scrollIntoViewIfNeeded();
   await expect(portrait).toBeVisible();
   await expect.poll(() => portrait.evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
@@ -662,6 +662,66 @@ test('practice name leads the compact hero and the portrait stays with the docto
     await expect(page.locator('[data-i18n="visionBody"]')).toContainText(future);
     await assertNoOverflow(page);
   }
+});
+
+test('doctor photos rotate automatically without controls or changing the frame', async ({ page }) => {
+  await page.clock.install();
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const gallery = page.locator('.photo-gallery');
+  await gallery.scrollIntoViewIfNeeded();
+  const original = await gallery.boundingBox();
+  await expect(gallery.locator('button, .photo-controls, .photo-status')).toHaveCount(0);
+  await expect(gallery.locator('.doctor-slide').first().locator('img')).toHaveCSS('object-fit', 'cover');
+  for (const selector of ['.doctor-slide-blue-shirt img', '.doctor-slide-lectern img']) {
+    const image = gallery.locator(selector);
+    await expect(image).toHaveCSS('object-fit', 'contain');
+    await expect(image).toHaveCSS('object-position', '50% 50%');
+    await expect(image).toHaveCSS('transform', 'none');
+    expect(await image.evaluate(element => parseFloat(getComputedStyle(element).paddingTop))).toBeGreaterThanOrEqual(12);
+  }
+  await expect(gallery.locator('.is-active img')).toHaveAttribute('src', /light-grey\.jpg$/);
+  await page.clock.runFor(7100);
+  await expect(gallery.locator('.is-active img')).toHaveAttribute('src', /blue-shirt-talk\.jpg$/);
+  await page.clock.runFor(7000);
+  await expect(gallery.locator('.is-active img')).toHaveAttribute('src', /lectern-talk\.jpg$/);
+  await expect(gallery.locator('.doctor-slide[aria-hidden="false"]')).toHaveCount(1);
+  const changed = await gallery.boundingBox();
+  expect(changed.width).toBeCloseTo(original.width, 1);
+  expect(changed.height).toBeCloseTo(original.height, 1);
+  await assertNoOverflow(page);
+  for (const [code, alt] of [['zh', '吕医生在讲台上演讲'], ['fr', 'Dr Ferguson prenant la parole à un pupitre'], ['de', 'Dr. Ferguson bei einem Vortrag am Rednerpult'], ['es', 'La Dra. Ferguson hablando desde un atril']]) {
+    await page.locator(`[data-language="${code}"]`).click();
+    await expect(gallery.locator('.doctor-slide-lectern img')).toHaveAttribute('alt', alt);
+  }
+});
+
+test('doctor slideshow starts paused for reduced motion and skips an unavailable photo', async ({ page }) => {
+  await page.clock.install();
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.route('**/assets/dr-ferguson-lectern-talk.jpg', route => route.fulfill({ status: 404, body: '' }));
+  await page.goto('/');
+  const gallery = page.locator('.photo-gallery');
+  await gallery.scrollIntoViewIfNeeded();
+  await page.clock.runFor(21000);
+  await expect(gallery.locator('.is-active img')).toHaveAttribute('src', /light-grey\.jpg$/);
+  await expect(gallery.locator('.is-active')).toHaveCSS('transition-duration', '0s');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.clock.runFor(7100);
+  await expect(gallery.locator('.is-active img')).toHaveAttribute('src', /blue-shirt-talk\.jpg$/);
+  await page.clock.runFor(7000);
+  await expect(gallery.locator('.is-active img')).toHaveAttribute('src', /light-grey\.jpg$/);
+});
+
+test('doctor portrait remains a static fallback with JavaScript disabled', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto(baseURL);
+  await expect(page.locator('.doctor-slide').first()).toBeVisible();
+  await expect(page.locator('.doctor-slide').nth(1)).toBeHidden();
+  await expect(page.locator('.doctor-slide').nth(2)).toBeHidden();
+  await expect(page.locator('.photo-controls')).toHaveCount(0);
+  await context.close();
 });
 
 test('Who We Are has the original text-free logo beside its heading in every language', async ({ page }) => {

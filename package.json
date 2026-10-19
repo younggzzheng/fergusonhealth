@@ -2,7 +2,8 @@
   "name": "fergusonhealth-preview",
   "private": true,
   "scripts": {
-    "test": "playwright test",
+    "test": "npm run test:unit && playwright test",
+    "test:unit": "node --test tests/*.test.cjs",
     "test:live": "FWH_LIVE_TEST=1 playwright test"
   },
   "devDependencies": {

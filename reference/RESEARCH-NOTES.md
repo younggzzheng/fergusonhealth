@@ -407,3 +407,35 @@ expandable section in **03 / Her work** so the initial page stays concise.
   18px plus beside the title, a minus when open, no circle or arrow. Preserve
   the 14px title gap, native keyboard/summary behavior and quiet touch focus.
   Homepage Booking keeps its existing gold-circle navigation arrow.
+- On 2026-10-19 the owner supplied a consultation-room photo (cream suit) and
+  a community-talk photo (blue shirt), and permitted cropping for the doctor's
+  photo slideshow. Local preview only: retain the existing portrait first,
+  followed by consultation and lecture, inside the existing square/arched frame.
+  Preserve the uploaded image bytes and use CSS framing, without retouching or
+  altering people. Keep manual photo choices and a pause/play control; pause
+  offscreen, on hover/focus, and when the page is hidden. Reduced-motion users
+  start paused. No clinical claims or patient stories were added. Do not publish
+  this photo change until the owner approves the local preview.
+- After viewing the preview, the owner requested automatic photos only, with
+  no dots or stop/play bar. Remove the entire overlay and its manual-control
+  code/translations in all languages. Retain the three photos, CSS framing,
+  seven-second timing, gentle fades, offscreen/background suspension and the
+  reduced-motion preference. This supersedes the preceding manual-control
+  instruction; the slideshow remains a local, unpublished preview.
+- The owner then replaced the wide blue-shirt lecture photo with the supplied
+  full-length blue-shirt microphone photo and explicitly placed it second.
+  Interpret the following “replace the same-outfit photo” request as replacing
+  the duplicate cream-suit consultation photo with the supplied blue-qipao
+  lectern photo. New order: original portrait, blue shirt, qipao at lectern.
+  Retain CSS-only framing, seven-second automatic fades and no controls.
+  Keep the two superseded preview images in reference rather than deploying
+  unused photos. Photo-library originals remain untouched; preview only.
+- The owner found the later photos too enlarged, with heads cut off. Show the
+  complete second/third photos using `object-fit: contain`, centered with
+  12–20px responsive breathing room and a paper-colored background. Do not
+  zoom or crop those two photos to fill the square arch. Keep the first portrait,
+  frame dimensions, biography layout, order and automatic timing unchanged.
+- The owner approved publishing this final version on 2026-10-19, superseding
+  the local-preview hold above. Publish only the original portrait and the two
+  final approved replacement photos in their confirmed order; do not include
+  superseded local reference photos in the public repository or website.
