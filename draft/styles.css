@@ -268,9 +268,8 @@ html[lang=zh-CN] .contact-section h2{font-size:clamp(34px,3.1vw,44px);line-heigh
 .appointment-calendar{grid-column:1/-1;min-width:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .appointment-calendar summary{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font-size:18px;line-height:1.6;list-style:none;cursor:pointer}
 .appointment-calendar summary::-webkit-details-marker{display:none}
-.appointment-calendar summary .details-toggle{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;transition:background .2s}
-.appointment-calendar summary .details-toggle:before,.appointment-calendar summary .details-toggle:after{left:10px;top:16px}
-.appointment-calendar summary:hover .details-toggle{background:#e9edf3}
+.appointment-calendar summary .details-toggle{width:18px;height:18px;flex:0 0 18px;color:var(--ink)}
+.appointment-calendar summary .details-toggle:before,.appointment-calendar summary .details-toggle:after{left:0;top:8px;width:18px}
 /* Keep keyboard focus on the compact control, not a frame around the full row. */
 .appointment-calendar summary:focus-visible{outline:none}
 .appointment-calendar summary:focus-visible .details-toggle{outline:2px solid var(--ink);outline-offset:4px}

@@ -402,3 +402,8 @@ expandable section in **03 / Her work** so the initial page stays concise.
   Keep touch/mouse interactions to one gold circle and reserve the extra focus
   outline for keyboard interaction. Retain focus transfer, native disclosure
   semantics, all other action-circle styling and the existing schedule.
+- The owner then replaced the calendar's circle arrow with plain +/− to make
+  expansion consistent and avoid confusing it with navigation. Use a navy
+  18px plus beside the title, a minus when open, no circle or arrow. Preserve
+  the 14px title gap, native keyboard/summary behavior and quiet touch focus.
+  Homepage Booking keeps its existing gold-circle navigation arrow.

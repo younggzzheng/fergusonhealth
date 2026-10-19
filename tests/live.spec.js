@@ -36,9 +36,10 @@ test('public deployed revision renders all five languages without login', async 
     await expect(circle).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
     await expect(circle.locator('use')).toHaveAttribute('href', '#arrow-up');
   }
-  await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
-  await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-color', 'rgb(225, 137, 0)');
-  await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-radius', '50%');
+  await expect(calendar.locator('summary svg')).toHaveCount(0);
+  expect(await calendar.locator('.calendar-disclosure-icon').evaluate(el => getComputedStyle(el, '::after').transform)).toBe('matrix(0, 1, -1, 0, 0, 0)');
+  await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-style', 'none');
+  await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-radius', '0px');
   await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
   await expect(page.locator('.effort-item')).toHaveCount(3);
   await expect(page.locator('.effort-item[open]')).toHaveCount(0);
@@ -115,7 +116,7 @@ test('public deployed revision renders all five languages without login', async 
   await expect(calendar).toHaveAttribute('open', '');
   await expect(calendar).toHaveAttribute('data-pointer-focus', '');
   await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('outline-style', 'none');
-  await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, -1, 1, 0, 0, 0)');
+  expect(await calendar.locator('.calendar-disclosure-icon').evaluate(el => getComputedStyle(el, '::after').transform)).toBe('none');
   const effort = page.locator('.effort-item').first();
   await effort.locator('summary').focus();
   await page.keyboard.press('Enter');

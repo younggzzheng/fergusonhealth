@@ -1149,7 +1149,7 @@ test('collapsed calendar shows the right clinic QR, closes with Escape and retai
   await calendar.locator('summary').focus();
   await page.keyboard.press('Enter');
   await expect(calendar).toHaveAttribute('open', '');
-  await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, -1, 1, 0, 0, 0)');
+  expect(await calendar.locator('.calendar-disclosure-icon').evaluate(el => getComputedStyle(el, '::after').transform)).toBe('none');
   await expect(page.locator('#calendar-month')).toHaveText('October 2026');
   await expect(page.getByRole('button', { name: 'Previous month', exact: true })).toBeDisabled();
   await expect(calendar.locator('.calendar-session')).toHaveCount(12);
@@ -1260,7 +1260,8 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
   const shortcut = page.locator('.hero-actions [data-calendar-link]');
   await expect(shortcut.locator('[data-i18n="heroCalendarCta"]')).toHaveText('Booking');
   await expect(calendar).not.toHaveAttribute('open');
-  await expect(calendar.locator('.details-toggle')).toHaveCount(0);
+  await expect(calendar.locator('.details-toggle')).toHaveCount(1);
+  await expect(calendar.locator('summary svg')).toHaveCount(0);
   await expect(calendar.locator('[data-i18n="calendarTitle"]')).toHaveText('Appointment calendar for Dr. Ferguson');
   for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${code}"]`).click();
@@ -1268,12 +1269,12 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
     await expect(calendar.locator('[data-i18n="calendarTitle"]')).toContainText(code === 'zh' ? '吕明旭医生' : 'Ferguson');
     await expect(calendar).not.toHaveAttribute('open');
     await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
-    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-color', 'rgb(225, 137, 0)');
-    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-radius', '50%');
-    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('width', '40px');
-    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('height', '40px');
-    await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('stroke', 'rgb(26, 45, 86)');
-    await expect(calendar.locator('.calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, 1, -1, 0, 0, 0)');
+    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-style', 'none');
+    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('border-radius', '0px');
+    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('width', '18px');
+    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('height', '18px');
+    await expect(calendar.locator('.calendar-disclosure-icon')).toHaveCSS('color', 'rgb(26, 45, 86)');
+    expect(await calendar.locator('.calendar-disclosure-icon').evaluate(el => getComputedStyle(el, '::after').transform)).toBe('matrix(0, 1, -1, 0, 0, 0)');
     await expect(calendar.locator('summary')).toHaveCSS('border-bottom-style', 'solid');
     const titleLayout = await calendar.locator('summary').evaluate(summary => ({
       arrow: summary.querySelector('.calendar-disclosure-icon').getBoundingClientRect().toJSON(),
@@ -1326,8 +1327,8 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
   await expect(calendar.locator('summary')).toHaveCSS('outline-style', 'none');
   await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('outline-style', 'solid');
   await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('outline-width', '2px');
-  await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('border-radius', '50%');
-  await expect(calendar.locator('summary .calendar-disclosure-icon svg')).toHaveCSS('transform', 'matrix(0, -1, 1, 0, 0, 0)');
+  await expect(calendar.locator('summary .calendar-disclosure-icon')).toHaveCSS('border-radius', '0px');
+  expect(await calendar.locator('.calendar-disclosure-icon').evaluate(el => getComputedStyle(el, '::after').transform)).toBe('none');
   const headingSpacing = await calendar.evaluate(element => ({
     summaryBottom: element.querySelector('summary').getBoundingClientRect().bottom,
     introTop: element.querySelector('.calendar-intro').getBoundingClientRect().top,
@@ -1342,36 +1343,44 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
   await expect(calendar).toHaveAttribute('open', '');
 });
 
-test('calendar touch and mouse activation keep one gold circle while keyboard focus stays visible', async ({ page, isMobile }) => {
-  await page.goto('/');
+test('calendar uses plain plus/minus for touch and mouse while keyboard focus stays visible', async ({ page, isMobile }) => {
+  await page.goto('/#appointment-calendar');
   await waitForRenderedPage(page);
   const shortcut = page.locator('.hero-actions [data-calendar-link]');
   const calendar = page.locator('.appointment-calendar');
   const summary = calendar.locator('summary');
-  const circle = summary.locator('.calendar-disclosure-icon');
+  const toggle = summary.locator('.calendar-disclosure-icon');
+  await expect(summary).toBeFocused();
+  await expect(toggle).toHaveCSS('outline-style', 'none');
+  await page.goto('/');
+  await waitForRenderedPage(page);
   // Start with keyboard focus so the pointer action also covers a sticky ring.
   await shortcut.focus();
   await page.keyboard.press('Enter');
   await expect(summary).toBeFocused();
-  await expect(circle).toHaveCSS('outline-style', 'solid');
+  await expect(toggle).toHaveCSS('outline-style', 'solid');
   await expect(calendar).not.toHaveAttribute('data-pointer-focus');
   if (isMobile) await shortcut.tap();
   else await shortcut.click();
   await expect(calendar).toHaveAttribute('data-pointer-focus', '');
   await expect(calendar).toHaveAttribute('open', '');
   await expect(summary).toBeFocused();
-  await expect(circle).toHaveCSS('outline-style', 'none');
-  await expect(circle).toHaveCSS('border-color', 'rgb(225, 137, 0)');
+  await expect(toggle).toHaveCSS('outline-style', 'none');
+  await expect(toggle).toHaveCSS('border-style', 'none');
+  await expect(toggle.locator('svg')).toHaveCount(0);
+  expect(await toggle.evaluate(el => getComputedStyle(el, '::after').transform)).toBe('none');
   if (isMobile) await summary.tap();
   else await summary.click();
   await expect(calendar).not.toHaveAttribute('open');
-  await expect(circle).toHaveCSS('outline-style', 'none');
+  await expect(toggle).toHaveCSS('outline-style', 'none');
+  expect(await toggle.evaluate(el => getComputedStyle(el, '::after').transform)).toBe('matrix(0, 1, -1, 0, 0, 0)');
   await summary.focus();
   await page.keyboard.press('Enter');
   await expect(calendar).not.toHaveAttribute('data-pointer-focus');
   await expect(calendar).toHaveAttribute('open', '');
-  await expect(circle).toHaveCSS('outline-style', 'solid');
-  await expect(circle).toHaveCSS('outline-width', '2px');
+  await expect(toggle).toHaveCSS('outline-style', 'solid');
+  await expect(toggle).toHaveCSS('outline-width', '2px');
+  expect(await toggle.evaluate(el => getComputedStyle(el, '::after').transform)).toBe('none');
   await assertNoOverflow(page);
 });
 

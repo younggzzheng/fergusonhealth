@@ -145,19 +145,19 @@ an unfilled circle with the company's warm gold-orange border and a deep-blue
 right arrow before the label; the circle stays unfilled on hover as well.
 the duplicate care shortcut and decorative down-arrow are removed. Following
 the calendar link or loading `#appointment-calendar` opens and focuses the
-calendar. The calendar title has a light underline and a trailing arrow inside
-a matching unfilled 40px gold-orange circle: down when closed, up when open.
-Keep the circle directly after the title text with a 14px gap, not at the far
-edge of the row. Retain the full-width underline and native summary hit area.
+calendar. The calendar title has a light underline and a plain navy plus that
+becomes a minus when open, matching the other disclosures. Do not use an arrow
+or circle here. Keep the 18px indicator directly after the title with a 14px gap,
+not at the far edge. Retain the full-width underline and native summary hit area.
 The “Visit Ferguson Plus” and “Talk details & registration” external links keep
 their trailing diagonal arrows, inside matching unfilled 40px gold-orange circles.
 Their URLs, underlines and new-tab behavior stay unchanged. Native click, Enter
 and Space toggle the calendar, and keyboard
-focus remains clearly outlined on the compact arrow, not the entire row.
-Touch/mouse activation uses only the single gold border, matching Booking and
-the other main action circles. Explicit pointer/keyboard tracking prevents
-Safari's touch-triggered focus transfer from adding a second navy ring; keyboard
-input restores the visible focus outline. Keep the summary focus transfer itself.
+focus remains clearly outlined on the compact plus/minus, not the entire row.
+Touch/mouse activation leaves the plus/minus unframed. Explicit input tracking
+prevents Safari's touch-triggered focus transfer from adding an extra outline;
+keyboard input restores the visible focus outline. Keep the summary focus transfer.
+Direct calendar links also start without an extra outline until keyboard use.
 A fresh page load without the calendar hash restores the collapsed state.
 Working periods and weekly clinic sessions are defined at the top of `draft/calendar.js`.
 Dates are inclusive, in Shanghai time. A period with `end: null` continues until
@@ -241,8 +241,9 @@ a plus that becomes a minus when expanded, matching the other disclosures.
 Switching languages retains the reader's open/closed selections; Enter, Space
 and click all work without scripts.
 Mission/vision, care categories, the profile, Ferguson Plus and resource topics
-retain their plus/minus controls. Only the calendar title uses a trailing down/up
-arrow, while the homepage appointment shortcut has its prominent leading circle.
+retain their plus/minus controls. The calendar now uses the same plus/minus
+meaning; the homepage Booking shortcut keeps its prominent leading circle arrow
+because it navigates to the calendar rather than toggling a disclosure in place.
 The WeCare heading retains the supplied logo image, with a smaller shop descriptor
 beside it: Shop in English/German, 微店 in Chinese, Boutique in French and Tienda
 in Spanish. The descriptor is 18px on desktop and 16px on phones; allow the logo
