@@ -411,7 +411,7 @@ test('both Ferguson Plus external actions use matching unfilled gold circles', a
 test('community and education efforts link to bilingual insights and a local video', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
-  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('04 / Our efforts');
+  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('Our efforts');
   await expect(page.locator('#work-title')).toHaveText('Beyondthe clinic.');
   await expect(page.locator('.effort-list summary>span:first-child')).toHaveText(['Community education', 'Multidisciplinary exchange', 'Learning together']);
   await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('Dr. Ferguson and the team regularly give community talks on women’s health, sharing clear, practical knowledge and making space for questions and open conversation.');
@@ -442,7 +442,7 @@ test('community and education efforts link to bilingual insights and a local vid
   await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
   await assertNoOverflow(page);
   await page.locator('[data-i18n="back"]').click();
-  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('04 / 社区与教育');
+  await expect(page.locator('[data-i18n="workEyebrow"]')).toHaveText('社区与教育');
   await expect(page.locator('.effort-list summary>span:first-child')).toHaveText(['社区健康教育', '多学科交流', '共同学习']);
   await expect(page.locator('[data-i18n="effortCommunityBody"]')).toHaveText('吕医生与团队经常开展女性健康主题的社区讲座，以清晰、实用的方式分享知识，也为提问和坦诚交流留出空间。');
   await expect(page.locator('[data-i18n="effortMDTBody"]')).toContainText('合作医院的平台');
@@ -778,7 +778,8 @@ test('section closing lines stay understated and news precedes articles', async 
   if (isMobile) expect(arrangement[1].top).toBeGreaterThan(arrangement[0].bottom);
   else expect(arrangement[1].left).toBeGreaterThan(arrangement[0].right);
   await expect(page.locator('#contact .brand-mark')).toHaveCount(0);
-  await expect(page.locator('#care .care-aside, #care [data-i18n="careIntro"], #care .brand-mark')).toHaveCount(0);
+  await expect(page.locator('#care .care-aside, #care [data-i18n="careIntro"]')).toHaveCount(0);
+  await expect(page.locator('#care .brand-mark')).toHaveCount(1);
   await assertNoOverflow(page);
   await page.locator('[data-language-switch]').click();
   await expect(closings).toHaveText([
@@ -826,9 +827,9 @@ test('balanced team panel leads to services before the doctor profile', async ({
   }));
   if (isMobile) expect(arrangement.panel.top).toBeGreaterThan(arrangement.copy.bottom);
   else expect(arrangement.panel.left).toBeGreaterThan(arrangement.copy.right);
-  await expect(page.locator('[data-i18n="careEyebrow"]')).toHaveText('01 / Areas of care');
-  await expect(page.locator('[data-i18n="aboutEyebrow"]')).toHaveText('02 / Meet Dr. Ferguson');
-  await expect(page.locator('[data-i18n="locationsEyebrow"]')).toHaveText('03 / Find us');
+  await expect(page.locator('[data-i18n="careEyebrow"]')).toHaveText('Areas of care');
+  await expect(page.locator('[data-i18n="aboutEyebrow"]')).toHaveText('Meet Dr. Ferguson');
+  await expect(page.locator('[data-i18n="locationsEyebrow"]')).toHaveText('Find us');
   await expect(page.locator('#locations .practice')).toHaveCount(2);
   await expect(page.locator('#locations #appointment-calendar')).toHaveCount(1);
   await expect(page.locator('#locations #contact')).toHaveCount(1);
@@ -841,10 +842,10 @@ test('balanced team panel leads to services before the doctor profile', async ({
   await expect(page).toHaveURL(/#care$/);
   await expect(page.locator('#care')).toBeInViewport();
   await page.locator('[data-language-switch]').click();
-  await expect(page.locator('[data-i18n="careEyebrow"]')).toHaveText('01 / 咨询领域');
+  await expect(page.locator('[data-i18n="careEyebrow"]')).toHaveText('咨询领域');
   await expect(page.locator('[data-i18n="navCare"]')).toHaveText(['咨询领域', '咨询领域']);
   await expect(page.locator('[data-i18n="contactLabel"]')).toHaveText('一般咨询：');
-  await expect(page.locator('[data-i18n="aboutEyebrow"]')).toHaveText('02 / 认识吕医生');
+  await expect(page.locator('[data-i18n="aboutEyebrow"]')).toHaveText('认识吕医生');
   await expect(page.locator('[data-i18n="heroCta"]')).toHaveCount(0);
   await assertNoOverflow(page);
 });
@@ -1282,8 +1283,8 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
     expect(await page.locator('.hero-actions a').evaluateAll(elements => elements.map(element => element.getAttribute('href')))).toEqual(['#appointment-calendar']);
     await expect(page.locator('[data-i18n="heroLocationsCta"]')).toHaveCount(0);
     await expect(page.locator('.desktop-nav [data-i18n="navLocations"]')).toHaveText({ en: 'Find us', zh: '咨询地点', fr: 'Nous trouver', de: 'Standorte', es: 'Encuéntranos' }[code]);
-    await expect(page.locator('[data-i18n="locationsEyebrow"]')).toContainText('03 /');
-    await expect(page.locator('[data-i18n="workEyebrow"]')).toContainText('04 /');
+    await expect(page.locator('[data-i18n="locationsEyebrow"]')).not.toContainText('03 /');
+    await expect(page.locator('[data-i18n="workEyebrow"]')).not.toContainText('04 /');
     await expect(shortcut).toHaveAttribute('href', '#appointment-calendar');
     await expect(shortcut).toHaveCSS('border-bottom-style', 'none');
     await expect(shortcut.locator('.link-circle')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
@@ -1430,6 +1431,35 @@ test('service disclosures preserve their state across languages and support keyb
   await expect(page.locator('#care details[open]')).toHaveCount(0);
 });
 
+test('small original logo marks replace section numbers in every language', async ({ page }) => {
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  const labels = page.locator('.section-label');
+  await expect(labels).toHaveCount(4);
+  for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
+    await page.locator(`[data-language="${code}"]`).click();
+    for (const label of await labels.all()) {
+      const mark = label.locator('.section-label-mark');
+      await expect(mark).toBeVisible();
+      await expect(mark).toHaveAttribute('aria-hidden', 'true');
+      await expect(mark).toHaveText('');
+      await expect(mark).toHaveCSS('width', '20px');
+      await expect(mark).toHaveCSS('height', '15px');
+      await expect(mark).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
+      await expect(label.locator('[data-i18n]')).not.toHaveText(/^0[1-4]\s*\//);
+      const row = await label.evaluate(element => {
+        const logo = element.querySelector('.section-label-mark').getBoundingClientRect();
+        const text = element.querySelector('[data-i18n]').getBoundingClientRect();
+        return { gap: text.left - logo.right, centerDifference: Math.abs(logo.top + logo.height / 2 - text.top - text.height / 2) };
+      });
+      expect(row.gap).toBeGreaterThanOrEqual(10);
+      expect(row.centerDifference).toBeLessThanOrEqual(1);
+    }
+    await expect(page.locator('.hero .team-flower')).toHaveCSS('width', await page.evaluate(() => innerWidth <= 700 ? '44px' : '52px'));
+    await assertNoOverflow(page);
+  }
+});
+
 test('section colors and decorative marks use the local brand and platform assets', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
@@ -1439,7 +1469,7 @@ test('section colors and decorative marks use the local brand and platform asset
   await expect(page.locator('#connect')).toHaveCSS('background-color', 'rgb(248, 247, 243)');
   await expect(page.locator('use[href="#flower"], use[href="#sprig"], .tiny-star')).toHaveCount(0);
   const marks = page.locator('.brand-mark');
-  await expect(marks).toHaveCount(2);
+  await expect(marks).toHaveCount(6);
   for (const mark of await marks.all()) {
     await expect(mark).toHaveCSS('background-image', /\/assets\/ferguson-logo\.png/);
   }

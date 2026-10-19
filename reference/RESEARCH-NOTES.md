@@ -359,3 +359,9 @@ expandable section in **03 / Her work** so the initial page stays concise.
   without lettering. Restore the existing original mark-only logo crop to the
   left of the translated heading, in navy and gold, keeping the source image,
   heading text, body copy and collapsed mission/vision unchanged.
+- The owner then requested small original logo marks instead of the numbered
+  section-label prefixes. Apply to care, about, locations and work in all five
+  languages, retaining the label wording without 01–04 or slashes. Use compact
+  20×15px marks, close to the 14px label type. In the final clarification, the
+  owner requested a slight reduction for Who We Are too: 52×39px desktop and
+  44×33px phone, still clearly larger than the small section-label marks.

@@ -118,8 +118,8 @@ deployment even if someone merges a broken change.
 
 ## Maintaining the appointment calendar
 
-The homepage month calendar is collapsed by default in **03 / Find us**,
-after the doctor profile and before **04 / Our efforts**. “Find us” in the desktop
+The homepage month calendar is collapsed by default in **Find us**,
+after the doctor profile and before **Our efforts**. “Find us” in the desktop
 and mobile navigation opens the clinic locations and booking codes. Main
 navigation to `#care`, `#about`, `#locations` and `#work` aligns each section edge
 with the top of the viewport, without showing the preceding section's closing
@@ -203,8 +203,13 @@ Who We Are stays visible; mission and vision remain collapsed.
 The plain team panel has no arch. Its heading has the original navy-and-gold
 shell mark on the left, cropped from the unchanged local logo without company
 lettering. Keep the translated Who We Are heading beside it: the decorative
-mark is 56×42px on desktop and 48×36px on phones, not a replacement for the
+mark is 52×39px on desktop and 44×33px on phones, not a replacement for the
 accessible heading or an additional full wordmark.
+The four main section labels use a smaller 20×15px original logo mark instead
+of numeric prefixes (01–04 and their slashes). Keep the translated label text
+beside each mark in every language. These small label marks do not resize the
+larger Who We Are mark or replace the section titles. Their height stays close
+to the adjacent 14px label type, as requested by the owner.
 `draft/refined.css`, loaded after the legacy stylesheet on both entry pages,
 maintains the approved layout and shared 15px body/action/disclosure scale.
 Supporting captions use 12–13px, while article prose remains 16px on desktop
