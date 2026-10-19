@@ -1471,9 +1471,9 @@ test('nine unnumbered service categories put hormone and menopause health first'
   await expect(cards.locator('.care-list li')).toHaveText([
     'Perimenopause and menopause care', 'Hormone replacement therapy (HRT)',
     'Polyendocrine Metabolic Ovarian Syndrome (PMOS, formerly PCOS) and endocrine assessment', 'Hormone-related changes in mood, sleep and weight',
-    'Bone density and bone health', 'Cardiovascular and menopause-related risk assessment',
+    'Breast cancer screening', 'Bone density and bone health', 'Cardiovascular and menopause-related risk assessment',
     'Chronic conditions and hormone management', 'Weight and lifestyle medicine',
-    'Cervical screening (HPV / TCT / colposcopy)', 'Menstrual disorders and endometrial disease',
+    'Cervical cancer screening (HPV / TCT) and colposcopy', 'Menstrual disorders and endometrial disease',
     'Uterine fibroids, ovarian cysts and endometriosis', 'Vaginitis and vulvar skin conditions',
     'Fertility evaluation and management', 'Preconception planning and counseling',
     'Early pregnancy care (up to 12 weeks)', 'High risk pregnancy consultation', 'Fertility preservation',
@@ -1484,7 +1484,7 @@ test('nine unnumbered service categories put hormone and menopause health first'
     'Hysteroscopy', 'Laparoscopy', 'Minimally invasive management of fibroids and cysts',
     'Pelvic floor function assessment', 'Mild urinary incontinence', 'Postpartum pelvic floor rehabilitation',
   ]);
-  for (const [index, count] of [4, 4, 4, 5, 3, 3, 3, 3, 3].entries()) {
+  for (const [index, count] of [4, 5, 4, 5, 3, 3, 3, 3, 3].entries()) {
     await expect(cards.nth(index).locator('li')).toHaveCount(count);
   }
   await expect(page.locator('#care')).not.toContainText(/egg[- ]freezing/i);
@@ -1505,8 +1505,8 @@ test('nine unnumbered service categories put hormone and menopause health first'
   ]);
   await expect(cards.locator('.care-list li')).toHaveText([
     '围绝经期与绝经管理', '激素替代治疗（HRT）', '多内分泌代谢性卵巢综合征（PMOS，原称多囊卵巢综合征）与内分泌评估', '激素相关情绪、睡眠与体重变化',
-    '骨密度与骨健康', '心血管与绝经风险评估', '慢性病与激素管理', '体重与生活方式医学',
-    '宫颈筛查（HPV / TCT / 阴道镜）', '月经异常与子宫内膜疾病', '子宫肌瘤、卵巢囊肿、内膜异位症', '阴道炎、外阴皮肤病',
+    '乳腺癌筛查', '骨密度与骨健康', '心血管与绝经风险评估', '慢性病与激素管理', '体重与生活方式医学',
+    '宫颈癌筛查（HPV / TCT）与阴道镜检查', '月经异常与子宫内膜疾病', '子宫肌瘤、卵巢囊肿、内膜异位症', '阴道炎、外阴皮肤病',
     '生育力评估与管理', '备孕与孕前咨询', '早孕管理（至 12 周）', '高危妊娠咨询', '生育力保护',
     '宫内节育器（IUD）', '皮下埋植', '药物避孕个体化选择',
     '性疼痛（性交痛、阴道痉挛）', '外阴皮肤病（硬化性苔藓等）', '绝经相关泌尿生殖综合征（GSM）',

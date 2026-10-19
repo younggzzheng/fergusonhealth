@@ -44,6 +44,12 @@ copy is in `draft/index.html` and `draft/site.js`. Do not restore the older
 three-category grouping or add standalone STI/cancer-screening items back
 when editing the new list.
 
+On 19 October 2026 the owner explicitly confirmed breast cancer screening as
+an additional service. Add it under the existing Women's Preventive Health
+category, not as a tenth category. Make cervical cancer screening explicit in
+the existing gynecologic item, while retaining colposcopy as a separate named
+procedure in that item. Do not infer other cancer-screening services.
+
 The original flyer request included these seven services, grouped into a few
 quiet sections with equivalent Chinese copy:
 

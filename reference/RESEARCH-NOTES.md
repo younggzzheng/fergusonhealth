@@ -439,3 +439,12 @@ expandable section in **03 / Her work** so the initial page stays concise.
   the local-preview hold above. Publish only the original portrait and the two
   final approved replacement photos in their confirmed order; do not include
   superseded local reference photos in the public repository or website.
+- On 2026-10-19 the owner noted cancer screening was not explicit and confirmed
+  breast cancer screening as an example of their services. Add “Breast cancer
+  screening” first under Women's Preventive Health and make the existing
+  gynecologic item “Cervical cancer screening (HPV / TCT) and colposcopy”, with
+  matching Chinese, French, German and Spanish. Preserve the nine categories,
+  other services and layout. Do not infer ovarian, endometrial or other screening
+  services from “etc.” No screening ages, intervals, equipment or outcomes added.
+  Wording distinguishes screening from colposcopy, consistent with NCI's
+  follow-up overview: https://www.cancer.gov/types/cervical/screening/abnormal-hpv-pap-test-results.
