@@ -99,6 +99,9 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
   .hero .hero-team{padding-left:28px}
   html .hero h1.practice-name{font-size:58px}
 }
+@media(max-width:1000px){
+  .about-grid .section-heading{max-width:none;margin-inline:0}
+}
 @media(max-width:900px){
   :root{--life-heading-size:48px}
   .hero{grid-template-columns:minmax(0,1fr);row-gap:34px;padding-top:44px}

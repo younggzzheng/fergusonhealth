@@ -370,3 +370,7 @@ expandable section in **03 / Her work** so the initial page stays concise.
   desktop and 44×33px phone sizes. This supersedes the 20×15px label treatment.
   The owner also approved moving only the Meet Dr. Ferguson label to the
   section's full-width left content edge, retaining the photo/body grid layout.
+- The owner then highlighted the doctor section's indented main heading in the
+  single-column view. Align that heading with the section label/content edge at
+  widths up to 1000px; keep the centered portrait and readable prose column, and
+  retain the wide-screen photo/text grid.

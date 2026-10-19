@@ -1469,6 +1469,33 @@ test('section logos match Who We Are and replace numbers in every language', asy
   }
 });
 
+test('the single-column doctor heading aligns left while the portrait and prose keep their centered layout', async ({ page }) => {
+  await page.setViewportSize({ width: 897, height: 900 });
+  await page.goto('/');
+  await waitForRenderedPage(page);
+  for (const code of ['en', 'zh', 'fr', 'de', 'es']) {
+    await page.locator(`[data-language="${code}"]`).click();
+    const layout = await page.locator('#about').evaluate(section => {
+      const box = selector => section.querySelector(selector).getBoundingClientRect();
+      const grid = box('.about-grid');
+      const title = box('.section-heading');
+      const label = box('.about-section-label');
+      const portrait = box('.about-portrait');
+      const copy = box('.about-copy');
+      return { left: grid.left, titleLeft: title.left, labelLeft: label.left,
+        center: grid.left + grid.width / 2,
+        portraitCenter: portrait.left + portrait.width / 2,
+        copyCenter: copy.left + copy.width / 2, copyWidth: copy.width };
+    });
+    expect(Math.abs(layout.titleLeft - layout.left)).toBeLessThanOrEqual(1);
+    expect(Math.abs(layout.labelLeft - layout.left)).toBeLessThanOrEqual(1);
+    expect(Math.abs(layout.portraitCenter - layout.center)).toBeLessThanOrEqual(1);
+    expect(Math.abs(layout.copyCenter - layout.center)).toBeLessThanOrEqual(1);
+    expect(layout.copyWidth).toBeLessThanOrEqual(640);
+    await assertNoOverflow(page);
+  }
+});
+
 test('section colors and decorative marks use the local brand and platform assets', async ({ page }) => {
   await page.goto('/');
   await waitForRenderedPage(page);
