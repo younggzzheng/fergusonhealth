@@ -147,6 +147,8 @@ the duplicate care shortcut and decorative down-arrow are removed. Following
 the calendar link or loading `#appointment-calendar` opens and focuses the
 calendar. The calendar title has a light underline and a trailing arrow inside
 a matching unfilled 40px gold-orange circle: down when closed, up when open.
+Keep the circle directly after the title text with a 14px gap, not at the far
+edge of the row. Retain the full-width underline and native summary hit area.
 The “Visit Ferguson Plus” and “Talk details & registration” external links keep
 their trailing diagonal arrows, inside matching unfilled 40px gold-orange circles.
 Their URLs, underlines and new-tab behavior stay unchanged. Native click, Enter
@@ -198,7 +200,9 @@ phones). All five languages use natural wrapping rather than forced breaks:
 keep the message on one line where space allows and move the complete ending
 phrase to the next line when it does not fit. Retain the supplied wording and
 italic endings (Chinese remains upright). Every language's full message uses
-the same blue-grey `#61718f`, including the English message's leading hyphen.
+the same blue-grey `#61718f`. The English message is “for every chapter of your
+life.” with no leading hyphen and the whole sentence italic. Retain the complete
+ending phrase's wrap behavior and the other languages' existing type treatment.
 Who We Are stays visible; mission and vision remain collapsed.
 The plain team panel has no arch. Its heading has the original navy-and-gold
 shell mark on the left, cropped from the unchanged local logo without company

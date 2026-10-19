@@ -18,6 +18,7 @@ html:has(#care:target,#about:target,#locations:target,#work:target){scroll-paddi
 html .hero h1.practice-name{margin:0;max-width:100%;font-family:Cormorant,'Baskerville','Times New Roman','Songti SC',serif;font-style:normal;font-size:clamp(55px,5.1vw,72px);font-weight:400;letter-spacing:-1.8px;line-height:1.05}
 .practice-name span{display:inline-block;margin-top:0;font:inherit;letter-spacing:inherit;white-space:nowrap}
 .hero-life{margin-top:25px;max-width:100%;font-family:var(--serif);line-height:1.25;letter-spacing:-.4px;color:#61718f}
+html[lang=en] .hero-life{font-style:italic}
 .hero-life br{display:none}
 .hero-life em{display:inline-block;white-space:nowrap;color:inherit}
 /* Every language shares the approved hierarchy, color and natural wrapping. */
@@ -76,7 +77,7 @@ html .hero .hero-team-heading .hero-who-title{margin:0;min-width:0}
 .locations-overview{background:#edf2f8;padding-bottom:16px}
 .locations-section .appointment-calendar{border:0;margin-top:16px;background:var(--paper)}
 /* The location section's closing line supplies the calendar's lower divider. */
-.appointment-calendar summary{justify-content:space-between;gap:22px;border-bottom:1px solid #b8c2d4}
+.appointment-calendar summary{justify-content:flex-start;gap:14px;border-bottom:1px solid #b8c2d4}
 .appointment-calendar summary [data-i18n="calendarTitle"]{min-width:0;overflow-wrap:anywhere}
 .disclosure-arrow{display:flex;align-items:center;justify-content:center;width:21px;height:21px;flex:0 0 21px;color:var(--ink)}
 .appointment-calendar .calendar-disclosure-icon{width:40px;height:40px;flex-basis:40px;border:1px solid var(--accent);border-radius:50%;background:transparent}

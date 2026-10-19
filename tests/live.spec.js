@@ -79,6 +79,8 @@ test('public deployed revision renders all five languages without login', async 
     await expect(page.locator('.hero-life em')).toHaveCSS('white-space', 'nowrap');
     await expect(page.locator('.locations-overview')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
     await expect(calendar).toHaveCSS('background-color', 'rgb(248, 247, 243)');
+    const calendarTitleGap = await calendar.locator('summary').evaluate(summary => summary.querySelector('.calendar-disclosure-icon').getBoundingClientRect().left - summary.querySelector('[data-i18n="calendarTitle"]').getBoundingClientRect().right);
+    expect(Math.abs(calendarTitleGap - 14)).toBeLessThanOrEqual(1);
     await expect(page.locator('#work')).toHaveCSS('background-color', 'rgb(237, 242, 248)');
     const cityBeforeAddress = await page.locator('.practice-details').evaluateAll(cards => cards.map(card => Boolean(card.querySelector('.practice-city').compareDocumentPosition(card.querySelector('address')) & Node.DOCUMENT_POSITION_FOLLOWING)));
     expect(cityBeforeAddress).toEqual([language === 'zh-CN', language === 'zh-CN']);
@@ -87,7 +89,8 @@ test('public deployed revision renders all five languages without login', async 
     }
     if (language === 'en') {
       await expect(calendar.locator('[data-i18n="calendarTitle"]')).toHaveText('Appointment calendar for Dr. Ferguson');
-      await expect(page.locator('.hero-life')).toHaveText('- for every chapter of your life.');
+      await expect(page.locator('.hero-life')).toHaveText('for every chapter of your life.');
+      await expect(page.locator('.hero-life')).toHaveCSS('font-style', 'italic');
     }
     if (language !== 'en') expect(await page.locator('.hero-life').innerText()).not.toBe(englishTitle);
     const images = page.locator('img');

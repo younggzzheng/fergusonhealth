@@ -382,3 +382,11 @@ expandable section in **03 / Her work** so the initial page stays concise.
   preceding biography layout. Remove only the new 430px biography cap: restore
   its centered, maximum-640px column and retain the centered 430px portrait.
   Keep the approved unified logo sizes and left-aligned section/main heading.
+- The owner requested the calendar's outlined-circle down arrow immediately
+  beside the calendar label, not at the far right. Left-pack the summary with a
+  14px title/icon gap in all languages; retain its circle styling, full-width
+  underline, keyboard/touch behavior and open/up-arrow state.
+- The owner removed the English life-stage message's leading hyphen and
+  requested the entire remaining sentence in italics. Keep lowercase “for”,
+  the blue-grey color, responsive scale and intact “of your life.” wrap group.
+  Preserve the other language versions' wording and type treatment.

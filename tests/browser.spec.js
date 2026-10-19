@@ -574,7 +574,8 @@ test('practice name leads the compact hero and the portrait stays with the docto
   await page.goto('/');
   await waitForRenderedPage(page);
   await expect(page.locator('#hero-title')).toHaveText('Ferguson Women’s Health');
-  await expect(page.locator('.hero-life')).toHaveText('- for every chapter of your life.');
+  await expect(page.locator('.hero-life')).toHaveText('for every chapter of your life.');
+  await expect(page.locator('.hero-life')).toHaveCSS('font-style', 'italic');
   const headlineScale = await page.locator('#hero-title, #care-title').evaluateAll(headings => headings.map(heading => {
     const style = getComputedStyle(heading);
     return [style.fontFamily, style.fontStyle, style.fontWeight];
@@ -1277,6 +1278,8 @@ test('Find us navigation replaces the duplicate hero shortcut and the calendar o
       text: summary.querySelector('[data-i18n="calendarTitle"]').getBoundingClientRect().toJSON(),
     }));
     expect(titleLayout.arrow.left).toBeGreaterThan(titleLayout.text.right);
+    expect(Math.abs(titleLayout.arrow.left - titleLayout.text.right - 14)).toBeLessThanOrEqual(1);
+    await expect(calendar.locator('summary')).toHaveCSS('justify-content', 'flex-start');
     await expect(page.locator('.hero-actions a')).toHaveCount(1);
     await expect(page.locator('.hero-actions a .link-circle')).toHaveCount(1);
     await expect(page.locator('.hero-actions a svg use')).toHaveCount(1);
@@ -1599,7 +1602,7 @@ test('the removed subtitle stays absent and all languages share the approved lif
         containerRight: element.getBoundingClientRect().right,
       }));
       expect(endingPosition.right).toBeLessThanOrEqual(endingPosition.containerRight + 1);
-      await expect(page.locator('.hero-life')).toContainText(code === 'zh' ? '关爱人生的' : { en: '- for every chapter', fr: 'À chaque étape', de: 'Für jede Phase', es: 'Para cada etapa' }[code]);
+      await expect(page.locator('.hero-life')).toContainText(code === 'zh' ? '关爱人生的' : { en: 'for every chapter', fr: 'À chaque étape', de: 'Für jede Phase', es: 'Para cada etapa' }[code]);
       await assertNoOverflow(page);
     }
   }
@@ -1612,7 +1615,8 @@ test('English life-stage message shares one line when it fits and wraps the comp
   for (const width of [1440, 1280, 768, 390, 320]) {
     await page.setViewportSize({ width, height: 844 });
     const message = page.locator('.hero-life');
-    await expect(message).toHaveText('- for every chapter of your life.');
+    await expect(message).toHaveText('for every chapter of your life.');
+    await expect(message).toHaveCSS('font-style', 'italic');
     await expect(message.locator('br')).toHaveCSS('display', 'none');
     await expect(message.locator('em')).toHaveText('of your life.');
     await expect(message.locator('em')).toHaveCSS('white-space', 'nowrap');
