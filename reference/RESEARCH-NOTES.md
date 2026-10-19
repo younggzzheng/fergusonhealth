@@ -393,3 +393,7 @@ expandable section in **03 / Her work** so the initial page stays concise.
 - The owner requested removing “Everyday wellness for women and families.”
   from the WeCare panel as redundant. Remove the matching tagline in all five
   languages; keep the logo, Shop/微店 descriptors, description and shop code.
+- The owner approved making the hero life-stage message about 10% smaller for
+  a quieter secondary role. Apply the same .9 scale in all five languages;
+  preserve its color, English full italics, wording and ending-phrase wrapping.
+  Leave the brand title, logos and care/other section headings unchanged.

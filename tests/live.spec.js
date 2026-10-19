@@ -72,7 +72,7 @@ test('public deployed revision renders all five languages without login', async 
     const heroOrder = await page.locator('.hero-copy').evaluate(element => [...element.children].map(child => child.id || child.className));
     expect(heroOrder).toEqual(['hero-actions', 'hero-title', 'hero-life']);
     const headingSizes = await page.locator('.hero-life, #care-title').evaluateAll(elements => elements.map(element => getComputedStyle(element).fontSize));
-    expect(headingSizes[0]).toBe(headingSizes[1]);
+    expect(parseFloat(headingSizes[0])).toBeCloseTo(parseFloat(headingSizes[1]) * .9, 2);
     await expect(page.locator('[data-i18n="heroCalendarCta"]')).toHaveText({ en: 'Booking', 'zh-CN': '预约', fr: 'Prendre rendez-vous', de: 'Termin buchen', es: 'Pedir cita' }[language]);
     await expect(page.locator('.hero-actions [data-calendar-link]')).toHaveAttribute('href', '#appointment-calendar');
     await expect(page.locator('.hero-life')).toHaveCSS('color', 'rgb(97, 113, 143)');

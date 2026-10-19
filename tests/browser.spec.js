@@ -1594,7 +1594,7 @@ test('the removed subtitle stays absent and all languages share the approved lif
         life: getComputedStyle(element.querySelector('.hero-life')).fontSize,
         care: getComputedStyle(document.querySelector('#care-title')).fontSize,
       }));
-      expect(scale.life).toBe(scale.care);
+      expect(parseFloat(scale.life)).toBeCloseTo(parseFloat(scale.care) * .9, 2);
       await expect(page.locator('.hero-life')).toHaveCSS('color', 'rgb(97, 113, 143)');
       await expect(page.locator('.hero-life em')).toHaveCSS('color', 'rgb(97, 113, 143)');
       await expect(page.locator('.hero-life br')).toHaveCSS('display', 'none');
@@ -1653,7 +1653,7 @@ test('practice name and life-stage headings retain the approved type hierarchy a
     }
     const taglineSize = await page.locator('.hero-life').evaluate(element => parseFloat(getComputedStyle(element).fontSize));
     const careSize = await page.locator('#care-title').evaluate(element => parseFloat(getComputedStyle(element).fontSize));
-    expect(taglineSize).toBe(careSize);
+    expect(taglineSize).toBeCloseTo(careSize * .9, 2);
     const headingFamilies = await page.locator('#hero-title, #care-title').evaluateAll(elements => elements.map(element => getComputedStyle(element).fontFamily));
     expect(headingFamilies[0]).toBe(englishBrandFamily);
     await expect(page.locator('#hero-title span')).toHaveCSS('font-family', englishBrandFamily);

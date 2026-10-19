@@ -192,11 +192,12 @@ phrase fits within the content margins even at a 320px viewport.
 The owner tried a handwriting treatment and then requested restoring the
 original serif title. Keep the logo's own handwriting artwork unchanged;
 do not apply the withdrawn Kalam treatment to the page title.
-The Chinese life-stage message (“关爱人生的每一个阶段。”) shares the care
-heading's responsive size (39–55px on desktop/tablet and 41px on phones).
-English, French, German and Spanish life-stage messages also share their care
-heading's size (46–64px on wide screens, 48px at 900px and below, and 49px on
-phones). All five languages use natural wrapping rather than forced breaks:
+The life-stage message is 10% smaller than its previously matched care heading
+in all five languages. Keep the care heading's responsive scale unchanged:
+Chinese uses 39–55px on desktop/tablet and 41px on phones; English, French,
+German and Spanish use 46–64px on wide screens, 48px at 900px and below, and
+49px on phones. Apply a .9 multiplier only to the hero message, not the brand
+title, logos or other headings. All five languages use natural wrapping:
 keep the message on one line where space allows and move the complete ending
 phrase to the next line when it does not fit. Retain the supplied wording and
 italic endings (Chinese remains upright). Every language's full message uses

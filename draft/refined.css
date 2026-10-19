@@ -24,7 +24,8 @@ html[lang=en] .hero-life{font-style:italic}
 /* Every language shares the approved hierarchy, color and natural wrapping. */
 :root{--life-heading-size:clamp(46px,4.1vw,64px)}
 html[lang=zh-CN]{--life-heading-size:clamp(39px,3.5vw,55px)}
-.hero-life,#care-title{font-size:var(--life-heading-size)}
+#care-title{font-size:var(--life-heading-size)}
+.hero-life{font-size:calc(var(--life-heading-size) * .9)}
 .hero .hero-actions{margin:0 0 30px;display:flex;flex-wrap:wrap;gap:18px 36px;max-width:none}
 .hero .hero-actions .calendar-shortcut{font-size:var(--copy-size);gap:14px;line-height:1.5;min-height:44px;margin-top:0}
 .hero .hero-actions .calendar-shortcut .link-circle{width:40px;height:40px;flex:0 0 40px;background:transparent;border-color:var(--accent);color:var(--ink)}
