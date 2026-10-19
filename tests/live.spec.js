@@ -46,6 +46,13 @@ test('public deployed revision renders all five languages without login', async 
   for (const language of ['en', 'zh-CN', 'fr', 'de', 'es']) {
     await page.locator(`[data-language="${language === 'zh-CN' ? 'zh' : language}"]`).click();
     await expect(page.locator('html')).toHaveAttribute('lang', language);
+    await expect(page).toHaveTitle({
+      en: "Ferguson Women's Health | OB/GYN in Shanghai",
+      'zh-CN': 'Ferguson 女性健康 | 上海妇产科',
+      fr: "Ferguson Women's Health | Gynécologie-obstétrique à Shanghai",
+      de: "Ferguson Women's Health | Gynäkologie & Geburtshilfe in Shanghai",
+      es: "Ferguson Women's Health | Ginecología y obstetricia en Shanghái"
+    }[language]);
     await waitForRenderedPage(page);
     const overflow = await page.evaluate(() => Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - document.documentElement.clientWidth);
     expect(overflow, `${language} horizontal overflow`).toBeLessThanOrEqual(1);

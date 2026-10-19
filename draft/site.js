@@ -267,7 +267,13 @@
   };
   window.FergusonLanguages.init({
     translations,
-    titles: { en: "Ferguson Women's Health", zh: 'Ferguson 女性健康', fr: "Ferguson Women's Health", de: "Ferguson Women's Health", es: "Ferguson Women's Health" },
+    titles: {
+      en: "Ferguson Women's Health | OB/GYN in Shanghai",
+      zh: 'Ferguson 女性健康 | 上海妇产科',
+      fr: "Ferguson Women's Health | Gynécologie-obstétrique à Shanghai",
+      de: "Ferguson Women's Health | Gynäkologie & Geburtshilfe in Shanghai",
+      es: "Ferguson Women's Health | Ginecología y obstetricia en Shanghái"
+    },
     onChange(code) { language = code; updateMenuLabel(); updateClinicAddressOrder(code); calendar.update(calendarTimes[code]); }
   });
 })();

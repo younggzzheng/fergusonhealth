@@ -254,6 +254,12 @@ WeChat code unchanged.
 
 ## What happens after a merge
 
+The owner approved publishing the browser/search title update on 19 October
+2026: “Ferguson Women's Health | OB/GYN in Shanghai”, with corresponding
+localized titles in the other languages. The initial HTML title and
+language-switch title map must agree. Keep the visible brand heading,
+life-stage message, description and layout unchanged.
+
 ```mermaid
 flowchart LR
   A[Merge into main] --> B[Required build checks]
