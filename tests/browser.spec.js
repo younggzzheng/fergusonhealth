@@ -1469,7 +1469,7 @@ test('section logos match Who We Are and replace numbers in every language', asy
   }
 });
 
-test('the single-column doctor heading aligns left while the portrait and prose keep their centered layout', async ({ page }) => {
+test('the single-column doctor heading aligns left and the centered biography matches the portrait width', async ({ page }) => {
   await page.setViewportSize({ width: 897, height: 900 });
   await page.goto('/');
   await waitForRenderedPage(page);
@@ -1484,14 +1484,15 @@ test('the single-column doctor heading aligns left while the portrait and prose 
       const copy = box('.about-copy');
       return { left: grid.left, titleLeft: title.left, labelLeft: label.left,
         center: grid.left + grid.width / 2,
-        portraitCenter: portrait.left + portrait.width / 2,
+        portraitCenter: portrait.left + portrait.width / 2, portraitWidth: portrait.width,
         copyCenter: copy.left + copy.width / 2, copyWidth: copy.width };
     });
     expect(Math.abs(layout.titleLeft - layout.left)).toBeLessThanOrEqual(1);
     expect(Math.abs(layout.labelLeft - layout.left)).toBeLessThanOrEqual(1);
     expect(Math.abs(layout.portraitCenter - layout.center)).toBeLessThanOrEqual(1);
     expect(Math.abs(layout.copyCenter - layout.center)).toBeLessThanOrEqual(1);
-    expect(layout.copyWidth).toBeLessThanOrEqual(640);
+    expect(Math.abs(layout.copyWidth - layout.portraitWidth)).toBeLessThanOrEqual(1);
+    expect(layout.copyWidth).toBeLessThanOrEqual(430);
     await assertNoOverflow(page);
   }
 });

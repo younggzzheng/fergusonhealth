@@ -101,6 +101,7 @@ details[open]>summary .disclosure-arrow svg{transform:rotate(-90deg)}
 }
 @media(max-width:1000px){
   .about-grid .section-heading{max-width:none;margin-inline:0}
+  .about-grid .about-copy{max-width:430px}
 }
 @media(max-width:900px){
   :root{--life-heading-size:48px}

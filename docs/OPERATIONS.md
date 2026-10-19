@@ -214,9 +214,10 @@ the section titles. The Meet Dr. Ferguson label is a full-width `.wrap` row abov
 the doctor grid, aligned to the same left content edge as the other section
 labels. Retain the existing photo/body grid columns, order and responsive rules.
 At widths up to 1000px, the doctor section's main heading also aligns to that
-left content edge rather than staying in a centered 640px title column. Keep
-the portrait centered and the prose in its original readable centered column;
-the wide-screen photo/text grid remains unchanged.
+left content edge rather than staying in a centered 640px title column. The
+owner approved a shared centered column for the portrait and entire biography
+(name, credentials and prose): both use the same width, up to 430px, shrinking
+with the available space on phones. The wide-screen photo/text grid is unchanged.
 `draft/refined.css`, loaded after the legacy stylesheet on both entry pages,
 maintains the approved layout and shared 15px body/action/disclosure scale.
 Supporting captions use 12–13px, while article prose remains 16px on desktop
