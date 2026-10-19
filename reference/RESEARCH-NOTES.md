@@ -390,3 +390,6 @@ expandable section in **03 / Her work** so the initial page stays concise.
   requested the entire remaining sentence in italics. Keep lowercase “for”,
   the blue-grey color, responsive scale and intact “of your life.” wrap group.
   Preserve the other language versions' wording and type treatment.
+- The owner requested removing “Everyday wellness for women and families.”
+  from the WeCare panel as redundant. Remove the matching tagline in all five
+  languages; keep the logo, Shop/微店 descriptors, description and shop code.

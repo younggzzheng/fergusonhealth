@@ -242,6 +242,9 @@ The WeCare heading retains the supplied logo image, with a smaller shop descript
 beside it: Shop in English/German, 微店 in Chinese, Boutique in French and Tienda
 in Spanish. The descriptor is 18px on desktop and 16px on phones; allow the logo
 window to shrink on narrow screens without changing the source image or QR code.
+Omit the redundant “Everyday wellness for women and families.” tagline in every
+language. Keep the short description, supplied WeCare logo, shop descriptor and
+WeChat code unchanged.
 
 ## What happens after a merge
 

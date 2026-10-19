@@ -247,15 +247,14 @@ html[lang=zh-CN] .contact-section h2{font-size:clamp(34px,3.1vw,44px);line-heigh
 .wecare-logo-window{display:block;position:relative;overflow:hidden;width:216px;min-width:0;max-width:100%;flex:0 1 auto;aspect-ratio:468/160;mix-blend-mode:multiply}
 .wecare-logo-window img{position:absolute;width:170.940171%;height:auto;max-width:none;left:-35.897436%;top:0}
 .wecare-shop-label{flex:0 0 auto;font-family:var(--sans);font-size:18px;font-weight:400;line-height:1.5;letter-spacing:0;color:#616947;white-space:nowrap}
-.wecare-tagline{font-family:var(--sans);font-size:24px;line-height:1.5;color:var(--ink);margin-top:22px}
 .wecare-description{font-size:14px;line-height:1.9;color:var(--body);margin-top:14px;max-width:520px}
 .wecare-shop{width:100%;max-width:260px;justify-self:end;text-align:center}
 .wecare-code-surface{width:216px;max-width:100%;padding:12px;margin-inline:auto;background:#fff;border-radius:50%}
 .wecare-code-window{position:relative;width:100%;aspect-ratio:1;overflow:hidden;border-radius:50%}
 .wecare-code-window img{position:absolute;width:285.714286%;height:auto;max-width:none;left:-3.214286%;top:-101.428571%}
 .wecare-shop figcaption{margin-top:16px;font-size:13px;line-height:1.8;color:var(--ink)}
-@media(max-width:900px){.wecare-panel{grid-template-columns:minmax(0,1fr) 216px;gap:32px;padding:36px}.wecare-tagline{font-size:21px}}
-@media(max-width:700px){.wecare-section{padding-top:32px}.wecare-panel{grid-template-columns:minmax(0,1fr);gap:28px;padding:28px 24px}.wecare-brand{margin-top:16px;gap:12px}.wecare-logo-window{width:196px}.wecare-shop-label{font-size:16px}.wecare-tagline{font-size:21px;margin-top:18px}.wecare-description{font-size:14px}.wecare-shop{justify-self:start;text-align:left;max-width:100%}.wecare-code-surface{margin-inline:0}.wecare-shop figcaption{max-width:240px;margin-top:12px}}
+@media(max-width:900px){.wecare-panel{grid-template-columns:minmax(0,1fr) 216px;gap:32px;padding:36px}}
+@media(max-width:700px){.wecare-section{padding-top:32px}.wecare-panel{grid-template-columns:minmax(0,1fr);gap:28px;padding:28px 24px}.wecare-brand{margin-top:16px;gap:12px}.wecare-logo-window{width:196px}.wecare-shop-label{font-size:16px}.wecare-description{font-size:14px}.wecare-shop{justify-self:start;text-align:left;max-width:100%}.wecare-code-surface{margin-inline:0}.wecare-shop figcaption{max-width:240px;margin-top:12px}}
 .connect-section::before{display:none}
 .connect-section .wechat-and-social{border-top:0;padding-top:0}
 .connect-section #connected-title{font-family:var(--sans);font-size:18px;line-height:1.5;letter-spacing:1.5px;margin:0}

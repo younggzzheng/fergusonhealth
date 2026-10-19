@@ -99,6 +99,8 @@ test('WeCare shop descriptor stays beside the original logo in every language an
     for (const [code, label] of [['en', 'Shop'], ['zh', '微店'], ['fr', 'Boutique'], ['de', 'Shop'], ['es', 'Tienda']]) {
       await page.locator(`[data-language="${code}"]`).click();
       await expect(page.locator('.wecare-shop-label')).toHaveText(label);
+      await expect(page.locator('.wecare-tagline, [data-i18n="wecareTagline"]')).toHaveCount(0);
+      await expect(page.locator('.wecare-description')).not.toBeEmpty();
       await expect(page.locator('.wecare-shop-label')).toHaveCSS('font-size', width <= 700 ? '16px' : '18px');
       const layout = await page.locator('#wecare-title').evaluate(element => ({
         logo: element.querySelector('.wecare-logo-window').getBoundingClientRect().toJSON(),

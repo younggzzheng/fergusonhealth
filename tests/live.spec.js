@@ -64,6 +64,8 @@ test('public deployed revision renders all five languages without login', async 
     expect(await page.locator('#about').evaluate(section => Math.abs(section.querySelector('.about-section-label').getBoundingClientRect().left - section.querySelector('.about-grid').getBoundingClientRect().left))).toBeLessThanOrEqual(1);
     if (language === 'zh-CN') await expect(page.locator('#care-title')).toHaveCSS('font-family', /Songti SC/);
     await expect(page.locator('.wecare-shop-label')).toHaveText({ en: 'Shop', 'zh-CN': '微店', fr: 'Boutique', de: 'Shop', es: 'Tienda' }[language]);
+    await expect(page.locator('.wecare-tagline, [data-i18n="wecareTagline"]')).toHaveCount(0);
+    await expect(page.locator('.wecare-description')).not.toBeEmpty();
     const brandSizes = await page.locator('#hero-title').evaluate(element => [getComputedStyle(element).fontSize, getComputedStyle(element.querySelector('span')).fontSize]);
     expect(brandSizes[0]).toBe(brandSizes[1]);
     await expect(page.locator('.practice-description, [data-i18n="heroEyebrow"]')).toHaveCount(0);
