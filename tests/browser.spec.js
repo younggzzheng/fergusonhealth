@@ -520,8 +520,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   });
   expect(connector).not.toBeNull();
   expect(connector).toBeLessThan(600);
-  await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('PMOS (Polyendocrine Metabolic Ovarian Syndrome)');
-  await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('complex and high-risk prenatal situations');
+  await expect(page.locator('[data-i18n="aboutBody2"]')).toHaveText('Her practice focuses on hormonal and menopausal health, gynecology, and long-term preventive care. She also provides fertility and preconception counseling and consultations for complex or high-risk pregnancies.');
   await expect(page.locator('[data-i18n="aboutPractice"]')).toHaveCount(0);
   await expect(page.locator('[data-i18n="aboutBody2"]')).toBeHidden();
   const details = page.locator('.profile-details');
@@ -549,8 +548,8 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('PhD-level research training at New York University');
   await expect(details).not.toContainText('Ohio University College of Medicine');
   await expect(details.locator('[data-i18n="profileSurgery"]')).toHaveCount(0);
-  await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('full spectrum of women’s health');
-  for (const focus of ['fertility and preconception counseling', 'sexual and vulvovaginal health', 'adolescent gynecology', 'pelvic floor health', 'long-term preventive care']) {
+  await expect(page.locator('[data-i18n="aboutBody2"]')).not.toContainText('full spectrum of women’s health');
+  for (const focus of ['hormonal and menopausal health', 'gynecology', 'fertility and preconception counseling', 'long-term preventive care', 'complex or high-risk pregnancies']) {
     await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText(focus);
   }
   await page.locator('[data-language-switch]').click();
@@ -559,7 +558,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await expect(summary.locator('[data-i18n="profileDetailsTitle"]')).toHaveText('咨询重点与医学背景');
   await expect(introduction.locator('strong')).toHaveText(['美国妇产科专科认证医生', '美国妇产科医师学会会士（FACOG）。']);
   await expect(page.locator('.profile-role')).toHaveText('Ferguson Women’s Health 创始人兼总裁');
-  await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('复杂及高危孕期情况');
+  await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('复杂或高危妊娠咨询');
   await expect(degree).toContainText('俄亥俄医科大学（Medical University of Ohio）取得医学博士（MD）学位');
   await expect(degree.locator('strong')).toHaveText('医学博士（MD）');
   await expect(residency).toContainText('完成妇产科住院医师培训');
@@ -567,7 +566,7 @@ test('doctor biography retains the supplied role and clinical focus with accessi
   await expect(residency.locator('strong')).toHaveCount(0);
   await expect(details.locator('[data-i18n="profileTraining"]')).toContainText('纽约大学接受博士阶段科研培训');
   await expect(details.locator('[data-i18n="profileTraining"]')).not.toContainText('取得博士学位');
-  await expect(page.locator('[data-i18n="aboutBody2"]')).toContainText('盆底健康及长期预防保健');
+  await expect(page.locator('[data-i18n="aboutBody2"]')).toHaveText('她专注于激素与更年期健康、妇科诊疗及长期预防保健。她也提供生育与孕前咨询，以及复杂或高危妊娠咨询。');
   await assertNoOverflow(page);
   await summary.focus();
   await page.keyboard.press('Space');

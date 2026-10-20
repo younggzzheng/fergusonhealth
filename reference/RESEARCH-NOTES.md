@@ -448,3 +448,11 @@ expandable section in **03 / Her work** so the initial page stays concise.
   services from “etc.” No screening ages, intervals, equipment or outcomes added.
   Wording distinguishes screening from colposcopy, consistent with NCI's
   follow-up overview: https://www.cancer.gov/types/cervical/screening/abnormal-hpv-pap-test-results.
+- On 2026-10-20 the owner approved shortening the clinical-focus paragraph to
+  two sentences: hormonal/menopausal health, gynecology, long-term preventive
+  care, fertility/preconception counseling and complex/high-risk pregnancy
+  consultations. Use the exact approved English draft and equivalent Chinese,
+  French, German and Spanish. Retain the complete service list in Areas of
+  care, including breast and cervical cancer screening. Do not change the
+  qualifications, medical training, section layout, portrait slideshow or
+  disclosure behaviour.
